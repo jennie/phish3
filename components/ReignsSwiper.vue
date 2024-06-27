@@ -1,5 +1,11 @@
 <template>
   <div class="swiper-tinder-container h-full bg-black flex flex-col">
+
+    <div class="flex flex-row justify-between scores-container text-white p-4 bg-gray-800 rounded-xl">
+      <div>Trust: {{ playerState.trust }}</div>
+      <div>Security: {{ playerState.security }}</div>
+      <div>Goose Infiltration: {{ playerState.gooseInfiltration }}</div>
+    </div>
     <div class="container-start text-green-300 text-center mx-auto py-2"><svg xmlns="http://www.w3.org/2000/svg"
         width="32" height="32" viewBox="0 0 24 24">
         <g fill="currentColor">
@@ -12,10 +18,10 @@
     <div class="swiper-wrapper flex-grow overflow-hidden">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
         observer observer-parents init="false" class="h-full">
-        <swiper-slide v-for="slide in slides" :key="slide.id">
+        <swiper-slide v-for="scenario in scenarios" :key="scenario.id">
           <div class="slide-inner h-full flex flex-col">
-            <img :src="slide.image" :alt="slide.title" class="rounded-lg bg-cover object-cover flex-grow w-full">
-            <div class="demo-slide-name p-2  bg-gradient-to-b from-transparent to-black  to-90%" v-html="slide.text">
+            <img :src="scenario.image" :alt="scenario.id" class="rounded-lg bg-cover object-cover flex-grow w-full">
+            <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="scenario.text">
             </div>
             <div class="swiper-tinder-label swiper-tinder-label-yes">
               Trust
@@ -27,14 +33,16 @@
         </swiper-slide>
       </swiper-container>
     </div>
+
+
     <div class="swiper-tinder-buttons py-2">
-      <button class="swiper-tinder-button swiper-tinder-button-no" @click="handleNo">
+      <button class="swiper-tinder-button swiper-tinder-button-no">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
           <path fill="red"
             d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Z" />
         </svg>
       </button>
-      <button class="swiper-tinder-button swiper-tinder-button-yes" @click="handleYes">
+      <button class="swiper-tinder-button swiper-tinder-button-yes">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
           <path fill="green"
             d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Z" />
@@ -55,9 +63,7 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref, onMounted } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 
@@ -71,26 +77,11 @@ const modules = [EffectTinder];
 const swiperRef = ref(null);
 const swiper = ref(null);
 
-const slides = ref([
-  {
-    id: 1,
-    title: 'Slide 1',
-    image: 'https://swiperjs.com/demos/images/nature-1.jpg',
-    text: 'Logging into your laptop for the day, a MFA pop-up appears, asking you to input the code that appears on your phone.',
-  },
-  {
-    id: 2,
-    title: 'Slide 2',
-    image: 'https://swiperjs.com/demos/images/nature-2.jpg',
-    text: 'You receive an email from a colleague asking you to review a document. The email contains a link to the document.',
-  },
-  {
-    id: 3,
-    title: 'Slide 3',
-    image: 'https://swiperjs.com/demos/images/nature-3.jpg',
-    text: 'You receive an email from a colleague asking you to review a document. The email contains a link to the document.',
-  },
-]);
+import { useGameState } from '../composables/gameState';
+
+const { currentScenario, makeChoice, gameOver, scenarios, updateCurrentScenario, playerState } = useGameState();
+
+let isUserInteraction = ref(false);
 
 onMounted(() => {
   const swiperContainer = swiperRef.value;
@@ -99,21 +90,55 @@ onMounted(() => {
       modules,
       effect: 'tinder',
       slidesPerView: 1,
+      grabCursor: true,
       allowTouchMove: true,
     });
     swiperContainer.initialize();
     swiper.value = swiperContainer.swiper;
+
+    if (swiper.value) {
+      swiper.value.on('sliderFirstMove', () => {
+        isUserInteraction.value = true;
+      });
+
+      swiper.value.on('tinderSwipe', (s, direction) => {
+        console.log('Swipe direction:', direction);
+
+        const currentIndex = swiper.value.activeIndex;
+        if (scenarios && scenarios[currentIndex]) {
+          updateCurrentScenario(scenarios[currentIndex]);
+
+          if (direction === 'left') {
+            console.log('Swiped left (Distrust)');
+            makeChoice(false);
+          } else if (direction === 'right') {
+            console.log('Swiped right (Trust)');
+            makeChoice(true);
+          }
+        } else {
+          console.error('Invalid scenario index:', currentIndex);
+        }
+      });
+
+
+      swiper.value.on('slideChange', () => {
+        console.log('Slide changed to index:', swiper.value.activeIndex);
+      });
+    } else {
+      console.error('Failed to initialize swiper');
+    }
+  } else {
+    console.error('Swiper container not found');
   }
 });
 
-const handleYes = () => {
-  swiper.value?.tinder?.yes();
-};
+watch(playerState, (newState) => {
+  console.log('Player state updated:', newState);
+}, { deep: true });
 
-const handleNo = () => {
-  swiper.value?.tinder?.no();
-};
 </script>
+
+
 
 <style lang="scss">
 .swiper-tinder-container {
