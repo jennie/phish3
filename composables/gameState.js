@@ -5,7 +5,12 @@ import scenariosData from "../data/scenarios";
 
 export function useGameState() {
   const currentScenarioIndex = ref(0);
-  const scenarios = ref(scenariosData);
+  const scenarios = ref(
+    scenariosData.map((scenario) => ({
+      ...scenario,
+      isFlipped: false,
+    }))
+  );
   const playerState = ref({
     trust: 50,
     security: 50,

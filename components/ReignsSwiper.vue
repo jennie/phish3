@@ -18,16 +18,28 @@
     <div class="swiper-wrapper flex-grow overflow-hidden">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
         observer observer-parents init="false" class="h-full">
-        <swiper-slide v-for="scenario in scenarios" :key="scenario.id">
-          <div class="slide-inner h-full flex flex-col">
-            <img :src="scenario.image" :alt="scenario.id" class="rounded-lg bg-cover object-cover flex-grow w-full">
-            <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="scenario.text">
+        <swiper-slide v-for="(scenario, index) in scenarios" :key="scenario.id">
+          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container">
+            <div class="card-face card-front">
+              <!-- Front content -->
+              <div class="h-full flex items-center justify-center bg-blue-500 rounded-lg">
+                <p class="text-white text-2xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M14.6 8.075q0-1.075-.712-1.725T12 5.7q-.725 0-1.312.313t-1.013.912q-.4.575-1.088.663T7.4 7.225q-.35-.325-.387-.8t.237-.9q.8-1.2 2.038-1.862T12 3q2.425 0 3.938 1.375t1.512 3.6q0 1.125-.475 2.025t-1.75 2.125q-.925.875-1.25 1.363T13.55 14.6q-.1.6-.513 1t-.987.4t-.987-.387t-.413-.963q0-.975.425-1.787T12.5 11.15q1.275-1.125 1.688-1.737t.412-1.338M12 22q-.825 0-1.412-.587T10 20t.588-1.412T12 18t1.413.588T14 20t-.587 1.413T12 22" />
+                  </svg></p>
+              </div>
             </div>
-            <div class="swiper-tinder-label swiper-tinder-label-yes">
-              Trust
-            </div>
-            <div class="swiper-tinder-label swiper-tinder-label-no">
-              Distrust
+            <div class="card-face card-back">
+              <!-- Scenario content -->
+              <div class="slide-inner h-full flex flex-col">
+                <img :src="scenario.image" :alt="scenario.id" class="rounded-lg bg-cover object-cover flex-grow w-full">
+                <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%"
+                  v-html="scenario.text">
+                </div>
+                <div class="swiper-tinder-label swiper-tinder-label-yes">Trust</div>
+                <div class="swiper-tinder-label swiper-tinder-label-no">Distrust</div>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -64,8 +76,10 @@
   </div>
 </template>
 <script setup>
+import { ref, onMounted, watch, reactive } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
+import { useGameState } from '../composables/gameState';
 
 register();
 
@@ -76,53 +90,67 @@ import '~/assets/css/demo-tinder.scss';
 const modules = [EffectTinder];
 const swiperRef = ref(null);
 const swiper = ref(null);
-
-import { useGameState } from '../composables/gameState';
+const cardRefs = ref([]);
 
 const { currentScenario, makeChoice, gameOver, scenarios, updateCurrentScenario, playerState } = useGameState();
 
 let isUserInteraction = ref(false);
+let currentCardIndex = ref(0);
+
+// Create a reactive object to track the flip state of each card
+const cardFlipStates = reactive({});
+
+const flipCard = (index, flipped, delay = 500) => {
+  console.log(`Attempting to flip card ${index} to ${flipped ? 'back' : 'front'}`);
+  setTimeout(() => {
+    if (cardRefs.value[index]) {
+      cardRefs.value[index].classList.toggle('is-flipped', flipped);
+      cardFlipStates[index] = flipped;
+      console.log(`Card ${index} flipped successfully`);
+    } else {
+      console.error(`Card ref for index ${index} not found`);
+    }
+  }, delay);
+};
 
 onMounted(() => {
+  console.log('Component mounted');
   const swiperContainer = swiperRef.value;
   if (swiperContainer) {
+    console.log('Swiper container found');
     Object.assign(swiperContainer, {
       modules,
       effect: 'tinder',
       slidesPerView: 1,
-      grabCursor: true,
       allowTouchMove: true,
     });
     swiperContainer.initialize();
     swiper.value = swiperContainer.swiper;
 
     if (swiper.value) {
+      console.log('Swiper initialized');
+
       swiper.value.on('sliderFirstMove', () => {
         isUserInteraction.value = true;
       });
 
       swiper.value.on('tinderSwipe', (s, direction) => {
-        console.log('Swipe direction:', direction);
-
-        const currentIndex = swiper.value.activeIndex;
-        if (scenarios && scenarios[currentIndex]) {
-          updateCurrentScenario(scenarios[currentIndex]);
-
-          if (direction === 'left') {
-            console.log('Swiped left (Distrust)');
-            makeChoice(false);
-          } else if (direction === 'right') {
-            console.log('Swiped right (Trust)');
-            makeChoice(true);
-          }
-        } else {
-          console.error('Invalid scenario index:', currentIndex);
-        }
+        console.log('Tinder swipe detected:', direction);
+        handleSwipe(direction);
       });
 
+      swiper.value.on('slideChangeTransitionStart', () => {
+        const newIndex = swiper.value.activeIndex;
+        console.log('Slide change transition start, new index:', newIndex);
+        flipCard(newIndex, false);  // Ensure the new card starts unflipped
+      });
 
-      swiper.value.on('slideChange', () => {
-        console.log('Slide changed to index:', swiper.value.activeIndex);
+      swiper.value.on('slideChangeTransitionEnd', () => {
+        const newIndex = swiper.value.activeIndex;
+        console.log('Slide change transition end, new index:', newIndex);
+        setTimeout(() => {
+          flipCard(newIndex, true);
+        }, 300);
       });
     } else {
       console.error('Failed to initialize swiper');
@@ -132,12 +160,41 @@ onMounted(() => {
   }
 });
 
+const handleSwipe = (direction) => {
+  if (isUserInteraction.value) {
+    console.log('Handling swipe:', direction);
+    const currentIndex = swiper.value.activeIndex;
+    const currentScenario = scenarios[currentIndex];
+
+    if (direction === 'left') {
+      console.log('Swiped left (Distrust)');
+      makeChoice(false, currentScenario);
+    } else if (direction === 'right') {
+      console.log('Swiped right (Trust)');
+      makeChoice(true, currentScenario);
+    }
+
+    // Flip the new active card after a short delay
+    setTimeout(() => {
+      const newActiveIndex = swiper.value.activeIndex;
+      console.log('Flipping new active card:', newActiveIndex);
+      flipCard(newActiveIndex, true);
+    }, 300);
+
+    isUserInteraction.value = false;
+  }
+};
+
+// Add this watch to log playerState changes
 watch(playerState, (newState) => {
   console.log('Player state updated:', newState);
 }, { deep: true });
 
+// Debug: Log card refs when they change
+watch(() => cardRefs.value, (newRefs) => {
+  console.log('Card refs updated:', newRefs.length);
+}, { deep: true });
 </script>
-
 
 
 <style lang="scss">
@@ -179,5 +236,41 @@ swiper-container {
 
 .swiper-tinder-label-no {
   @apply top-4 left-4 text-red-500;
+}
+
+/* Assuming .cards-wrapper is the parent of .card-container */
+swiper-slide {
+  perspective: 1000px;
+  /* Adjust as needed for more/less depth */
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+  /* Updated transition */
+  transform-style: preserve-3d;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Initial shadow */
+}
+
+.card-container.is-flipped {
+  transform: rotateY(180deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  /* Darker shadow during flip */
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* For Safari */
+}
+
+.card-back {
+  transform: rotateY(180deg);
 }
 </style>
