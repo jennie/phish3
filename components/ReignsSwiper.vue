@@ -21,10 +21,8 @@
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index">
           <div :ref="el => { if (el) cardRefs[index] = el }"
             :class="['card-container', { 'is-flipped': card.isFlipped }]">
-            <template v-if="card.type === 'decision'">
-              <div class="swiper-tinder-label swiper-tinder-label-yes">Trust</div>
-              <div class="swiper-tinder-label swiper-tinder-label-no">Distrust</div>
-            </template>
+            <div class="swiper-tinder-label swiper-tinder-label-yes">{{ card.trustLabel }}</div>
+            <div class="swiper-tinder-label swiper-tinder-label-no">{{ card.distrustLabel }}</div>
             <div :class="`card-face card-front ${card.type}`">
               <p v-if="card.type === 'reveal'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                   viewBox="0 0 24 24">
@@ -123,39 +121,58 @@ onMounted(async () => {
 
     if (swiper.value) {
       console.log('Swiper initialized');
+      swiper.value.on('sliderFirstMove', () => {
+        const activeSlide = swiper.value.slides[swiper.value.activeIndex];
+        activeSlide.classList.add('swiper-slide-swiping');
+      });
 
-      swiper.value.on('tinderSwipe', (direction) => {
+      swiper.value.on('touchEnd', () => {
+        swiper.value.slides.forEach(slide => {
+          slide.classList.remove('swiper-slide-swiping');
+        });
+      });
+      swiper.value.on('tinderSwipe', (s, direction) => {
         const currentIndex = swiper.value.activeIndex;
-        console.log('Slide changed to index:', currentIndex);
-        flipRevealCard(currentIndex);
+        const currentCard = currentScenario.value.cards[currentIndex];
+        console.log('Tinder swipe:', direction, 'on card type:', currentCard.type);
 
-        // If it's not a reveal card, prepare for the next swipe
-        if (currentScenario.value.cards[currentIndex].type !== 'reveal') {
-          swiper.value.allowSlideNext = true;
-          swiper.value.allowSlidePrev = true;
-        } else {
-          // For reveal cards, disable swiping
-          swiper.value.allowSlideNext = false;
-          swiper.value.allowSlidePrev = false;
+        if (currentCard.type === 'decision') {
+          makeChoice(direction === 'right', currentCard);
+        } else if (currentCard.type === 'reveal') {
+          flipRevealCard(currentIndex);
 
           // Automatically move to the next card after a delay
           setTimeout(() => {
             swiper.value.slideNext();
           }, 3000);  // 3 seconds delay, adjust as needed
         }
+
+        // Prepare for the next swipe
+        nextTick(() => {
+          swiper.value.allowSlideNext = true;
+          swiper.value.allowSlidePrev = true;
+        });
       });
 
-      swiper.value.on('tinderSwipe', (direction) => {
+      swiper.value.on('slideChangeTransitionStart', () => {
         const currentIndex = swiper.value.activeIndex;
         const currentCard = currentScenario.value.cards[currentIndex];
-        console.log('Tinder swipe:', direction, 'on card type:', currentCard.type);
 
-        if (currentCard.type === 'decision') {
-          makeChoice(direction === 'right');
+        // Show labels
+        showTrustLabel.value = true;
+        showDistrustLabel.value = true;
+      });
+
+      swiper.value.on('slideChangeTransitionEnd', () => {
+        const currentIndex = swiper.value.activeIndex;
+        const currentCard = currentScenario.value.cards[currentIndex];
+
+        if (currentCard.type === 'reveal') {
+          flipRevealCard(currentIndex);
         }
       });
     }
-  }
+  };
 });
 
 // Add this watch to log playerState changes
@@ -213,11 +230,11 @@ swiper-container {
 }
 
 .swiper-tinder-label-yes {
-  @apply top-4 right-4 text-green-500;
+  @apply top-4 right-4 text-green-500 text-right w-1/2;
 }
 
 .swiper-tinder-label-no {
-  @apply top-4 left-4 text-red-500;
+  @apply top-4 right-4 text-red-500 text-left w-1/2;
 }
 
 /* Assuming .cards-wrapper is the parent of .card-container */
@@ -282,15 +299,7 @@ swiper-slide {
   opacity: 1;
 }
 
-.swiper-tinder-label-yes {
-  right: 20px;
-  color: green;
-}
 
-.swiper-tinder-label-no {
-  left: 20px;
-  color: red;
-}
 
 .swiper-tinder-label {
   position: absolute;
@@ -328,11 +337,6 @@ swiper-slide {
   z-index: 10;
 }
 
-.swiper-tinder-label-yes {
-  background-color: green;
-  right: 10px;
-  top: 10px;
-}
 
 .swiper-tinder-label-no {
   background-color: red;
@@ -363,14 +367,10 @@ swiper-slide {
   z-index: 1;
 }
 
-.swiper-tinder-label-yes {
-  right: 20px;
-  color: var(--swiper-tinder-yes-color, #4fca74);
-}
 
 .swiper-tinder-label-no {
   left: 20px;
-  color: var(--swiper-tinder-no-color, #ff689f);
+  @apply text-red-500 bg-red-200
 }
 
 .swiper-tinder-label {
@@ -385,16 +385,6 @@ swiper-slide {
   /* Increased z-index */
   pointer-events: none;
   /* Ensure labels don't interfere with touch events */
-}
-
-.swiper-tinder-label-yes {
-  right: 20px;
-  color: var(--swiper-tinder-yes-color, #4fca74);
-}
-
-.swiper-tinder-label-no {
-  left: 20px;
-  color: var(--swiper-tinder-no-color, #ff689f);
 }
 
 .card-container {
@@ -433,5 +423,22 @@ swiper-slide {
 .card-back {
   background-color: #FF9800;
   transform: rotateY(180deg);
+}
+
+.swiper-tinder-label {
+  position: absolute;
+  top: 20px;
+  font-weight: bold;
+  // opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+
+// Add this new rule
+.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
+  opacity: 1;
 }
 </style>
