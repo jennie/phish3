@@ -311,19 +311,6 @@ swiper-container {
   @apply scale-110;
 }
 
-.swiper-tinder-label {
-  position: absolute;
-  /* Changed from absolute to fixed */
-  top: 20px;
-  font-weight: bold;
-  transition: opacity 0.3s;
-  z-index: 10;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-}
 
 
 
@@ -398,42 +385,10 @@ swiper-slide {
 
 
 
-
-.swiper-tinder-label {
-  position: absolute;
-  font-weight: bold;
-  padding: 4px 12px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 10;
-}
-
-
-
-
 .swiper-tinder-button-hidden {
   display: none;
 }
 
-
-
-
-
-.swiper-tinder-label {
-  position: absolute;
-  top: 20px;
-  font-size: var(--swiper-tinder-label-font-size, 32px);
-  font-weight: bold;
-  color: var(--swiper-tinder-label-text-color, #fff);
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 10;
-  /* Increased z-index */
-  pointer-events: none;
-  /* Ensure labels don't interfere with touch events */
-}
 
 .card-container {
   width: 100%;
@@ -524,18 +479,16 @@ swiper-slide {
 }
 
 .swiper-tinder-label {
-  position: absolute;
-  top: 20px;
-  font-weight: bold;
-  transition: opacity 0.3s;
-  z-index: 10;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
-  border-radius: 5px;
+  @apply absolute top-20 font-bold transition-opacity pointer-events-none bg-black bg-opacity-70 p-2 z-10;
 }
 
+.swiper-tinder-label-no {
+  @apply left-0 text-red-500 text-right;
+}
 
+.swiper-tinder-label-yes {
+  @apply right-0 text-green-500 text-left;
+}
 
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
   opacity: 1;

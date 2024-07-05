@@ -2,7 +2,7 @@
   --swiper-tinder-no-color: red;
   --swiper-tinder-yes-color: green;
   --swiper-tinder-label-text-color: #fff;
-  --swiper-tinder-label-font-size: 32px;
+  --swiper-tinder-label-font-size: 20px;
   --swiper-tinder-button-size: 56px;
   --swiper-tinder-button-icon-size: 32px;
 }
@@ -18,8 +18,9 @@
   }
 }
 .swiper-tinder-label {
+  background-color: black !important;
   position: absolute;
-  font-size: var(--swiper-tinder-label-font-size);
+  font-size: 22px;
   font-weight: bold;
   padding: 4px 12px;
   text-transform: uppercase;
