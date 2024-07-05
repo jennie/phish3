@@ -74,12 +74,12 @@ export default [
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
-            "It asks for 3 different and scanned forms of ID! Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone.",
+            "It asks for 3 different forms of ID! Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone.",
         },
         distrustChoice: {
           consequences: { trust: 5, security: 10, gooseInfiltration: -5 },
           feedback:
-            "It wants 3 different and scanned forms of ID! You warn Beejou that this is likely a scam. She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
+            "It wants 3 different forms of ID! You warn Beejou that this is likely a scam. She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
         },
         isFlipped: false,
         image: "beejou.jpg",
