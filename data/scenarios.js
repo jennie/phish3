@@ -4,7 +4,7 @@ export default [
     cards: [
       {
         type: "story",
-        text: "You're the only one at the loung this morning. You can't wait until The Pond reopens for morning coffee!",
+        text: "You're the only one at the lounge this morning. You can't wait until The Pond reopens for morning coffee!",
         trustLabel: "Enjoy the quiet…",
         distrustLabel: "Enjoy the quiet!",
         isFlipped: false,

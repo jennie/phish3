@@ -22,6 +22,7 @@
 
             <div :class="`swiper-slide card-face card-front ${card.type}`"
               :style="{ backgroundImage: `url(${card.image})` }">
+
               <div class="card-content">
                 <p v-if="card.type === 'reveal'" class="reveal-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -35,6 +36,9 @@
             <div class="card-face card-back" v-if="card.type === 'reveal'">
               <div class="slide-inner h-full flex flex-col">
                 <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="card.text">
+                </div>
+                <div class="feedback-text p-2" v-if="decisionFeedback">
+                  {{ decisionFeedback }}
                 </div>
               </div>
             </div>
@@ -157,6 +161,9 @@ const cardRefs = ref([]);
 
 const { currentScenario, currentCard, makeChoice, nextCard, previousCard, gameOver, playerState, scenarios } = useGameState();
 
+// New ref to store the feedback
+const decisionFeedback = ref('');
+
 const flipRevealCard = (index) => {
   if (currentScenario.value.cards[index] && currentScenario.value.cards[index].type === 'reveal') {
     console.log('Flipping reveal card at index:', index);
@@ -166,6 +173,8 @@ const flipRevealCard = (index) => {
     }, 1000);  // 1 second delay
   }
 };
+
+
 
 onMounted(async () => {
   console.log("Component mounted. Current scenario:", currentScenario.value);
@@ -201,15 +210,15 @@ onMounted(async () => {
         console.log('Tinder swipe:', direction, 'on card type:', currentCard.type);
 
         if (currentCard.type === 'decision') {
-          makeChoice(direction === 'right', currentCard);
+          const isTrust = direction === 'right';
+          makeChoice(isTrust, currentCard);
+          // Immediately store the feedback after making a choice
+          decisionFeedback.value = isTrust ? currentCard.trustChoice.feedback : currentCard.distrustChoice.feedback;
         } else if (currentCard.type === 'reveal') {
           flipRevealCard(currentIndex);
-
-          // Automatically move to the next card after a delay
-          setTimeout(() => {
-            swiper.value.slideNext();
-          }, 3000);  // 3 seconds delay, adjust as needed
+          // Code for automatically moving to the next card after a delay can be placed here
         }
+        setFeedbackAfterSwipe(direction);
 
         // Prepare for the next swipe
         nextTick(() => {
@@ -238,7 +247,15 @@ onMounted(async () => {
     }
   };
 });
-
+function setFeedbackAfterSwipe(direction) {
+  const currentIndex = swiper.value.activeIndex;
+  const currentCard = currentScenario.value.cards[currentIndex];
+  if (currentCard.type === 'decision') {
+    const isTrust = direction === 'right';
+    decisionFeedback.value = isTrust ? currentCard.trustChoice.feedback : currentCard.distrustChoice.feedback;
+    console.log('Feedback set to:', decisionFeedback.value); // For debugging
+  }
+}
 // Add this watch to log playerState changes
 watch(playerState, (newState) => {
   console.log('Player state updated:', newState);
@@ -248,8 +265,11 @@ watch(playerState, (newState) => {
 watch(() => cardRefs.value, (newRefs) => {
   console.log('Card refs updated:', newRefs.length);
 }, { deep: true });
+watch(decisionFeedback, (newFeedback, oldFeedback) => {
+  console.log('Feedback changed from:', oldFeedback, 'to:', newFeedback);
+  // You can add any additional logic here to handle the feedback change
+});
 </script>
-
 
 <style lang="scss">
 :root {
@@ -359,6 +379,7 @@ swiper-slide {
 }
 
 .card-back {
+  background-color: #000;
   transform: rotateY(180deg);
 }
 
@@ -489,10 +510,6 @@ swiper-slide {
   z-index: 2;
 }
 
-.card-back {
-  background-color: #000;
-  transform: rotateY(180deg);
-}
 
 .swiper-tinder-label {
   position: absolute;
@@ -570,15 +587,7 @@ swiper-slide {
   border-radius: 5px;
 }
 
-.swiper-tinder-label-yes {
-  right: 20px;
-  color: var(--swiper-tinder-yes-color, #4fca74);
-}
 
-.swiper-tinder-label-no {
-  left: 20px;
-  color: var(--swiper-tinder-no-color, #ff689f);
-}
 
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
   opacity: 1;
