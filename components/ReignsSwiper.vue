@@ -495,10 +495,12 @@ swiper-slide {
 
 .swiper-tinder-label-no {
   @apply left-0 text-red-500 text-right;
+  color: red !important;
 }
 
 .swiper-tinder-label-yes {
   @apply right-0 text-green-500 text-left;
+  color: green !important;
 }
 
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
@@ -561,11 +563,6 @@ swiper-container {
   background-color: green;
 }
 
-.swiper-tinder-label-no {
-  left: 20px;
-  /* Adjust position as needed */
-  background-color: red;
-}
 
 .swiper-tinder {
   box-sizing: border-box;
