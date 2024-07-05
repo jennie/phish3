@@ -1,10 +1,5 @@
 <template>
   <div class="swiper-tinder-container h-full bg-black flex flex-col">
-
-    <!-- <div class="flex flex-row justify-between scores-container text-white p-4 bg-gray-800 rounded-xl">
-      <div>Security: {{ playerState.security }}</div>
-      <div>Goose Infiltration: {{ playerState.gooseInfiltration }}</div>
-    </div> -->
     <div class="container-start text-white text-center mx-auto py-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
         <path fill="currentColor"
@@ -51,7 +46,7 @@
     </div>
 
     <div class="swiper-tinder-buttons py-2">
-      <button class="swiper-tinder-button swiper-tinder-button-no">
+      <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft">
         <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>icon-back</title>
@@ -74,7 +69,7 @@
           </g>
         </svg>
       </button>
-      <button class="swiper-tinder-button swiper-tinder-button-yes">
+      <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight">
         <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>icon-next</title>
@@ -137,13 +132,10 @@
           </g>
         </svg>
       </a>
-
-
-
-
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, onMounted, watch, nextTick } from 'vue';
 import { register } from 'swiper/element/bundle';
@@ -176,7 +168,23 @@ const flipRevealCard = (index) => {
   }
 };
 
+const currentCardLabel = (type) => {
+  const activeIndex = swiper.value?.activeIndex || 0;
+  const currentCard = currentScenario.value.cards[activeIndex];
+  return type === 'trust' ? currentCard.trustLabel : currentCard.distrustLabel;
+};
 
+const swipeLeft = () => {
+  if (swiper.value) {
+    swiper.value.slidePrev();
+  }
+};
+
+const swipeRight = () => {
+  if (swiper.value) {
+    swiper.value.slideNext();
+  }
+};
 
 onMounted(async () => {
   console.log("Component mounted. Current scenario:", currentScenario.value);
@@ -272,6 +280,7 @@ watch(decisionFeedback, (newFeedback, oldFeedback) => {
   // You can add any additional logic here to handle the feedback change
 });
 </script>
+
 
 <style lang="scss">
 :root {
@@ -405,13 +414,16 @@ swiper-slide {
 
 .card-face {
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  /* Ensure children are stacked vertically */
+  justify-content: flex-start;
+  /* Align content to the top */
   font-size: 24px;
   color: white;
   padding: 20px;
@@ -492,5 +504,151 @@ swiper-slide {
 
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
   opacity: 1;
+}
+
+:root {
+  --swiper-tinder-no-color: red;
+  --swiper-tinder-yes-color: green;
+  --swiper-tinder-label-text-color: #fff;
+  --swiper-tinder-label-font-size: 32px;
+  --swiper-tinder-button-size: 56px;
+  --swiper-tinder-button-icon-size: 32px;
+}
+
+.swiper-tinder-container {
+  @apply relative w-full;
+}
+
+.swiper-wrapper {
+  @apply relative;
+}
+
+swiper-container {
+  @apply w-full;
+}
+
+.slide-inner {
+  @apply w-full relative;
+}
+
+.swiper-tinder-buttons {
+  @apply flex justify-center gap-5 z-10;
+}
+
+.swiper-tinder-button {
+  @apply flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200;
+}
+
+.swiper-tinder-button:hover {
+  @apply scale-110;
+}
+
+.swiper-tinder-label {
+  position: absolute;
+  top: 20px;
+  font-weight: bold;
+  transition: opacity 0.3s;
+  z-index: 10;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.swiper-tinder-label-yes {
+  right: 20px;
+  /* Adjust position as needed */
+  background-color: green;
+}
+
+.swiper-tinder-label-no {
+  left: 20px;
+  /* Adjust position as needed */
+  background-color: red;
+}
+
+.swiper-tinder {
+  box-sizing: border-box;
+}
+
+.swiper-tinder .swiper-slide {
+  overflow: hidden;
+}
+
+.swiper-tinder .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-face.decision {
+  @apply bg-green-300
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  perspective: 1000px;
+}
+
+.card-container.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card-front {
+  background-color: #2196F3;
+  z-index: 2;
+}
+
+.card-back {
+  background-color: #000;
+  transform: rotateY(180deg);
+}
+
+.swiper-tinder-label.visible {
+  opacity: 1;
+}
+
+.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
+  opacity: 1;
+}
+
+.card-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.card-text {
+  margin: 0;
+}
+
+.reveal-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 </style>
