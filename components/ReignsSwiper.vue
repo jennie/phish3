@@ -368,7 +368,6 @@ swiper-slide {
   -webkit-backface-visibility: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-size: 24px;
   color: white;
   padding: 20px;
@@ -607,7 +606,6 @@ swiper-container {
   -webkit-backface-visibility: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-size: 24px;
   color: white;
   padding: 20px;
