@@ -1,20 +1,16 @@
 <template>
   <div class="swiper-tinder-container h-full bg-black flex flex-col">
 
-    <div class="flex flex-row justify-between scores-container text-white p-4 bg-gray-800 rounded-xl">
-      <div>Trust: {{ playerState.trust }}</div>
+    <!-- <div class="flex flex-row justify-between scores-container text-white p-4 bg-gray-800 rounded-xl">
       <div>Security: {{ playerState.security }}</div>
       <div>Goose Infiltration: {{ playerState.gooseInfiltration }}</div>
+    </div> -->
+    <div class="container-start text-white text-center mx-auto py-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14l-1.42 1.41L3.5 4.93zm12.03 2.13l2.12-2.13l1.43 1.43l-2.13 2.12z" />
+      </svg>
     </div>
-    <div class="container-start text-green-300 text-center mx-auto py-2"><svg xmlns="http://www.w3.org/2000/svg"
-        width="32" height="32" viewBox="0 0 24 24">
-        <g fill="currentColor">
-          <path
-            d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06z" />
-          <path
-            d="m12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086z" />
-        </g>
-      </svg></div>
     <div v-if="currentScenario && currentScenario.cards" class="swiper-wrapper flex-grow overflow-hidden relative">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
         observer observer-parents init="false" class="h-full">
@@ -23,17 +19,21 @@
             :class="['card-container', { 'is-flipped': card.isFlipped }]">
             <div class="swiper-tinder-label swiper-tinder-label-yes">{{ card.trustLabel }}</div>
             <div class="swiper-tinder-label swiper-tinder-label-no">{{ card.distrustLabel }}</div>
-            <div :class="`card-face card-front ${card.type}`">
-              <p v-if="card.type === 'reveal'"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                  viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M14.6 8.075q0-1.075-.712-1.725T12 5.7q-.725 0-1.312.313t-1.013.912q-.4.575-1.088.663T7.4 7.225q-.35-.325-.387-.8t.237-.9q.8-1.2 2.038-1.862T12 3q2.425 0 3.938 1.375t1.512 3.6q0 1.125-.475 2.025t-1.75 2.125q-.925.875-1.25 1.363T13.55 14.6q-.1.6-.513 1t-.987.4t-.987-.387t-.413-.963q0-.975.425-1.787T12.5 11.15q1.275-1.125 1.688-1.737t.412-1.338M12 22q-.825 0-1.412-.587T10 20t.588-1.412T12 18t1.413.588T14 20t-.587 1.413T12 22" />
-                </svg></p>
-              <p v-else>{{ card.text }}</p>
+
+            <div :class="`swiper-slide card-face card-front ${card.type}`"
+              :style="{ backgroundImage: `url(${card.image})` }">
+              <div class="card-content">
+                <p v-if="card.type === 'reveal'" class="reveal-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M14.6 8.075q0-1.075-.712-1.725T12 5.7q-.725 0-1.312.313t-1.013.912q-.4.575-1.088.663T7.4 7.225q-.35-.325-.387-.8t.237-.9q.8-1.2 2.038-1.862T12 3q2.425 0 3.938 1.375t1.512 3.6q0 1.125-.475 2.025t-1.75 2.125q-.925.875-1.25 1.363T13.55 14.6q-.1.6-.513 1t-.987.4t-.987-.387t-.413-.963q0-.975.425-1.787T12.5 11.15q1.275-1.125 1.688-1.737t.412-1.338M12 22q-.825 0-1.412-.587T10 20t.588-1.412T12 18t1.413.588T14 20t-.587 1.413T12 22" />
+                  </svg>
+                </p>
+                <p v-else class="card-text">{{ card.text }}</p>
+              </div>
             </div>
             <div class="card-face card-back" v-if="card.type === 'reveal'">
               <div class="slide-inner h-full flex flex-col">
-                <img :src="card.image" :alt="'Reveal image'" class="rounded-lg bg-cover object-cover flex-grow w-full">
                 <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="card.text">
                 </div>
               </div>
@@ -48,28 +48,92 @@
 
     <div class="swiper-tinder-buttons py-2">
       <button class="swiper-tinder-button swiper-tinder-button-no">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-          <path fill="red"
-            d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Z" />
+        <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <title>icon-back</title>
+          <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Scenerio-00---00" transform="translate(-102, -580)">
+              <g id="icon-back" transform="translate(102, 580)">
+                <text id="BACK" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                  <tspan x="15.1020508" y="68">BACK</tspan>
+                </text>
+                <g id="button">
+                  <circle id="button-back" stroke="#000000" stroke-width="3" fill="#FFFFFF" cx="28" cy="28" r="26.5">
+                  </circle>
+                  <path
+                    d="M13,27.726715 C13,26.9935424 13.5980123,26.393674 14.3289163,26.393674 L38.1663523,26.393674 L32.3025091,20.5116306 C31.7875541,19.9950772 31.7875541,19.1452635 32.3025091,18.6287102 C32.8174642,18.1121568 33.6646483,18.1121568 34.1796034,18.6287102 L42.3192157,26.7935863 C42.5683875,27.0435315 42.7012791,27.3767917 42.7012791,27.743378 C42.7012791,28.1099643 42.5683875,28.4432245 42.3192157,28.6931697 L34.1796034,36.8580458 C33.9138201,37.124654 33.5815911,37.2412951 33.2327505,37.2412951 C32.88391,37.2412951 32.5516809,37.107991 32.2858977,36.8580458 C31.7709426,36.3414924 31.7709426,35.4916788 32.2858977,34.9751254 L38.1497408,29.093082 L14.3289163,29.093082 C13.5980123,29.043093 13,28.4598875 13,27.726715 Z"
+                    id="arrow-left" fill="#000"
+                    transform="translate(27.8506, 27.7413) scale(-1, 1) translate(-27.8506, -27.7413)"></path>
+                </g>
+              </g>
+            </g>
+          </g>
         </svg>
       </button>
       <button class="swiper-tinder-button swiper-tinder-button-yes">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-          <path fill="green"
-            d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Z" />
+        <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <title>icon-next</title>
+          <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Scenerio-00---00" transform="translate(-202, -580)">
+              <g id="icon-next" transform="translate(202, 580)">
+                <text id="NEXT" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                  <tspan x="15.4243164" y="68">NEXT</tspan>
+                </text>
+                <g id="button" transform="translate(28, 28) scale(-1, 1) translate(-28, -28)">
+                  <circle id="button-back" stroke="#000000" stroke-width="3" fill="#FFFFFF" cx="28" cy="28" r="26.5">
+                  </circle>
+                  <path
+                    d="M13,27.726715 C13,26.9935424 13.5980123,26.393674 14.3289163,26.393674 L38.1663523,26.393674 L32.3025091,20.5116306 C31.7875541,19.9950772 31.7875541,19.1452635 32.3025091,18.6287102 C32.8174642,18.1121568 33.6646483,18.1121568 34.1796034,18.6287102 L42.3192157,26.7935863 C42.5683875,27.0435315 42.7012791,27.3767917 42.7012791,27.743378 C42.7012791,28.1099643 42.5683875,28.4432245 42.3192157,28.6931697 L34.1796034,36.8580458 C33.9138201,37.124654 33.5815911,37.2412951 33.2327505,37.2412951 C32.88391,37.2412951 32.5516809,37.107991 32.2858977,36.8580458 C31.7709426,36.3414924 31.7709426,35.4916788 32.2858977,34.9751254 L38.1497408,29.093082 L14.3289163,29.093082 C13.5980123,29.043093 13,28.4598875 13,27.726715 Z"
+                    id="arrow-right" fill="#000000"
+                    transform="translate(27.8506, 27.7413) scale(-1, 1) translate(-27.8506, -27.7413)"></path>
+                </g>
+              </g>
+            </g>
+          </g>
         </svg>
       </button>
     </div>
-    <div class="container-end text-blue-200 text-center py-2 flex flex-row justify-between"><svg
-        xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16">
-        <path fill="currentColor"
-          d="M11.983 1.364a.75.75 0 0 0-1.281.78c.096.158.184.321.264.489a5.48 5.48 0 0 1-.713.386A2.993 2.993 0 0 0 8 2a2.99 2.99 0 0 0-2.253 1.02a5.485 5.485 0 0 1-.713-.387c.08-.168.168-.33.264-.489a.75.75 0 1 0-1.28-.78c-.245.401-.45.83-.61 1.278a.75.75 0 0 0 .239.84a7 7 0 0 0 1.422.876A3.01 3.01 0 0 0 5 5c0 .126.072.24.183.3c.386.205.797.37 1.227.487c-.126.165-.227.35-.297.549A10.418 10.418 0 0 1 3.51 5.5a10.686 10.686 0 0 1-.008-.733a.75.75 0 0 0-1.5-.033a12.222 12.222 0 0 0 .041 1.31a.75.75 0 0 0 .4.6A11.922 11.922 0 0 0 6.199 7.87c.04.084.088.166.14.243l-.214.031l-.027.005A11.913 11.913 0 0 0 2.444 9.36a.75.75 0 0 0-.4.6a12.148 12.148 0 0 0 .197 3.443a.75.75 0 0 0 1.47-.299a10.551 10.551 0 0 1-.2-2.6a10.35 10.35 0 0 1 1.085-.441c-.063.3-.096.614-.096.936c0 2.21 1.567 4 3.5 4s3.5-1.79 3.5-4c0-.322-.034-.636-.097-.937c.372.128.734.275 1.085.442a10.703 10.703 0 0 1-.199 2.6a.75.75 0 1 0 1.47.3a12.049 12.049 0 0 0 .197-3.443a.75.75 0 0 0-.4-.6a11.921 11.921 0 0 0-3.671-1.215l-.011-.002a11.95 11.95 0 0 0-.213-.03c.052-.078.1-.16.14-.244c1.336-.202 2.6-.623 3.755-1.227a.75.75 0 0 0 .4-.6a12.178 12.178 0 0 0 .041-1.31a.75.75 0 0 0-1.5.033a11.061 11.061 0 0 1-.008.733a10.43 10.43 0 0 1-2.602.836c-.07-.2-.17-.384-.297-.55a5.9 5.9 0 0 0 1.228-.488A.34.34 0 0 0 11 5c0-.22-.024-.435-.069-.642a7 7 0 0 0 1.422-.876a.75.75 0 0 0 .24-.84a6.97 6.97 0 0 0-.61-1.278" />
+    <div class="container-end text-blue-200 text-center p-2 flex flex-row justify-between">
+      <svg width="32px" height="37px" viewBox="0 0 32 37" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>icon-home</title>
+        <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Scenerio-00---00" transform="translate(-28, -740)">
+            <g id="icon-home" transform="translate(28, 740)">
+              <text id="HOME" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                <tspan x="1.79101562" y="35">HOME</tspan>
+              </text>
+              <g id="arrow-return" transform="translate(0, -0)" fill="#fff" fill-rule="nonzero">
+                <path
+                  d="M25.5057983,0 L18.0057983,0 C17.4535136,0 17.0057983,0.44771525 17.0057983,1 C17.0057983,1.55228475 17.4535136,2 18.0057983,2 L25.5057983,2 C27.9910797,2 30.0057983,4.01471863 30.0057983,6.5 C30.0057983,8.98528137 27.9910797,11 25.5057983,11 L3.41579832,11 L7.71579832,6.71 C8.10792048,6.31787782 8.10792047,5.68212219 7.7157983,5.29000002 C7.32367614,4.89787786 6.6879205,4.89787785 6.29579832,5.29 L0.295798324,11.29 C0.106485674,11.4777666 0,11.7333625 0,12 C0,12.2666375 0.106485674,12.5222334 0.295798324,12.71 L6.29579832,18.71 C6.48356492,18.8993127 6.73916079,19.0057983 7.00579832,19.0057983 C7.27243586,19.0057983 7.52803172,18.8993127 7.71579832,18.71 C7.90511098,18.5222334 8.01159665,18.2666375 8.01159665,18 C8.01159665,17.7333625 7.90511098,17.4777666 7.71579832,17.29 L3.41579832,13 L25.5057983,13 C29.0956492,13 32.0057983,10.0898509 32.0057983,6.5 C32.0057983,2.91014913 29.0956492,0 25.5057983,0 Z"
+                  id="Path"></path>
+              </g>
+            </g>
+          </g>
+        </g>
       </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16">
-        <path fill="currentColor" fill-rule="evenodd"
-          d="M7.47 12.78a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 0 0-1.06-1.06L8 11.19L5.28 8.47a.75.75 0 0 0-1.06 1.06zM4.22 4.53l3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 0 0-1.06-1.06L8 6.19L5.28 3.47a.75.75 0 0 0-1.06 1.06"
-          clip-rule="evenodd" />
+      <svg width="32px" height="39px" viewBox="0 0 32 39" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>icon-retry</title>
+        <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Scenerio-00---00" transform="translate(-302, -738)">
+            <g id="icon-retry" transform="translate(302, 738)">
+              <text id="RETRY" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                <tspan x="0.851074219" y="37">RETRY</tspan>
+              </text>
+              <g id="arrow-retry" transform="translate(4, 0)" fill="#fff" fill-rule="nonzero">
+                <path
+                  d="M13.4918439,0 C7.75606199,-0.000796072417 3.07928399,4.5944661 2.98368767,10.325 L1.42497783,8.96875 C1.05989384,8.67492329 0.527988496,8.7205009 0.21829939,9.07214718 C-0.0913897156,9.42379347 -0.0690052759,9.95676748 0.269080645,10.28125 L3.29893236,12.90625 C3.62205979,13.1716525 4.08791813,13.1716525 4.41104556,12.90625 L7.79116915,10.28125 C8.07415324,9.9627877 8.08657068,9.48699187 7.82058256,9.15422457 C7.55459444,8.82145728 7.08746406,8.72837963 6.71408314,8.93375 L4.73504705,10.5 C4.73504705,5.66750844 8.65559855,1.75 13.4918439,1.75 C18.3280893,1.75 22.2486408,5.66750844 22.2486408,10.5 C22.2486408,15.3324916 18.3280893,19.25 13.4918439,19.25 C13.0082194,19.25 12.6161642,19.6417508 12.6161642,20.125 C12.6161642,20.6082492 13.0082194,21 13.4918439,21 C19.2953383,21 24,16.2989898 24,10.5 C24,4.70101019 19.2953383,0 13.4918439,0 Z"
+                  id="Path"></path>
+              </g>
+            </g>
+          </g>
+        </g>
       </svg>
+
+
+
 
     </div>
   </div>
@@ -218,7 +282,7 @@ swiper-container {
 }
 
 .swiper-tinder-button {
-  @apply w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-md cursor-pointer transition-transform duration-200;
+  @apply flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200;
 }
 
 .swiper-tinder-button:hover {
@@ -241,6 +305,20 @@ swiper-container {
 swiper-slide {
   perspective: 1000px;
   /* Adjust as needed for more/less depth */
+}
+
+.swiper-tinder {
+  box-sizing: border-box;
+}
+
+.swiper-tinder .swiper-slide {
+  overflow: hidden;
+}
+
+.swiper-tinder .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-face.decision {
@@ -281,7 +359,6 @@ swiper-slide {
 }
 
 .card-back {
-  background-color: #FF9800;
   transform: rotateY(180deg);
 }
 
@@ -342,14 +419,6 @@ swiper-slide {
   background-color: red;
   left: 10px;
   top: 10px;
-}
-
-.swiper-tinder-button {
-  // Add your button styles here
-}
-
-.swiper-tinder-button-active {
-  // Add styles for active state
 }
 
 .swiper-tinder-button-hidden {
@@ -421,7 +490,7 @@ swiper-slide {
 }
 
 .card-back {
-  background-color: #FF9800;
+  background-color: #000;
   transform: rotateY(180deg);
 }
 
@@ -438,6 +507,79 @@ swiper-slide {
 
 
 // Add this new rule
+.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
+  opacity: 1;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  perspective: 1000px;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 24px;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-content {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.card-text {
+  margin: 0;
+}
+
+.reveal-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-tinder-label {
+  position: absolute;
+  top: 20px;
+  font-weight: bold;
+  transition: opacity 0.3s;
+  z-index: 10;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.swiper-tinder-label-yes {
+  right: 20px;
+  color: var(--swiper-tinder-yes-color, #4fca74);
+}
+
+.swiper-tinder-label-no {
+  left: 20px;
+  color: var(--swiper-tinder-no-color, #ff689f);
+}
+
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
   opacity: 1;
 }

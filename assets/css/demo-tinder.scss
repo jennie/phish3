@@ -55,11 +55,11 @@ body {
     height: 50%;
     pointer-events: none;
     content: '';
-    background-image: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.95) 50%,
-      rgba(0, 0, 0, 0)
-    );
+    // background-image: linear-gradient(
+    //   to top,
+    //   rgba(0, 0, 0, 0.95) 50%,
+    //   rgba(0, 0, 0, 0)
+    // );
     z-index: 10;
   }
 }
