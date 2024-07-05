@@ -60,7 +60,7 @@ export default [
       },
       {
         type: "story",
-        text: "Finally, we're going to look at their call to action and signature.",
+        text: "Finally, we're going to look at the email's call to action and signature.",
         trustLabel: "Hmm…",
         distrustLabel: "Hmm…",
         isFlipped: false,
