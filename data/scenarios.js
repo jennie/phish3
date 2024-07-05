@@ -37,7 +37,7 @@ export default [
       {
         type: "story",
         text: "I'm me, the one and only Beejou! Could you watch my things while I go and sort this out?",
-        trustLabel: "Can I take a look at that email?",
+        trustLabel: "Let me take a look…",
         distrustLabel: "Go Back",
         isFlipped: false,
         image: "/images/demo-lounge-beejou-worried.png",
