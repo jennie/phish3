@@ -24,7 +24,7 @@ export default [
         trustLabel: "Oh no…",
         distrustLabel: "Go Back",
         isFlipped: false,
-        image: "/images/demo-lounge-beejou-worried.png",
+        image: "/images/demo-lounge-beejou-close.png",
       },
       {
         type: "story",
@@ -32,7 +32,7 @@ export default [
         trustLabel: "…verify?",
         distrustLabel: "Go Back",
         isFlipped: false,
-        image: "/images/demo-lounge-beejou-worried.png",
+        image: "/images/demo-lounge-beejou-close.png",
       },
       {
         type: "story",
@@ -52,7 +52,7 @@ export default [
       },
       {
         type: "story",
-        text: "Next, we're going to look at the body.",
+        text: "Next, we're going to look at the email's body.",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
         isFlipped: false,
