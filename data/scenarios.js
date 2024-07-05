@@ -12,7 +12,7 @@ export default [
       },
       {
         type: "story",
-        text: "Ah! Oh! I'm so glad you're here!",
+        text: "Beejou enters anxiously: Ah! Oh! I'm so glad you're here!",
         trustLabel: "Did something happen?",
         distrustLabel: "Hey Beejou!",
         isFlipped: false,
@@ -28,7 +28,7 @@ export default [
       },
       {
         type: "story",
-        text: "They're gonna lock my account if I don't verify my identity... That can't be good.",
+        text: "They're gonna lock my account if I don't verify my identity...That can't be good.",
         trustLabel: "…verify?",
         distrustLabel: "Go Back",
         isFlipped: false,
@@ -60,9 +60,9 @@ export default [
       },
       {
         type: "story",
-        text: "What they're asking for and their signature",
-        trustLabel: "This looks serious",
-        distrustLabel: "This seems fishy",
+        text: "Finally, we're going to look at their call to action and signature.",
+        trustLabel: "Hmm…",
+        distrustLabel: "Hmm…",
         isFlipped: false,
         image: "/images/demo-email-closing.png",
       },
