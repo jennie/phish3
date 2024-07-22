@@ -143,10 +143,10 @@ import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '../composables/gameState';
 
 register();
+// import '~/assets/css/effect-tinder.scss';
 
-import 'swiper/scss';
-import '~/assets/css/effect-tinder.scss';
-import '~/assets/css/demo-tinder.scss';
+// import 'swiper/scss';
+// import '~/assets/css/demo-tinder.scss';
 
 const modules = [EffectTinder];
 const swiperRef = ref(null);
@@ -292,20 +292,96 @@ watch(decisionFeedback, (newFeedback, oldFeedback) => {
   --swiper-tinder-button-icon-size: 32px;
 }
 
-.swiper-tinder-container {
-  @apply relative w-full;
+html,
+body {
+  @apply relative h-full m-0 p-0;
 }
 
-.swiper-wrapper {
-  @apply relative;
+body {
+  @apply bg-black leading-normal font-sans antialiased px-4;
+}
+
+#app {
+  @apply h-screen w-full flex items-center justify-center box-border bg-black;
+}
+
+.swiper-tinder {
+  @apply p-4 w-full h-full;
+}
+
+.swiper-slide {
+  @apply rounded-2xl overflow-hidden;
+}
+
+.swiper-slide::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  pointer-events: none;
+  content: '';
+  z-index: 10;
+}
+
+.swiper-slide img {
+  @apply w-full h-full object-cover;
+}
+
+.answer-slide {
+  transform-origin: center center;
+  background-color: #bbeeee;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='1600' viewBox='0 0 50 4000'%3E%3Cg fill='%23FFF'%3E%3Ccircle cx='25' cy='2226' r='24'/%3E%3Ccircle cx='25' cy='2176' r='23'/%3E%3Ccircle cx='25' cy='2126' r='22'/%3E%3Ccircle cx='25' cy='2076' r='21'/%3E%3Ccircle cx='25' cy='2026' r='20'/%3E%3Ccircle cx='25' cy='1976' r='19'/%3E%3Ccircle cx='25' cy='1926' r='18'/%3E%3Ccircle cx='25' cy='1876' r='17'/%3E%3Ccircle cx='25' cy='1826' r='16'/%3E%3Ccircle cx='25' cy='1776' r='15'/%3E%3Ccircle cx='25' cy='1726' r='14'/%3E%3Ccircle cx='25' cy='1676' r='13'/%3E%3Ccircle cx='25' cy='1626' r='12'/%3E%3Ccircle cx='25' cy='1576' r='11'/%3E%3Ccircle cx='25' cy='1526' r='10'/%3E%3Ccircle cx='25' cy='1476' r='9'/%3E%3Ccircle cx='25' cy='1426' r='8'/%3E%3Ccircle cx='25' cy='1376' r='7'/%3E%3Ccircle cx='25' cy='1326' r='6'/%3E%3Ccircle cx='25' cy='1276' r='5'/%3E%3Ccircle cx='25' cy='1226' r='4'/%3E%3Ccircle cx='25' cy='1176' r='3'/%3E%3Ccircle cx='25' cy='1126' r='2'/%3E%3Ccircle cx='25' cy='1076' r='1'/%3E%3Ccircle cx='50' cy='2201' r='24'/%3E%3Ccircle cx='50' cy='2151' r='23'/%3E%3Ccircle cx='50' cy='2101' r='22'/%3E%3Ccircle cx='50' cy='2051' r='21'/%3E%3Ccircle cx='50' cy='2001' r='20'/%3E%3Ccircle cx='50' cy='1951' r='19'/%3E%3Ccircle cx='50' cy='1901' r='18'/%3E%3Ccircle cx='50' cy='1851' r='17'/%3E%3Ccircle cx='50' cy='1801' r='16'/%3E%3Ccircle cx='50' cy='1751' r='15'/%3E%3Ccircle cx='50' cy='1701' r='14'/%3E%3Ccircle cx='50' cy='1651' r='13'/%3E%3Ccircle cx='50' cy='1601' r='12'/%3E%3Ccircle cx='50' cy='1551' r='11'/%3E%3Ccircle cx='50' cy='1501' r='10'/%3E%3Ccircle cx='50' cy='1451' r='9'/%3E%3Ccircle cx='50' cy='1401' r='8'/%3E%3Ccircle cx='50' cy='1351' r='7'/%3E%3Ccircle cx='50' cy='1301' r='6'/%3E%3Ccircle cx='50' cy='1251' r='5'/%3E%3Ccircle cx='50' cy='1201' r='4'/%3E%3Ccircle cx='50' cy='1151' r='3'/%3E%3Ccircle cx='50' cy='1101' r='2'/%3E%3Ccircle cx='50' cy='1051' r='1'/%3E%3Ccircle cx='0' cy='2201' r='24'/%3E%3Ccircle cx='0' cy='2151' r='23'/%3E%3Ccircle cx='0' cy='2101' r='22'/%3E%3Ccircle cx='0' cy='2051' r='21'/%3E%3Ccircle cx='0' cy='2001' r='20'/%3E%3Ccircle cx='0' cy='1951' r='19'/%3E%3Ccircle cx='0' cy='1901' r='18'/%3E%3Ccircle cx='0' cy='1851' r='17'/%3E%3Ccircle cx='0' cy='1801' r='16'/%3E%3Ccircle cx='0' cy='1751' r='15'/%3E%3Ccircle cx='0' cy='1701' r='14'/%3E%3Ccircle cx='0' cy='1651' r='13'/%3E%3Ccircle cx='0' cy='1601' r='12'/%3E%3Ccircle cx='0' cy='1551' r='11'/%3E%3Ccircle cx='0' cy='1501' r='10'/%3E%3Ccircle cx='0' cy='1451' r='9'/%3E%3Ccircle cx='0' cy='1401' r='8'/%3E%3Ccircle cx='0' cy='1351' r='7'/%3E%3Ccircle cx='0' cy='1301' r='6'/%3E%3Ccircle cx='0' cy='1251' r='5'/%3E%3Ccircle cx='0' cy='1201' r='4'/%3E%3Ccircle cx='0' cy='1151' r='3'/%3E%3Ccircle cx='0' cy='1101' r='2'/%3E%3Ccircle cx='0' cy='1051' r='1'/%3E%3Crect x='-10' y='2212' width='70' height='1788'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+
+.demo-slide-name {
+  @apply absolute left-0 bottom-0 w-full p-4 pb-24 box-border text-white z-50 text-xl;
+}
+
+.demo-empty-slide {
+  @apply bg-gray-400 flex items-center justify-center text-2xl leading-normal text-center font-bold text-gray-600;
+  text-shadow: 0px 1px 0px #fff;
+}
+
+.demo-empty-slide::before {
+  @apply hidden;
+}
+
+.flip-animate {
+  animation: flip 1s forwards;
+  animation-delay: 1s;
+  opacity: 1;
+}
+
+@keyframes flip {
+  from {
+    transform: perspective(1000px) rotateY(90deg);
+  }
+
+  to {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+}
+
+.swiper-tinder-container {
+  @apply relative w-full h-full flex flex-col;
+}
+
+.swiper-wrapper,
+.slide-inner {
+  @apply flex-grow overflow-hidden;
 }
 
 swiper-container {
-  @apply w-full;
+  @apply w-full h-full;
 }
 
-.slide-inner {
-  @apply w-full relative;
+swiper-slide,
+.card-container,
+.card-face {
+  @apply h-full;
 }
 
 .swiper-tinder-buttons {
@@ -320,39 +396,19 @@ swiper-container {
   @apply scale-110;
 }
 
-
-
-
-/* Assuming .cards-wrapper is the parent of .card-container */
 swiper-slide {
   perspective: 1000px;
-  /* Adjust as needed for more/less depth */
-}
-
-.swiper-tinder {
-  box-sizing: border-box;
-}
-
-.swiper-tinder .swiper-slide {
-  overflow: hidden;
-}
-
-.swiper-tinder .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .card-face.decision {
-  @apply bg-green-300
+  background-color: #00bb77;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
 }
 
 .card-container {
-  width: 100%;
-  height: 100%;
+  @apply w-full h-full relative;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  position: relative;
   perspective: 1000px;
 }
 
@@ -361,132 +417,30 @@ swiper-slide {
 }
 
 .card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  @apply absolute w-full h-full flex flex-col items-center justify-start text-2xl text-white p-5 box-border bg-cover bg-center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
 .card-front {
-  background-color: #2196F3;
-  z-index: 2;
+  @apply bg-blue-500 z-10;
 }
 
 .card-back {
-  background-color: #000;
+  @apply bg-black;
   transform: rotateY(180deg);
-}
-
-
-
-.swiper-tinder-label.visible {
-  opacity: 1;
-}
-
-
-
-
-.swiper-tinder-button-hidden {
-  display: none;
-}
-
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-  perspective: 1000px;
-}
-
-.card-container.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  /* Ensure children are stacked vertically */
-  justify-content: flex-start;
-  /* Align content to the top */
-  font-size: 24px;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.card-front {
-  background-color: #2196F3;
-  z-index: 2;
-}
-
-
-
-
-// Add this new rule
-.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  opacity: 1;
-}
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-  perspective: 1000px;
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 24px;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: center;
 }
 
 .card-content {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px;
-  border-radius: 5px;
-  max-width: 80%;
-  text-align: center;
+  @apply bg-black bg-opacity-70 p-3 rounded max-w-[80%] text-center;
 }
 
 .card-text {
-  margin: 0;
+  @apply m-0;
 }
 
 .reveal-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  @apply flex justify-center items-center w-full h-full;
 }
 
 .swiper-tinder-label {
@@ -495,155 +449,13 @@ swiper-slide {
 
 .swiper-tinder-label-no {
   @apply left-0 text-red-500 text-right;
-  color: red !important;
 }
 
 .swiper-tinder-label-yes {
   @apply right-0 text-green-500 text-left;
-  color: green !important;
 }
 
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  opacity: 1;
-}
-
-:root {
-  --swiper-tinder-no-color: red;
-  --swiper-tinder-yes-color: green;
-  --swiper-tinder-label-text-color: #fff;
-  --swiper-tinder-label-font-size: 32px;
-  --swiper-tinder-button-size: 56px;
-  --swiper-tinder-button-icon-size: 32px;
-}
-
-.swiper-tinder-container {
-  @apply relative w-full;
-}
-
-.swiper-wrapper {
-  @apply relative;
-}
-
-swiper-container {
-  @apply w-full;
-}
-
-.slide-inner {
-  @apply w-full relative;
-}
-
-.swiper-tinder-buttons {
-  @apply flex justify-center gap-5 z-10;
-}
-
-.swiper-tinder-button {
-  @apply flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200;
-}
-
-.swiper-tinder-button:hover {
-  @apply scale-110;
-}
-
-.swiper-tinder-label {
-  position: absolute;
-  top: 20px;
-  font-weight: bold;
-  transition: opacity 0.3s;
-  z-index: 10;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
-}
-
-.swiper-tinder-label-yes {
-  right: 20px;
-  /* Adjust position as needed */
-  background-color: green;
-}
-
-
-.swiper-tinder {
-  box-sizing: border-box;
-}
-
-.swiper-tinder .swiper-slide {
-  overflow: hidden;
-}
-
-.swiper-tinder .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-face.decision {
-  @apply bg-green-300
-}
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-  perspective: 1000px;
-}
-
-.card-container.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  color: white;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.card-front {
-  background-color: #2196F3;
-  z-index: 2;
-}
-
-.card-back {
-  background-color: #000;
-  transform: rotateY(180deg);
-}
-
-.swiper-tinder-label.visible {
-  opacity: 1;
-}
-
-.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  opacity: 1;
-}
-
-.card-content {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px;
-  border-radius: 5px;
-  max-width: 80%;
-  text-align: center;
-}
-
-.card-text {
-  margin: 0;
-}
-
-.reveal-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  @apply opacity-100;
 }
 </style>

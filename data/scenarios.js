@@ -82,7 +82,7 @@ export default [
             "It wants 3 different forms of ID! You warn Beejou that this is likely a scam. She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
         },
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
       {
         type: "reveal",
@@ -90,17 +90,17 @@ export default [
         trustLabel: "I see",
         distrustLabel: "Got it",
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
     ],
   },
-      {
-    id: 05,
+  {
+    id: 5,
     cards: [
       {
         type: "story",
-		text: "One of the best features of Reel Polytechnic's campus is their Pond cafeteria",
-  		trustLabel: "Who else has a Pond?!",
+        text: "One of the best features of Reel Polytechnic's campus is their Pond cafeteria",
+        trustLabel: "Who else has a Pond?!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge.png",
@@ -161,7 +161,7 @@ export default [
             "Sounds like you better be looking for refreshments elsewhere. With features like these, this will take months to complete.",
         },
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
       {
         type: "reveal",
@@ -169,17 +169,17 @@ export default [
         trustLabel: "I see",
         distrustLabel: "Got it",
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
     ],
   },
-    {
-    id: 06,
+  {
+    id: 6,
     cards: [
       {
         type: "story",
         text: "You're enjoying your morning outside, daydreaming about your next visit to The Pond when it reopens.",
-		trustLabel: "Relax and wait...",
+        trustLabel: "Relax and wait...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge.png",
@@ -187,7 +187,7 @@ export default [
       {
         type: "story",
         text: "Beejou flies in, buzzing: Did you see the posters? We're hosting a Four-Armed Basketball tournament!",
-		trustLabel: "Tell me more!",
+        trustLabel: "Tell me more!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge-beejou.png",
@@ -195,7 +195,7 @@ export default [
       {
         type: "story",
         text: "We have to go! I used to play, back in the day, you know!",
-		trustLabel: "Of course!",
+        trustLabel: "Of course!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge-beejou-close.png",
@@ -203,7 +203,7 @@ export default [
       {
         type: "story",
         text: "But there's a problem... I tried to get tickets, and my card isn't working!",
-		trustLabel: "Oh no...",
+        trustLabel: "Oh no...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge-beejou-close.png",
@@ -211,7 +211,7 @@ export default [
       {
         type: "story",
         text: "Can you help me get them? Please, I don't want to miss this!",
-		trustLabel: "Let me check it out...",
+        trustLabel: "Let me check it out...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge-beejou-worried.png",
@@ -246,7 +246,7 @@ export default [
             "Beejou discovers that you can just get tickets at a table by the gym and she says she'll get you a ticket as thanks since you helped her out.",
         },
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
       {
         type: "reveal",
@@ -254,7 +254,7 @@ export default [
         trustLabel: "I see",
         distrustLabel: "Got it",
         isFlipped: false,
-        image: "beejou.jpg",
+        image: "/images/demo-lounge.png",
       },
     ],
   },
