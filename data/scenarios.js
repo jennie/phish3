@@ -94,13 +94,13 @@ export default [
       },
     ],
   },
-      {
-    id: 05,
+  {
+    id: 5,
     cards: [
       {
         type: "story",
-		text: "One of the best features of Reel Polytechnic's campus is their Pond cafeteria",
-  		trustLabel: "Who else has a Pond?!",
+        text: "One of the best features of Reel Polytechnic's campus is their Pond cafeteria",
+        trustLabel: "Who else has a Pond?!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "/images/demo-lounge.png",
@@ -173,13 +173,13 @@ export default [
       },
     ],
   },
-    {
-    id: 06,
+  {
+    id: 6,
     cards: [
       {
         type: "story",
         text: "You're enjoying your morning outside, daydreaming about your next visit to The Pond when it reopens.",
-		trustLabel: "Relax and wait...",
+        trustLabel: "Relax and wait...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -187,7 +187,7 @@ export default [
       {
         type: "story",
         text: "Beejou flies in, buzzing: Did you see the posters? We're hosting a Four-Armed Basketball tournament!",
-		trustLabel: "Tell me more!",
+        trustLabel: "Tell me more!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -195,7 +195,7 @@ export default [
       {
         type: "story",
         text: "We have to go! I used to play, back in the day, you know!",
-		trustLabel: "Of course!",
+        trustLabel: "Of course!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -203,7 +203,7 @@ export default [
       {
         type: "story",
         text: "But there's a problem... I tried to get tickets, and my card isn't working!",
-		trustLabel: "Oh no...",
+        trustLabel: "Oh no...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -211,7 +211,7 @@ export default [
       {
         type: "story",
         text: "Can you help me get them? Please, I don't want to miss this!",
-		trustLabel: "Let me check it out...",
+        trustLabel: "Let me check it out...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -258,13 +258,13 @@ export default [
       },
     ],
   },
-      {
-    id: 07,
+  {
+    id: 7,
     cards: [
       {
         type: "story",
         text: "You're sitting out on the grass, sipping your coffee and catching up on some reading.",
-		trustLabel: "Enjoy the moment...",
+        trustLabel: "Enjoy the moment...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -272,7 +272,7 @@ export default [
       {
         type: "story",
         text: "Beejou calls you: Guess what! Beeyonce is coming to campus!!",
-		trustLabel: "Really?",
+        trustLabel: "Really?",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -280,15 +280,15 @@ export default [
       {
         type: "story",
         text: "I just got an email from my Beeyonce fan community with an exclusive link to buy tickets before they go on sale to the public!",
-		rustLabel: "Sounds awesome!",
+        trustLabel: "Sounds awesome!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
       },
       {
         type: "story",
-        text: "I'm so excited, but also a little nervous..."
-		trustLabel: "Why's that?",
+        text: "I'm so excited, but also a little nervous...",
+        trustLabel: "Why's that?",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -296,7 +296,7 @@ export default [
       {
         type: "story",
         text: "It opens a link that asks for my student ID and credit card info. Do you think it's ok?",
-		trustLabel: "Let's look together.",
+        trustLabel: "Let's look together.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -304,7 +304,7 @@ export default [
       {
         type: "story",
         text: "Take a look at the URL",
-		trustLabel: "Okay...",
+        trustLabel: "Okay...",
         distrustLabel: "Back",
         isFlipped: false,
         image: "",
@@ -312,14 +312,14 @@ export default [
       {
         type: "story",
         text: "Next, we're going to look at the webpage.",
-		trustLabel: "Keep looking…",
+        trustLabel: "Keep looking…",
         distrustLabel: "Back",
       },
       {
         type: "decision",
         text: "Should Beejou trust the site?",
-		trustLabel: "Yes! Let's get tickets!"
-		distrustLabel: "Maybe we shouldn't."
+        trustLabel: "Yes! Let's get tickets!",
+        distrustLabel: "Maybe we shouldn't.",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
@@ -343,8 +343,8 @@ export default [
       },
     ],
   },
-      {
-    id: 08,
+  {
+    id: 8,
     cards: [
       {
         type: "story",
@@ -438,13 +438,13 @@ export default [
       },
     ],
   },
-      {
-    id: 09,
+  {
+    id: 9,
     cards: [
       {
         type: "story",
         text: "You're checking your email in between power naps at the campus library.",
-  		trustLabel: "It's so quiet…",
+        trustLabel: "It's so quiet…",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -479,7 +479,7 @@ export default [
         trustLabel: "Seems interesting.",
         distrustLabel: "Back",
       },
-	  {
+      {
         type: "story",
         text: "Finally, let's look at the offer and the signature.",
         trustLabel: "Sounds appealing...",
@@ -488,12 +488,12 @@ export default [
       {
         type: "decision",
         text: "Do you trust this offer?",
-        trustLabel: "I want books!"
-        distrustLabel: "This isn't right!"
+        trustLabel: "I want books!",
+        distrustLabel: "This isn't right!",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
-            "It's worrying when you crack open the dusty .pdf of "Key Study Habits for Sucess. It's just a single paged document listing out 3 study habits: 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast.",
+            "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' It's just a single paged document listing out 3 study habits: 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast.",
         },
         distrustChoice: {
           consequences: { trust: 5, security: 10, gooseInfiltration: -5 },
@@ -513,13 +513,13 @@ export default [
       },
     ],
   },
-      {
+  {
     id: 10,
     cards: [
       {
         type: "story",
         text: "You're working late in the study lounge getting some last minute things done before you go home.",
-		trustLabel: "Gotta finish...",
+        trustLabel: "Gotta finish...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -573,8 +573,8 @@ export default [
       {
         type: "decision",
         text: "Is this email legit?",
-        trustLabel: "Give my feedback!"
-        distrustLabel: "They want my thoughts?"
+        trustLabel: "Give my feedback!",
+        distrustLabel: "They want my thoughts?",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
@@ -598,13 +598,13 @@ export default [
       },
     ],
   },
-      {
+  {
     id: 11,
     cards: [
       {
         type: "story",
         text: "Your computer's going into red alert mode!!! There's a flashing software update message for BugBuster Antivirus!",
-		trustLabel: "Check the message...",
+        trustLabel: "Check the message...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -612,7 +612,7 @@ export default [
       {
         type: "story",
         text: "You're unsure whether to trust it.",
-		trustLabel: "Call for help?",
+        trustLabel: "Call for help?",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -620,7 +620,7 @@ export default [
       {
         type: "story",
         text: "You call the IT service desk for help. They ask you to meet them at The Pond, where they're busy angling the phish.",
-		trustLabel: "Head to The Pond.",
+        trustLabel: "Head to The Pond.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -628,7 +628,7 @@ export default [
       {
         type: "story",
         text: "One of them looks up and says: Hey there! Let's see what's going on with your computer.",
-		trustLabel: "Explain the issue.",
+        trustLabel: "Explain the issue.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -636,7 +636,7 @@ export default [
       {
         type: "story",
         text: "Ah, yes! They mentioned this update was talked about on BugBuster's blog.",
-		trustLabel: "Tell me more.",
+        trustLabel: "Tell me more.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -644,7 +644,7 @@ export default [
       {
         type: "story",
         text: "It says this update fixes a security bug. It's important to install it for your safety.",
-		trustLabel: "Lemmie think...",
+        trustLabel: "Lemmie think...",
         distrustLabel: "Back",
         isFlipped: false,
         image: "",
@@ -652,8 +652,8 @@ export default [
       {
         type: "decision",
         text: "Is this update legit?",
-		trustLabel: "Looks like the real deal!"
-		distrustLabel: "Something's not right!"
+        trustLabel: "Looks like the real deal!",
+        distrustLabel: "Something's not right!",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
@@ -677,13 +677,13 @@ export default [
       },
     ],
   },
-      {
+  {
     id: 12,
     cards: [
       {
         type: "story",
         text: "You're researching at the library and get a frantic text from Beejou.",
-		trustLabel: "What's happening?",
+        trustLabel: "What's happening?",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -691,7 +691,7 @@ export default [
       {
         type: "story",
         text: "Beejou: AAA DONT CLIKC FOR FREE FLOPWERS!!!",
-		trustLabel: "What??",
+        trustLabel: "What??",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -699,7 +699,7 @@ export default [
       {
         type: "story",
         text: "You rush to find Beejou. She looks desperate and worried about her computer.",
-		trustLabel: "What's wrong?",
+        trustLabel: "What's wrong?",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -707,7 +707,7 @@ export default [
       {
         type: "story",
         text: "All I did was click a link to get free flowers and now my computer's locked!",
-		trustLabel: "Let's get help!",
+        trustLabel: "Let's get help!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -715,7 +715,7 @@ export default [
       {
         type: "story",
         text: "You take Beejou to the IT service team to check over her computer. They're catching phish, but they're happy to help.",
-		trustLabel: "Explain the situation.",
+        trustLabel: "Explain the situation.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -723,54 +723,54 @@ export default [
       {
         type: "story",
         text: "(beaver 1): Oh my, this looks like ransomware!",
-		rustLabel: "What can we do?",
+        rustLabel: "What can we do?",
         distrustLabel: "Back",
         isFlipped: false,
         image: "",
       },
       {
         text: "(beaver 2): We can try to fix it, but Beejou you need to be careful with suspicious emails.",
-		trustLabel: "Thank you!",
+        trustLabel: "Thank you!",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
         isFlipped: false,
-        image: "",		
+        image: "",
       },
-	        {
+      {
         text: "As they work on Beejou's computer, you receive a notification. It's the same email!",
-		trustLabel: "Show them.",
+        trustLabel: "Show them.",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
         isFlipped: false,
-        image: "",		
+        image: "",
       },
-	        {
+      {
         text: "(beaver 2): Since you're already here, let's walk through it together.",
-		trustLabel: "Read the email.",
+        trustLabel: "Read the email.",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
         isFlipped: false,
-        image: "",		
+        image: "",
       },
-	        {
+      {
         text: "Hmm. Now, let's look at the body.",
-		trustLabel: "Okay...",
-		distrustLabel: "Back",
+        trustLabel: "Okay...",
+        distrustLabel: "Back",
         isFlipped: false,
-        image: "",		
+        image: "",
       },
-	        {
+      {
         text: "I can see how Beejou was fooled.",
-		trustLabel: "Me too...",
-		distrustLabel: "Back",
+        trustLabel: "Me too...",
+        distrustLabel: "Back",
         isFlipped: false,
-        image: "",		
+        image: "",
       },
       {
         type: "decision",
-		text: "What do you think about this offer?",
-		trustLabel: "It could be legit.."
-		distrustLabel: "So suspicious!"
+        text: "What do you think about this offer?",
+        trustLabel: "It could be legit..",
+        distrustLabel: "So suspicious!",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
@@ -794,13 +794,13 @@ export default [
       },
     ],
   },
-      {
+  {
     id: 13,
     cards: [
       {
         type: "story",
         text: "You recently read that the Campus Cafe is trying out a new robotic coffee handler.",
-		trustLabel: "Robot coffee!",
+        trustLabel: "Robot coffee!",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -808,7 +808,7 @@ export default [
       {
         type: "story",
         text: "There's a special right now that uses AI to craft the perfect morning beverage based entirely on your mood!",
-		trustLabel: "I'm curious...",
+        trustLabel: "I'm curious...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -816,7 +816,7 @@ export default [
       {
         type: "story",
         text: "But, when you get your coffee, it just doesn't taste right. It doesn't seem like it's actually yours.",
-		trustLabel: "I don't trust it...",
+        trustLabel: "I don't trust it...",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -824,7 +824,7 @@ export default [
       {
         type: "story",
         text: "You call the IT support team for help. They listen to your problem.",
-		trustLabel: "Hear them out.",
+        trustLabel: "Hear them out.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -832,7 +832,7 @@ export default [
       {
         type: "story",
         text: "(beaver 1): Bring it to The Pond and we'll test it for you!",
-		trustLabel: "Head over there.",
+        trustLabel: "Head over there.",
         distrustLabel: "Go back",
         isFlipped: false,
         image: "",
@@ -840,7 +840,7 @@ export default [
       {
         type: "story",
         text: "You arrive at The Pond, coffee in hand. They slap the water with their tails, looking excited.",
-		trustLabel: "Hand it over.",
+        trustLabel: "Hand it over.",
         distrustLabel: "Back",
         isFlipped: false,
         image: "",
@@ -848,14 +848,14 @@ export default [
       {
         type: "story",
         text: "(beaver 1): Let's take a look...",
-		trustLabel: "Watch closely.",
+        trustLabel: "Watch closely.",
         distrustLabel: "Back",
       },
       {
         type: "decision",
         text: "You start to suspect that they might just be aiming to get a free drink out of you.",
-		trustLabel: "Is this my mood coffee?",
-		distrustLabel: "I'll take it back!",
+        trustLabel: "Is this my mood coffee?",
+        distrustLabel: "I'll take it back!",
         trustChoice: {
           consequences: { trust: -10, security: -15, gooseInfiltration: 10 },
           feedback:
