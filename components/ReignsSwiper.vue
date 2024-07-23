@@ -147,6 +147,7 @@ import { ref, onMounted, watch, nextTick } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '../composables/gameState';
+import '/assets/css/styles.css';
 
 register();
 
@@ -204,19 +205,26 @@ const handleSlideChange = (swiper) => {
   const currentCard = currentScenario.value.cards[newIndex];
   console.log('Current card:', currentCard);
 
-  if (currentCard && currentCard.type === 'reveal') {
+  if (currentCard.type === 'reveal') {
     console.log('Current card is a reveal card, flipping');
     flipRevealCard(newIndex);
-  }
-};
+  } else if (currentCard.type === 'decision') {
+    // Reset decision feedback when arriving at a new decision card
+    decisionFeedback.value = '';
 
-const onSwiperInitialized = (swiperInstance) => {
-  swiper.value = swiperInstance;
-  swiper.value.on('slideChange', handleSlideChange);
-  swiper.value.on('tinderSwipe', (s, direction) => {
-    console.log('🐯 Swipe detected:', direction);
-    // handleTinderSwipe(direction)
-  });
+    // Find the previous decision card if it exists
+    const previousDecisionCard = currentScenario.value.cards
+      .slice(0, newIndex)
+      .reverse()
+      .find(card => card.type === 'decision');
+
+    if (previousDecisionCard && lastDecisionDirection.value) {
+      const isTrust = lastDecisionDirection.value === 'right';
+      decisionFeedback.value = isTrust
+        ? previousDecisionCard.trustChoice.feedback
+        : previousDecisionCard.distrustChoice.feedback;
+    }
+  }
 };
 
 const initializeSwiper = async () => {
@@ -268,16 +276,6 @@ watch(decisionFeedback, (newFeedback) => {
   console.log('Decision feedback changed:', newFeedback);
 });
 
-watch(playerState, (newState) => {
-  console.log('Player state updated:', newState);
-}, { deep: true });
-
-
-const currentCardLabel = (type) => {
-  const activeIndex = swiper.value?.activeIndex || 0;
-  const currentCard = currentScenario.value.cards[activeIndex];
-  return type === 'trust' ? currentCard.trustLabel : currentCard.distrustLabel;
-};
 
 const swipeLeft = () => {
   if (swiper.value) {
@@ -309,216 +307,5 @@ watch(currentCardIndex, (newIndex) => {
     }
   }
 });
-watch(() => swiper.value?.activeIndex, (newIndex) => {
-  if (newIndex !== undefined) {
-    const currentCard = currentScenario.value.cards[newIndex];
-    if (currentCard.type === 'reveal') {
-      // Find the previous decision card
-      const previousDecisionCard = currentScenario.value.cards
-        .slice(0, newIndex)
-        .reverse()
-        .find(card => card.type === 'decision');
 
-      if (previousDecisionCard) {
-        // Assume the last decision was "trust" if feedback is not set
-        const lastDecisionWasTrust = decisionFeedback.value === previousDecisionCard.trustChoice.feedback;
-        decisionFeedback.value = lastDecisionWasTrust
-          ? previousDecisionCard.trustChoice.feedback
-          : previousDecisionCard.distrustChoice.feedback;
-      }
-    }
-  }
-});
 </script>
-
-
-<style lang="scss">
-:root {
-  --swiper-tinder-no-color: red;
-  --swiper-tinder-yes-color: green;
-  --swiper-tinder-label-text-color: #fff;
-  --swiper-tinder-label-font-size: 32px;
-  --swiper-tinder-button-size: 56px;
-  --swiper-tinder-button-icon-size: 32px;
-}
-
-html,
-body {
-  @apply relative h-full m-0 p-0;
-}
-
-body {
-  @apply bg-black leading-normal font-sans antialiased px-4;
-}
-
-#app {
-  @apply h-screen w-full flex items-center justify-center box-border bg-black;
-}
-
-.swiper-tinder {
-  @apply p-4 w-full h-full;
-}
-
-.swiper-slide {
-  @apply rounded-2xl overflow-hidden;
-}
-
-.swiper-slide::before {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 50%;
-  pointer-events: none;
-  content: '';
-  z-index: 10;
-}
-
-.swiper-slide img {
-  @apply w-full h-full object-cover;
-}
-
-.answer-slide {
-  transform-origin: center center;
-  background-color: #bbeeee;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='1600' viewBox='0 0 50 4000'%3E%3Cg fill='%23FFF'%3E%3Ccircle cx='25' cy='2226' r='24'/%3E%3Ccircle cx='25' cy='2176' r='23'/%3E%3Ccircle cx='25' cy='2126' r='22'/%3E%3Ccircle cx='25' cy='2076' r='21'/%3E%3Ccircle cx='25' cy='2026' r='20'/%3E%3Ccircle cx='25' cy='1976' r='19'/%3E%3Ccircle cx='25' cy='1926' r='18'/%3E%3Ccircle cx='25' cy='1876' r='17'/%3E%3Ccircle cx='25' cy='1826' r='16'/%3E%3Ccircle cx='25' cy='1776' r='15'/%3E%3Ccircle cx='25' cy='1726' r='14'/%3E%3Ccircle cx='25' cy='1676' r='13'/%3E%3Ccircle cx='25' cy='1626' r='12'/%3E%3Ccircle cx='25' cy='1576' r='11'/%3E%3Ccircle cx='25' cy='1526' r='10'/%3E%3Ccircle cx='25' cy='1476' r='9'/%3E%3Ccircle cx='25' cy='1426' r='8'/%3E%3Ccircle cx='25' cy='1376' r='7'/%3E%3Ccircle cx='25' cy='1326' r='6'/%3E%3Ccircle cx='25' cy='1276' r='5'/%3E%3Ccircle cx='25' cy='1226' r='4'/%3E%3Ccircle cx='25' cy='1176' r='3'/%3E%3Ccircle cx='25' cy='1126' r='2'/%3E%3Ccircle cx='25' cy='1076' r='1'/%3E%3Ccircle cx='50' cy='2201' r='24'/%3E%3Ccircle cx='50' cy='2151' r='23'/%3E%3Ccircle cx='50' cy='2101' r='22'/%3E%3Ccircle cx='50' cy='2051' r='21'/%3E%3Ccircle cx='50' cy='2001' r='20'/%3E%3Ccircle cx='50' cy='1951' r='19'/%3E%3Ccircle cx='50' cy='1901' r='18'/%3E%3Ccircle cx='50' cy='1851' r='17'/%3E%3Ccircle cx='50' cy='1801' r='16'/%3E%3Ccircle cx='50' cy='1751' r='15'/%3E%3Ccircle cx='50' cy='1701' r='14'/%3E%3Ccircle cx='50' cy='1651' r='13'/%3E%3Ccircle cx='50' cy='1601' r='12'/%3E%3Ccircle cx='50' cy='1551' r='11'/%3E%3Ccircle cx='50' cy='1501' r='10'/%3E%3Ccircle cx='50' cy='1451' r='9'/%3E%3Ccircle cx='50' cy='1401' r='8'/%3E%3Ccircle cx='50' cy='1351' r='7'/%3E%3Ccircle cx='50' cy='1301' r='6'/%3E%3Ccircle cx='50' cy='1251' r='5'/%3E%3Ccircle cx='50' cy='1201' r='4'/%3E%3Ccircle cx='50' cy='1151' r='3'/%3E%3Ccircle cx='50' cy='1101' r='2'/%3E%3Ccircle cx='50' cy='1051' r='1'/%3E%3Ccircle cx='0' cy='2201' r='24'/%3E%3Ccircle cx='0' cy='2151' r='23'/%3E%3Ccircle cx='0' cy='2101' r='22'/%3E%3Ccircle cx='0' cy='2051' r='21'/%3E%3Ccircle cx='0' cy='2001' r='20'/%3E%3Ccircle cx='0' cy='1951' r='19'/%3E%3Ccircle cx='0' cy='1901' r='18'/%3E%3Ccircle cx='0' cy='1851' r='17'/%3E%3Ccircle cx='0' cy='1801' r='16'/%3E%3Ccircle cx='0' cy='1751' r='15'/%3E%3Ccircle cx='0' cy='1701' r='14'/%3E%3Ccircle cx='0' cy='1651' r='13'/%3E%3Ccircle cx='0' cy='1601' r='12'/%3E%3Ccircle cx='0' cy='1551' r='11'/%3E%3Ccircle cx='0' cy='1501' r='10'/%3E%3Ccircle cx='0' cy='1451' r='9'/%3E%3Ccircle cx='0' cy='1401' r='8'/%3E%3Ccircle cx='0' cy='1351' r='7'/%3E%3Ccircle cx='0' cy='1301' r='6'/%3E%3Ccircle cx='0' cy='1251' r='5'/%3E%3Ccircle cx='0' cy='1201' r='4'/%3E%3Ccircle cx='0' cy='1151' r='3'/%3E%3Ccircle cx='0' cy='1101' r='2'/%3E%3Ccircle cx='0' cy='1051' r='1'/%3E%3Crect x='-10' y='2212' width='70' height='1788'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-repeat: repeat-x;
-}
-
-.demo-slide-name {
-  @apply absolute left-0 bottom-0 w-full p-4 pb-24 box-border text-white z-50 text-xl;
-}
-
-.demo-empty-slide {
-  @apply bg-gray-400 flex items-center justify-center text-2xl leading-normal text-center font-bold text-gray-600;
-  text-shadow: 0px 1px 0px #fff;
-}
-
-.demo-empty-slide::before {
-  @apply hidden;
-}
-
-.flip-animate {
-  animation: flip 1s forwards;
-  animation-delay: 1s;
-  opacity: 1;
-}
-
-@keyframes flip {
-  from {
-    transform: perspective(1000px) rotateY(90deg);
-  }
-
-  to {
-    transform: perspective(1000px) rotateY(0deg);
-  }
-}
-
-.swiper-tinder-container {
-  @apply relative w-full h-full flex flex-col;
-}
-
-.swiper-wrapper,
-.slide-inner {
-  @apply flex-grow overflow-hidden;
-}
-
-swiper-container {
-  @apply w-full h-full;
-}
-
-swiper-slide,
-.card-container,
-.card-face {
-  @apply h-full;
-}
-
-.swiper-tinder-buttons {
-  @apply flex justify-center gap-5 z-10;
-}
-
-.swiper-tinder-button {
-  @apply flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200;
-}
-
-.swiper-tinder-button:hover {
-  @apply scale-110;
-}
-
-swiper-slide {
-  perspective: 1000px;
-}
-
-.card-face.decision {
-  background-color: #00bb77;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
-}
-
-.card-container {
-  @apply w-full h-full relative;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  transform: rotateY(var(--is-flipped, 0deg));
-}
-
-.card-container.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  @apply absolute w-full h-full flex flex-col items-center justify-start text-2xl text-white p-5 box-border bg-cover bg-center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.card-front {
-  @apply z-10;
-}
-
-.card-back {
-  @apply bg-gray-800 text-white;
-  transform: rotateY(180deg);
-}
-
-.feedback-text {
-  @apply bg-black bg-opacity-70 rounded-lg shadow-lg;
-}
-
-.card-container.is-flipped .card-front {
-  z-index: 0;
-}
-
-.card-container.is-flipped .card-back {
-  z-index: 1;
-
-}
-
-.card-content {
-  @apply bg-black bg-opacity-70 p-3 rounded max-w-[80%] text-center;
-}
-
-.card-text {
-  @apply m-0;
-}
-
-.reveal-icon {
-  @apply flex justify-center items-center w-full h-full;
-}
-
-.swiper-tinder-label {
-  @apply absolute top-20 font-bold transition-opacity pointer-events-none bg-black bg-opacity-70 p-2 z-10;
-}
-
-.swiper-tinder-label-no {
-  @apply left-0 text-red-500 text-right;
-}
-
-.swiper-tinder-label-yes {
-  @apply right-0 text-green-500 text-left;
-}
-
-.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  @apply opacity-100;
-}
-</style>
