@@ -6,12 +6,29 @@ export function useGameState() {
 
   const currentScenarioIndex = ref(0);
   const currentCardIndex = ref(0);
-  const scenarios = ref(scenariosData || []); // Provide a default empty array
   const playerState = ref({
     trust: 50,
     security: 50,
     gooseInfiltration: 0,
   });
+
+  // Function to shuffle an array
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  // Create a randomized sequence of scenarios, keeping the first one (tutorial) in place
+  const randomizeScenarios = () => {
+    const [firstScenario, ...restScenarios] = scenariosData;
+    const shuffledScenarios = shuffleArray(restScenarios);
+    return [firstScenario, ...shuffledScenarios];
+  };
+
+  const scenarios = ref(randomizeScenarios());
 
   const currentScenario = computed(() => {
     console.log(
@@ -40,7 +57,8 @@ export function useGameState() {
       state.trust >= 100 ||
       state.security <= 0 ||
       state.security >= 100 ||
-      state.gooseInfiltration >= 100
+      state.gooseInfiltration >= 100 ||
+      currentScenarioIndex.value >= scenarios.value.length
     );
   });
 
@@ -57,7 +75,7 @@ export function useGameState() {
         newState[key] += choice.consequences[key];
         newState[key] = Math.max(0, Math.min(100, newState[key]));
       });
-      playerState.value = newState; // This should trigger reactivity
+      playerState.value = newState;
     }
   }
 
@@ -69,11 +87,25 @@ export function useGameState() {
       if (currentScenarioIndex.value < scenarios.value.length - 1) {
         currentScenarioIndex.value++;
         currentCardIndex.value = 0;
+        console.log("Moving to next scenario:", currentScenarioIndex.value);
       } else {
         // Game over logic here
         console.log("Game Over");
       }
     }
+    console.log("Next card:", currentCard.value);
+  }
+
+  function nextScenario() {
+    if (currentScenarioIndex.value < scenarios.value.length - 1) {
+      currentScenarioIndex.value++;
+      currentCardIndex.value = 0;
+      console.log("Moving to next scenario:", currentScenarioIndex.value);
+    } else {
+      // Game over logic here
+      console.log("Game Over");
+    }
+    console.log("Next scenario:", currentScenario.value);
   }
 
   function previousCard() {
@@ -87,9 +119,10 @@ export function useGameState() {
     currentCard,
     makeChoice,
     nextCard,
+    nextScenario,
     previousCard,
     gameOver,
     playerState,
-    scenarios: computed(() => scenarios.value), // Make this computed to ensure reactivity
+    scenarios: computed(() => scenarios.value),
   };
 }
