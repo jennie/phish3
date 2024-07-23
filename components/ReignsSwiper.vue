@@ -8,16 +8,19 @@
     </div>
     <div v-if="currentScenario && currentScenario.cards" class="swiper-wrapper flex-grow overflow-hidden relative">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
-        observer observer-parents init="false" class="h-full">
+        observer observer-parents :init="false" class="h-full">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index">
           <div :ref="el => { if (el) cardRefs[index] = el }"
-            :class="['card-container', { 'is-flipped': card.isFlipped }]">
+            :class="['card-container', { 'is-flipped': cardFlipStates[card.id] }]">
             <div class="swiper-tinder-label swiper-tinder-label-yes">{{ card.trustLabel }}</div>
             <div class="swiper-tinder-label swiper-tinder-label-no">{{ card.distrustLabel }}</div>
 
             <div :class="`swiper-slide card-face card-front ${card.type}`"
               :style="{ backgroundImage: `url(${card.image})` }">
-
+              <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white p-2">
+                Type: {{ card.type }}<br>
+                Flipped: {{ cardFlipStates[card.id] }}
+              </div>
               <div class="card-content">
                 <p v-if="card.type === 'reveal'" class="reveal-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -25,21 +28,24 @@
                       d="M14.6 8.075q0-1.075-.712-1.725T12 5.7q-.725 0-1.312.313t-1.013.912q-.4.575-1.088.663T7.4 7.225q-.35-.325-.387-.8t.237-.9q.8-1.2 2.038-1.862T12 3q2.425 0 3.938 1.375t1.512 3.6q0 1.125-.475 2.025t-1.75 2.125q-.925.875-1.25 1.363T13.55 14.6q-.1.6-.513 1t-.987.4t-.987-.387t-.413-.963q0-.975.425-1.787T12.5 11.15q1.275-1.125 1.688-1.737t.412-1.338M12 22q-.825 0-1.412-.587T10 20t.588-1.412T12 18t1.413.588T14 20t-.587 1.413T12 22" />
                   </svg>
                 </p>
+
                 <p v-else class="card-text">{{ card.text }}</p>
+
               </div>
             </div>
             <div class="card-face card-back" v-if="card.type === 'reveal'">
-              <div class="slide-inner h-full flex flex-col">
-                <div class="demo-slide-name p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="card.text">
-                </div>
-                <div class="feedback-text p-2" v-if="decisionFeedback">
-                  {{ decisionFeedback }}
+              <div class="slide-inner h-full flex flex-col justify-between bg-gray-800">
+                <!-- <div class="p-2 bg-gradient-to-b from-transparent to-black to-90%" v-html="card.text" /> -->
+                <div v-if="decisionFeedback" class="feedback-text p-4 bg-black bg-opacity-70">
+
+                  <p>{{ decisionFeedback }}</p>
                 </div>
               </div>
             </div>
           </div>
         </swiper-slide>
       </swiper-container>
+
     </div>
     <div v-else>
       Loading scenarios...
@@ -143,30 +149,129 @@ import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '../composables/gameState';
 
 register();
-// import '~/assets/css/effect-tinder.scss';
-
-// import 'swiper/scss';
-// import '~/assets/css/demo-tinder.scss';
 
 const modules = [EffectTinder];
 const swiperRef = ref(null);
 const swiper = ref(null);
 const cardRefs = ref([]);
+const cardFlipStates = ref({});
 
 const { currentScenario, currentCard, makeChoice, nextCard, previousCard, gameOver, playerState, scenarios } = useGameState();
 
-// New ref to store the feedback
 const decisionFeedback = ref('');
+const currentCardIndex = ref(0);
+const lastDecisionDirection = ref(null);
+const lastDecisionCard = ref(null);
 
 const flipRevealCard = (index) => {
-  if (currentScenario.value.cards[index] && currentScenario.value.cards[index].type === 'reveal') {
-    console.log('Flipping reveal card at index:', index);
-    setTimeout(() => {
-      currentScenario.value.cards[index].isFlipped = true;
-      console.log('Reveal card flipped');
-    }, 1000);  // 1 second delay
+  console.log('Flipping reveal card at index:', index);
+  const card = currentScenario.value.cards[index];
+  if (card && card.type === 'reveal') {
+    cardFlipStates.value[card.id] = true;
+    if (lastDecisionCard.value) {
+      console.log('Previous decision direction:', lastDecisionDirection.value);
+      decisionFeedback.value = lastDecisionDirection.value === 'right'
+        ? lastDecisionCard.value.trustChoice.feedback
+        : lastDecisionCard.value.distrustChoice.feedback;
+      console.log('Set decision feedback:', decisionFeedback.value);
+    } else {
+      console.log('No previous decision card found');
+      decisionFeedback.value = 'No decision has been made yet.';
+    }
+  } else {
+    console.log('Card is not a reveal card:', card);
   }
 };
+
+const handleTinderSwipe = (direction) => {
+  const currentCard = currentScenario.value.cards[currentCardIndex.value];
+
+  if (currentCard.type === 'decision') {
+    console.log('Decision made on card:', currentCard);
+    lastDecisionDirection.value = direction;
+    lastDecisionCard.value = currentCard;
+    const isTrust = direction === 'right';
+    makeChoice(isTrust);
+    console.log(`Choice made: ${isTrust ? 'trust' : 'distrust'}`);
+  }
+};
+
+const handleSlideChange = (swiper) => {
+  const newIndex = swiper.activeIndex;
+  console.log(`Slide changed to ${newIndex}`);
+
+  currentCardIndex.value = newIndex;
+  const currentCard = currentScenario.value.cards[newIndex];
+  console.log('Current card:', currentCard);
+
+  if (currentCard && currentCard.type === 'reveal') {
+    console.log('Current card is a reveal card, flipping');
+    flipRevealCard(newIndex);
+  }
+};
+
+const onSwiperInitialized = (swiperInstance) => {
+  swiper.value = swiperInstance;
+  swiper.value.on('slideChange', handleSlideChange);
+  swiper.value.on('tinderSwipe', (s, direction) => {
+    console.log('🐯 Swipe detected:', direction);
+    // handleTinderSwipe(direction)
+  });
+};
+
+const initializeSwiper = async () => {
+  if (swiperRef.value) {
+    const swiperParams = {
+      modules: [EffectTinder],
+      effect: 'tinder',
+      slidesPerView: 1,
+      allowTouchMove: true,
+      on: {
+        slideChange: handleSlideChange,
+        tinderSwipe: (s, direction) => handleTinderSwipe(direction),
+      },
+    };
+    Object.assign(swiperRef.value, swiperParams);
+    await swiperRef.value.initialize();
+    swiper.value = swiperRef.value.swiper;
+    console.log('Swiper initialized');
+  }
+};
+
+onMounted(async () => {
+  await nextTick();
+  await initializeSwiper();
+});
+
+watch(currentScenario, async (newScenario) => {
+  console.log('Current scenario changed:', newScenario);
+  if (newScenario) {
+    newScenario.cards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `card-${index}`;
+      }
+      cardFlipStates.value[card.id] = false;
+    });
+    decisionFeedback.value = '';
+    lastDecisionDirection.value = null;
+    lastDecisionCard.value = null;
+    currentCardIndex.value = 0;
+    console.log('Reset scenario state');
+
+    // Re-initialize Swiper when scenario changes
+    await nextTick();
+    await initializeSwiper();
+  }
+}, { deep: true });
+
+watch(decisionFeedback, (newFeedback) => {
+  console.log('Decision feedback changed:', newFeedback);
+});
+
+watch(playerState, (newState) => {
+  console.log('Player state updated:', newState);
+}, { deep: true });
+
 
 const currentCardLabel = (type) => {
   const activeIndex = swiper.value?.activeIndex || 0;
@@ -186,86 +291,6 @@ const swipeRight = () => {
   }
 };
 
-onMounted(async () => {
-  console.log("Component mounted. Current scenario:", currentScenario.value);
-  await nextTick();
-  const swiperContainer = swiperRef.value;
-  if (swiperContainer) {
-    console.log('Swiper container found');
-    const swiperParams = {
-      modules: [EffectTinder],
-      effect: 'tinder',
-      slidesPerView: 1,
-      allowTouchMove: true,
-    };
-    Object.assign(swiperContainer, swiperParams);
-    swiperContainer.initialize();
-    swiper.value = swiperContainer.swiper;
-
-    if (swiper.value) {
-      console.log('Swiper initialized');
-      swiper.value.on('sliderFirstMove', () => {
-        const activeSlide = swiper.value.slides[swiper.value.activeIndex];
-        activeSlide.classList.add('swiper-slide-swiping');
-      });
-
-      swiper.value.on('touchEnd', () => {
-        swiper.value.slides.forEach(slide => {
-          slide.classList.remove('swiper-slide-swiping');
-        });
-      });
-      swiper.value.on('tinderSwipe', (s, direction) => {
-        const currentIndex = swiper.value.activeIndex;
-        const currentCard = currentScenario.value.cards[currentIndex];
-        console.log('Tinder swipe:', direction, 'on card type:', currentCard.type);
-
-        if (currentCard.type === 'decision') {
-          const isTrust = direction === 'right';
-          makeChoice(isTrust, currentCard);
-          // Immediately store the feedback after making a choice
-          decisionFeedback.value = isTrust ? currentCard.trustChoice.feedback : currentCard.distrustChoice.feedback;
-        } else if (currentCard.type === 'reveal') {
-          flipRevealCard(currentIndex);
-          // Code for automatically moving to the next card after a delay can be placed here
-        }
-        setFeedbackAfterSwipe(direction);
-
-        // Prepare for the next swipe
-        nextTick(() => {
-          swiper.value.allowSlideNext = true;
-          swiper.value.allowSlidePrev = true;
-        });
-      });
-
-      swiper.value.on('slideChangeTransitionStart', () => {
-        const currentIndex = swiper.value.activeIndex;
-        const currentCard = currentScenario.value.cards[currentIndex];
-
-        // Show labels
-        showTrustLabel.value = true;
-        showDistrustLabel.value = true;
-      });
-
-      swiper.value.on('slideChangeTransitionEnd', () => {
-        const currentIndex = swiper.value.activeIndex;
-        const currentCard = currentScenario.value.cards[currentIndex];
-
-        if (currentCard.type === 'reveal') {
-          flipRevealCard(currentIndex);
-        }
-      });
-    }
-  };
-});
-function setFeedbackAfterSwipe(direction) {
-  const currentIndex = swiper.value.activeIndex;
-  const currentCard = currentScenario.value.cards[currentIndex];
-  if (currentCard.type === 'decision') {
-    const isTrust = direction === 'right';
-    decisionFeedback.value = isTrust ? currentCard.trustChoice.feedback : currentCard.distrustChoice.feedback;
-    console.log('Feedback set to:', decisionFeedback.value); // For debugging
-  }
-}
 // Add this watch to log playerState changes
 watch(playerState, (newState) => {
   console.log('Player state updated:', newState);
@@ -275,9 +300,34 @@ watch(playerState, (newState) => {
 watch(() => cardRefs.value, (newRefs) => {
   console.log('Card refs updated:', newRefs.length);
 }, { deep: true });
-watch(decisionFeedback, (newFeedback, oldFeedback) => {
-  console.log('Feedback changed from:', oldFeedback, 'to:', newFeedback);
-  // You can add any additional logic here to handle the feedback change
+
+watch(currentCardIndex, (newIndex) => {
+  if (newIndex < currentScenario.value.cards.length) {
+    const currentCard = currentScenario.value.cards[newIndex];
+    if (currentCard.type === 'reveal') {
+      flipRevealCard(newIndex);
+    }
+  }
+});
+watch(() => swiper.value?.activeIndex, (newIndex) => {
+  if (newIndex !== undefined) {
+    const currentCard = currentScenario.value.cards[newIndex];
+    if (currentCard.type === 'reveal') {
+      // Find the previous decision card
+      const previousDecisionCard = currentScenario.value.cards
+        .slice(0, newIndex)
+        .reverse()
+        .find(card => card.type === 'decision');
+
+      if (previousDecisionCard) {
+        // Assume the last decision was "trust" if feedback is not set
+        const lastDecisionWasTrust = decisionFeedback.value === previousDecisionCard.trustChoice.feedback;
+        decisionFeedback.value = lastDecisionWasTrust
+          ? previousDecisionCard.trustChoice.feedback
+          : previousDecisionCard.distrustChoice.feedback;
+      }
+    }
+  }
 });
 </script>
 
@@ -409,7 +459,7 @@ swiper-slide {
   @apply w-full h-full relative;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  perspective: 1000px;
+  transform: rotateY(var(--is-flipped, 0deg));
 }
 
 .card-container.is-flipped {
@@ -423,12 +473,25 @@ swiper-slide {
 }
 
 .card-front {
-  @apply bg-blue-500 z-10;
+  @apply z-10;
 }
 
 .card-back {
-  @apply bg-black;
+  @apply bg-gray-800 text-white;
   transform: rotateY(180deg);
+}
+
+.feedback-text {
+  @apply bg-black bg-opacity-70 rounded-lg shadow-lg;
+}
+
+.card-container.is-flipped .card-front {
+  z-index: 0;
+}
+
+.card-container.is-flipped .card-back {
+  z-index: 1;
+
 }
 
 .card-content {
