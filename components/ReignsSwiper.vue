@@ -1,10 +1,10 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
   <div v-else class="swiper-tinder-container h-full bg-black flex flex-col">
-    <div class="floating-text-container flex-none h-1/4 relative z-10">
+    <div class="floating-text-container">
       <Transition name="fade" mode="out-in">
         <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-          class="card-text text-white absolute inset-x-0 bottom-4 text-center px-4">
+          class="card-text text-white inset-x-0 bottom-4 text-center px-4">
           {{ currentCard.text }}
         </p>
         <p v-else-if="lastDecisionText" :key="'last-decision'"
@@ -26,7 +26,7 @@
             <div :class="`swiper-slide card-face card-front ${card.type}`">
               <div class="card-image" :style="{ backgroundImage: `url(${card.image})` }"></div>
               <div class="card-gradient-overlay"></div>
-              <div class="absolute top-0 left-0 bg-red-400 bg-opacity-50 text-white p-2">
+              <div class="hidden absolute top-0 left-0 bg-red-400 bg-opacity-50 text-white p-2">
                 type: {{ card.type }}
               </div>
               <div class="card-content">
@@ -207,7 +207,8 @@ const currentCard = computed(() => {
   }
   return null;
 });
-const handleTinderSwipe = (s, direction) => {
+
+const handleTinderSwipe = async (s, direction) => {
   if (!isDataReady.value) return;
 
   if (!currentCard.value) return;
@@ -218,13 +219,12 @@ const handleTinderSwipe = (s, direction) => {
     decisionFeedback.value = isTrust
       ? currentCard.value.trustChoice?.feedback
       : currentCard.value.distrustChoice?.feedback;
-    lastDecisionText.value = currentCard.value.text; // Store the decision card text
+    lastDecisionText.value = currentCard.value.text;
     s.slideNext();
   } else if (currentCard.value.type === 'reveal') {
     if (isRevealCardFlipped.value) {
-      transitionToNextScenario();
+      await transitionToNextScenario();
     } else {
-      console.log("Flipping reveal card");
       flipRevealCard(currentCardIndex.value);
     }
   }
@@ -239,32 +239,25 @@ const handleSlideChange = (s) => {
   const card = currentCard.value;
 
   if (card?.type === 'reveal') {
-    // Clear any existing timeout
     if (flipTimeout.value) {
       clearTimeout(flipTimeout.value);
     }
-    // Set a new timeout to flip the card after 1 second
     flipTimeout.value = setTimeout(() => {
       if (!isRevealCardFlipped.value) {
-        isRevealCardFlipped.value = true;
-        cardFlipStates.value[card.id] = true;
-        s.allowSlideNext = true;
+        flipRevealCard(currentCardIndex.value);
       }
     }, 1000);
   } else {
     isRevealCardFlipped.value = false;
-    decisionFeedback.value = ''; // Clear the feedback when moving to a non-reveal card
-
+    decisionFeedback.value = '';
   }
 };
 const flipRevealCard = (index) => {
   const card = currentScenario.value.cards[index];
   if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
-    // Clear any existing timeout
     if (flipTimeout.value) {
       clearTimeout(flipTimeout.value);
     }
-    // Set a new timeout to flip the card after 1 second
     flipTimeout.value = setTimeout(() => {
       cardFlipStates.value[card.id] = true;
       isRevealCardFlipped.value = true;
@@ -281,7 +274,7 @@ const transitionToNextScenario = async () => {
   await nextScenario();
   currentCardIndex.value = 0;
   isRevealCardFlipped.value = false;
-  decisionFeedback.value = ''; // Clear the feedback
+  decisionFeedback.value = '';
   cardFlipStates.value = {};
   await nextTick();
   if (swiper.value) {
@@ -378,19 +371,13 @@ const swipeLeft = async () => {
 }
 
 .floating-text-container {
-  flex: none;
-  height: 25%;
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  @apply flex flex-col h-1/4 relative z-10 items-center justify-center pointer-events-none px-6 py-0 m-0;
+
+
 }
 
 .card-text {
-  font-size: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  padding-bottom: 1rem;
+  @apply text-xl text-white leading-snug;
 }
 
 .swiper-wrapper {
@@ -444,14 +431,7 @@ swiper-slide {
   opacity: 0;
 }
 
-.floating-text-container {
-  pointer-events: none;
-}
 
-.card-text {
-  font-size: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
 
 .fade-enter-active,
 .fade-leave-active {
