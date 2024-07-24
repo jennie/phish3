@@ -24,8 +24,8 @@
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index">
           <div :ref="el => { if (el) cardRefs[index] = el }"
             :class="['card-container', { 'is-flipped': cardFlipStates[card.id] }]">
-            <div class="swiper-tinder-label swiper-tinder-label-yes" v-html="card.trustLabel" />
-            <div class="swiper-tinder-label swiper-tinder-label-no" v-html="card.distrustLabel" />
+            <div class="swiper-tinder-label swiper-tinder-label-yes" v-html="card.trustLabel || 'Trust'" />
+            <div class="swiper-tinder-label swiper-tinder-label-no" v-html="card.distrustLabel || 'Distrust'" />
             <div :class="`swiper-slide card-face card-front ${card.type}`"
               :style="{ backgroundImage: `url(${card.image})` }">
               <div class="absolute top-0 left-0 bg-red-400 bg-opacity-50 text-white p-2">
@@ -217,7 +217,7 @@ const handleTinderSwipe = (s, direction) => {
     s.slideNext();
   } else if (currentCard.type === 'reveal') {
     if (isRevealCardFlipped.value) {
-      // Only transition to the next scenario if the reveal card is flipped and user swipes
+      // Transition to the next scenario if the reveal card is flipped and user swipes
       transitionToNextScenario();
     } else {
       // If the reveal card is not flipped, flip it
@@ -248,7 +248,6 @@ const handleSlideChange = (s) => {
     isRevealCardFlipped.value = false;
   }
 };
-
 const flipRevealCard = (index) => {
   const card = currentScenario.value.cards[index];
   if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
@@ -269,6 +268,7 @@ const flipRevealCard = (index) => {
 
 
 const transitionToNextScenario = async () => {
+  isTransitioning.value = true;
   await nextScenario();
   currentCardIndex.value = 0;
   isRevealCardFlipped.value = false;
@@ -279,8 +279,8 @@ const transitionToNextScenario = async () => {
     swiper.value.slideTo(0, 0);
     await swiper.value.update();
   }
+  isTransitioning.value = false;
 };
-
 const initializeSwiper = () => {
   console.log('Initializing swiper...');
   if (swiperRef.value && isDataReady.value) {
@@ -359,3 +359,57 @@ const swipeLeft = async () => {
   }
 };
 </script>
+<style>
+:root {
+  --swiper-tinder-no-color: #F44336;
+  --swiper-tinder-yes-color: #4CAF50;
+  --swiper-tinder-label-text-color: #fff;
+  --swiper-tinder-label-font-size: 42px;
+}
+
+.swiper-tinder-label {
+  position: absolute;
+  font-size: var(--swiper-tinder-label-font-size);
+  font-weight: bold;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  opacity: 0;
+  color: var(--swiper-tinder-label-text-color);
+  z-index: 10;
+  transition: opacity 0.3s;
+}
+
+.swiper-tinder-label-yes {
+  left: 5%;
+  top: 5%;
+  transform: rotate(-20deg);
+  background-color: var(--swiper-tinder-yes-color);
+}
+
+.swiper-tinder-label-no {
+  right: 5%;
+  top: 5%;
+  transform: rotate(20deg);
+  background-color: var(--swiper-tinder-no-color);
+}
+
+.swiper-slide {
+  overflow: hidden;
+}
+
+.card-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure the card container doesn't overlap the labels */
+.card-container {
+  z-index: 1;
+}
+
+.swiper-slide-active .swiper-tinder-label {
+  z-index: 11;
+}
+</style>
