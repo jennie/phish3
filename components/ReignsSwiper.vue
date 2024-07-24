@@ -121,7 +121,7 @@
           </g>
         </g>
       </svg>
-      <a href="/" class="cursor-pointer">
+      <a href="/" class="cursor-pointer" @click.prevent="retryScenario">
         <svg width="32px" height="39px" viewBox="0 0 32 39" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>icon-retry</title>
@@ -142,6 +142,7 @@
         </svg>
       </a>
     </div>
+
   </div>
 </template>
 
@@ -361,6 +362,33 @@ const swipeLeft = async () => {
     }
   }
 };
+
+const retryScenario = async () => {
+  if (swiper.value && currentCardIndex.value > 0) {
+    isTransitioning.value = true;
+
+    // Loop to navigate back to the first card
+    while (currentCardIndex.value > 0) {
+      await swiper.value.slidePrev(500); // Adjust duration as needed
+      currentCardIndex.value--;
+    }
+
+    // Reset card flip states
+    cardFlipStates.value = {};
+    currentScenario.value.cards.forEach((card, index) => {
+      cardFlipStates.value[card.id] = false;
+    });
+
+    // Reset other states
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    lastDecisionText.value = '';
+
+    isTransitioning.value = false;
+  }
+};
+
+
 </script>
 
 <style>
