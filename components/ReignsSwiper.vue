@@ -1,6 +1,7 @@
 <template>
-  <div class="swiper-tinder-container h-full bg-black flex flex-col">
-    <!-- Debug Panel -->
+  <StartGameScreen v-if="!gameStarted" />
+  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col">
+
     <div v-if="isDataReady" class="debug-panel absolute bottom-0 left-0 bg-white bg-opacity-75 p-4 text-black">
       <h3 class="font-bold">Debug Info</h3>
       <p>Current Card Index: {{ currentCardIndex }}</p>
@@ -8,11 +9,9 @@
       <p>Current Scenario: {{ currentScenario.id }}</p>
       <p>All Scenarios IDs: {{ scenarioIds.join(', ') }}</p>
     </div>
-
     <div v-if="isTransitioning" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <p class="text-white text-2xl">Loading next scenario...</p>
     </div>
-
     <div class="container-start text-white text-center mx-auto py-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
         <path fill="currentColor"
@@ -56,7 +55,6 @@
     <div v-else>
       Loading scenarios...
     </div>
-
     <div class="swiper-tinder-buttons py-2">
       <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack">
         <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -142,17 +140,17 @@
               </g>
             </g>
           </g>
-
         </svg>
       </a>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, onMounted, watch, nextTick, computed } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
-import { useGameState } from '../composables/gameState';
+import { useGameState } from '@/composables/gameState';
 import '/assets/css/styles.css';
 
 register();
@@ -163,9 +161,22 @@ const swiper = ref(null);
 const cardRefs = ref([]);
 const cardFlipStates = ref({});
 const isTransitioning = ref(false);
+const flipTimeout = ref(null);
 
 
-const { currentScenario, currentCard, makeChoice, nextCard, nextScenario, previousCard, gameOver, playerState, scenarios } = useGameState();
+const {
+  gameStarted,
+  startGame,
+  currentScenario,
+  currentCard,
+  makeChoice,
+  nextCard,
+  nextScenario,
+  previousCard,
+  gameOver,
+  playerState,
+  scenarios,
+} = useGameState();
 
 const decisionFeedback = ref('');
 const currentCardIndex = ref(0);
@@ -214,8 +225,6 @@ const handleTinderSwipe = (s, direction) => {
     }
   }
 };
-
-
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
 
@@ -223,11 +232,18 @@ const handleSlideChange = (s) => {
   const currentCard = currentScenario.value.cards[currentCardIndex.value];
 
   if (currentCard?.type === 'reveal') {
-    if (!isRevealCardFlipped.value) {
-      isRevealCardFlipped.value = true;
-      cardFlipStates.value[currentCard.id] = true;
-      s.allowSlideNext = true;
+    // Clear any existing timeout
+    if (flipTimeout.value) {
+      clearTimeout(flipTimeout.value);
     }
+    // Set a new timeout to flip the card after 1 second
+    flipTimeout.value = setTimeout(() => {
+      if (!isRevealCardFlipped.value) {
+        isRevealCardFlipped.value = true;
+        cardFlipStates.value[currentCard.id] = true;
+        s.allowSlideNext = true;
+      }
+    }, 1000);
   } else {
     isRevealCardFlipped.value = false;
   }
@@ -235,14 +251,22 @@ const handleSlideChange = (s) => {
 
 const flipRevealCard = (index) => {
   const card = currentScenario.value.cards[index];
-  if (card && card.type === 'reveal') {
-    cardFlipStates.value[card.id] = true;
-    isRevealCardFlipped.value = true;
-    if (swiper.value) {
-      swiper.value.allowSlideNext = true;
+  if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
+    // Clear any existing timeout
+    if (flipTimeout.value) {
+      clearTimeout(flipTimeout.value);
     }
+    // Set a new timeout to flip the card after 1 second
+    flipTimeout.value = setTimeout(() => {
+      cardFlipStates.value[card.id] = true;
+      isRevealCardFlipped.value = true;
+      if (swiper.value) {
+        swiper.value.allowSlideNext = true;
+      }
+    }, 1000);
   }
 };
+
 
 const transitionToNextScenario = async () => {
   await nextScenario();
@@ -258,7 +282,9 @@ const transitionToNextScenario = async () => {
 };
 
 const initializeSwiper = () => {
+  console.log('Initializing swiper...');
   if (swiperRef.value && isDataReady.value) {
+    console.log('Swiper initialized');
     const swiperParams = {
       modules: [EffectTinder],
       effect: 'tinder',
@@ -278,8 +304,16 @@ const initializeSwiper = () => {
 onMounted(async () => {
   await nextTick();
   await initializeSwiper();
+  if (flipTimeout.value) {
+    clearTimeout(flipTimeout.value);
+  }
 });
-
+watch(gameStarted, async (started) => {
+  if (started) {
+    await nextTick();
+    await initializeSwiper();
+  }
+});
 watch(isDataReady, async (ready) => {
   if (ready) {
     await initializeSwiper();
@@ -324,5 +358,4 @@ const swipeLeft = async () => {
     }
   }
 };
-
 </script>

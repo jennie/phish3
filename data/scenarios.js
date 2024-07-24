@@ -229,6 +229,7 @@ export default [
         text: "Let's take a look at this webpage",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "decision",
@@ -314,6 +315,7 @@ export default [
         text: "Next, we're going to look at the webpage.",
         trustLabel: "Keep looking…",
         distrustLabel: "Back",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "decision",
@@ -478,12 +480,14 @@ export default [
         text: "Let's examine the body of the email.",
         trustLabel: "Seems interesting.",
         distrustLabel: "Back",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "story",
         text: "Finally, let's look at the offer and the signature.",
         trustLabel: "Sounds appealing...",
         distrustLabel: "Back",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "decision",
@@ -573,6 +577,7 @@ export default [
         text: "Finally, let's look at the email's call to action and signature.",
         trustLabel: "Hmm…",
         distrustLabel: "Go back.",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "decision",
@@ -727,36 +732,39 @@ export default [
       {
         type: "story",
         text: "(beaver 1): Oh my, this looks like ransomware!",
-        rustLabel: "What can we do?",
+        trustLabel: "What can we do?",
         distrustLabel: "Back",
         isFlipped: false,
         image: "/images/scenario-demo-image-00.png",
       },
       {
+        type: "story",
         text: "(beaver 2): We can try to fix it, but Beejou you need to be careful with suspicious emails.",
-        trustLabel: "Thank you!",
-        trustLabel: "Keep looking…",
+        trustLabel: "Keep looking...",
         distrustLabel: "Back",
         isFlipped: false,
         image: "/images/scenario-demo-image-00.png",
       },
       {
+        type: "story",
         text: "As they work on Beejou's computer, you receive a notification. It's the same email!",
-        trustLabel: "Show them.",
-        trustLabel: "Keep looking…",
+        trustLabel: "Keep looking...",
         distrustLabel: "Back",
         isFlipped: false,
         image: "/images/scenario-demo-image-00.png",
       },
       {
+        type: "story",
+
         text: "(beaver 2): Since you're already here, let's walk through it together.",
         trustLabel: "Read the email.",
-        trustLabel: "Keep looking…",
         distrustLabel: "Back",
         isFlipped: false,
         image: "/images/scenario-demo-image-00.png",
       },
       {
+        type: "story",
+
         text: "Hmm. Now, let's look at the body.",
         trustLabel: "Okay...",
         distrustLabel: "Back",
@@ -764,6 +772,8 @@ export default [
         image: "/images/scenario-demo-image-00.png",
       },
       {
+        type: "story",
+
         text: "I can see how Beejou was fooled.",
         trustLabel: "Me too...",
         distrustLabel: "Back",
@@ -854,6 +864,7 @@ export default [
         text: "(beaver 1): Let's take a look...",
         trustLabel: "Watch closely.",
         distrustLabel: "Back",
+        image: "/images/scenario-demo-image-00.png",
       },
       {
         type: "decision",
