@@ -1,39 +1,28 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
   <div v-else class="swiper-tinder-container h-full bg-black flex flex-col">
-
-    <div v-if="isDataReady" class="hidden debug-panel absolute bottom-0 left-0 text-zinc-100 p-4 text-black">
-      <h3 class="font-bold">Debug Info</h3>
-      <p>Current Card Index: {{ currentCardIndex }}</p>
-      <p>Current Card Type: {{ currentScenario.cards[currentCardIndex]?.type }}</p>
-      <p>Current Scenario: {{ currentScenario.id }}</p>
-      <p>All Scenarios IDs: {{ scenarioIds.join(', ') }}</p>
+    <div class="floating-text-container flex-none h-1/4 relative z-10">
+      <Transition name="fade" mode="out-in">
+        <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
+          class="card-text text-white absolute inset-x-0 bottom-4 text-center px-4">
+          {{ currentCard.text }}
+        </p>
+        <p v-else-if="lastDecisionText" :key="'last-decision'"
+          class="card-text text-white absolute inset-x-0 bottom-4 text-center px-4">
+          {{ lastDecisionText }}
+        </p>
+      </Transition>
     </div>
-    <div v-if="isTransitioning" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <p class="text-white text-2xl">Loading next scenario...</p>
-    </div>
-    <div class="container-start text-white mx-auto py-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-        <path fill="currentColor"
-          d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93zm12.03 2.13l2.12-2.13 1.43 1.43-2.13 2.12z" />
-      </svg>
-    </div>
-    <div v-if="isDataReady" class="swiper-tinder-container h-full bg-black flex flex-col">
-      <div class="floating-text-container flex-none h-1/4 relative z-10">
-        <Transition name="fade" mode="out-in">
-          <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-            class="card-text text-white absolute inset-x-0 bottom-4 text-center px-4 leading-snug">
-            {{ currentCard.text }}
-          </p>
-        </Transition>
-      </div>
+    <div v-if="isDataReady" class="swiper-wrapper flex-grow relative overflow-visible">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
-        observer observer-parents :init="false" class="flex-grow">
-        <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index">
+        observer observer-parents :init="false" class="h-full overflow-visible">
+        <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index" class="overflow-visible">
           <div :ref="el => { if (el) cardRefs[index] = el }"
             :class="['card-container', { 'is-flipped': cardFlipStates[card.id] }]">
-            <div class="swiper-tinder-label swiper-tinder-label-yes" v-html="card.trustLabel || 'Trust'" />
-            <div class="swiper-tinder-label swiper-tinder-label-no" v-html="card.distrustLabel || 'Distrust'" />
+            <div class="swiper-tinder-label swiper-tinder-label-yes" data-swiper-parallax="-300"
+              data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
+            <div class="swiper-tinder-label swiper-tinder-label-no" data-swiper-parallax="-300"
+              data-swiper-parallax-duration="600" v-html="card.distrustLabel || 'Distrust'" />
             <div :class="`swiper-slide card-face card-front ${card.type}`">
               <div class="card-image" :style="{ backgroundImage: `url(${card.image})` }"></div>
               <div class="card-gradient-overlay"></div>
@@ -50,8 +39,8 @@
               </div>
             </div>
             <div class="card-face card-back" v-if="card.type === 'reveal'">
-              <div class="slide-inner h-full flex flex-col justify-between bg-gray-800">
-                <div v-if="decisionFeedback" class="feedback-text p-4 bg-black bg-opacity-70">
+              <div class="slide-inner h-full flex flex-col justify-between">
+                <div v-if="decisionFeedback" class="feedback-text p-4 ">
                   <p>{{ decisionFeedback }}</p>
                 </div>
               </div>
@@ -64,8 +53,9 @@
       Loading scenarios...
     </div>
     <div class="swiper-tinder-buttons py-2">
-      <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack">
-        <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack"
+        :class="{ 'opacity-50 cursor-not-allowed': !canNavigateBack }"> <svg width="56px" height="70px"
+          viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>icon-back</title>
           <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -87,7 +77,8 @@
           </g>
         </svg>
       </button>
-      <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight" :disabled="!canNavigate">
+      <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight" :disabled="!canNavigate"
+        :class="{ 'opacity-50 cursor-not-allowed': !canNavigate }">
         <svg width="56px" height="70px" viewBox="0 0 56 70" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>icon-next</title>
@@ -170,13 +161,14 @@ const cardRefs = ref([]);
 const cardFlipStates = ref({});
 const isTransitioning = ref(false);
 const flipTimeout = ref(null);
+const lastDecisionText = ref('');
+
 
 
 const {
   gameStarted,
   startGame,
   currentScenario,
-  currentCard,
   makeChoice,
   nextCard,
   nextScenario,
@@ -209,31 +201,30 @@ const canNavigateBack = computed(() => {
   if (currentCardIndex.value === 0) return false;
   return true;
 });
-
+const currentCard = computed(() => {
+  if (currentScenario.value && currentScenario.value.cards) {
+    return currentScenario.value.cards[currentCardIndex.value];
+  }
+  return null;
+});
 const handleTinderSwipe = (s, direction) => {
   if (!isDataReady.value) return;
 
-  const currentCard = computed(() => {
-    if (currentScenario.value && currentScenario.value.cards) {
-      return currentScenario.value.cards[currentCardIndex.value];
-    }
-    return null;
-  });
-  if (!currentCard) return;
+  if (!currentCard.value) return;
 
-  if (currentCard.type === 'decision') {
+  if (currentCard.value.type === 'decision') {
     const isTrust = direction === 'right';
     makeChoice(isTrust);
     decisionFeedback.value = isTrust
-      ? currentCard.trustChoice?.feedback
-      : currentCard.distrustChoice?.feedback;
+      ? currentCard.value.trustChoice?.feedback
+      : currentCard.value.distrustChoice?.feedback;
+    lastDecisionText.value = currentCard.value.text; // Store the decision card text
     s.slideNext();
-  } else if (currentCard.type === 'reveal') {
+  } else if (currentCard.value.type === 'reveal') {
     if (isRevealCardFlipped.value) {
-      // Transition to the next scenario if the reveal card is flipped and user swipes
       transitionToNextScenario();
     } else {
-      // If the reveal card is not flipped, flip it
+      console.log("Flipping reveal card");
       flipRevealCard(currentCardIndex.value);
     }
   }
@@ -262,6 +253,8 @@ const handleSlideChange = (s) => {
     }, 1000);
   } else {
     isRevealCardFlipped.value = false;
+    decisionFeedback.value = ''; // Clear the feedback when moving to a non-reveal card
+
   }
 };
 const flipRevealCard = (index) => {
@@ -288,7 +281,7 @@ const transitionToNextScenario = async () => {
   await nextScenario();
   currentCardIndex.value = 0;
   isRevealCardFlipped.value = false;
-  decisionFeedback.value = '';
+  decisionFeedback.value = ''; // Clear the feedback
   cardFlipStates.value = {};
   await nextTick();
   if (swiper.value) {
@@ -359,7 +352,8 @@ const swipeRight = async () => {
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       await transitionToNextScenario();
     } else {
-      await handleTinderSwipe(swiper.value, 'right');
+      swiper.value.slideNext();
+
     }
   }
 };
@@ -375,13 +369,8 @@ const swipeLeft = async () => {
   }
 };
 </script>
-<style>
-:root {
-  --swiper-tinder-no-color: #F44336;
-  --swiper-tinder-yes-color: #4CAF50;
-  --swiper-tinder-label-text-color: #fff;
-}
 
+<style>
 .swiper-tinder-container {
   display: flex;
   flex-direction: column;
@@ -404,24 +393,50 @@ const swipeLeft = async () => {
   padding-bottom: 1rem;
 }
 
+.swiper-wrapper {
+  overflow: visible !important;
+}
+
 swiper-container {
-  flex-grow: 1;
-  overflow: visible;
+  overflow: visible !important;
+}
+
+swiper-slide {
+  overflow: visible !important;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-front {
+  background-color: #f0f0f0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.is-flipped {
+  transform: rotateY(180deg);
 }
 
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,
@@ -488,5 +503,28 @@ swiper-container {
   z-index: 11;
 }
 
-.card-front.story {}
+.swiper-tinder-container {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.swiper-slide {
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-tinder-button {
+  transition: opacity 0.3s ease;
+}
+
+.swiper-tinder-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>

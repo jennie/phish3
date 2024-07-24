@@ -33,7 +33,10 @@ const currentScenario = computed(() => {
 });
 
 const currentCard = computed(() => {
-  return currentScenario.value?.cards[currentCardIndex.value] || null;
+  if (currentScenario.value && currentScenario.value.cards) {
+    return currentScenario.value.cards[currentCardIndex.value];
+  }
+  return null;
 });
 
 const gameOver = computed(() => {
