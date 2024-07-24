@@ -26,8 +26,9 @@
             :class="['card-container', { 'is-flipped': cardFlipStates[card.id] }]">
             <div class="swiper-tinder-label swiper-tinder-label-yes" v-html="card.trustLabel || 'Trust'" />
             <div class="swiper-tinder-label swiper-tinder-label-no" v-html="card.distrustLabel || 'Distrust'" />
-            <div :class="`swiper-slide card-face card-front ${card.type}`"
-              :style="{ backgroundImage: `url(${card.image})` }">
+            <div :class="`swiper-slide card-face card-front ${card.type}`">
+              <div class="card-image" :style="{ backgroundImage: `url(${card.image})` }"></div>
+              <div class="card-gradient-overlay"></div>
               <div class="absolute top-0 left-0 bg-red-400 bg-opacity-50 text-white p-2">
                 type: {{ card.type }}
               </div>
@@ -38,7 +39,7 @@
                       d="M14.6 8.075q0-1.075-.712-1.725T12 5.7q-.725 0-1.312.313t-1.013.912q-.4.575-1.088.663T7.4 7.225q-.35-.325-.387-.8t.237-.9q.8-1.2 2.038-1.862T12 3q2.425 0 3.938 1.375t1.512 3.6q0 1.125-.475 2.025t-1.75 2.125q-.925.875-1.25 1.363T13.55 14.6q-.1.6-.513 1t-.987.4t-.987-.387t-.413-.963q0-.975.425-1.787T12.5 11.15q1.275-1.125 1.688-1.737t.412-1.338M12 22q-.825 0-1.412-.587T10 20t.588-1.412T12 18t1.413.588T14 20t-.587 1.413T12 22" />
                   </svg>
                 </p>
-                <p v-else class="card-text">{{ card.text }}</p>
+                <p v-else class="card-text demo-slide-name">{{ card.text }}</p>
               </div>
             </div>
             <div class="card-face card-back" v-if="card.type === 'reveal'">
@@ -411,5 +412,8 @@ const swipeLeft = async () => {
 
 .swiper-slide-active .swiper-tinder-label {
   z-index: 11;
+  @apply text-center;
 }
+
+.card-front.story {}
 </style>
