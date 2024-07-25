@@ -269,15 +269,29 @@ const transitionToNextScenario = async () => {
   isTransitioning.value = false;
 };
 const initializeSwiper = () => {
-  console.log('Initializing swiper...');
   if (swiperRef.value && isDataReady.value) {
-    console.log('Swiper initialized');
     const swiperParams = {
       modules: [EffectTinder],
       effect: 'tinder',
       slidesPerView: 1,
       allowTouchMove: true,
+      watchSlidesProgress: true,
+      virtualTranslate: true,
       on: {
+        progress: function (s, progress) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            const slideProgress = swiper.slides[i].progress;
+            const absProgress = Math.abs(slideProgress);
+            swiper.slides[i].style.opacity = 1 - absProgress / 1;
+          }
+        },
+        setTransition: function (s, duration) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            swiper.slides[i].style.transition = `${duration}ms`;
+          }
+        },
         slideChange: handleSlideChange,
         tinderSwipe: handleTinderSwipe,
       },
@@ -330,8 +344,7 @@ const swipeRight = async () => {
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       await transitionToNextScenario();
     } else {
-      swiper.value.slideNext();
-
+      swiper.value.tinder.yes();
     }
   }
 };
@@ -340,7 +353,7 @@ const swipeLeft = async () => {
   if (swiper.value && !isTransitioning.value) {
     if (canNavigateBack.value) {
       await previousCard();
-      swiper.value.slidePrev();
+      swiper.value.tinder.no();
     } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       await transitionToNextScenario();
     }
@@ -478,7 +491,18 @@ swiper-slide {
 }
 
 .swiper-slide {
-  overflow: hidden;
+  transition-property: transform, opacity;
+}
+
+.swiper-slide-shadow {
+  background: rgba(0, 0, 0, 0.15);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .card-container {
