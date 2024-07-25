@@ -1,22 +1,20 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
   <div v-else class="swiper-tinder-container h-full bg-black flex flex-col safe-area-padding">
-    <!-- Debug Panel -->
-    <!-- Debug Panel -->
-    <!-- Debug Panel -->
-    <div class="absolute bottom-safe left-0 right-0 flex justify-center z-50">
+    <!-- Debug Panel and Button -->
+    <div class="absolute left-0 right-0 flex flex-col items-center z-50"
+      :class="showDebugPanel ? 'bottom-panel-open' : 'bottom-safe'">
       <button @click="showDebugPanel = !showDebugPanel"
         class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
         {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
       </button>
-    </div>
 
-    <div v-if="showDebugPanel"
-      class="fixed bottom-safe left-2 right-2 bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs mx-auto">
-      <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
-      <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
-      <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-      <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+      <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
+        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
+        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
+        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
+        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+      </div>
     </div>
     <div class="floating-text-container">
       <Transition name="fade" mode="out-in">
@@ -525,5 +523,10 @@ swiper-slide {
 
 .bottom-safe {
   bottom: calc(env(safe-area-inset-bottom, 20px) + 0.5rem);
+}
+
+.bottom-panel-open {
+  bottom: calc(env(safe-area-inset-bottom, 20px) + 8rem);
+  /* Adjust this value as needed */
 }
 </style>
