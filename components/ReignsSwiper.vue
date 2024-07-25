@@ -1,19 +1,22 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col">
+  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col safe-area-padding">
     <!-- Debug Panel -->
     <!-- Debug Panel -->
-    <div class="fixed bottom-2 left-0 right-0 flex flex-col items-center z-50">
+    <!-- Debug Panel -->
+    <div class="absolute bottom-safe left-0 right-0 flex justify-center z-50">
       <button @click="showDebugPanel = !showDebugPanel"
-        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors">
+        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
         {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
       </button>
-      <div v-if="showDebugPanel" class="mt-2 bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full">
-        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
-        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
-      </div>
+    </div>
+
+    <div v-if="showDebugPanel"
+      class="fixed bottom-safe left-2 right-2 bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs mx-auto">
+      <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
+      <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
+      <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
+      <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
     </div>
     <div class="floating-text-container">
       <Transition name="fade" mode="out-in">
@@ -514,5 +517,13 @@ swiper-slide {
 .swiper-tinder-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.safe-area-padding {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.bottom-safe {
+  bottom: calc(env(safe-area-inset-bottom, 20px) + 0.5rem);
 }
 </style>
