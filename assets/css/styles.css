@@ -144,8 +144,9 @@ swiper-slide {
 }
 
 .card-back {
-  @apply bg-zinc-800 text-white;
+  @apply text-white;
   transform: rotateY(180deg);
+  background-image: url(/images/card-reveal.png);
 }
 
 .feedback-text {
