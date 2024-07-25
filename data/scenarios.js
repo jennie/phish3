@@ -314,7 +314,7 @@ export default [
         trustLabel: "Gotta see the game!",
         distrustLabel: "I don't like this...",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
@@ -361,7 +361,7 @@ export default [
         trustLabel: "Enjoy the moment...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -371,7 +371,7 @@ export default [
         trustLabel: "Really?",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -381,7 +381,7 @@ export default [
         trustLabel: "Sounds awesome!",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -391,7 +391,7 @@ export default [
         trustLabel: "Why's that?",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -401,7 +401,7 @@ export default [
         trustLabel: "Let's look together.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -411,7 +411,7 @@ export default [
         trustLabel: "Okay...",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -421,7 +421,7 @@ export default [
         trustLabel: "Keep looking\u2026",
         distrustLabel: "Back",
         "Is Flipped": "",
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 7,
@@ -431,7 +431,7 @@ export default [
         trustLabel: "Yes! Let's get tickets!",
         distrustLabel: "Maybe we shouldn't.",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
@@ -712,7 +712,7 @@ export default [
         trustLabel: "Gotta finish...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -722,7 +722,7 @@ export default [
         trustLabel: "I have opinions...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -732,7 +732,7 @@ export default [
         trustLabel: "No inbox space!",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -742,7 +742,7 @@ export default [
         trustLabel: "Let's see about this\u2026",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -752,7 +752,7 @@ export default [
         trustLabel: "Let's keep reading\u2026",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -762,7 +762,7 @@ export default [
         trustLabel: "Keep looking\u2026",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -772,7 +772,7 @@ export default [
         trustLabel: "Hmm\u2026",
         distrustLabel: "Go back.",
         "Is Flipped": "",
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 10,
@@ -782,7 +782,7 @@ export default [
         trustLabel: "Give my feedback!",
         distrustLabel: "They want my thoughts?",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
@@ -829,7 +829,7 @@ export default [
         trustLabel: "Check the message...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -839,7 +839,7 @@ export default [
         trustLabel: "Call for help?",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -849,7 +849,7 @@ export default [
         trustLabel: "Head to The Pond.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -859,7 +859,7 @@ export default [
         trustLabel: "Explain the issue.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -869,7 +869,7 @@ export default [
         trustLabel: "Tell me more.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -879,7 +879,7 @@ export default [
         trustLabel: "Lemmie think...",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 11,
@@ -889,7 +889,7 @@ export default [
         trustLabel: "Looks like the real deal!",
         distrustLabel: "Something's not right!",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
@@ -936,7 +936,7 @@ export default [
         trustLabel: "What's happening?",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -946,7 +946,7 @@ export default [
         trustLabel: "What??",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -956,7 +956,7 @@ export default [
         trustLabel: "What's wrong?",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -966,7 +966,7 @@ export default [
         trustLabel: "Let's get help!",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -976,7 +976,7 @@ export default [
         trustLabel: "Explain the situation.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -986,7 +986,7 @@ export default [
         trustLabel: "What can we do?",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -996,7 +996,7 @@ export default [
         trustLabel: "Thank you!",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -1006,7 +1006,7 @@ export default [
         trustLabel: "Show them.",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -1016,7 +1016,7 @@ export default [
         trustLabel: "Read the email.",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -1026,7 +1026,7 @@ export default [
         trustLabel: "Okay...",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -1036,7 +1036,7 @@ export default [
         trustLabel: "Me too...",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 12,
@@ -1046,7 +1046,7 @@ export default [
         trustLabel: "It could be legit..",
         distrustLabel: "So suspicious!",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
@@ -1107,7 +1107,7 @@ export default [
         trustLabel: "Robot coffee!",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1117,7 +1117,7 @@ export default [
         trustLabel: "I'm curious...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1127,7 +1127,7 @@ export default [
         trustLabel: "I don't trust it...",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1137,7 +1137,7 @@ export default [
         trustLabel: "Hear them out.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1147,7 +1147,7 @@ export default [
         trustLabel: "Head over there.",
         distrustLabel: "Go back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1157,7 +1157,7 @@ export default [
         trustLabel: "Hand it over.",
         distrustLabel: "Back",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1167,7 +1167,7 @@ export default [
         trustLabel: "Watch closely.",
         distrustLabel: "Back",
         "Is Flipped": "",
-        image: "",
+        image: "/images/card-placeholder.png",
       },
       {
         id: 13,
@@ -1177,7 +1177,7 @@ export default [
         trustLabel: "Is this my mood coffee?",
         distrustLabel: "I'll take it back!",
         "Is Flipped": false,
-        image: "",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: {
             trust: -10,
