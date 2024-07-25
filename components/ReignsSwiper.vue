@@ -2,20 +2,7 @@
   <StartGameScreen v-if="!gameStarted" />
   <div v-else class="swiper-tinder-container h-full bg-black flex flex-col pb-safe">
     <!-- Debug Panel and Button -->
-    <div class="absolute left-0 right-0 flex flex-col items-center z-50"
-      :class="showDebugPanel ? 'bottom-panel-open' : 'bottom-safe'">
-      <button @click="showDebugPanel = !showDebugPanel"
-        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
-        {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
-      </button>
 
-      <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
-        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
-        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
-      </div>
-    </div>
     <div class="floating-text-container">
       <Transition name="fade" mode="out-in">
         <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
@@ -67,57 +54,73 @@
     <div v-else>
       Loading scenarios...
     </div>
-    <div class="swiper-tinder-buttons flex justify-center gap-5 z-10 py-2 mb-4">
-      <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack"
-        :class="{ 'opacity-50 cursor-not-allowed': !canNavigateBack }">
-        <BackButton v-if="!isDecisionCard" />
-        <ThumbsDown v-else />
-      </button>
-      <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight" :disabled="!canNavigate"
-        :class="{ 'opacity-50 cursor-not-allowed': !canNavigate }">
-        <NextButton v-if="!isDecisionCard" />
-        <ThumbsUp v-else />
-      </button>
-    </div>
-    <div class="container-end text-blue-200 text-center p-2 flex flex-row justify-between">
-      <svg width="32px" height="37px" viewBox="0 0 32 37" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>icon-home</title>
-        <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g id="Scenerio-00---00" transform="translate(-28, -740)">
-            <g id="icon-home" transform="translate(28, 740)">
-              <text id="HOME" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
-                <tspan x="1.79101562" y="35">HOME</tspan>
-              </text>
-              <g id="arrow-return" transform="translate(0, -0)" fill="#fff" fill-rule="nonzero">
-                <path
-                  d="M25.5057983,0 L18.0057983,0 C17.4535136,0 17.0057983,0.44771525 17.0057983,1 C17.0057983,1.55228475 17.4535136,2 18.0057983,2 L25.5057983,2 C27.9910797,2 30.0057983,4.01471863 30.0057983,6.5 C30.0057983,8.98528137 27.9910797,11 25.5057983,11 L3.41579832,11 L7.71579832,6.71 C8.10792048,6.31787782 8.10792047,5.68212219 7.7157983,5.29000002 C7.32367614,4.89787786 6.6879205,4.89787785 6.29579832,5.29 L0.295798324,11.29 C0.106485674,11.4777666 0,11.7333625 0,12 C0,12.2666375 0.106485674,12.5222334 0.295798324,12.71 L6.29579832,18.71 C6.48356492,18.8993127 6.73916079,19.0057983 7.00579832,19.0057983 C7.27243586,19.0057983 7.52803172,18.8993127 7.71579832,18.71 C7.90511098,18.5222334 8.01159665,18.2666375 8.01159665,18 C8.01159665,17.7333625 7.90511098,17.4777666 7.71579832,17.29 L3.41579832,13 L25.5057983,13 C29.0956492,13 32.0057983,10.0898509 32.0057983,6.5 C32.0057983,2.91014913 29.0956492,0 25.5057983,0 Z"
-                  id="Path"></path>
-              </g>
-            </g>
-          </g>
-        </g>
-      </svg>
-      <a href="/" class="cursor-pointer" @click.prevent="retryScenario">
-        <svg width="32px" height="39px" viewBox="0 0 32 39" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <div class="fixed-bottom-buttons">
+      <div class="absolute left-0 right-0 flex flex-col items-center z-50"
+        :class="showDebugPanel ? 'bottom-panel-open' : 'bottom-safe'">
+        <button @click="showDebugPanel = !showDebugPanel"
+          class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
+          {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
+        </button>
+
+        <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
+          <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
+          <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
+          <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
+          <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+        </div>
+      </div>
+      <div class="swiper-tinder-buttons flex justify-center gap-5 z-10 py-2 mb-4">
+        <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack"
+          :class="{ 'opacity-50 cursor-not-allowed': !canNavigateBack }">
+          <BackButton v-if="!isDecisionCard" />
+          <ThumbsDown v-else />
+        </button>
+        <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight" :disabled="!canNavigate"
+          :class="{ 'opacity-50 cursor-not-allowed': !canNavigate }">
+          <NextButton v-if="!isDecisionCard" />
+          <ThumbsUp v-else />
+        </button>
+      </div>
+      <div class="container-end text-blue-200 text-center p-2 flex flex-row justify-between">
+        <svg width="32px" height="37px" viewBox="0 0 32 37" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
-          <title>icon-retry</title>
+          <title>icon-home</title>
           <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Scenerio-00---00" transform="translate(-302, -738)">
-              <g id="icon-retry" transform="translate(302, 738)">
-                <text id="RETRY" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
-                  <tspan x="0.851074219" y="37">RETRY</tspan>
+            <g id="Scenerio-00---00" transform="translate(-28, -740)">
+              <g id="icon-home" transform="translate(28, 740)">
+                <text id="HOME" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                  <tspan x="1.79101562" y="35">HOME</tspan>
                 </text>
-                <g id="arrow-retry" transform="translate(4, 0)" fill="#fff" fill-rule="nonzero">
+                <g id="arrow-return" transform="translate(0, -0)" fill="#fff" fill-rule="nonzero">
                   <path
-                    d="M13.4918439,0 C7.75606199,-0.000796072417 3.07928399,4.5944661 2.98368767,10.325 L1.42497783,8.96875 C1.05989384,8.67492329 0.527988496,8.7205009 0.21829939,9.07214718 C-0.0913897156,9.42379347 -0.0690052759,9.95676748 0.269080645,10.28125 L3.29893236,12.90625 C3.62205979,13.1716525 4.08791813,13.1716525 4.41104556,12.90625 L7.79116915,10.28125 C8.07415324,9.9627877 8.08657068,9.48699187 7.82058256,9.15422457 C7.55459444,8.82145728 7.08746406,8.72837963 6.71408314,8.93375 L4.73504705,10.5 C4.73504705,5.66750844 8.65559855,1.75 13.4918439,1.75 C18.3280893,1.75 22.2486408,5.66750844 22.2486408,10.5 C22.2486408,15.3324916 18.3280893,19.25 13.4918439,19.25 C13.0082194,19.25 12.6161642,19.6417508 12.6161642,20.125 C12.6161642,20.6082492 13.0082194,21 13.4918439,21 C19.2953383,21 24,16.2989898 24,10.5 C24,4.70101019 19.2953383,0 13.4918439,0 Z"
+                    d="M25.5057983,0 L18.0057983,0 C17.4535136,0 17.0057983,0.44771525 17.0057983,1 C17.0057983,1.55228475 17.4535136,2 18.0057983,2 L25.5057983,2 C27.9910797,2 30.0057983,4.01471863 30.0057983,6.5 C30.0057983,8.98528137 27.9910797,11 25.5057983,11 L3.41579832,11 L7.71579832,6.71 C8.10792048,6.31787782 8.10792047,5.68212219 7.7157983,5.29000002 C7.32367614,4.89787786 6.6879205,4.89787785 6.29579832,5.29 L0.295798324,11.29 C0.106485674,11.4777666 0,11.7333625 0,12 C0,12.2666375 0.106485674,12.5222334 0.295798324,12.71 L6.29579832,18.71 C6.48356492,18.8993127 6.73916079,19.0057983 7.00579832,19.0057983 C7.27243586,19.0057983 7.52803172,18.8993127 7.71579832,18.71 C7.90511098,18.5222334 8.01159665,18.2666375 8.01159665,18 C8.01159665,17.7333625 7.90511098,17.4777666 7.71579832,17.29 L3.41579832,13 L25.5057983,13 C29.0956492,13 32.0057983,10.0898509 32.0057983,6.5 C32.0057983,2.91014913 29.0956492,0 25.5057983,0 Z"
                     id="Path"></path>
                 </g>
               </g>
             </g>
           </g>
         </svg>
-      </a>
+        <a href="/" class="cursor-pointer" @click.prevent="retryScenario">
+          <svg width="32px" height="39px" viewBox="0 0 32 39" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>icon-retry</title>
+            <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Scenerio-00---00" transform="translate(-302, -738)">
+                <g id="icon-retry" transform="translate(302, 738)">
+                  <text id="RETRY" font-family="Roboto-Medium, Roboto" font-size="10" font-weight="400" fill="#fff">
+                    <tspan x="0.851074219" y="37">RETRY</tspan>
+                  </text>
+                  <g id="arrow-retry" transform="translate(4, 0)" fill="#fff" fill-rule="nonzero">
+                    <path
+                      d="M13.4918439,0 C7.75606199,-0.000796072417 3.07928399,4.5944661 2.98368767,10.325 L1.42497783,8.96875 C1.05989384,8.67492329 0.527988496,8.7205009 0.21829939,9.07214718 C-0.0913897156,9.42379347 -0.0690052759,9.95676748 0.269080645,10.28125 L3.29893236,12.90625 C3.62205979,13.1716525 4.08791813,13.1716525 4.41104556,12.90625 L7.79116915,10.28125 C8.07415324,9.9627877 8.08657068,9.48699187 7.82058256,9.15422457 C7.55459444,8.82145728 7.08746406,8.72837963 6.71408314,8.93375 L4.73504705,10.5 C4.73504705,5.66750844 8.65559855,1.75 13.4918439,1.75 C18.3280893,1.75 22.2486408,5.66750844 22.2486408,10.5 C22.2486408,15.3324916 18.3280893,19.25 13.4918439,19.25 C13.0082194,19.25 12.6161642,19.6417508 12.6161642,20.125 C12.6161642,20.6082492 13.0082194,21 13.4918439,21 C19.2953383,21 24,16.2989898 24,10.5 C24,4.70101019 19.2953383,0 13.4918439,0 Z"
+                      id="Path"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -266,15 +269,29 @@ const transitionToNextScenario = async () => {
   isTransitioning.value = false;
 };
 const initializeSwiper = () => {
-  console.log('Initializing swiper...');
   if (swiperRef.value && isDataReady.value) {
-    console.log('Swiper initialized');
     const swiperParams = {
       modules: [EffectTinder],
       effect: 'tinder',
       slidesPerView: 1,
       allowTouchMove: true,
+      watchSlidesProgress: true,
+      virtualTranslate: true,
       on: {
+        progress: function (s, progress) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            const slideProgress = swiper.slides[i].progress;
+            const absProgress = Math.abs(slideProgress);
+            swiper.slides[i].style.opacity = 1 - absProgress / 1;
+          }
+        },
+        setTransition: function (s, duration) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            swiper.slides[i].style.transition = `${duration}ms`;
+          }
+        },
         slideChange: handleSlideChange,
         tinderSwipe: handleTinderSwipe,
       },
@@ -327,8 +344,7 @@ const swipeRight = async () => {
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       await transitionToNextScenario();
     } else {
-      swiper.value.slideNext();
-
+      swiper.value.tinder.yes();
     }
   }
 };
@@ -337,7 +353,7 @@ const swipeLeft = async () => {
   if (swiper.value && !isTransitioning.value) {
     if (canNavigateBack.value) {
       await previousCard();
-      swiper.value.slidePrev();
+      swiper.value.tinder.no();
     } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       await transitionToNextScenario();
     }
@@ -380,7 +396,7 @@ const retryScenario = async () => {
 }
 
 .floating-text-container {
-  @apply flex flex-col h-1/4 relative z-10 items-center justify-center pointer-events-none px-6 py-0 m-0;
+  @apply flex flex-col h-1/5 relative z-10 items-center justify-center pointer-events-none px-6 py-0 m-0;
 
 
 }
@@ -402,17 +418,16 @@ swiper-slide {
 }
 
 .card-container {
-  width: 100%;
-  height: 100%;
+
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
 
 .card-face {
+  @apply h-3/5;
   position: absolute;
-  width: 100%;
-  height: 100%;
+
   backface-visibility: hidden;
   border-radius: 10px;
   overflow: hidden;
@@ -476,7 +491,18 @@ swiper-slide {
 }
 
 .swiper-slide {
-  overflow: hidden;
+  transition-property: transform, opacity;
+}
+
+.swiper-slide-shadow {
+  background: rgba(0, 0, 0, 0.15);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
 }
 
 .card-container {
@@ -532,5 +558,14 @@ swiper-slide {
 
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.fixed-bottom-buttons {
+  position: fixed;
+  bottom: max(env(safe-area-inset-bottom), 20px);
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 10px 0;
 }
 </style>
