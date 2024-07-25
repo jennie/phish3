@@ -1,6 +1,6 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col safe-area-padding">
+  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col pb-safe">
     <!-- Debug Panel and Button -->
     <div class="absolute left-0 right-0 flex flex-col items-center z-50"
       :class="showDebugPanel ? 'bottom-panel-open' : 'bottom-safe'">
@@ -67,7 +67,7 @@
     <div v-else>
       Loading scenarios...
     </div>
-    <div class="swiper-tinder-buttons py-2">
+    <div class="swiper-tinder-buttons flex justify-center gap-5 z-10 py-2 mb-4">
       <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack"
         :class="{ 'opacity-50 cursor-not-allowed': !canNavigateBack }">
         <BackButton v-if="!isDecisionCard" />
@@ -528,5 +528,9 @@ swiper-slide {
 .bottom-panel-open {
   bottom: calc(env(safe-area-inset-bottom, 20px) + 8rem);
   /* Adjust this value as needed */
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
 }
 </style>
