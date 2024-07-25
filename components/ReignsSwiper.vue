@@ -1,6 +1,20 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
   <div v-else class="swiper-tinder-container h-full bg-black flex flex-col">
+    <!-- Debug Panel -->
+    <!-- Debug Panel -->
+    <div class="fixed bottom-2 left-0 right-0 flex flex-col items-center z-50">
+      <button @click="showDebugPanel = !showDebugPanel"
+        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors">
+        {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
+      </button>
+      <div v-if="showDebugPanel" class="mt-2 bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full">
+        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
+        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
+        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
+        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+      </div>
+    </div>
     <div class="floating-text-container">
       <Transition name="fade" mode="out-in">
         <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
@@ -13,7 +27,7 @@
         </p>
       </Transition>
     </div>
-    <div v-if="isDataReady" class="swiper-wrapper flex-grow relative overflow-visible">
+    <div v-if="isDataReady" class="swiper-wrapper flex-grow relative overflow-visible px-6">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
         observer observer-parents :init="false" class="h-full overflow-visible">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index" class="overflow-visible">
@@ -116,6 +130,7 @@ import { useGameState } from '@/composables/gameState';
 import '/assets/css/styles.css';
 
 register();
+const showDebugPanel = ref(false);
 
 const modules = [EffectTinder];
 const swiperRef = ref(null);
