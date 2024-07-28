@@ -16,22 +16,18 @@ body {
   @apply bg-black leading-normal font-sans antialiased px-4;
 }
 
-#app {
-  @apply h-screen w-full flex items-center justify-center box-border bg-black;
-}
-
 .swiper-tinder {
   @apply p-4 w-full h-full;
 }
 
 .swiper-slide {
-  @apply rounded-3xl overflow-hidden bg-black relative h-full;
+  @apply overflow-hidden relative;
 }
 .card-image {
-  @apply absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat;
+  @apply absolute top-0 left-0  h-full bg-cover bg-center bg-no-repeat;
 }
 .card-face {
-  @apply absolute w-full h-full flex flex-col items-center justify-end text-2xl text-white box-border;
+  @apply h-3/5 flex flex-row items-center justify-center text-2xl text-white box-border;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -83,26 +79,6 @@ body {
     transform: perspective(1000px) rotateY(0deg);
   }
 }
-
-.swiper-tinder-container {
-  @apply relative w-full h-full flex flex-col;
-}
-
-.swiper-wrapper,
-.slide-inner {
-  @apply flex-grow overflow-hidden;
-}
-
-swiper-container {
-  @apply w-full h-full;
-}
-
-swiper-slide,
-.card-container,
-.card-face {
-  @apply h-full;
-}
-
 .swiper-tinder-buttons {
   @apply flex justify-center gap-5 z-10;
 }
@@ -119,24 +95,8 @@ swiper-slide {
   perspective: 1000px;
 }
 
-.card-face.decision {
-}
-
-.card-container {
-  @apply w-full h-full relative;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  transform: rotateY(var(--is-flipped, 0deg));
-}
-
-.card-container.is-flipped {
+.is-flipped {
   transform: rotateY(180deg);
-}
-
-.card-face {
-  @apply absolute w-full h-full flex flex-col items-center justify-start text-2xl text-white p-5 box-border bg-cover bg-center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 .card-front {
@@ -197,14 +157,6 @@ body {
   @apply bg-black leading-normal font-sans antialiased;
 }
 
-#app {
-  @apply h-screen w-full flex items-center justify-center box-border bg-black overflow-hidden;
-}
-
-.swiper-tinder-container {
-  @apply flex flex-col h-full w-full overflow-hidden;
-}
-
 .swiper-tinder {
   @apply flex-grow overflow-hidden;
 }
@@ -214,18 +166,8 @@ body {
   @apply h-full;
 }
 
-swiper-container {
-  @apply h-full;
-}
-
-swiper-slide,
-.card-container,
-.card-face {
-  @apply h-full;
-}
-
 .floating-text-container {
-  @apply flex-shrink-0 h-1/4 z-10 pointer-events-none px-6 py-2;
+  @apply z-10 pointer-events-none px-6 py-2;
 }
 
 .swiper-tinder-buttons {
@@ -234,11 +176,6 @@ swiper-slide,
 
 .container-end {
   @apply flex-shrink-0 text-blue-200 text-center p-2 flex flex-row justify-between;
-}
-
-/* Ensure content doesn't overflow */
-.card-content {
-  @apply absolute bottom-0 left-0 w-full p-4 z-20 overflow-hidden;
 }
 
 /* Adjust for smaller screens */

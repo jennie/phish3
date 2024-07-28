@@ -318,7 +318,7 @@ export default [
         trustChoice: {
           consequences: {
             trust: -10,
-            security: -15,
+            security: -25,
             gooseInfiltration: 10,
           },
           feedback:
