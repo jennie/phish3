@@ -55,13 +55,13 @@
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
       <div class="flex justify-center gap-5 z-10 py-2 mb-4">
-        <button @click="swipeLeft" :disabled="!canNavigateBack"
+        <button @click="handlePreviousClick" :disabled="!canNavigateBack"
           :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigateBack }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <BackButton v-if="!isDecisionCard" />
-          <ThumbsDown v-else />
+          <ThumbsDown v-else @click="handleDistrustClick" />
         </button>
-        <button @click="swipeRight" :disabled="!canNavigate"
+        <button @click="handleNextClick" :disabled="!canNavigate"
           :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigate }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <NextButton v-if="!isDecisionCard" />
@@ -209,6 +209,7 @@ const currentCard = computed(() => {
   return null;
 });
 
+
 const handleTinderSwipe = async (s, direction) => {
   if (!isDataReady.value) return;
 
@@ -221,7 +222,7 @@ const handleTinderSwipe = async (s, direction) => {
       ? currentCard.value.trustChoice?.feedback
       : currentCard.value.distrustChoice?.feedback;
     lastDecisionText.value = currentCard.value.text;
-    s.slideNext();
+    s.slideNext(300, true);
   } else if (currentCard.value.type === 'reveal') {
     if (isRevealCardFlipped.value) {
       await transitionToNextScenario();
@@ -231,6 +232,33 @@ const handleTinderSwipe = async (s, direction) => {
   }
 };
 
+
+
+const handleNextClick = async () => {
+  if (swiper.value && canNavigate.value && !isTransitioning.value) {
+    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    } else {
+      if (currentCard.value?.type === 'decision') {
+        makeChoice(true); // Trust choice
+        decisionFeedback.value = currentCard.value.trustChoice?.feedback;
+        lastDecisionText.value = currentCard.value.text;
+      }
+      swiper.value.slideNext(300, true);
+    }
+  }
+};
+
+const handlePreviousClick = async () => {
+  if (swiper.value && !isTransitioning.value) {
+    if (canNavigateBack.value) {
+      await previousCard();
+      swiper.value.slidePrev(300, true);
+    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    }
+  }
+};
 
 
 const handleSlideChange = (s) => {
