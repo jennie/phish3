@@ -1,80 +1,74 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class="swiper-tinder-container h-full bg-black flex flex-col pb-safe">
-    <!-- Debug Panel and Button -->
-
-    <div class="floating-text-container">
+  <div v-else class="h-screen bg-black flex flex-col">
+    <!-- Floating Text Container -->
+    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
         <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-          class="card-text text-white inset-x-0 bottom-4 text-center px-4">
+          class="text-xl text-white leading-snug text-center">
           {{ currentCard.text }}
         </p>
-        <p v-else-if="lastDecisionText" :key="'last-decision'"
-          class="card-text text-white absolute inset-x-0 bottom-4 text-center px-4">
+        <p v-else-if="lastDecisionText" :key="'last-decision'" class="text-xl text-white leading-snug text-center">
           {{ lastDecisionText }}
         </p>
       </Transition>
     </div>
 
-
-    <div v-if="isDataReady" class="swiper-wrapper h-3/5 relative overflow-visible px-6">
-      <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
-        observer observer-parents :init="false" class="overflow-visible">
-        <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index" class="overflow-visible">
+    <!-- Slides/Cards Container -->
+    <div class="flex-grow h-4/6 overflow-hidden flex items-center justify-center">
+      <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
+        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
+        <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
+          class="h-full flex items-center justify-center">
           <div :ref="el => { if (el) cardRefs[index] = el }"
-            :class="['card-container', { 'is-flipped': cardFlipStates[card.id] }]">
-            <div :class="`card-face card-front ${card.type} aspect-[11/19] mx-auto rounded-xl`">
-              <div class="card-image h-full w-full aspect-[11/19] mx-auto rounded-xl"
-                :style="{ backgroundImage: `url(${card.image})` }">
-                <div class="swiper-tinder-label swiper-tinder-label-no" data-swiper-parallax="-300"
-                  data-swiper-parallax-duration="600" v-html="card.distrustLabel || 'Distrust'" />
-                <div class="swiper-tinder-label swiper-tinder-label-yes" data-swiper-parallax="-300"
-                  data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
+            class="relative w-full h-full flex items-center justify-center">
+            <div
+              :class="['w-[calc(100vh*11/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
+              <div class="w-full h-full">
+                <div class="absolute inset-0 bg-cover bg-center rounded-xl"
+                  :style="{ backgroundImage: `url(${card.image})` }">
+                  <div
+                    class="absolute top-4 left-4 max-w-[45%] px-3 py-2 rounded-full text-sm font-bold z-10 opacity-0 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white"
+                    data-swiper-parallax="-300" data-swiper-parallax-duration="600"
+                    v-html="card.distrustLabel || 'Distrust'" />
+                  <div
+                    class="absolute top-4 right-4 max-w-[45%] px-3 py-2 rounded-full text-sm font-bold z-10 opacity-0 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white"
+                    data-swiper-parallax="-300" data-swiper-parallax-duration="600"
+                    v-html="card.trustLabel || 'Trust'" />
+                </div>
               </div>
             </div>
             <div v-if="card.type === 'reveal'"
-              :class="`card-face card-back ${card.type} aspect-[11/19] mx-auto rounded-xl`">
-              <div class="h-full w-full flex items-center justify-center bg-gray-800 rounded-xl">
-                <div v-if="decisionFeedback" class="feedback-text p-4 text-white">
-                  <p>{{ decisionFeedback }}</p>
-                </div>
+              :class="['w-[calc(100vh*11/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+              <div v-if="decisionFeedback" class="p-4 text-white">
+                <p>{{ decisionFeedback }}</p>
               </div>
             </div>
           </div>
         </swiper-slide>
       </swiper-container>
-    </div>
-    <div v-else>
-      Loading scenarios...
-    </div>
-    <div class="">
-      <div class="absolute left-0 right-0 flex flex-col items-center z-50"
-        :class="showDebugPanel ? 'bottom-panel-open' : 'bottom-safe'">
-        <button @click="showDebugPanel = !showDebugPanel"
-          class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
-          {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
-        </button>
-
-        <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
-          <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
-          <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
-          <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-          <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
-        </div>
+      <div v-else class="h-full flex items-center justify-center text-white">
+        Loading scenarios...
       </div>
-      <div class="swiper-tinder-buttons flex justify-center gap-5 z-10 py-2 mb-4">
-        <button class="swiper-tinder-button swiper-tinder-button-no" @click="swipeLeft" :disabled="!canNavigateBack"
-          :class="{ 'opacity-50 cursor-not-allowed': !canNavigateBack }">
+    </div>
+
+    <!-- Controls Container -->
+    <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
+      <div class="flex justify-center gap-5 z-10 py-2 mb-4">
+        <button @click="swipeLeft" :disabled="!canNavigateBack"
+          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigateBack }]"
+          style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <BackButton v-if="!isDecisionCard" />
           <ThumbsDown v-else />
         </button>
-        <button class="swiper-tinder-button swiper-tinder-button-yes" @click="swipeRight" :disabled="!canNavigate"
-          :class="{ 'opacity-50 cursor-not-allowed': !canNavigate }">
+        <button @click="swipeRight" :disabled="!canNavigate"
+          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigate }]"
+          style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <NextButton v-if="!isDecisionCard" />
           <ThumbsUp v-else />
         </button>
       </div>
-      <div class="container-end text-blue-200 text-center p-2 flex flex-row justify-between">
+      <div class="text-blue-200 text-center p-2 flex flex-row justify-between">
         <HomeButton />
         <a href="/" class="cursor-pointer" @click.prevent="retryScenario">
           <RetryButton />
@@ -82,8 +76,71 @@
       </div>
     </div>
 
+    <!-- Debug Panel and Button -->
+    <div class="absolute left-0 right-0 flex flex-col items-center z-50"
+      :class="showDebugPanel ? 'bottom-[calc(env(safe-area-inset-bottom,20px)+8rem)]' : 'bottom-[calc(env(safe-area-inset-bottom,20px)+0.5rem)]'">
+      <button @click="showDebugPanel = !showDebugPanel"
+        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
+        {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
+      </button>
+
+      <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
+        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
+        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
+        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
+        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+      </div>
+    </div>
   </div>
 </template>
+
+
+<style>
+/* Root variables */
+:root {
+  --swiper-tinder-no-color: red;
+  --swiper-tinder-yes-color: green;
+  --swiper-tinder-label-text-color: #fff;
+  --swiper-tinder-label-font-size: 32px;
+  --swiper-tinder-button-size: 56px;
+  --swiper-tinder-button-icon-size: 32px;
+}
+
+/* Transition styles */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Swiper specific styles */
+.swiper-slide-shadow {
+  @apply absolute inset-0 bg-black bg-opacity-15 pointer-events-none z-10;
+}
+
+.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
+  @apply opacity-100;
+}
+
+/* Safe area adjustment */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Utility classes */
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+</style>
 
 <script setup>
 import { ref, onMounted, watch, nextTick, computed } from 'vue';
@@ -346,505 +403,3 @@ const retryScenario = async () => {
 
 
 </script>
-
-<style>
-.swiper-tinder-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.floating-text-container {
-  @apply flex flex-col h-1/5 relative z-10 items-center justify-center pointer-events-none px-6 py-0 m-0;
-
-
-}
-
-.card-text {
-  @apply text-xl text-white leading-snug;
-}
-
-.swiper-wrapper {
-  overflow: visible !important;
-}
-
-swiper-container {
-  overflow: visible !important;
-}
-
-swiper-slide {
-  overflow: visible !important;
-}
-
-.swiper-tinder-label,
-.card-content {
-  position: absolute;
-}
-
-.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.swiper-tinder-label {
-  @apply px-6 py-8 leading-snug text-xl;
-  position: absolute;
-  top: 0;
-  font-weight: bold;
-
-  opacity: 0;
-  color: var(--swiper-tinder-label-text-color);
-  z-index: 10;
-  transition: opacity 0.3s;
-  width: 100%;
-}
-
-.swiper-tinder-label-yes {
-
-  background-color: var(--swiper-tinder-yes-color);
-}
-
-.swiper-tinder-label-no {
-  text-align: right;
-  background-color: var(--swiper-tinder-no-color);
-}
-
-.swiper-slide {
-  transition-property: transform, opacity;
-}
-
-.swiper-slide-shadow {
-  background: rgba(0, 0, 0, 0.15);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  z-index: 1;
-}
-
-
-.swiper-slide-active .swiper-tinder-label {
-  z-index: 11;
-}
-
-.swiper-tinder-container {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.swiper-slide {
-  overflow: hidden;
-}
-
-.card-image {
-
-  object-fit: cover;
-}
-
-.swiper-tinder-button {
-  transition: opacity 0.3s ease;
-}
-
-.swiper-tinder-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.safe-area-padding {
-  padding-bottom: env(safe-area-inset-bottom, 20px);
-}
-
-.bottom-safe {
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 0.5rem);
-}
-
-.bottom-panel-open {
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 8rem);
-  /* Adjust this value as needed */
-}
-
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 20px);
-}
-
-.fixed-bottom-buttons {
-  position: fixed;
-  bottom: max(env(safe-area-inset-bottom), 20px);
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  padding: 10px 0;
-}
-
-.swiper-tinder-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px 0;
-  /* Add some padding to prevent cutoff */
-}
-
-.swiper-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-swiper-container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-swiper-slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: auto !important;
-}
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-face {
-  @apply aspect-[11/19] rounded-xl overflow-hidden;
-
-
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  /* Match the rounded-xl class */
-}
-
-/* Ensure labels don't overflow */
-.swiper-tinder-label {
-  max-width: 90%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.swiper-tinder-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px 0;
-}
-
-.swiper-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-swiper-container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-swiper-slide {
-  align-items: center;
-  justify-content: center;
-  height: auto !important;
-}
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-face {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.swiper-tinder-label {
-  position: absolute;
-  top: 10px;
-  max-width: 45%;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.swiper-tinder-label-no {
-  left: 10px;
-  background-color: rgba(255, 0, 0, 0.7);
-  color: white;
-}
-
-.swiper-tinder-label-yes {
-  right: 10px;
-  background-color: rgba(0, 255, 0, 0.7);
-  color: white;
-}
-
-.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  opacity: 1;
-}
-
-.swiper-tinder-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px 0;
-}
-
-.floating-text-container {
-  @apply flex flex-col h-1/5 relative z-10 items-center justify-center pointer-events-none px-6 py-0 m-0;
-}
-
-.card-text {
-  @apply text-xl text-white leading-snug;
-}
-
-.swiper-wrapper,
-swiper-container,
-swiper-slide {
-  overflow: visible !important;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-}
-
-.card-face {
-  backface-visibility: hidden;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.card-back {
-  /* transform: rotateY(180deg); */
-}
-
-.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.swiper-tinder-label {
-  position: absolute;
-  top: 10px;
-  max-width: 45%;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.swiper-tinder-label-no {
-  left: 10px;
-  background-color: rgba(255, 0, 0, 0.7);
-  color: white;
-}
-
-.swiper-tinder-label-yes {
-  right: 10px;
-  background-color: rgba(0, 255, 0, 0.7);
-  color: white;
-}
-
-.swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
-  opacity: 1;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.swiper-tinder-button {
-  transition: opacity 0.3s ease;
-}
-
-.swiper-tinder-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.bottom-safe {
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 0.5rem);
-}
-
-.bottom-panel-open {
-  bottom: calc(env(safe-area-inset-bottom, 20px) + 8rem);
-}
-
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 20px);
-}
-
-@media (max-height: 600px) {
-  .floating-text-container {
-    @apply h-1/5;
-  }
-
-  .card-text {
-    @apply text-base;
-  }
-
-  .swiper-tinder-buttons {
-    @apply py-1;
-  }
-
-  .container-end {
-    @apply p-1;
-  }
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  perspective: 1000px;
-}
-
-.card-face {
-
-  backface-visibility: hidden;
-  transition: transform 0.6s;
-}
-
-.card-front {
-  transform: rotateY(0deg);
-  z-index: 2;
-}
-
-.card-back {
-  transform: rotateY(180deg);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('/assets/images/card-back.png');
-  /* Adjust the background as needed */
-  color: white;
-}
-
-.is-flipped .card-front {
-  transform: rotateY(-180deg);
-}
-
-.is-flipped .card-back {
-  transform: rotateY(0deg);
-}
-
-
-.card-back {
-  transform: rotateY(180deg);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #333;
-  color: white;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-
-.card-face {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.card-back {
-  transform: rotateY(180deg);
-}
-
-.is-flipped .card-front {
-  transform: rotateY(180deg);
-}
-
-.is-flipped .card-back {
-  transform: rotateY(0deg);
-}
-</style>
