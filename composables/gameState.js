@@ -25,6 +25,17 @@ const randomizeScenarios = () => {
   const shuffledScenarios = shuffleArray(restScenarios);
   return [firstScenario, ...shuffledScenarios];
 };
+// In useGameState.js
+const resetGame = () => {
+  currentScenarioIndex.value = 0;
+  currentCardIndex.value = 0;
+  playerState.value = {
+    trust: 50,
+    security: 50,
+    gooseInfiltration: 0,
+  };
+  scenarios.value = randomizeScenarios();
+};
 
 const scenarios = ref(randomizeScenarios());
 
@@ -113,5 +124,6 @@ export function useGameState() {
     playerState,
     scenarios: computed(() => scenarios.value),
     startGame,
+    resetGame,
   };
 }

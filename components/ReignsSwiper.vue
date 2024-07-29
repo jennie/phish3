@@ -68,17 +68,21 @@
           <ThumbsUp v-else />
         </button>
       </div>
-      <div class="text-blue-200 text-center p-2 flex flex-row justify-between">
-        <HomeButton />
-        <a href="/" class="cursor-pointer" @click.prevent="retryScenario">
-          <RetryButton />
+
+
+      <div class="text-center p-4 flex flex-row justify-between items-center">
+        <a href="/" @click.prevent="returnToStartScreen" class="p-2">
+          <HomeButton />
         </a>
+        <button @click="retryScenario" class="p-2 bg-transparent border-none cursor-pointer">
+          <RetryButton />
+        </button>
       </div>
+
     </div>
 
     <!-- Debug Panel and Button -->
-    <div class="absolute left-0 right-0 flex flex-col items-center z-50"
-      :class="showDebugPanel ? 'bottom-[calc(env(safe-area-inset-bottom,20px)+8rem)]' : 'bottom-[calc(env(safe-area-inset-bottom,20px)+0.5rem)]'">
+    <div class="fixed top-4 right-4 flex flex-col items-end z-50">
       <button @click="showDebugPanel = !showDebugPanel"
         class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
         {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
@@ -205,6 +209,7 @@ const {
   gameOver,
   playerState,
   scenarios,
+  resetGame
 } = useGameState();
 
 const decisionFeedback = ref('');
@@ -435,19 +440,32 @@ const swipeLeft = async () => {
   }
 };
 
+
+
+
+
+const returnToStartScreen = () => {
+  resetGame();
+  gameStarted.value = false;
+};
+
+
 const retryScenario = async () => {
-  if (swiper.value && currentCardIndex.value > 0) {
+  if (swiper.value && currentScenario.value) {
     isTransitioning.value = true;
 
-    // Loop to navigate back to the first card
+    // Reset to the first card of the current scenario
     while (currentCardIndex.value > 0) {
-      await swiper.value.slidePrev(500); // Adjust duration as needed
+      await swiper.value.slidePrev(300, true);
       currentCardIndex.value--;
     }
 
     // Reset card flip states
     cardFlipStates.value = {};
     currentScenario.value.cards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `card-${index}`;
+      }
       cardFlipStates.value[card.id] = false;
     });
 
@@ -456,9 +474,16 @@ const retryScenario = async () => {
     decisionFeedback.value = '';
     lastDecisionText.value = '';
 
+    // Update Swiper
+    await nextTick();
+    if (swiper.value) {
+      await swiper.value.update();
+    }
+
     isTransitioning.value = false;
   }
 };
+
 
 
 </script>
