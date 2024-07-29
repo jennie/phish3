@@ -27,6 +27,15 @@
               <div class="w-full h-full">
                 <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
                   :style="{ backgroundImage: `url(${card.image})` }">
+                  <Transition name="pop">
+                    <div v-if="card.type === 'decision' && showDecisionIcon"
+                      class="absolute top-4 right-4 bg-yellow-200 rounded-full p-2 shadow-lg icon-pop">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                        <path fill="currentColor"
+                          d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
+                      </svg>
+                    </div>
+                  </Transition>
                   <div
                     class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-10 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no"
                     data-swiper-parallax="-300" data-swiper-parallax-duration="600"
@@ -74,7 +83,8 @@
         <a href="/" @click.prevent="returnToStartScreen" class="p-2">
           <HomeButton />
         </a>
-        <button @click="retryScenario" class="p-2 bg-transparent border-none cursor-pointer">
+        <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
+          :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
           <RetryButton />
         </button>
       </div>
@@ -172,6 +182,38 @@
 .swiper-slide-active.swiper-slide-swiping-right .swiper-tinder-label-yes {
   opacity: 1;
 }
+
+/* Updated styles for the refined pop animation */
+.pop-enter-active {
+  animation: pop-in 0.5s ease-out;
+}
+
+.pop-leave-active {
+  animation: pop-in 0.5s ease-in reverse;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Add this class to ensure the icon maintains its size after animation */
+.icon-pop {
+  transform-origin: center;
+  will-change: transform;
+}
 </style>
 
 <script setup>
@@ -195,6 +237,7 @@ const lastDecisionText = ref('');
 const isDecisionCard = computed(() => {
   return currentCard.value?.type === 'decision';
 });
+// after the decision card is shown, add an icon to the top right of the card with a brief "pop" animation
 
 
 const isFlipping = ref(false);
@@ -295,13 +338,22 @@ const handlePreviousClick = async () => {
 };
 
 
+
+const showDecisionIcon = ref(false);
+
+
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
 
   currentCardIndex.value = s.activeIndex;
   const card = currentCard.value;
 
-  if (card?.type === 'reveal') {
+  if (card?.type === 'decision') {
+    showDecisionIcon.value = false;
+    nextTick(() => {
+      showDecisionIcon.value = true;
+    });
+  } else if (card?.type === 'reveal') {
     if (flipTimeout.value) {
       clearTimeout(flipTimeout.value);
     }
@@ -313,6 +365,7 @@ const handleSlideChange = (s) => {
   } else {
     isRevealCardFlipped.value = false;
     decisionFeedback.value = '';
+    showDecisionIcon.value = false;
   }
 };
 const flipRevealCard = (index) => {
@@ -450,15 +503,16 @@ const returnToStartScreen = () => {
 };
 
 
+const isRetryDisabled = computed(() => {
+  return currentCard.value?.type === 'decision' || currentCard.value?.type === 'reveal';
+});
+
 const retryScenario = async () => {
-  if (swiper.value && currentScenario.value) {
+  if (swiper.value && currentScenario.value && !isRetryDisabled.value) {
     isTransitioning.value = true;
 
     // Reset to the first card of the current scenario
-    while (currentCardIndex.value > 0) {
-      await swiper.value.slidePrev(300, true);
-      currentCardIndex.value--;
-    }
+    currentCardIndex.value = 0;
 
     // Reset card flip states
     cardFlipStates.value = {};
@@ -477,6 +531,7 @@ const retryScenario = async () => {
     // Update Swiper
     await nextTick();
     if (swiper.value) {
+      swiper.value.slideTo(0, 0);
       await swiper.value.update();
     }
 
