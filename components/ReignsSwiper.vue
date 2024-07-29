@@ -29,19 +29,41 @@
                   :style="{ backgroundImage: `url(${card.image})` }">
                   <Transition name="pop">
                     <div v-if="card.type === 'decision' && showDecisionIcon"
-                      class="absolute top-4 right-4 bg-yellow-200 rounded-full p-2 shadow-lg icon-pop">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-                        <path fill="currentColor"
-                          d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
-                      </svg>
+                      class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                      <button @click="toggleOverlay(card.id)" class="focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                          <path fill="currentColor"
+                            d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
+                        </svg>
+                      </button>
                     </div>
                   </Transition>
+                  <!-- Overlay -->
+                  <Transition name="slide-vertical">
+                    <div v-if="overlayStates[card.id]"
+                      class="absolute inset-0 bg-gray-800  flex flex-col text-gray-200 p-4 z-40">
+                      <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">Card Information</h2>
+                        <button @click="toggleOverlay(card.id)" class="text-white hover:text-gray-300">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="flex-grow overflow-y-auto">
+                        <p>{{ card.overlayContent || 'Additional information about this decision.' }}</p>
+                      </div>
+                    </div>
+                  </Transition>
+                  <!-- Existing trust/distrust labels -->
                   <div
-                    class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-10 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no"
+                    class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
                     data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                     v-html="card.distrustLabel || 'Distrust'" />
                   <div
-                    class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-10 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes"
+                    class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
                     data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                     v-html="card.trustLabel || 'Trust'" />
                 </div>
@@ -94,11 +116,11 @@
     <!-- Debug Panel and Button -->
     <div class="fixed top-4 right-4 flex flex-col items-end z-50">
       <button @click="showDebugPanel = !showDebugPanel"
-        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 transition-colors mb-2">
+        class="bg-red-500 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
         {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
       </button>
 
-      <div v-if="showDebugPanel" class="bg-black bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
+      <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
         <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
         <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
         <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
@@ -213,6 +235,36 @@
 .icon-pop {
   transform-origin: center;
   will-change: transform;
+}
+
+.slide-vertical-enter-active,
+.slide-vertical-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-vertical-enter-from,
+.slide-vertical-leave-to {
+  transform: translateY(-100%);
+}
+
+.slide-vertical-enter-to,
+.slide-vertical-leave-from {
+  transform: translateY(0);
+}
+
+/* Optional: Add a subtle scale effect for a more dynamic feel */
+.slide-vertical-enter-active {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.slide-vertical-enter-from {
+  transform: translateY(-100%) scale(0.95);
+  opacity: 0;
+}
+
+.slide-vertical-enter-to {
+  transform: translateY(0) scale(1);
+  opacity: 1;
 }
 </style>
 
@@ -538,6 +590,27 @@ const retryScenario = async () => {
     isTransitioning.value = false;
   }
 };
+
+
+const overlayStates = reactive({});
+
+const toggleOverlay = (cardId) => {
+  if (overlayStates[cardId] === undefined) {
+    overlayStates[cardId] = true;
+  } else {
+    overlayStates[cardId] = !overlayStates[cardId];
+  }
+};
+
+watch(() => currentScenario.value, (newScenario) => {
+  if (newScenario && newScenario.cards) {
+    newScenario.cards.forEach(card => {
+      if (!overlayStates[card.id]) {
+        overlayStates[card.id] = false;
+      }
+    });
+  }
+}, { immediate: true });
 
 
 

@@ -91,6 +91,8 @@ export default [
         distrustLabel: "Something's not right!",
         "Is Flipped": false,
         image: "/images/8-6.png",
+        overlayContent: "Information about decision 1",
+
         trustChoice: {
           consequences: {
             trust: -10,
