@@ -1,6 +1,6 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class="h-screen bg-black flex flex-col">
+  <div v-else class=" bg-black flex flex-col h-dvh">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
@@ -23,9 +23,9 @@
           <div :ref="el => { if (el) cardRefs[index] = el }"
             class="relative w-full h-full flex items-center justify-center">
             <div
-              :class="['w-[calc(100vh*11/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
+              :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="w-full h-full">
-                <div class="absolute inset-0 bg-cover bg-center rounded-xl"
+                <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
                   :style="{ backgroundImage: `url(${card.image})` }">
                   <div
                     class="absolute top-4 left-4 max-w-[45%] px-3 py-2 rounded-full text-sm font-bold z-10 opacity-0 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white"
@@ -39,9 +39,9 @@
               </div>
             </div>
             <div v-if="card.type === 'reveal'"
-              :class="['w-[calc(100vh*11/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+              :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden reveal  border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
               <div v-if="decisionFeedback" class="p-4 text-white">
-                <p>{{ decisionFeedback }}</p>
+                <p class="text-xl px-8">{{ decisionFeedback }}</p>
               </div>
             </div>
           </div>
@@ -139,6 +139,17 @@
 
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+.card-face {
+  @apply border-2 border-white rounded-xl overflow-hidden;
+}
+
+.reveal {
+
+  background-image: url('/images/card-reveal.png');
+  background-size: cover;
+  background-position: center center;
 }
 </style>
 
