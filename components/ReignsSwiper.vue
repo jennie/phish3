@@ -5,11 +5,10 @@
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
         <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-          class="text-xl text-white leading-snug text-center">
-          {{ currentCard.text }}
+          class="text-xl text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
         </p>
-        <p v-else-if="lastDecisionText" :key="'last-decision'" class="text-xl text-white leading-snug text-center">
-          {{ lastDecisionText }}
+        <p v-else-if="lastDecisionText" :key="'last-decision'" class="text-xl text-white leading-snug text-center"
+          v-html="parseCardText(lastDecisionText)">
         </p>
       </Transition>
     </div>
@@ -72,7 +71,8 @@
             <div v-if="card.type === 'reveal'"
               :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden reveal  border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
               <div v-if="decisionFeedback" class="p-4 text-white">
-                <p class="text-xl px-8">{{ decisionFeedback }}</p>
+                <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
+
               </div>
             </div>
           </div>
@@ -311,7 +311,9 @@ const isDecisionCard = computed(() => {
 });
 // after the decision card is shown, add an icon to the top right of the card with a brief "pop" animation
 
-
+const parseCardText = (text) => {
+  return text.replace(/\\n/g, '<br>');
+};
 const isFlipping = ref(false);
 const {
   gameStarted,
