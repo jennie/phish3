@@ -299,12 +299,12 @@ export default [
         trustChoice: {
           consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
           feedback:
-            "You trust Beejou and follow her shortcut.\\n\\n The path takes you through a lovely garden and you reach the main building quickly.\\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
+            "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
         },
         distrustChoice: {
           consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
           feedback:
-            "You suggest another route back to the main building.\\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
+            "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
         },
         overlayContent: "Tutorial - teaches gameplay, what is trust/distrust",
       },
@@ -464,7 +464,7 @@ export default [
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
           feedback:
-            "You report it as a phishing attempt and are thanked for your report.\\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!",
+            "You report it as a phishing attempt and are thanked for your report. \\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!",
         },
         overlayContent: "Tutorial - teaches what is a Phish, Email",
       },
@@ -600,12 +600,12 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
           feedback:
-            "After booking, Beejou receives an email saying there's an issue with her payment.\\n\\n She's starting to wonder if it was a good idea after all...",
+            "After booking, Beejou receives an email saying there's an issue with her payment. \\n\\n She's starting to wonder if it was a good idea after all...",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
           feedback:
-            "You point out the red flags to Beejou.\\n\\n She's glad she asked you instead of trying to save some money and she thanks you for your help.",
+            "You point out the red flags to Beejou. \\n\\n She's glad she asked you instead of trying to save some money and she thanks you for your help.",
         },
         overlayContent: "Tutorial - teaches what is a phish, Links and Logins",
       },
@@ -924,7 +924,7 @@ export default [
         distrustChoice: {
           consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
           feedback:
-            "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere.\\n\\n With features like these, this will take months to complete.",
+            "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere. \\n\\n With features like these, this will take months to complete.",
         },
         overlayContent:
           "Learning Objective - Discerning websites for legitimacy (real site)",
@@ -1099,7 +1099,7 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 5}',
           feedback:
-            "You check out and are promised the hand delivery.\\n\\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives.",
+            "You check out and are promised the hand delivery. \\n\\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives.",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
@@ -1141,7 +1141,7 @@ export default [
         trustLabel: "Enjoy the moment...",
         distrustLabel: "Mmm coffee",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-1.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1160,7 +1160,7 @@ export default [
         trustLabel: "Really?",
         distrustLabel: "Beeyonce?!",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-2.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1179,7 +1179,7 @@ export default [
         trustLabel: "Sounds awesome!",
         distrustLabel: "Woah!",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-3.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1198,7 +1198,7 @@ export default [
         trustLabel: "Why's that?",
         distrustLabel: "What for?",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-4.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1217,7 +1217,7 @@ export default [
         trustLabel: "Let's look together.",
         distrustLabel: "Show me!",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-6.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1236,7 +1236,7 @@ export default [
         trustLabel: "Okay...",
         distrustLabel: "Hmm",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-7.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1255,7 +1255,7 @@ export default [
         trustLabel: "Keep looking\u2026",
         distrustLabel: "Okay...",
         "Is Flipped": null,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-8.png",
         trustChoice: {
           consequences: null,
           feedback: null,
@@ -1272,9 +1272,9 @@ export default [
         order: 8,
         text: "Should Beejou trust the site?",
         trustLabel: "Yes! Let's get tickets!",
-        distrustLabel: "Maybe we shouldn't.",
+        distrustLabel: "Maybe we shouldn't",
         "Is Flipped": false,
-        image: "/images/card-placeholder.png",
+        image: "/images/7-8.png",
         trustChoice: {
           consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
           feedback:
@@ -1283,7 +1283,7 @@ export default [
         distrustChoice: {
           consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
           feedback:
-            "Sounds worrying so you decide not to go.\\n\\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks...",
+            "Sounds worrying so you decide not to go. \\n\\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks...",
         },
         overlayContent:
           "Learning Objective - Discerning offers, investigating sources (trust)",
@@ -1482,7 +1482,7 @@ export default [
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
           feedback:
-            "It wants 3 different forms of ID!\\n\\n You warn Beejou that this is likely a scam.\\n\\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
+            "It wants 3 different forms of ID!\\n\\n You warn Beejou that this is likely a scam. \\n\\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
         },
         overlayContent:
           "Learning Objective - Discerning urgent, official looking emails (phish)",
@@ -1619,12 +1619,12 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
           feedback:
-            "You download the fix and crack the window as requested.\\n\\n Your computer starts acting weird... and later you learn a goose was spotted causing a scene in the study lounge.\\n\\n Must be unrelated.",
+            "You download the fix and crack the window as requested. \\n\\n Your computer starts acting weird... and later you learn a goose was spotted causing a scene in the study lounge. \\n\\n Must be unrelated.",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
           feedback:
-            "You report the email to IT, who confirms it was a phishing attempt.\\n\\n Your caution pays off!\\n\\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows.",
+            "You report the email to IT, who confirms it was a phishing attempt. \\n\\n Your caution pays off!\\n\\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows.",
         },
         overlayContent:
           "Learning Objective - Urgent requests, downloading software (phish)",
@@ -1799,7 +1799,7 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
           feedback:
-            "You get a sweet $10 campus store gift card.\\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs.",
+            "You get a sweet $10 campus store gift card. \\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs.",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
@@ -2235,7 +2235,7 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 5}',
           feedback:
-            "The beaver nods, \"I know flowers are tempting but you should be wary about offers that sound too good to be true.\\n\\n Also you knew it locked Beejou's computer! Don't let yourself get flower bamboozled.\"",
+            "The beaver nods, \"I know flowers are tempting but you should be wary about offers that sound too good to be true. \\n\\n Also you knew it locked Beejou's computer! Don't let yourself get flower bamboozled.\"",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 5}',
@@ -2434,7 +2434,7 @@ export default [
           consequences:
             '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
           feedback:
-            "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one.\\n\\n They thank you for your trouble.",
+            "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \\n\\n They thank you for your trouble.",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
@@ -2599,7 +2599,7 @@ export default [
         distrustChoice: {
           consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
           feedback:
-            "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT.\\n\\n They send out a warning to all students about the scam.",
+            "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT. \\n\\n They send out a warning to all students about the scam.",
         },
         overlayContent:
           "Learning Objective - Student job scams that sound too good to be true (phish)",
@@ -2728,19 +2728,19 @@ export default [
         type: "decision",
         order: 6,
         text: "But before you leave your desk, should you lock your laptop before you go, even if no one's around?",
-        trustLabel: "Leave it unlocked.",
-        distrustLabel: "Lock it.",
+        trustLabel: "I can leave it unlocked",
+        distrustLabel: "I should lock it",
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: '{"trust": -5, "security": -5, "gooseInfiltration": 5}',
           feedback:
-            "You leave your laptop unlocked and go check the window.\\n\\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!",
+            "You leave your laptop unlocked and go check the window. \\n\\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!",
         },
         distrustChoice: {
           consequences: '{"trust": 5, "security": 5, "gooseInfiltration": 0}',
           feedback:
-            "You lock your laptop and head towards the noise. You find an open vent and close it.\\n\\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop.",
+            "You lock your laptop and head towards the noise. You find an open vent and close it. \\n\\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop.",
         },
         overlayContent: "Learning Objective - Security Hygiene with equipment",
       },
@@ -2925,21 +2925,22 @@ export default [
         type: "decision",
         order: 9,
         text: "Should you tell Beejou to trust or distrust the email?",
-        trustLabel: "I'd trust it.",
+        trustLabel: "I'd trust it",
         distrustLabel: "No, it's a scam!",
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
           feedback:
-            "Beejou visits the Finullcial Aid Office and receives her scholarship. She thanks you for helping her make the right choice.",
+            "Beejou visits the Financial Aid Office and receives her scholarship. She thanks you for helping her make the right choice.",
         },
         distrustChoice: {
           consequences: '{"trust": -5, "security": 0, "gooseInfiltration": 0}',
           feedback:
             "Beejou hesitates to claim her scholarship, worried it might be a scam. She might still wonder, years from now if it was all just a dream.",
         },
-        overlayContent: null,
+        overlayContent:
+          "Learning Objective - Official email, trustable source (trust)",
       },
       {
         id: 16,

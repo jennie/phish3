@@ -26,8 +26,8 @@
               <div class="w-full h-full">
                 <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
                   :style="{ backgroundImage: `url(${card.image})` }">
-                  <Transition name="pop">
-                    <div v-if="card.type === 'decision' && showDecisionIcon"
+                  <Transition name="pop-fade">
+                    <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
                       class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                       <button @click="toggleOverlay(card.id)" class="focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
@@ -225,13 +225,18 @@
   opacity: 1;
 }
 
-/* Updated styles for the refined pop animation */
-.pop-enter-active {
+.pop-fade-enter-active {
   animation: pop-in 0.5s ease-out;
 }
 
-.pop-leave-active {
-  animation: pop-in 0.5s ease-in reverse;
+.pop-fade-leave-active,
+.pop-fade-enter-active {
+  transition: opacity 0.2s ease-out;
+}
+
+.pop-fade-enter-from,
+.pop-fade-leave-to {
+  opacity: 0;
 }
 
 @keyframes pop-in {
@@ -251,10 +256,9 @@
   }
 }
 
-/* Add this class to ensure the icon maintains its size after animation */
 .icon-pop {
   transform-origin: center;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
 .slide-vertical-enter-active,
@@ -332,6 +336,7 @@ const {
 const decisionFeedback = ref('');
 const currentCardIndex = ref(0);
 const isRevealCardFlipped = ref(false);
+let swipingTimeout = null;
 
 const isDataReady = computed(() => {
   return !!currentScenario.value && !!scenarios.value && scenarios.value.length > 0;
@@ -413,8 +418,9 @@ const handlePreviousClick = async () => {
 
 
 
-const showDecisionIcon = ref(false);
 
+const showDecisionIcon = ref(false);
+const isCardSwiping = ref(false);
 
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
@@ -424,6 +430,7 @@ const handleSlideChange = (s) => {
 
   if (card?.type === 'decision') {
     showDecisionIcon.value = false;
+    isCardSwiping.value = false;
     nextTick(() => {
       showDecisionIcon.value = true;
     });
@@ -501,6 +508,29 @@ const initializeSwiper = () => {
         },
         slideChange: handleSlideChange,
         tinderSwipe: handleTinderSwipe,
+        sliderFirstMove: () => {
+          if (currentCard.value?.type === 'decision') {
+            isCardSwiping.value = true;
+            if (swipingTimeout) {
+              clearTimeout(swipingTimeout);
+            }
+          }
+        },
+        sliderMove: () => {
+          if (swipingTimeout) {
+            clearTimeout(swipingTimeout);
+          }
+        },
+        touchEnd: () => {
+          if (currentCard.value?.type === 'decision') {
+            if (swipingTimeout) {
+              clearTimeout(swipingTimeout);
+            }
+            swipingTimeout = setTimeout(() => {
+              isCardSwiping.value = false;
+            }, 300); // Adjust this delay as needed
+          }
+        },
       },
     };
     Object.assign(swiperRef.value, swiperParams);
