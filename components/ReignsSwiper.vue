@@ -28,11 +28,11 @@
                 <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
                   :style="{ backgroundImage: `url(${card.image})` }">
                   <div
-                    class="text-right absolute top-0 left-0 w-full px-3 py-8 text-sm font-bold z-10 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no"
+                    class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-10 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no"
                     data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                     v-html="card.distrustLabel || 'Distrust'" />
                   <div
-                    class="absolute top-0 right-0 w-full px-3 py-8 text-sm font-bold z-10 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes"
+                    class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-10 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes"
                     data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                     v-html="card.trustLabel || 'Trust'" />
                 </div>
