@@ -55,14 +55,14 @@
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
       <div class="flex justify-center gap-5 z-10 py-2 mb-4">
-        <button @click="handlePreviousClick" :disabled="!canNavigateBack"
-          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigateBack }]"
+        <button @click="handlePreviousClick" :disabled="!canNavigateBack || isFlipping"
+          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigateBack || isFlipping }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <BackButton v-if="!isDecisionCard" />
           <ThumbsDown v-else @click="handleDistrustClick" />
         </button>
-        <button @click="handleNextClick" :disabled="!canNavigate"
-          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigate }]"
+        <button @click="handleNextClick" :disabled="!canNavigate || isFlipping"
+          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigate || isFlipping }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <NextButton v-if="!isDecisionCard" />
           <ThumbsUp v-else />
@@ -176,7 +176,7 @@ const isDecisionCard = computed(() => {
 });
 
 
-
+const isFlipping = ref(false);
 const {
   gameStarted,
   startGame,
@@ -211,6 +211,7 @@ const canNavigate = computed(() => {
 const canNavigateBack = computed(() => {
   if (!currentCard.value) return false;
   if (currentCardIndex.value === 0) return false;
+  if (currentCard.value.type === 'reveal' && isRevealCardFlipped.value) return false;
   return true;
 });
 const currentCard = computed(() => {
@@ -298,12 +299,14 @@ const flipRevealCard = (index) => {
     if (flipTimeout.value) {
       clearTimeout(flipTimeout.value);
     }
+    isFlipping.value = true;
     flipTimeout.value = setTimeout(() => {
       cardFlipStates.value[card.id] = true;
       isRevealCardFlipped.value = true;
       if (swiper.value) {
         swiper.value.allowSlideNext = true;
       }
+      isFlipping.value = false;
     }, 1000);
   }
 };
