@@ -142,6 +142,26 @@
   --swiper-tinder-button-icon-size: 32px;
 }
 
+/* Enhance 3D effect for the card container */
+.reveal {
+  perspective: 2000px;
+}
+
+/* Enhance the flip animation */
+.transition-transform {
+  transition-duration: 0.6s;
+  transition-timing-function: ease-out;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg) translate3d(0, 0, 50px);
+}
+
+/* Optional: Enhance the reveal card appearance */
+.reveal {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 /* Transition styles */
 .fade-enter-active,
 .fade-leave-active {
@@ -544,9 +564,6 @@ const swipeLeft = async () => {
     }
   }
 };
-
-
-
 
 
 const returnToStartScreen = () => {

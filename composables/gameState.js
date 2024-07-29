@@ -27,6 +27,7 @@ const randomizeScenarios = () => {
 };
 // In useGameState.js
 const resetGame = () => {
+  gameStarted.value = false;
   currentScenarioIndex.value = 0;
   currentCardIndex.value = 0;
   playerState.value = {
