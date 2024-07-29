@@ -132,18 +132,6 @@ swiper-slide {
   @apply flex justify-center items-center w-full h-full;
 }
 
-.swiper-tinder-label {
-  @apply absolute top-20 font-bold transition-opacity pointer-events-none bg-black bg-opacity-70 p-2 z-10;
-}
-
-.swiper-tinder-label-no {
-  @apply left-0 text-red-500 text-right;
-}
-
-.swiper-tinder-label-yes {
-  @apply right-0 text-green-500 text-left;
-}
-
 .swiper-slide-active.swiper-slide-swiping .swiper-tinder-label {
   @apply opacity-100;
 }
