@@ -25,7 +25,7 @@
               :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="w-full h-full">
                 <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
-                  :style="{ backgroundImage: `url(${card.image})` }">
+                  :style="{ backgroundImage: `url(${card.image || ''})` }">
                   <Transition name="pop-fade">
                     <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
                       class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
@@ -68,11 +68,10 @@
                 </div>
               </div>
             </div>
-            <div v-if="card.type === 'reveal'"
+            <div v-if="currentCard && currentCard.type === 'reveal'"
               :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden reveal  border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
               <div v-if="decisionFeedback" class="p-4 text-white">
                 <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
-
               </div>
             </div>
           </div>
@@ -114,17 +113,25 @@
     </div>
 
     <!-- Debug Panel and Button -->
+    <!-- Debug Panel and Button -->
     <div class="fixed top-4 right-4 flex flex-col items-end z-50">
       <button @click="showDebugPanel = !showDebugPanel"
         class="bg-red-500 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
         {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
       </button>
 
-      <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
+      <div v-if="showDebugPanel"
+        class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2 overflow-auto max-h-[80vh]">
         <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
         <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
         <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+        <p class="mb-1">All Scenarios (in current order):</p>
+        <span v-for="(scenario, index) in scenarios" :key="scenario.id">
+          <button @click="jumpToScenario(scenario.id)" class="underline hover:text-yellow-300 text-2xl px-2 ">
+            {{ scenario.id }}
+          </button>
+
+        </span>
       </div>
     </div>
   </div>
@@ -330,7 +337,8 @@ const {
   gameOver,
   playerState,
   scenarios,
-  resetGame
+  resetGame,
+  currentScenarioIndex
 } = useGameState();
 
 const decisionFeedback = ref('');
@@ -371,23 +379,41 @@ const handleTinderSwipe = async (s, direction) => {
 
   if (!currentCard.value) return;
 
-  if (currentCard.value.type === 'decision') {
+  console.log('handleTinderSwipe called with direction:', direction);
+  console.log('Current card:', JSON.parse(JSON.stringify(currentCard.value)));
+
+  if (currentCard.value.type === 'story') {
+    console.log('Story card detected, moving to next card');
+    nextCard();
+    s.slideNext(300, true);
+  } else if (currentCard.value.type === 'decision') {
     const isTrust = direction === 'right';
+    console.log('Decision card detected. Is trust decision:', isTrust);
     makeChoice(isTrust);
+
+    console.log('Trust feedback:', currentCard.value.trustChoice?.feedback);
+    console.log('Distrust feedback:', currentCard.value.distrustChoice?.feedback);
+
     decisionFeedback.value = isTrust
       ? currentCard.value.trustChoice?.feedback
       : currentCard.value.distrustChoice?.feedback;
+
+    console.log('Set decisionFeedback to:', decisionFeedback.value);
+
     lastDecisionText.value = currentCard.value.text;
+    nextCard();
     s.slideNext(300, true);
   } else if (currentCard.value.type === 'reveal') {
+    console.log('Reveal card detected');
     if (isRevealCardFlipped.value) {
+      console.log('Reveal card is flipped, transitioning to next scenario');
       await transitionToNextScenario();
     } else {
+      console.log('Flipping reveal card');
       flipRevealCard(currentCardIndex.value);
     }
   }
 };
-
 
 
 const handleNextClick = async () => {
@@ -661,6 +687,34 @@ watch(() => currentScenario.value, (newScenario) => {
   }
 }, { immediate: true });
 
+const jumpToScenario = async (scenarioId) => {
+  console.log('Jumping to scenario:', scenarioId);
+  const targetIndex = scenarios.value.findIndex(s => s.id === Number(scenarioId));
+  console.log('Target index:', targetIndex);
+  if (targetIndex !== -1) {
+    // Reset game state
+    isTransitioning.value = true;
+    currentCardIndex.value = 0;
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    lastDecisionText.value = '';
+    cardFlipStates.value = {};
 
+    // Set the current scenario index directly
+    currentScenarioIndex.value = targetIndex;
+
+    // Update Swiper
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(0, 0);
+      await swiper.value.update();
+    }
+
+    isTransitioning.value = false;
+    console.log('Jumped to scenario:', currentScenario.value.id);
+  } else {
+    console.error('Scenario not found:', scenarioId);
+  }
+};
 
 </script>

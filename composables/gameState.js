@@ -37,7 +37,24 @@ const resetGame = () => {
   };
   scenarios.value = randomizeScenarios();
 };
+const nextScenario = async (targetIndex = null) => {
+  console.log("nextScenario called with targetIndex:", targetIndex);
+  const currentIndex = scenarios.value.findIndex(
+    (s) => s.id === currentScenario.value.id
+  );
+  let nextIndex;
 
+  if (targetIndex !== null) {
+    nextIndex = targetIndex;
+  } else {
+    nextIndex = (currentIndex + 1) % scenarios.value.length;
+  }
+
+  console.log("Setting currentScenario to index:", nextIndex);
+  currentScenario.value = scenarios.value[nextIndex];
+  console.log("New currentScenario:", currentScenario.value);
+  // Reset any scenario-specific state here
+};
 const scenarios = ref(randomizeScenarios());
 
 const currentScenario = computed(() => {
@@ -93,14 +110,14 @@ function nextCard() {
   }
 }
 
-function nextScenario() {
-  if (currentScenarioIndex.value < scenarios.value.length - 1) {
-    currentScenarioIndex.value++;
-    currentCardIndex.value = 0;
-  } else {
-    // Game over logic here
-  }
-}
+// function nextScenario() {
+//   if (currentScenarioIndex.value < scenarios.value.length - 1) {
+//     currentScenarioIndex.value++;
+//     currentCardIndex.value = 0;
+//   } else {
+//     // Game over logic here
+//   }
+// }
 
 function previousCard() {
   if (currentCardIndex.value > 0) {
@@ -126,5 +143,6 @@ export function useGameState() {
     scenarios: computed(() => scenarios.value),
     startGame,
     resetGame,
+    currentScenarioIndex, // Add this line
   };
 }
