@@ -112,7 +112,6 @@
       </div>
 
     </div>
-
     <!-- Debug Panel and Button -->
     <div class="fixed top-4 right-4 flex flex-col items-end z-50">
       <button @click="showDebugPanel = !showDebugPanel"
@@ -121,10 +120,18 @@
       </button>
 
       <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
-        <p class="mb-1">Current Card: {{ currentCardIndex + 1 }}</p>
-        <p class="mb-1">Card Type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Current Scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">All Scenarios: {{ scenarios.map(s => s.id).join(', ') }}</p>
+        <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
+        <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
+        <p class="mb-1">Current scenario: {{ currentScenario?.id || 'N/A' }}</p>
+
+        <!-- Updated Scenarios list with clickable links -->
+        <p class="mb-1">Scenarios in current order:</p>
+        <div class="flex flex-wrap gap-1">
+          <a v-for="scenario in scenarios" :key="scenario.id" @click.prevent="jumpToScenario(scenario.id)" href="#"
+            class="text-white text-2xl px-2 hover:text-yellow-200 underline">
+            {{ scenario.id }}
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -319,6 +326,9 @@ const parseCardText = (text) => {
   return text.replace(/\\n/g, '<br>');
 };
 const isFlipping = ref(false);
+
+const selectedScenarioId = ref(null);
+
 const {
   gameStarted,
   startGame,
@@ -330,13 +340,24 @@ const {
   gameOver,
   playerState,
   scenarios,
-  resetGame
+  resetGame,
+  jumpToScenarioById, // Add this new method from gameState
 } = useGameState();
 
 const decisionFeedback = ref('');
 const currentCardIndex = ref(0);
 const isRevealCardFlipped = ref(false);
 let swipingTimeout = null;
+
+const jumpToScenario = async (scenarioId) => {
+  await jumpToScenarioById(scenarioId);
+  await nextTick();
+  if (swiper.value) {
+    swiper.value.slideTo(0, 0);
+    await swiper.value.update();
+  }
+};
+
 
 const isDataReady = computed(() => {
   return !!currentScenario.value && !!scenarios.value && scenarios.value.length > 0;
