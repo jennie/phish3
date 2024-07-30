@@ -1,6 +1,6 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class=" bg-black flex flex-col h-dvh">
+  <div v-else class=" bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
@@ -14,13 +14,13 @@
     </div>
 
     <!-- Slides/Cards Container -->
-    <div class="flex-grow h-4/6 overflow-hidden flex items-center justify-center">
+    <div class="absolute h-screen w-screen flex items-center justify-center">
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
-        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
+        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full ">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
-          class="h-full flex items-center justify-center">
+          class="h-full flex flex-col items-center justify-center">
           <div :ref="el => { if (el) cardRefs[index] = el }"
-            class="relative w-full h-full flex items-center justify-center">
+            class="relative w-full h-4/6  flex items-center justify-center">
             <div
               :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="w-full h-full">
@@ -101,7 +101,7 @@
       </div>
 
 
-      <div class="text-center p-4 flex flex-row justify-between items-center">
+      <div class="text-center p-4 flex flex-row justify-between items-center z-50">
         <a href="/" @click.prevent="returnToStartScreen" class="p-2">
           <HomeButton />
         </a>
