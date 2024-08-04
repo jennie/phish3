@@ -1,6 +1,7 @@
 export default [
   {
     id: 1,
+    scenarioType: "tutorial",
     cards: [
       {
         id: 1,
@@ -298,12 +299,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
         },
         distrustChoice: {
-          consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
         },
@@ -456,13 +457,12 @@ export default [
         "Is Flipped": false,
         image: "/images/9-5.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.'\\n\\n It's just a single paged document listing out 3 study habits:\\n\\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "You report it as a phishing attempt and are thanked for your report. \\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!",
         },
@@ -597,13 +597,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "After booking, Beejou receives an email saying there's an issue with her payment. \\n\\n She's starting to wonder if it was a good idea after all...",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You point out the red flags to Beejou. \\n\\n She's glad she asked you instead of trying to save some money and she thanks you for your help.",
         },
@@ -757,13 +756,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: '{"trust": 5, "security": 15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "Nice job checking the location! You feel reassured knowing your account is protected with MFA.",
         },
         distrustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?",
         },
@@ -917,12 +915,12 @@ export default [
         "Is Flipped": false,
         image: "/images/5-6.png",
         trustChoice: {
-          consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "Sounds like you'll have to go somewhere else for Advanced Salad options, but the new features sound great.",
         },
         distrustChoice: {
-          consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere. \\n\\n With features like these, this will take months to complete.",
         },
@@ -1096,13 +1094,12 @@ export default [
         "Is Flipped": false,
         image: null,
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 5}',
+          consequences: 1,
           feedback:
             "You check out and are promised the hand delivery. \\n\\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Beejou discovers that you can just get tickets at a table by the gym and she says she'll get you a ticket as thanks since you helped her out.",
         },
@@ -1276,12 +1273,12 @@ export default [
         "Is Flipped": false,
         image: "/images/7-8.png",
         trustChoice: {
-          consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You and Beejou get front row tickets. Beejou's so excited, she says she wont sleep for weeks.",
         },
         distrustChoice: {
-          consequences: '{"trust": -10, "security": 0, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Sounds worrying so you decide not to go. \\n\\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks...",
         },
@@ -1474,13 +1471,12 @@ export default [
         "Is Flipped": false,
         image: "/images/8-6.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 5}',
+          consequences: 1,
           feedback:
             "It asks for 3 different forms of ID!\\n\\n Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "It wants 3 different forms of ID!\\n\\n You warn Beejou that this is likely a scam. \\n\\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
         },
@@ -1616,13 +1612,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You download the fix and crack the window as requested. \\n\\n Your computer starts acting weird... and later you learn a goose was spotted causing a scene in the study lounge. \\n\\n Must be unrelated.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "You report the email to IT, who confirms it was a phishing attempt. \\n\\n Your caution pays off!\\n\\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows.",
         },
@@ -1796,13 +1791,12 @@ export default [
         "Is Flipped": false,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You get a sweet $10 campus store gift card. \\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!",
         },
@@ -1976,13 +1970,12 @@ export default [
         "Is Flipped": false,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You decide to trust their advice and install the update. You feel secure knowing your system is protected.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Sure, it sounds critical, but it can't actually be that critical. It can wait!",
         },
@@ -2232,13 +2225,12 @@ export default [
         "Is Flipped": false,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 5}',
+          consequences: 1,
           feedback:
             "The beaver nods, \"I know flowers are tempting but you should be wary about offers that sound too good to be true. \\n\\n Also you knew it locked Beejou's computer! Don't let yourself get flower bamboozled.\"",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 5}',
+          consequences: 0,
           feedback:
             '"That\'s right!" the beaver nods, "If an offer sounds too good to be true, it probably is!"',
         },
@@ -2431,13 +2423,12 @@ export default [
         "Is Flipped": false,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences:
-            '{"trust": -10, "security": -15, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \\n\\n They thank you for your trouble.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "They just want to taste your drink!!\\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
         },
@@ -2592,12 +2583,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: '{"trust": -5, "security": -5, "gooseInfiltration": 5}',
+          consequences: 1,
           feedback:
             "Beejou arrives later to the job, only to find an empty room and not a single crumb of cake.",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 10, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT. \\n\\n They send out a warning to all students about the scam.",
         },
@@ -2733,12 +2724,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: '{"trust": -5, "security": -5, "gooseInfiltration": 5}',
+          consequences: 1,
           feedback:
             "You leave your laptop unlocked and go check the window. \\n\\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!",
         },
         distrustChoice: {
-          consequences: '{"trust": 5, "security": 5, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "You lock your laptop and head towards the noise. You find an open vent and close it. \\n\\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop.",
         },
@@ -2930,12 +2921,12 @@ export default [
         "Is Flipped": null,
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: '{"trust": 5, "security": 0, "gooseInfiltration": 0}',
+          consequences: 1,
           feedback:
             "Beejou visits the Financial Aid Office and receives her scholarship. She thanks you for helping her make the right choice.",
         },
         distrustChoice: {
-          consequences: '{"trust": -5, "security": 0, "gooseInfiltration": 0}',
+          consequences: 0,
           feedback:
             "Beejou hesitates to claim her scholarship, worried it might be a scam. She might still wonder, years from now if it was all just a dream.",
         },

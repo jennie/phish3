@@ -4,10 +4,9 @@ import scenariosData from "../data/scenarios";
 const gameStarted = ref(false);
 const currentScenarioIndex = ref(0);
 const currentCardIndex = ref(0);
+
 const playerState = ref({
-  trust: 50,
-  security: 50,
-  gooseInfiltration: 0,
+  score: 0,
 });
 
 // Function to shuffle an array
@@ -33,9 +32,7 @@ const resetGame = () => {
   currentScenarioIndex.value = 0;
   currentCardIndex.value = 0;
   playerState.value = {
-    trust: 50,
-    security: 50,
-    gooseInfiltration: 0,
+    score: 0,
   };
   scenarios.value = randomizeScenarios();
 };
@@ -105,10 +102,16 @@ function makeChoice(isTrust) {
       ? decisionCard.trustChoice
       : decisionCard.distrustChoice;
     const newState = { ...playerState.value };
+
+    // Update player state based on the consequences
     Object.keys(choice.consequences).forEach((key) => {
       newState[key] += choice.consequences[key];
       newState[key] = Math.max(0, Math.min(100, newState[key]));
     });
+
+    // Update score: Add 1 point for correct choices, and 0 for wrong ones
+    newState.score += choice.consequences === 1 ? 1 : 0;
+
     playerState.value = newState;
   }
 }
@@ -149,6 +152,7 @@ export function useGameState() {
     startGame,
     resetGame,
     currentScenarioIndex,
+    currentCardIndex,
     jumpToScenarioById,
   };
 }

@@ -1,5 +1,7 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
+  <GameOverScreen v-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
+
   <div v-else class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
@@ -127,6 +129,21 @@
         <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
         <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
         <p class="mb-1">Current scenario: {{ currentScenario?.id || 'N/A' }}</p>
+        <p class="mb-1">Current score: {{ playerState.score || 'N/A' }}</p>
+
+        <!-- Score Manipulation Buttons -->
+        <p class="font-bold mb-2">Set Score:</p>
+        <div class="flex flex-col gap-2 mb-4">
+          <button @click="setScore(20)" class="bg-green-500 px-4 py-2 rounded">100% - Perfect</button>
+          <button @click="setScore(16)" class="bg-yellow-500 px-4 py-2 rounded">80% - Participation 1</button>
+          <button @click="setScore(14)" class="bg-orange-500 px-4 py-2 rounded">70% - Participation 2</button>
+          <button @click="setScore(12)" class="bg-red-500 px-4 py-2 rounded">69% or less - Fail</button>
+        </div>
+
+        <!-- Complete All Scenarios Button -->
+        <button @click="completeAllScenarios" class="bg-blue-500 px-4 py-2 rounded mb-2">
+          Complete All Scenarios
+        </button>
 
         <!-- Updated Scenarios list with clickable links -->
         <p class="mb-1">Scenarios in current order:</p>
@@ -147,7 +164,7 @@ import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '@/composables/gameState';
 import '/assets/css/styles.css';
-import { useMarkdownContent } from '~/composables/useMarkdownContent'
+import { useMarkdownContent } from '~/composables/useMarkdownContent';
 
 register();
 const showDebugPanel = ref(false);
@@ -184,12 +201,33 @@ const {
   scenarios,
   resetGame,
   jumpToScenarioById,
+  currentScenarioIndex, // Include this
+  currentCardIndex, // Include this
 } = useGameState();
 
 const decisionFeedback = ref('');
-const currentCardIndex = ref(0);
 const isRevealCardFlipped = ref(false);
 let swipingTimeout = null;
+
+
+const setScore = (score) => {
+  playerState.value.score = score;
+  // Optionally, adjust other playerState properties here
+};
+
+const completeAllScenarios = () => {
+  if (scenarios.value.length > 0) {
+    currentScenarioIndex.value = scenarios.value.length - 1;
+    if (scenarios.value[currentScenarioIndex.value].cards.length > 0) {
+      currentCardIndex.value = scenarios.value[currentScenarioIndex.value].cards.length - 1;
+    } else {
+      console.error('No cards found in the final scenario');
+    }
+  } else {
+    console.error('No scenarios available');
+  }
+};
+
 
 const jumpToScenario = async (scenarioId) => {
   await jumpToScenarioById(scenarioId);
@@ -225,6 +263,10 @@ const canNavigateBack = computed(() => {
 
 const currentCard = computed(() => {
   if (currentScenario.value && currentScenario.value.cards) {
+    console.log('currentScenarioIndex:', currentScenarioIndex.value);
+    console.log('currentCardIndex:', currentCardIndex.value);
+    console.log('scenarios:', scenarios.value);
+
     const card = currentScenario.value.cards[currentCardIndex.value];
     console.log('Current card:', card);
     console.log('Current card overlayContent:', card.overlayContent);
@@ -528,7 +570,7 @@ const retryScenario = async () => {
   }
 };
 
-const { content: overlayContent, loadMarkdownContent } = useMarkdownContent()
+const { content: overlayContent, loadMarkdownContent } = useMarkdownContent();
 const overlayTransitionName = ref('');
 
 
@@ -560,6 +602,7 @@ watch(currentCardIndex, () => {
 
 });
 </script>
+
 
 <style>
 /* Root variables */
