@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  public: {
+    data: "~/data",
+  },
   modules: ["@nuxtjs/tailwindcss"],
   vue: {
     compilerOptions: {

@@ -25,7 +25,9 @@ const randomizeScenarios = () => {
   const shuffledScenarios = shuffleArray(restScenarios);
   return [firstScenario, ...shuffledScenarios];
 };
-// In useGameState.js
+
+const scenarios = ref(randomizeScenarios());
+
 const resetGame = () => {
   gameStarted.value = false;
   currentScenarioIndex.value = 0;
@@ -45,29 +47,32 @@ const jumpToScenarioById = async (targetId) => {
   if (targetIndex !== -1) {
     currentScenarioIndex.value = targetIndex;
     currentCardIndex.value = 0;
-    await nextScenario(targetIndex);
+    return true;
   }
+  return false;
 };
 
 const nextScenario = async (targetIndex = null) => {
   console.log("nextScenario called with targetIndex:", targetIndex);
-  const currentIndex = scenarios.value.findIndex(
-    (s) => s.id === currentScenario.value.id
-  );
   let nextIndex;
 
   if (targetIndex !== null) {
     nextIndex = targetIndex;
   } else {
-    nextIndex = (currentIndex + 1) % scenarios.value.length;
+    nextIndex = currentScenarioIndex.value + 1;
   }
 
-  console.log("Setting currentScenario to index:", nextIndex);
-  currentScenario.value = scenarios.value[nextIndex];
-  console.log("New currentScenario:", currentScenario.value);
-  // Reset any scenario-specific state here
+  if (nextIndex < scenarios.value.length) {
+    console.log("Setting currentScenario to index:", nextIndex);
+    currentScenarioIndex.value = nextIndex;
+    currentCardIndex.value = 0;
+    console.log("New currentScenario:", currentScenario.value);
+    return true;
+  } else {
+    console.log("No more scenarios available");
+    return false;
+  }
 };
-const scenarios = ref(randomizeScenarios());
 
 const currentScenario = computed(() => {
   return scenarios.value[currentScenarioIndex.value] || null;
@@ -87,7 +92,7 @@ const gameOver = computed(() => {
     state.trust >= 100 ||
     state.security <= 0 ||
     state.security >= 100 ||
-    currentScenarioIndex.value >= scenarios.value.length
+    currentScenarioIndex.value >= scenarios.value.length - 1
   );
 });
 
@@ -111,30 +116,18 @@ function makeChoice(isTrust) {
 function nextCard() {
   if (currentCardIndex.value < currentScenario.value.cards.length - 1) {
     currentCardIndex.value++;
+    return true;
   } else {
-    // Move to next scenario
-    if (currentScenarioIndex.value < scenarios.value.length - 1) {
-      currentScenarioIndex.value++;
-      currentCardIndex.value = 0;
-    } else {
-      // Game over logic here
-    }
+    return nextScenario();
   }
 }
-
-// function nextScenario() {
-//   if (currentScenarioIndex.value < scenarios.value.length - 1) {
-//     currentScenarioIndex.value++;
-//     currentCardIndex.value = 0;
-//   } else {
-//     // Game over logic here
-//   }
-// }
 
 function previousCard() {
   if (currentCardIndex.value > 0) {
     currentCardIndex.value--;
+    return true;
   }
+  return false;
 }
 
 const startGame = () => {
@@ -156,6 +149,6 @@ export function useGameState() {
     startGame,
     resetGame,
     currentScenarioIndex,
-    jumpToScenarioById, // Add this new method to the returned object
+    jumpToScenarioById,
   };
 }

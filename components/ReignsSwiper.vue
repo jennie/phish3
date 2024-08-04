@@ -1,6 +1,6 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <div v-else class=" bg-black flex flex-col h-dvh justify-between">
+  <div v-else class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
@@ -29,7 +29,7 @@
                   <Transition name="pop-fade">
                     <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
                       class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                      <button @click="toggleOverlay(card.id)" class="focus:outline-none">
+                      <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                           <path fill="currentColor"
                             d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
@@ -38,24 +38,30 @@
                     </div>
                   </Transition>
                   <!-- Overlay -->
-                  <Transition name="slide-vertical">
-                    <div v-if="overlayStates[card.id]"
-                      class="absolute inset-0 bg-gray-800  flex flex-col text-gray-200 p-4 z-40">
+                  <Transition :name="overlayTransitionName">
+                    <div v-if="card.showOverlay"
+                      class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
                       <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-xl font-bold">Card Information</h2>
-                        <button @click="toggleOverlay(card.id)" class="text-white hover:text-gray-300">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
+
+                        <div
+                          class="absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                          <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                       <div class="flex-grow overflow-y-auto">
-                        <p>{{ card.overlayContent || 'Additional information about this decision.' }}</p>
+                        <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent"
+                          class="overlay-content"></div>
+                        <p v-else>Loading content...</p>
                       </div>
                     </div>
                   </Transition>
+
                   <!-- Existing trust/distrust labels -->
                   <div
                     class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
@@ -72,7 +78,6 @@
               :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden reveal  border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
               <div v-if="decisionFeedback" class="p-4 text-white">
                 <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
-
               </div>
             </div>
           </div>
@@ -100,7 +105,6 @@
         </button>
       </div>
 
-
       <div class="text-center p-4 flex flex-row justify-between items-center z-50">
         <a href="/" @click.prevent="returnToStartScreen" class="p-2">
           <HomeButton />
@@ -110,8 +114,8 @@
           <RetryButton />
         </button>
       </div>
-
     </div>
+
     <!-- Debug Panel and Button -->
     <div class="fixed top-4 right-4 flex flex-col items-end z-50">
       <button @click="showDebugPanel = !showDebugPanel"
@@ -137,6 +141,425 @@
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted, watch, nextTick, computed } from 'vue';
+import { register } from 'swiper/element/bundle';
+import EffectTinder from '~/effect-tinder.esm';
+import { useGameState } from '@/composables/gameState';
+import '/assets/css/styles.css';
+import { useMarkdownContent } from '~/composables/useMarkdownContent'
+
+register();
+const showDebugPanel = ref(false);
+
+const modules = [EffectTinder];
+const swiperRef = ref(null);
+const swiper = ref(null);
+const cardRefs = ref([]);
+const cardFlipStates = ref({});
+const isTransitioning = ref(false);
+const flipTimeout = ref(null);
+const lastDecisionText = ref('');
+const isDecisionCard = computed(() => {
+  return currentCard.value?.type === 'decision';
+});
+
+const parseCardText = (text) => {
+  return text.replace(/\\n/g, '<br>');
+};
+const isFlipping = ref(false);
+
+const selectedScenarioId = ref(null);
+
+const {
+  gameStarted,
+  startGame,
+  currentScenario,
+  makeChoice,
+  nextCard,
+  nextScenario,
+  previousCard,
+  gameOver,
+  playerState,
+  scenarios,
+  resetGame,
+  jumpToScenarioById,
+} = useGameState();
+
+const decisionFeedback = ref('');
+const currentCardIndex = ref(0);
+const isRevealCardFlipped = ref(false);
+let swipingTimeout = null;
+
+const jumpToScenario = async (scenarioId) => {
+  await jumpToScenarioById(scenarioId);
+  await nextTick();
+
+
+  if (swiper.value) {
+    swiper.value.slideTo(0, 0);
+    await swiper.value.update();
+  }
+};
+
+const isDataReady = computed(() => {
+  return !!currentScenario.value && !!scenarios.value && scenarios.value.length > 0;
+});
+
+const scenarioIds = computed(() => {
+  return scenarios.value ? scenarios.value.map(scenario => scenario.id) : [];
+});
+
+const canNavigate = computed(() => {
+  if (!currentCard.value) return false;
+  if (currentCard.value.type === 'reveal' && !isRevealCardFlipped.value) return false;
+  return true;
+});
+
+const canNavigateBack = computed(() => {
+  if (!currentCard.value) return false;
+  if (currentCardIndex.value === 0) return false;
+  if (currentCard.value.type === 'reveal' && isRevealCardFlipped.value) return false;
+  return true;
+});
+
+const currentCard = computed(() => {
+  if (currentScenario.value && currentScenario.value.cards) {
+    const card = currentScenario.value.cards[currentCardIndex.value];
+    console.log('Current card:', card);
+    console.log('Current card overlayContent:', card.overlayContent);
+    return card;
+  }
+  return null;
+});
+
+const handleTinderSwipe = async (s, direction) => {
+  if (!isDataReady.value || !currentCard.value) return;
+
+  if (currentCard.value.type === 'decision') {
+    const isTrust = direction === 'right';
+    makeChoice(isTrust);
+    decisionFeedback.value = isTrust
+      ? currentCard.value.trustChoice?.feedback
+      : currentCard.value.distrustChoice?.feedback;
+    lastDecisionText.value = currentCard.value.text;
+    s.slideNext(300, true);
+  } else if (currentCard.value.type === 'reveal') {
+    if (isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    } else {
+      flipRevealCard(currentCardIndex.value);
+    }
+  }
+};
+
+const handleNextClick = async () => {
+  if (swiper.value && canNavigate.value && !isTransitioning.value) {
+    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    } else {
+      if (currentCard.value?.type === 'decision') {
+        makeChoice(true); // Trust choice
+        decisionFeedback.value = currentCard.value.trustChoice?.feedback;
+        lastDecisionText.value = currentCard.value.text;
+      }
+      swiper.value.slideNext(300, true);
+    }
+  }
+};
+
+const handlePreviousClick = async () => {
+  if (swiper.value && !isTransitioning.value) {
+    if (canNavigateBack.value) {
+      await previousCard();
+      swiper.value.slidePrev(300, true);
+    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    }
+  }
+};
+
+const showDecisionIcon = ref(false);
+const isCardSwiping = ref(false);
+
+const handleSlideChange = (s) => {
+  if (!isDataReady.value) return;
+
+  currentCardIndex.value = s.activeIndex;
+  const card = currentCard.value;
+
+  if (card?.type === 'decision') {
+    showDecisionIcon.value = false;
+    isCardSwiping.value = false;
+    nextTick(() => {
+      showDecisionIcon.value = true;
+    });
+  } else if (card?.type === 'reveal') {
+    if (flipTimeout.value) {
+      clearTimeout(flipTimeout.value);
+    }
+    flipTimeout.value = setTimeout(() => {
+      if (!isRevealCardFlipped.value) {
+        flipRevealCard(currentCardIndex.value);
+      }
+    }, 1000);
+  } else {
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    showDecisionIcon.value = false;
+  }
+};
+
+const flipRevealCard = (index) => {
+  const card = currentScenario.value.cards[index];
+  if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
+    if (flipTimeout.value) {
+      clearTimeout(flipTimeout.value);
+    }
+    isFlipping.value = true;
+    flipTimeout.value = setTimeout(() => {
+      cardFlipStates.value[card.id] = true;
+      isRevealCardFlipped.value = true;
+      if (swiper.value) {
+        swiper.value.allowSlideNext = true;
+      }
+      isFlipping.value = false;
+    }, 1000);
+  }
+};
+
+
+const transitionToNextScenario = async () => {
+  console.log('Transitioning to next scenario');
+  isTransitioning.value = true;
+
+  await nextScenario();
+
+  if (currentScenario.value) {
+    console.log('New scenario loaded:', currentScenario.value.id);
+    console.log('New scenario data:', JSON.stringify(currentScenario.value, null, 2));
+
+    console.log('New scenario loaded:', currentScenario.value.id);
+    currentCardIndex.value = 0;
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    cardFlipStates.value = {};
+    lastDecisionText.value = '';
+
+    if (currentScenario.value.cards) {
+      currentScenario.value.cards.forEach(card => {
+        if (!card.id) {
+          card.id = `card-${Date.now()}-${Math.random()}`;
+        }
+        cardFlipStates.value[card.id] = false;
+        card.showOverlay = false;
+        card.overlayContent = null;
+      });
+    }
+
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(0, 0);
+      await swiper.value.update();
+    }
+  } else {
+    console.log('No more scenarios, game over');
+    gameOver.value = true;
+  }
+
+  isTransitioning.value = false;
+};
+
+const initializeSwiper = () => {
+  if (swiperRef.value && isDataReady.value) {
+    const swiperParams = {
+      modules: [EffectTinder],
+      effect: 'tinder',
+      slidesPerView: 1,
+      allowTouchMove: true,
+      watchSlidesProgress: true,
+      virtualTranslate: true,
+      on: {
+        progress: function (s, progress) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            const slideProgress = swiper.slides[i].progress;
+            const absProgress = Math.abs(slideProgress);
+            swiper.slides[i].style.opacity = 1 - absProgress / 1;
+          }
+        },
+        setTransition: function (s, duration) {
+          const swiper = this;
+          for (let i = 0; i < swiper.slides.length; i++) {
+            swiper.slides[i].style.transition = `${duration}ms`;
+          }
+        },
+        slideChange: handleSlideChange,
+        tinderSwipe: handleTinderSwipe,
+        sliderFirstMove: () => {
+          if (currentCard.value?.type === 'decision') {
+            isCardSwiping.value = true;
+            if (swipingTimeout) {
+              clearTimeout(swipingTimeout);
+            }
+          }
+        },
+        sliderMove: () => {
+          if (swipingTimeout) {
+            clearTimeout(swipingTimeout);
+          }
+        },
+        touchEnd: () => {
+          if (currentCard.value?.type === 'decision') {
+            if (swipingTimeout) {
+              clearTimeout(swipingTimeout);
+            }
+            swipingTimeout = setTimeout(() => {
+              isCardSwiping.value = false;
+            }, 300);
+          }
+        },
+      },
+    };
+    Object.assign(swiperRef.value, swiperParams);
+    swiperRef.value.initialize();
+    swiper.value = swiperRef.value.swiper;
+  }
+};
+
+onMounted(async () => {
+  await nextTick();
+  await initializeSwiper();
+  if (flipTimeout.value) {
+    clearTimeout(flipTimeout.value);
+  }
+});
+
+watch(gameStarted, async (started) => {
+  if (started) {
+    await nextTick();
+    await initializeSwiper();
+  }
+});
+
+watch(isDataReady, async (ready) => {
+  if (ready) {
+    await initializeSwiper();
+  }
+});
+
+watch(currentScenario, async (newScenario, oldScenario) => {
+  if (newScenario && newScenario !== oldScenario) {
+    console.log('Current scenario changed to:', newScenario.id);
+    console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
+    cardFlipStates.value = {};
+    newScenario.cards.forEach((card, index) => {
+      console.log(`Card ${index} initial overlayContent:`, card.overlayContent);
+      if (!card.id) {
+        card.id = `card-${index}`;
+      }
+      cardFlipStates.value[card.id] = false;
+      card.showOverlay = false;
+      // Remove this line: card.overlayContent = null;
+      console.log(`Card ${index} final overlayContent:`, card.overlayContent);
+    });
+
+    // ... rest of the function
+  }
+}, { immediate: true });
+
+const swipeRight = async () => {
+  if (swiper.value && canNavigate.value && !isTransitioning.value) {
+    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    } else {
+      swiper.value.tinder.yes();
+    }
+  }
+};
+
+const swipeLeft = async () => {
+  if (swiper.value && !isTransitioning.value) {
+    if (canNavigateBack.value) {
+      await previousCard();
+      swiper.value.tinder.no();
+    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    }
+  }
+};
+
+const returnToStartScreen = () => {
+  resetGame();
+  gameStarted.value = false;
+};
+
+const isRetryDisabled = computed(() => {
+  return currentCard.value?.type === 'decision' || currentCard.value?.type === 'reveal';
+});
+
+const retryScenario = async () => {
+  if (swiper.value && currentScenario.value && !isRetryDisabled.value) {
+    isTransitioning.value = true;
+
+    currentCardIndex.value = 0;
+
+    cardFlipStates.value = {};
+    currentScenario.value.cards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `card-${index}`;
+      }
+      cardFlipStates.value[card.id] = false;
+      card.showOverlay = false;
+      card.overlayContent = null;
+    });
+
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    lastDecisionText.value = '';
+
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(0, 0);
+      await swiper.value.update();
+    }
+
+    isTransitioning.value = false;
+  }
+};
+
+const { content: overlayContent, loadMarkdownContent } = useMarkdownContent()
+const overlayTransitionName = ref('');
+
+
+const toggleOverlay = async (card) => {
+  console.log('Toggle overlay called for card:', card.id);
+  console.log('Card overlayContent:', card.overlayContent);
+
+  card.showOverlay = !card.showOverlay;
+
+  if (card.showOverlay && card.overlayContent && !card.loadedOverlayContent) {
+    try {
+      card.loadedOverlayContent = await loadMarkdownContent(card.overlayContent);
+      console.log('Loaded content:', card.loadedOverlayContent.substring(0, 100) + '...');
+    } catch (error) {
+      console.error('Error loading markdown:', error);
+      card.loadedOverlayContent = "Failed to load content. Please try again.";
+    }
+  }
+};
+
+watch(currentCardIndex, () => {
+  overlayTransitionName.value = '';
+
+  // reset the overlay after switching scenarios
+  // it is now replaying the same scenario instead of switching to the next one in the sequence
+  if (currentCard.value?.showOverlay) {
+    currentCard.value.showOverlay = false;
+  }
+
+});
+</script>
 
 <style>
 /* Root variables */
@@ -209,7 +632,6 @@
 }
 
 .reveal {
-
   background-image: url('/images/card-reveal.png');
   background-size: cover;
   background-position: center center;
@@ -298,390 +720,3 @@
   opacity: 1;
 }
 </style>
-
-<script setup>
-import { ref, onMounted, watch, nextTick, computed } from 'vue';
-import { register } from 'swiper/element/bundle';
-import EffectTinder from '~/effect-tinder.esm';
-import { useGameState } from '@/composables/gameState';
-import '/assets/css/styles.css';
-
-register();
-const showDebugPanel = ref(false);
-
-const modules = [EffectTinder];
-const swiperRef = ref(null);
-const swiper = ref(null);
-const cardRefs = ref([]);
-const cardFlipStates = ref({});
-const isTransitioning = ref(false);
-const flipTimeout = ref(null);
-const lastDecisionText = ref('');
-const isDecisionCard = computed(() => {
-  return currentCard.value?.type === 'decision';
-});
-// after the decision card is shown, add an icon to the top right of the card with a brief "pop" animation
-
-const parseCardText = (text) => {
-  return text.replace(/\\n/g, '<br>');
-};
-const isFlipping = ref(false);
-
-const selectedScenarioId = ref(null);
-
-const {
-  gameStarted,
-  startGame,
-  currentScenario,
-  makeChoice,
-  nextCard,
-  nextScenario,
-  previousCard,
-  gameOver,
-  playerState,
-  scenarios,
-  resetGame,
-  jumpToScenarioById, // Add this new method from gameState
-} = useGameState();
-
-const decisionFeedback = ref('');
-const currentCardIndex = ref(0);
-const isRevealCardFlipped = ref(false);
-let swipingTimeout = null;
-
-const jumpToScenario = async (scenarioId) => {
-  await jumpToScenarioById(scenarioId);
-  await nextTick();
-  if (swiper.value) {
-    swiper.value.slideTo(0, 0);
-    await swiper.value.update();
-  }
-};
-
-
-const isDataReady = computed(() => {
-  return !!currentScenario.value && !!scenarios.value && scenarios.value.length > 0;
-});
-
-const scenarioIds = computed(() => {
-  return scenarios.value ? scenarios.value.map(scenario => scenario.id) : [];
-});
-
-const canNavigate = computed(() => {
-  if (!currentCard.value) return false;
-  if (currentCard.value.type === 'reveal' && !isRevealCardFlipped.value) return false;
-  return true;
-});
-
-const canNavigateBack = computed(() => {
-  if (!currentCard.value) return false;
-  if (currentCardIndex.value === 0) return false;
-  if (currentCard.value.type === 'reveal' && isRevealCardFlipped.value) return false;
-  return true;
-});
-const currentCard = computed(() => {
-  if (currentScenario.value && currentScenario.value.cards) {
-    return currentScenario.value.cards[currentCardIndex.value];
-  }
-  return null;
-});
-
-
-const handleTinderSwipe = async (s, direction) => {
-  if (!isDataReady.value) return;
-
-  if (!currentCard.value) return;
-
-  if (currentCard.value.type === 'decision') {
-    const isTrust = direction === 'right';
-    makeChoice(isTrust);
-    decisionFeedback.value = isTrust
-      ? currentCard.value.trustChoice?.feedback
-      : currentCard.value.distrustChoice?.feedback;
-    lastDecisionText.value = currentCard.value.text;
-    s.slideNext(300, true);
-  } else if (currentCard.value.type === 'reveal') {
-    if (isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    } else {
-      flipRevealCard(currentCardIndex.value);
-    }
-  }
-};
-
-
-
-const handleNextClick = async () => {
-  if (swiper.value && canNavigate.value && !isTransitioning.value) {
-    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    } else {
-      if (currentCard.value?.type === 'decision') {
-        makeChoice(true); // Trust choice
-        decisionFeedback.value = currentCard.value.trustChoice?.feedback;
-        lastDecisionText.value = currentCard.value.text;
-      }
-      swiper.value.slideNext(300, true);
-    }
-  }
-};
-
-const handlePreviousClick = async () => {
-  if (swiper.value && !isTransitioning.value) {
-    if (canNavigateBack.value) {
-      await previousCard();
-      swiper.value.slidePrev(300, true);
-    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    }
-  }
-};
-
-
-
-
-const showDecisionIcon = ref(false);
-const isCardSwiping = ref(false);
-
-const handleSlideChange = (s) => {
-  if (!isDataReady.value) return;
-
-  currentCardIndex.value = s.activeIndex;
-  const card = currentCard.value;
-
-  if (card?.type === 'decision') {
-    showDecisionIcon.value = false;
-    isCardSwiping.value = false;
-    nextTick(() => {
-      showDecisionIcon.value = true;
-    });
-  } else if (card?.type === 'reveal') {
-    if (flipTimeout.value) {
-      clearTimeout(flipTimeout.value);
-    }
-    flipTimeout.value = setTimeout(() => {
-      if (!isRevealCardFlipped.value) {
-        flipRevealCard(currentCardIndex.value);
-      }
-    }, 1000);
-  } else {
-    isRevealCardFlipped.value = false;
-    decisionFeedback.value = '';
-    showDecisionIcon.value = false;
-  }
-};
-const flipRevealCard = (index) => {
-  const card = currentScenario.value.cards[index];
-  if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
-    if (flipTimeout.value) {
-      clearTimeout(flipTimeout.value);
-    }
-    isFlipping.value = true;
-    flipTimeout.value = setTimeout(() => {
-      cardFlipStates.value[card.id] = true;
-      isRevealCardFlipped.value = true;
-      if (swiper.value) {
-        swiper.value.allowSlideNext = true;
-      }
-      isFlipping.value = false;
-    }, 1000);
-  }
-};
-
-
-const transitionToNextScenario = async () => {
-  isTransitioning.value = true;
-  await nextScenario();
-  currentCardIndex.value = 0;
-  isRevealCardFlipped.value = false;
-  decisionFeedback.value = '';
-  cardFlipStates.value = {};
-  await nextTick();
-  if (swiper.value) {
-    swiper.value.slideTo(0, 0);
-    await swiper.value.update();
-  }
-  isTransitioning.value = false;
-};
-const initializeSwiper = () => {
-  if (swiperRef.value && isDataReady.value) {
-    const swiperParams = {
-      modules: [EffectTinder],
-      effect: 'tinder',
-      slidesPerView: 1,
-      allowTouchMove: true,
-      watchSlidesProgress: true,
-      virtualTranslate: true,
-      on: {
-        progress: function (s, progress) {
-          const swiper = this;
-          for (let i = 0; i < swiper.slides.length; i++) {
-            const slideProgress = swiper.slides[i].progress;
-            const absProgress = Math.abs(slideProgress);
-            swiper.slides[i].style.opacity = 1 - absProgress / 1;
-          }
-        },
-        setTransition: function (s, duration) {
-          const swiper = this;
-          for (let i = 0; i < swiper.slides.length; i++) {
-            swiper.slides[i].style.transition = `${duration}ms`;
-          }
-        },
-        slideChange: handleSlideChange,
-        tinderSwipe: handleTinderSwipe,
-        sliderFirstMove: () => {
-          if (currentCard.value?.type === 'decision') {
-            isCardSwiping.value = true;
-            if (swipingTimeout) {
-              clearTimeout(swipingTimeout);
-            }
-          }
-        },
-        sliderMove: () => {
-          if (swipingTimeout) {
-            clearTimeout(swipingTimeout);
-          }
-        },
-        touchEnd: () => {
-          if (currentCard.value?.type === 'decision') {
-            if (swipingTimeout) {
-              clearTimeout(swipingTimeout);
-            }
-            swipingTimeout = setTimeout(() => {
-              isCardSwiping.value = false;
-            }, 300); // Adjust this delay as needed
-          }
-        },
-      },
-    };
-    Object.assign(swiperRef.value, swiperParams);
-    swiperRef.value.initialize();
-    swiper.value = swiperRef.value.swiper;
-  }
-};
-
-onMounted(async () => {
-  await nextTick();
-  await initializeSwiper();
-  if (flipTimeout.value) {
-    clearTimeout(flipTimeout.value);
-  }
-});
-watch(gameStarted, async (started) => {
-  if (started) {
-    await nextTick();
-    await initializeSwiper();
-  }
-});
-watch(isDataReady, async (ready) => {
-  if (ready) {
-    await initializeSwiper();
-  }
-});
-
-watch(currentScenario, async (newScenario) => {
-  if (newScenario) {
-    cardFlipStates.value = {};
-    newScenario.cards.forEach((card, index) => {
-      if (!card.id) {
-        card.id = `card-${index}`;
-      }
-      cardFlipStates.value[card.id] = false;
-    });
-
-    await nextTick();
-    if (swiper.value) {
-      swiper.value.slideTo(0, 0);
-      swiper.value.update();
-    }
-  }
-});
-
-const swipeRight = async () => {
-  if (swiper.value && canNavigate.value && !isTransitioning.value) {
-    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    } else {
-      swiper.value.tinder.yes();
-    }
-  }
-};
-
-const swipeLeft = async () => {
-  if (swiper.value && !isTransitioning.value) {
-    if (canNavigateBack.value) {
-      await previousCard();
-      swiper.value.tinder.no();
-    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    }
-  }
-};
-
-
-const returnToStartScreen = () => {
-  resetGame();
-  gameStarted.value = false;
-};
-
-
-const isRetryDisabled = computed(() => {
-  return currentCard.value?.type === 'decision' || currentCard.value?.type === 'reveal';
-});
-
-const retryScenario = async () => {
-  if (swiper.value && currentScenario.value && !isRetryDisabled.value) {
-    isTransitioning.value = true;
-
-    // Reset to the first card of the current scenario
-    currentCardIndex.value = 0;
-
-    // Reset card flip states
-    cardFlipStates.value = {};
-    currentScenario.value.cards.forEach((card, index) => {
-      if (!card.id) {
-        card.id = `card-${index}`;
-      }
-      cardFlipStates.value[card.id] = false;
-    });
-
-    // Reset other states
-    isRevealCardFlipped.value = false;
-    decisionFeedback.value = '';
-    lastDecisionText.value = '';
-
-    // Update Swiper
-    await nextTick();
-    if (swiper.value) {
-      swiper.value.slideTo(0, 0);
-      await swiper.value.update();
-    }
-
-    isTransitioning.value = false;
-  }
-};
-
-
-const overlayStates = reactive({});
-
-const toggleOverlay = (cardId) => {
-  if (overlayStates[cardId] === undefined) {
-    overlayStates[cardId] = true;
-  } else {
-    overlayStates[cardId] = !overlayStates[cardId];
-  }
-};
-
-watch(() => currentScenario.value, (newScenario) => {
-  if (newScenario && newScenario.cards) {
-    newScenario.cards.forEach(card => {
-      if (!overlayStates[card.id]) {
-        overlayStates[card.id] = false;
-      }
-    });
-  }
-}, { immediate: true });
-
-
-
-</script>

@@ -184,3 +184,23 @@ body {
     @apply p-1;
   }
 }
+
+.overlay-content {
+  h1,
+  h2,
+  h3 {
+    @apply pb-4;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  p {
+    @apply pb-3;
+  }
+}
