@@ -133,15 +133,15 @@
 
         <!-- Score Manipulation Buttons -->
         <p class="font-bold mb-2">Set Score:</p>
-        <div class="flex flex-col gap-2 mb-4">
-          <button @click="setScore(20)" class="bg-green-500 px-4 py-2 rounded">100% - Perfect</button>
-          <button @click="setScore(16)" class="bg-yellow-500 px-4 py-2 rounded">80% - Participation 1</button>
-          <button @click="setScore(14)" class="bg-orange-500 px-4 py-2 rounded">70% - Participation 2</button>
-          <button @click="setScore(12)" class="bg-red-500 px-4 py-2 rounded">69% or less - Fail</button>
+        <div class="flex  gap-2 mb-4">
+          <button @click="setScore(20)" class="bg-green-500 px-4 py-2 rounded">20</button>
+          <button @click="setScore(16)" class="bg-yellow-500 px-4 py-2 rounded">16</button>
+          <button @click="setScore(14)" class="bg-orange-500 px-4 py-2 rounded">14</button>
+          <button @click="setScore(12)" class="bg-red-500 px-4 py-2 rounded">12</button>
         </div>
 
         <!-- Complete All Scenarios Button -->
-        <button @click="completeAllScenarios" class="bg-blue-500 px-4 py-2 rounded mb-2">
+        <button @click="completeAllScenarios" class="bg-black px-4 py-2 rounded mb-2">
           Complete All Scenarios
         </button>
 
