@@ -11,11 +11,6 @@ const playerState = ref({
   score: 0,
 });
 
-const setGameOver = (value) => {
-  gameOver.value = value;
-  isRecapMode.value = false;
-};
-
 const resetGame = () => {
   gameStarted.value = false;
   currentScenarioIndex.value = 0;
@@ -46,9 +41,6 @@ const randomizeScenarios = () => {
 
 const scenarios = ref(randomizeScenarios());
 
-const startRecap = () => {
-  isRecapMode.value = true;
-};
 const jumpToScenarioById = async (targetId) => {
   const targetIndex = scenarios.value.findIndex(
     (scenario) => scenario.id === parseInt(targetId)
@@ -96,27 +88,55 @@ const currentCard = computed(() => {
 
 const userChoices = ref({});
 
-const makeChoice = (isTrust) => {
-  const decisionCard = currentScenario.value.cards.find(
-    (card) => card.type === "decision"
-  );
-  if (decisionCard) {
-    const choice = isTrust
-      ? decisionCard.trustChoice
-      : decisionCard.distrustChoice;
+const isEndingScenario = ref(false);
 
-    // Update user choices
-    userChoices.value[currentScenario.value.id] = {
-      choice: isTrust ? "trust" : "distrust",
-      isCorrect: choice.consequences === 1,
-      feedback: choice.feedback,
-    };
+const startRecap = () => {
+  isEndingScenario.value = false;
+  isRecapMode.value = true;
+};
 
-    // Update player state and score
-    playerState.value = {
-      ...playerState.value,
-      score: playerState.value.score + (choice.consequences === 1 ? 1 : 0),
-    };
+const setGameOver = (value) => {
+  gameOver.value = value;
+  isRecapMode.value = false;
+  isEndingScenario.value = false;
+};
+
+const makeChoice = (isTrust, scenarioId) => {
+  const scenario = scenarios.value.find((s) => s.id === scenarioId);
+  if (scenario) {
+    const decisionCard = scenario.cards.find(
+      (card) => card.type === "decision"
+    );
+    if (decisionCard) {
+      const choice = isTrust
+        ? decisionCard.trustChoice
+        : decisionCard.distrustChoice;
+      let consequences = { trust: 0 };
+      try {
+        consequences = JSON.parse(choice.consequences);
+      } catch (error) {
+        console.error(
+          `Error parsing consequences for scenario ${scenarioId}:`,
+          error
+        );
+      }
+      playerState.value.score += consequences || 0;
+      console.log(
+        `Score updated: ${playerState.value.score} (${
+          isTrust ? "trust" : "distrust"
+        } choice in scenario ${scenarioId})`
+      );
+
+      userChoices.value[scenarioId] = {
+        choice: isTrust ? "trust" : "distrust",
+        feedback: choice.feedback,
+        isCorrect: true, // You may want to implement logic to determine if the choice was correct
+        choiceText: isTrust
+          ? decisionCard.trustLabel
+          : decisionCard.distrustLabel,
+        scoreChange: consequences || 0,
+      };
+    }
   }
 };
 
@@ -143,24 +163,26 @@ const startGame = () => {
 
 export function useGameState() {
   return {
-    gameStarted,
-    currentScenario,
+    scenarios: computed(() => scenarios.value),
     currentCard,
+    currentCardIndex,
+    currentScenario,
+    currentScenarioIndex,
+    gameOver,
+    gameStarted,
+    isEndingScenario,
+    isRecapMode,
+    jumpToScenarioById,
     makeChoice,
     nextCard,
-    userChoices,
     nextScenario,
-    previousCard,
-    gameOver,
     playerState,
-    setGameOver,
-    scenarios: computed(() => scenarios.value),
-    startGame,
+    previousCard,
     resetGame,
-    isRecapMode,
+    scenarios,
+    setGameOver,
+    startGame,
     startRecap,
-    currentScenarioIndex,
-    currentCardIndex,
-    jumpToScenarioById,
+    userChoices,
   };
 }

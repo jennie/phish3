@@ -11,7 +11,7 @@
     <div class="absolute h-screen w-screen flex items-center justify-center">
       <swiper-container ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1" :allow-touch-move="true"
         observer observer-parents :init="false" class="w-full h-full">
-        <swiper-slide v-for="(scenario, index) in scenarios" :key="scenario.id"
+        <swiper-slide v-for="scenario in regularScenarios" :key="scenario.id"
           class="h-full flex flex-col items-center justify-center">
           <div class="relative w-full h-4/6 flex items-center justify-center">
             <div
@@ -19,19 +19,30 @@
               <div class="w-full h-full">
                 <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
                   :style="{ backgroundImage: `url(${getScenarioImage(scenario)})` }">
-                  <div class="absolute inset-0 bg-black bg-opacity-50 p-6 flex flex-col justify-between">
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-50 p-6 flex flex-col justify-between overflow-y-auto">
                     <div>
-                      <h2 class="text-2xl font-bold text-white mb-4">Scenario {{ index + 1 }}</h2>
+                      <h2 class="text-2xl font-bold text-white mb-4">Scenario {{ scenario.id }}</h2>
                       <p class="text-white mb-4">{{ getDecisionCardText(scenario) }}</p>
                       <p class="text-white mb-2">Your choice:
-                        <span
-                          :class="{ 'text-green-500': userChoices[scenario.id]?.isCorrect, 'text-red-500': !userChoices[scenario.id]?.isCorrect }">
+                        <span :class="getChoiceClass(scenario)">
                           {{ getUserChoice(scenario) }}
                         </span>
                       </p>
-                      <p class="text-white mb-4">{{ userChoices[scenario.id]?.feedback }}</p>
+                      <p class="text-white mb-2">Score change: {{ getScoreChange(scenario) }}</p>
+                      <p class="text-white mb-4">{{ getUserFeedback(scenario) }}</p>
                     </div>
-                    <p class="text-white italic">Learning Objective: {{ scenario.learningObjective }}</p>
+                    <p class="text-white italic">Learning Objective: {{ scenario.learningObjective || 'Not specified' }}
+                    </p>
+
+                    <!-- Debug Information -->
+                    <details class="mt-4 text-white">
+                      <summary class="cursor-pointer">Debug Info</summary>
+                      <pre
+                        class="text-xs mt-2 overflow-x-auto">{{ JSON.stringify(debugUserChoices[scenario.id], null, 2) }}</pre>
+                      <p class="text-xs mt-2">Consequences:</p>
+                      <pre class="text-xs mt-1 overflow-x-auto">{{ getChoiceConsequences(scenario) }}</pre>
+                    </details>
                   </div>
                 </div>
               </div>
@@ -39,6 +50,9 @@
           </div>
         </swiper-slide>
       </swiper-container>
+    </div>
+    <div class="text-white text-center mt-4">
+      Total Score: {{ totalScore }}
     </div>
 
     <!-- Controls Container -->
@@ -93,30 +107,13 @@ const swiperRef = ref(null);
 const currentSlideIndex = ref(0);
 const showGameOverPrompt = ref(false);
 
-const { scenarios, userChoices, setGameOver } = useGameState();
+const { playerState, scenarios, userChoices, setGameOver } = useGameState();
 
 const canNavigate = computed(() => currentSlideIndex.value < scenarios.value.length - 1);
 const canNavigateBack = computed(() => currentSlideIndex.value > 0);
 const isLastSlide = computed(() => currentSlideIndex.value === scenarios.value.length - 1);
 
 
-const getScenarioImage = (scenario) => {
-  const decisionCard = scenario.cards.find(card => card.type === 'decision');
-  return decisionCard?.image || '/images/card-placeholder.png';
-};
-
-const getDecisionCardText = (scenario) => {
-  const decisionCard = scenario.cards.find(card => card.type === 'decision');
-  return decisionCard?.text || 'No decision found for this scenario';
-};
-
-const getUserChoice = (scenario) => {
-  const choice = userChoices.value[scenario.id];
-  if (!choice) return 'No choice made';
-
-  const decisionCard = scenario.cards.find(card => card.type === 'decision');
-  return choice.choice === 'trust' ? decisionCard.trustLabel : decisionCard.distrustLabel;
-};
 
 
 const handleNextClick = () => {
@@ -130,8 +127,36 @@ const handleNextClick = () => {
 const goToGameOver = () => {
   setGameOver(true);
 };
+const totalScore = computed(() => playerState.value.score);
+
+// DEBUGGING
+
+const debugUserChoices = ref({});
 
 
+onMounted(() => {
+  console.log("All scenarios:", scenarios.value);
+  console.log("Regular scenarios:", regularScenarios.value);
+  console.log("User choices:", userChoices.value);
+  console.log("Total score:", totalScore.value);
+  debugUserChoices.value = JSON.parse(JSON.stringify(userChoices.value));
+});
+
+
+// END DEBUGGING
+
+const getChoiceConsequences = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  if (!choice) return 'No choice made';
+  const decisionCard = scenario.cards.find(card => card.type === 'decision');
+  if (!decisionCard) return 'No decision card found';
+  const consequences = choice.choice === 'trust' ? decisionCard.trustChoice.consequences : decisionCard.distrustChoice.consequences;
+  try {
+    return JSON.stringify(JSON.parse(consequences), null, 2);
+  } catch (error) {
+    return 'Invalid consequences data';
+  }
+};
 
 const handlePreviousClick = () => {
   if (canNavigateBack.value && swiperRef.value) {
@@ -163,6 +188,46 @@ onMounted(() => {
     swiperRef.value.initialize();
   }
 });
+
+
+const getDecisionCardText = (scenario) => {
+  const decisionCard = scenario.cards.find(card => card.type === 'decision');
+  console.log(`Decision card for scenario ${scenario.id}:`, decisionCard);
+  return decisionCard ? decisionCard.text : 'No decision found for this scenario';
+};
+
+const getScoreChange = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  return choice ? choice.scoreChange : 0;
+};
+const regularScenarios = computed(() =>
+  scenarios.value.filter(s => s.scenarioType !== 'ending')
+);
+
+const getUserChoice = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  console.log(`Getting choice for scenario ${scenario.id}:`, choice);
+  if (!choice) return 'No choice made';
+  return choice.choiceText || (choice.choice === 'trust' ? 'Trust' : 'Distrust');
+};
+
+const getChoiceClass = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  if (!choice) return 'text-yellow-500';
+  return choice.choice === 'trust' ? 'text-green-500' : 'text-red-500';
+};
+
+const getUserFeedback = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  return choice ? choice.feedback : 'No feedback available';
+};
+
+
+
+const getScenarioImage = (scenario) => {
+  const decisionCard = scenario.cards.find(card => card.type === 'decision');
+  return decisionCard?.image || '/images/card-placeholder.png';
+};
 </script>
 
 <style scoped>

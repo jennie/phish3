@@ -1,5 +1,6 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
+  <EndingScenarioSwiper v-else-if="isPlayingEndingScenario" />
   <RecapSwiper v-else-if="isRecapMode" />
   <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
 
@@ -132,30 +133,33 @@
       <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
         <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
         <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Current scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">Current score: {{ currentScore }}</p>
+        <p class="mb-1">Scenario ID: {{ currentScenario?.id || 'N/A' }}</p>
+        <p class="mb-1">Score: {{ currentScore }}</p>
+        <p class="mb-1">Scenario type: {{ currentScenario?.scenarioType || "N/A" }}</p>
+        <p class="mb-1">Regular Scenarios: {{ regularScenarios.length }}</p>
 
-        <!-- Score Manipulation Buttons -->
-        <!-- <p class="font-bold mb-2">Set Score:</p>
-        <div class="flex  gap-2 mb-4">
-          <button @click="setScore(20)" class="bg-green-500 px-4 py-2 rounded">20</button>
-          <button @click="setScore(16)" class="bg-yellow-500 px-4 py-2 rounded">16</button>
-          <button @click="setScore(14)" class="bg-orange-500 px-4 py-2 rounded">14</button>
-          <button @click="setScore(12)" class="bg-red-500 px-4 py-2 rounded">12</button>
-        </div> -->
 
-        <!-- Complete All Scenarios Button -->
-        <button @click="completeAllScenariosAndStartRecap" class="bg-black px-4 py-2 rounded mb-2">
-          Complete All Scenarios and Start Recap
-        </button>
+        <!-- Dynamic Debug Buttons -->
 
-        <!-- Updated Scenarios list with clickable links -->
+
         <p class="mb-1">Scenarios in current order:</p>
         <div class="flex flex-wrap gap-1">
-          <a v-for="scenario in scenarios" :key="scenario.id" @click.prevent="jumpToScenario(scenario.id)" href="#"
-            class="text-white text-2xl px-2 hover:text-yellow-200 underline">
+          <a v-for="scenario in regularScenarios" :key="scenario.id" @click.prevent="jumpToScenario(scenario.id)"
+            href="#" class="text-white text-2xl px-2 hover:text-yellow-200 underline">
             {{ scenario.id }}
           </a>
+        </div>
+        <div class="mt-4">
+          <button v-if="isInMainScenarios" @click="skipToEndingScenario"
+            class="bg-black px-4 py-2 rounded-full mb-2 w-full">
+            Skip to Ending Scenario
+          </button>
+          <button v-if="isInEndingScenario" @click="skipToRecap" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
+            Skip to Recap
+          </button>
+          <button v-if="isInRecap" @click="skipToGameOver" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
+            Skip to Game Over
+          </button>
         </div>
       </div>
     </div>
@@ -195,7 +199,6 @@ const selectedScenarioId = ref(null);
 
 const {
   gameStarted,
-  currentScenario,
   makeChoice,
   nextCard,
   nextScenario,
@@ -209,8 +212,137 @@ const {
   currentCardIndex,
   isRecapMode,
   startRecap,
+  isEndingScenario,
   userChoices,
 } = useGameState();
+
+
+
+// Separate regular scenarios from ending scenarios
+const regularScenarios = computed(() =>
+  scenarios.value.filter(s => s.scenarioType !== 'ending' && s.id !== null)
+);
+const endingScenarios = computed(() => scenarios.value.filter(s => s.scenarioType === 'ending'));
+
+const currentScenario = computed(() => {
+  if (isEndingScenario.value) {
+    return endingScenarios.value[0]; // Assume we're showing the first (and only) ending scenario
+  }
+  return regularScenarios.value[currentScenarioIndex.value] || null;
+});
+
+
+const unplayedRegularScenarios = computed(() => {
+  return regularScenarios.value.filter(scenario => !userChoices.value[scenario.id]);
+});
+
+
+const simulateRandomChoices = () => {
+  let totalScoreChange = 0;
+  unplayedRegularScenarios.value.forEach((scenario) => {
+    const decisionCard = scenario.cards.find(card => card.type === 'decision');
+    if (decisionCard) {
+      const isTrust = Math.random() < 0.5; // This ensures a roughly 50/50 split between trust and distrust
+      const choice = isTrust ? decisionCard.trustChoice : decisionCard.distrustChoice;
+
+      let consequences = { trust: 0 };
+      if (choice && choice.consequences) {
+        try {
+          consequences = JSON.parse(choice.consequences);
+        } catch (error) {
+          console.error(`Error parsing consequences for scenario ${scenario.id}:`, error);
+        }
+      }
+
+      totalScoreChange += consequences.trust || 0;
+      makeChoice(isTrust, scenario.id);
+    }
+  });
+  return totalScoreChange;
+};
+
+
+const skipToEndingScenario = () => {
+  try {
+    const scoreChange = simulateRandomChoices();
+
+    playerState.value.score += scoreChange;
+
+    const score = playerState.value.score;
+    console.log('Updated score after simulation:', score);
+
+    const matchingEndingScenario = endingScenarios.value.find(scenario =>
+      score >= scenario.cards[0].minScore && score <= scenario.cards[0].maxScore
+    );
+
+    if (matchingEndingScenario) {
+      isEndingScenario.value = true;
+      currentScenarioIndex.value = regularScenarios.value.length; // Set to the index after regular scenarios
+      currentCardIndex.value = 0;
+    } else {
+      console.error('No matching ending scenario found for score:', score);
+      // Fallback to the first ending scenario if no match is found
+      isEndingScenario.value = true;
+      currentScenarioIndex.value = regularScenarios.value.length;
+      currentCardIndex.value = 0;
+    }
+
+    // Force a re-render of the current scenario and update the debug panel
+    nextTick(() => {
+      if (swiper.value) {
+        swiper.value.update();
+      }
+    });
+  } catch (error) {
+    console.error('Error in skipToEndingScenario:', error);
+  }
+};
+
+// Update transitionToNextScenario
+const transitionToNextScenario = async () => {
+  console.log('Transitioning to next scenario');
+  isTransitioning.value = true;
+
+  if (currentScenarioIndex.value < regularScenarios.value.length - 1) {
+    // Move to the next regular scenario
+    currentScenarioIndex.value++;
+  } else if (!isEndingScenario.value) {
+    // We've reached the end of regular scenarios, transition to ending scenario
+    isEndingScenario.value = true;
+    currentScenarioIndex.value = 0;
+  } else {
+    // We're at the end of the ending scenario, start recap
+    startRecap();
+    isTransitioning.value = false;
+    return;
+  }
+
+  currentCardIndex.value = 0;
+  isRevealCardFlipped.value = false;
+  decisionFeedback.value = '';
+  cardFlipStates.value = {};
+  lastDecisionText.value = '';
+
+  if (currentScenario.value.cards) {
+    currentScenario.value.cards.forEach(card => {
+      if (!card.id) {
+        card.id = `card-${Date.now()}-${Math.random()}`;
+      }
+      cardFlipStates.value[card.id] = false;
+      card.showOverlay = false;
+      card.overlayContent = null;
+    });
+  }
+
+  await nextTick();
+  if (swiper.value) {
+    swiper.value.slideTo(0, 0);
+    await swiper.value.update();
+  }
+
+  isTransitioning.value = false;
+};
+
 
 const decisionFeedback = ref('');
 const isRevealCardFlipped = ref(false);
@@ -239,53 +371,78 @@ const completeAllScenarios = () => {
     console.error('No scenarios available');
   }
 };
-const completeAllScenariosAndStartRecap = () => {
-  if (scenarios.value.length > 0) {
-    // Simulate completing all scenarios
-    scenarios.value.forEach((scenario, index) => {
-      // Find the decision card for this scenario
-      const decisionCard = scenario.cards.find(card => card.type === 'decision');
-      if (decisionCard) {
-        // Randomly choose trust or distrust
-        const isTrust = Math.random() < 0.5;
 
-        // Simulate making a choice
-        makeChoice(isTrust);
+const isInMainScenarios = computed(() => !isEndingScenario.value && !isRecapMode.value && currentScenarioIndex.value < scenarios.value.length - 1);
+const isInEndingScenario = computed(() => isEndingScenario.value);
+const isInRecap = computed(() => isRecapMode.value);
 
-        // Update userChoices
-        userChoices.value[scenario.id] = {
-          choice: isTrust ? 'trust' : 'distrust',
-          isCorrect: isTrust ? decisionCard.trustChoice.consequences === 1 : decisionCard.distrustChoice.consequences === 1,
-          feedback: isTrust ? decisionCard.trustChoice.feedback : decisionCard.distrustChoice.feedback
-        };
-      }
 
-      // Move to the last card of the last scenario
-      if (index === scenarios.value.length - 1) {
-        currentScenarioIndex.value = index;
-        currentCardIndex.value = scenario.cards.length - 1;
-      }
-    });
 
-    // Update the player's score based on correct choices
-    playerState.value.score = Object.values(userChoices.value).filter(choice => choice.isCorrect).length;
 
-    // Start the recap
-    startRecap();
-  } else {
-    console.error('No scenarios available');
-  }
+const simulateAllChoices = () => {
+  console.log("Starting simulation of all choices");
+  console.log(`Total regular scenarios: ${regularScenarios.value.length}`);
+
+  regularScenarios.value.forEach((scenario, index) => {
+    if (!scenario || scenario.id === null) {
+      console.warn(`Invalid scenario found at index ${index}. Skipping.`);
+      return;
+    }
+
+    console.log(`Processing scenario ${scenario.id}`);
+    const decisionCard = scenario.cards.find(card => card.type === 'decision');
+    if (decisionCard) {
+      const isTrust = Math.random() < 0.5;
+      console.log(`Scenario ${scenario.id}: Making ${isTrust ? 'trust' : 'distrust'} choice`);
+      makeChoice(isTrust, scenario.id);
+    } else {
+      console.warn(`No decision card found for scenario ${scenario.id}. This shouldn't happen based on current data.`);
+    }
+  });
+
+  console.log("Finished simulating all choices");
+  console.log(`Final score: ${playerState.value.score}`);
+};
+
+const skipToRecap = () => {
+  console.log("Skipping to recap");
+  simulateAllChoices();
+  currentScenarioIndex.value = regularScenarios.value.length;
+  startRecap();
 };
 
 
+
+
+
+const skipToGameOver = () => {
+  setGameOver(true);
+};
+
+
+
 const jumpToScenario = async (scenarioId) => {
-  await jumpToScenarioById(scenarioId);
-  await nextTick();
+  const scenarioIndex = regularScenarios.value.findIndex(s => s.id === scenarioId);
+  if (scenarioIndex !== -1) {
+    currentScenarioIndex.value = scenarioIndex;
+    currentCardIndex.value = 0; // Reset to the first card of the scenario
+    isEndingScenario.value = false; // Ensure we're not in ending scenario mode
 
+    // Reset any necessary state for the new scenario
+    isRevealCardFlipped.value = false;
+    decisionFeedback.value = '';
+    lastDecisionText.value = '';
+    cardFlipStates.value = {};
 
-  if (swiper.value) {
-    swiper.value.slideTo(0, 0);
-    await swiper.value.update();
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(0, 0);
+      await swiper.value.update();
+    }
+
+    console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
+  } else {
+    console.error(`Scenario with id ${scenarioId} not found`);
   }
 };
 
@@ -403,46 +560,7 @@ const flipRevealCard = (index) => {
 };
 
 
-const transitionToNextScenario = async () => {
-  console.log('Transitioning to next scenario');
-  isTransitioning.value = true;
 
-  await nextScenario();
-
-  if (currentScenario.value) {
-    console.log('New scenario loaded:', currentScenario.value.id);
-    console.log('New scenario data:', JSON.stringify(currentScenario.value, null, 2));
-
-    console.log('New scenario loaded:', currentScenario.value.id);
-    currentCardIndex.value = 0;
-    isRevealCardFlipped.value = false;
-    decisionFeedback.value = '';
-    cardFlipStates.value = {};
-    lastDecisionText.value = '';
-
-    if (currentScenario.value.cards) {
-      currentScenario.value.cards.forEach(card => {
-        if (!card.id) {
-          card.id = `card-${Date.now()}-${Math.random()}`;
-        }
-        cardFlipStates.value[card.id] = false;
-        card.showOverlay = false;
-        card.overlayContent = null;
-      });
-    }
-
-    await nextTick();
-    if (swiper.value) {
-      swiper.value.slideTo(0, 0);
-      await swiper.value.update();
-    }
-  } else {
-    console.log('All scenarios complete, transitioning to recap');
-    // gameOver.value = true;
-  }
-
-  isTransitioning.value = false;
-};
 
 const initializeSwiper = () => {
   if (swiperRef.value && isDataReady.value) {
@@ -541,6 +659,15 @@ watch(currentScenario, async (newScenario, oldScenario) => {
     // ... rest of the function
   }
 }, { immediate: true });
+
+
+const isPlayingMainScenarios = computed(() =>
+  gameStarted && currentScenarioIndex < scenarios.length - 1
+);
+
+const isPlayingEndingScenario = computed(() =>
+  gameStarted && currentScenarioIndex === scenarios.length - 1 && !isRecapMode
+);
 
 const swipeRight = async () => {
   if (swiper.value && canNavigate.value && !isTransitioning.value) {
