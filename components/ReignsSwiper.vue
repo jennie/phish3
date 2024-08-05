@@ -1,6 +1,8 @@
 <template>
   <StartGameScreen v-if="!gameStarted" />
-  <GameOverScreen v-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
+  <RecapSwiper v-else-if="isRecapMode" />
+  <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
+
 
   <div v-else class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
@@ -93,14 +95,16 @@
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
       <div class="flex justify-center gap-5 z-10 py-2 mb-4">
-        <button @click="handlePreviousClick" :disabled="!canNavigateBack || isFlipping"
-          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigateBack || isFlipping }]"
+        <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
+          :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
+            { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <BackButton v-if="!isDecisionCard" />
-          <ThumbsDown v-else @click="handleDistrustClick" />
+          <ThumbsDown v-else />
         </button>
-        <button @click="handleNextClick" :disabled="!canNavigate || isFlipping"
-          :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110', { 'opacity-50 cursor-not-allowed': !canNavigate || isFlipping }]"
+        <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
+          :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
+            { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]"
           style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
           <NextButton v-if="!isDecisionCard" />
           <ThumbsUp v-else />
@@ -129,20 +133,20 @@
         <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
         <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
         <p class="mb-1">Current scenario: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">Current score: {{ playerState.score || 'N/A' }}</p>
+        <p class="mb-1">Current score: {{ currentScore }}</p>
 
         <!-- Score Manipulation Buttons -->
-        <p class="font-bold mb-2">Set Score:</p>
+        <!-- <p class="font-bold mb-2">Set Score:</p>
         <div class="flex  gap-2 mb-4">
           <button @click="setScore(20)" class="bg-green-500 px-4 py-2 rounded">20</button>
           <button @click="setScore(16)" class="bg-yellow-500 px-4 py-2 rounded">16</button>
           <button @click="setScore(14)" class="bg-orange-500 px-4 py-2 rounded">14</button>
           <button @click="setScore(12)" class="bg-red-500 px-4 py-2 rounded">12</button>
-        </div>
+        </div> -->
 
         <!-- Complete All Scenarios Button -->
-        <button @click="completeAllScenarios" class="bg-black px-4 py-2 rounded mb-2">
-          Complete All Scenarios
+        <button @click="completeAllScenariosAndStartRecap" class="bg-black px-4 py-2 rounded mb-2">
+          Complete All Scenarios and Start Recap
         </button>
 
         <!-- Updated Scenarios list with clickable links -->
@@ -180,6 +184,7 @@ const lastDecisionText = ref('');
 const isDecisionCard = computed(() => {
   return currentCard.value?.type === 'decision';
 });
+const currentScore = computed(() => playerState.value.score);
 
 const parseCardText = (text) => {
   return text.replace(/\\n/g, '<br>');
@@ -190,7 +195,6 @@ const selectedScenarioId = ref(null);
 
 const {
   gameStarted,
-  startGame,
   currentScenario,
   makeChoice,
   nextCard,
@@ -201,14 +205,22 @@ const {
   scenarios,
   resetGame,
   jumpToScenarioById,
-  currentScenarioIndex, // Include this
-  currentCardIndex, // Include this
+  currentScenarioIndex,
+  currentCardIndex,
+  isRecapMode,
+  startRecap,
+  userChoices,
 } = useGameState();
 
 const decisionFeedback = ref('');
 const isRevealCardFlipped = ref(false);
 let swipingTimeout = null;
 
+
+const allScenariosComplete = computed(() => {
+  return currentScenarioIndex.value >= scenarios.value.length - 1 &&
+    Object.keys(userChoices.value).length === scenarios.value.length;
+});
 
 const setScore = (score) => {
   playerState.value.score = score;
@@ -223,6 +235,43 @@ const completeAllScenarios = () => {
     } else {
       console.error('No cards found in the final scenario');
     }
+  } else {
+    console.error('No scenarios available');
+  }
+};
+const completeAllScenariosAndStartRecap = () => {
+  if (scenarios.value.length > 0) {
+    // Simulate completing all scenarios
+    scenarios.value.forEach((scenario, index) => {
+      // Find the decision card for this scenario
+      const decisionCard = scenario.cards.find(card => card.type === 'decision');
+      if (decisionCard) {
+        // Randomly choose trust or distrust
+        const isTrust = Math.random() < 0.5;
+
+        // Simulate making a choice
+        makeChoice(isTrust);
+
+        // Update userChoices
+        userChoices.value[scenario.id] = {
+          choice: isTrust ? 'trust' : 'distrust',
+          isCorrect: isTrust ? decisionCard.trustChoice.consequences === 1 : decisionCard.distrustChoice.consequences === 1,
+          feedback: isTrust ? decisionCard.trustChoice.feedback : decisionCard.distrustChoice.feedback
+        };
+      }
+
+      // Move to the last card of the last scenario
+      if (index === scenarios.value.length - 1) {
+        currentScenarioIndex.value = index;
+        currentCardIndex.value = scenario.cards.length - 1;
+      }
+    });
+
+    // Update the player's score based on correct choices
+    playerState.value.score = Object.values(userChoices.value).filter(choice => choice.isCorrect).length;
+
+    // Start the recap
+    startRecap();
   } else {
     console.error('No scenarios available');
   }
@@ -254,7 +303,15 @@ const canNavigate = computed(() => {
   return true;
 });
 
+const canNavigateForward = computed(() => {
+  if (isDecisionCard.value) return true;
+  if (!currentCard.value) return false;
+  if (currentCard.value.type === 'reveal' && !isRevealCardFlipped.value) return false;
+  return true;
+});
+
 const canNavigateBack = computed(() => {
+  if (isDecisionCard.value) return false;
   if (!currentCard.value) return false;
   if (currentCardIndex.value === 0) return false;
   if (currentCard.value.type === 'reveal' && isRevealCardFlipped.value) return false;
@@ -295,31 +352,6 @@ const handleTinderSwipe = async (s, direction) => {
   }
 };
 
-const handleNextClick = async () => {
-  if (swiper.value && canNavigate.value && !isTransitioning.value) {
-    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    } else {
-      if (currentCard.value?.type === 'decision') {
-        makeChoice(true); // Trust choice
-        decisionFeedback.value = currentCard.value.trustChoice?.feedback;
-        lastDecisionText.value = currentCard.value.text;
-      }
-      swiper.value.slideNext(300, true);
-    }
-  }
-};
-
-const handlePreviousClick = async () => {
-  if (swiper.value && !isTransitioning.value) {
-    if (canNavigateBack.value) {
-      await previousCard();
-      swiper.value.slidePrev(300, true);
-    } else if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    }
-  }
-};
 
 const showDecisionIcon = ref(false);
 const isCardSwiping = ref(false);
@@ -405,8 +437,8 @@ const transitionToNextScenario = async () => {
       await swiper.value.update();
     }
   } else {
-    console.log('No more scenarios, game over');
-    gameOver.value = true;
+    console.log('All scenarios complete, transitioning to recap');
+    // gameOver.value = true;
   }
 
   isTransitioning.value = false;
@@ -601,6 +633,59 @@ watch(currentCardIndex, () => {
   }
 
 });
+
+watch(() => playerState.value, (newState, oldState) => {
+  console.log('PlayerState updated:', newState);
+  console.log('Score changed from', oldState.score, 'to', newState.score);
+}, { deep: true });
+
+const handleChoice = async (isTrust) => {
+  console.log('handleChoice called with isTrust:', isTrust);
+  if (currentCard.value?.type === 'decision' && !isFlipping.value) {
+    console.log('Processing choice...');
+    isFlipping.value = true;
+    makeChoice(isTrust);
+    console.log('Choice made, feedback:', isTrust ? currentCard.value.trustChoice?.feedback : currentCard.value.distrustChoice?.feedback);
+    decisionFeedback.value = isTrust
+      ? currentCard.value.trustChoice?.feedback
+      : currentCard.value.distrustChoice?.feedback;
+    lastDecisionText.value = currentCard.value.text;
+    await nextCard();
+    console.log('Moved to next card');
+    if (swiper.value) {
+      swiper.value.slideNext(300, true);
+      console.log('Swiper moved to next slide');
+    }
+    isFlipping.value = false;
+    console.log('Choice processing complete');
+  } else {
+    console.log('Choice not processed. Current card type:', currentCard.value?.type, 'isFlipping:', isFlipping.value);
+  }
+};
+
+const handleTrustClick = () => handleChoice(true);
+const handleDistrustClick = () => handleChoice(false);
+
+const handleNextClick = async () => {
+  if (!isFlipping.value) {
+    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+      await transitionToNextScenario();
+    } else if (swiper.value && canNavigateForward.value) {
+      swiper.value.slideNext(300, true);
+    }
+  }
+};
+
+const handlePreviousClick = async () => {
+  if (!isFlipping.value && canNavigateBack.value) {
+    await previousCard();
+    if (swiper.value) {
+      swiper.value.slidePrev(300, true);
+    }
+  }
+};
+
+
 </script>
 
 

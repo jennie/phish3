@@ -2,6 +2,7 @@ export default [
   {
     id: 1,
     scenarioType: "tutorial",
+    learningObjective: "Understanding basic cybersecurity concepts",
     cards: [
       {
         id: 1,
@@ -300,15 +301,15 @@ export default [
         trustChoice: {
           consequences: 1,
           feedback:
-          "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
+            "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
         },
         distrustChoice: {
           consequences: 1,
           feedback:
-          "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
+            "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
         },
         overlayContent: "beejou-shortcut.md",
-        learningObjectives: "scenario-1.md"
+        learningObjectives: "scenario-1.md",
       },
       {
         id: 1,
