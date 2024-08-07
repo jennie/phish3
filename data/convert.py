@@ -22,12 +22,12 @@ def convert_csv_to_json(csv_file_path, json_file_path):
                 # Update learningObjectives if they are present in the current row
                 if row["learningObjectives"]:
                     scenario["learningObjectives"] = row["learningObjectives"]
-            
+                        
             card = {
                 "id": int(row["id"]) if "id" in row and row["id"] else None,
                 "type": row["type"],
                 "order": int(row["order"]) if "order" in row and row["order"] else None,
-                "text": row["text"],
+                "text": row["text"].replace('\\n', '\n') if "text" in row and row["text"] else "",
                 "trustLabel": row["trustLabel"],
                 "distrustLabel": row["distrustLabel"],
                 "image": row["image"],
@@ -44,16 +44,16 @@ def convert_csv_to_json(csv_file_path, json_file_path):
                 "maxScore": int(row["maxScore"]) if "maxScore" in row and row["maxScore"] else None
             }
             scenario["cards"].append(card)
-    
-    # Sort the cards by their order field
-    for scenario in scenarios:
-        scenario["cards"].sort(key=lambda x: x["order"] if x["order"] is not None else float('inf'))
-    
-    with open(json_file_path, mode='w', encoding='utf-8') as json_file:
-        json_file.write('export default ')
-        json.dump(scenarios, json_file, indent=4)
 
-# Example usage
-csv_file_path = 'scenarios.csv'
-json_file_path = 'scenarios.json'
-convert_csv_to_json(csv_file_path, json_file_path)
+            # Sort the cards by their order field
+            for scenario in scenarios:
+                scenario["cards"].sort(key=lambda x: x["order"] if x["order"] is not None else float('inf'))
+
+            with open(json_file_path, mode='w', encoding='utf-8') as json_file:
+                json_file.write('export default ')
+                json.dump(scenarios, json_file, indent=4)
+
+            # Example usage
+            csv_file_path = 'scenarios.csv'
+            json_file_path = 'scenarios.json'
+            convert_csv_to_json(csv_file_path, json_file_path)

@@ -19,16 +19,15 @@
     </div>
 
     <!-- Slides/Cards Container -->
-    <div class="flex-grow h-4/6 flex items-center justify-center overflow-hidden">
+    <div class="flex-grow absolute h-full w-full flex items-center justify-center overflow-hidden">
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
           class="flex items-center justify-center">
-          <div :ref="el => { if (el) cardRefs[index] = el }"
-            class="card-container w-[calc(min(100vw,100vh*4/6)*0.9)] h-[calc(100%*0.95)] relative">
+          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative">
             <div
               :class="['card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
-              <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
+              <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
                 :style="{ backgroundImage: `url(${card.image})` }">
                 <Transition name="pop-fade">
                   <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
@@ -92,9 +91,9 @@
     </div>
 
     <!-- Controls Container -->
-    <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
-      <div class="flex justify-center items-center space-x-12 mb-6">
-        <a href="/" @click.prevent="returnToStartScreen" class="p-2">
+    <div class="flex-none h-1/6 flex flex-col align-middle items-center justify-end w-full">
+      <div class="flex space-x-12 justify-between z-10">
+        <a href="/" @click.prevent="returnToStartScreen" class="p-2 self self-center">
           <HomeButton />
         </a>
         <div class="flex justify-center gap-5 z-10 py-2 mb-4">
@@ -726,20 +725,18 @@ const retryScenario = async () => {
   }
 };
 
-const { content: overlayContent, loadMarkdownContent } = useMarkdownContent();
+const { content: markdownContent, processInlineMarkdown, loadMarkdownFile } = useMarkdownContent();
 const overlayTransitionName = ref('');
 
 
 const toggleOverlay = async (card) => {
   console.log('Toggle overlay called for card:', card.id);
-  // console.log('Card overlayContent:', card.overlayContent);
 
   card.showOverlay = !card.showOverlay;
 
   if (card.showOverlay && card.overlayContent && !card.loadedOverlayContent) {
     try {
-      card.loadedOverlayContent = await loadMarkdownContent(card.overlayContent);
-      // console.log('Loaded content:', card.loadedOverlayContent.substring(0, 100) + '...');
+      card.loadedOverlayContent = await loadMarkdownFile(card.overlayContent);
     } catch (error) {
       console.error('Error loading markdown:', error);
       card.loadedOverlayContent = "Failed to load content. Please try again.";
@@ -763,29 +760,53 @@ watch(() => playerState.value, (newState, oldState) => {
   // console.log('Score changed from', oldState.score, 'to', newState.score);
 }, { deep: true });
 
-const handleChoice = async (isTrust) => {
-  // console.log('handleChoice called with isTrust:', isTrust);
-  if (currentCard.value?.type === 'decision' && !isFlipping.value) {
-    // console.log('Processing choice...');
-    isFlipping.value = true;
-    makeChoice(isTrust);
-    // console.log('Choice made, feedback:', isTrust ? currentCard.value.trustChoice?.feedback : currentCard.value.distrustChoice?.feedback);
-    decisionFeedback.value = isTrust
-      ? currentCard.value.trustChoice?.feedback
-      : currentCard.value.distrustChoice?.feedback;
-    lastDecisionText.value = currentCard.value.text;
-    await nextCard();
-    // console.log('Moved to next card');
-    if (swiper.value) {
-      swiper.value.slideNext(300, true);
-      // console.log('Swiper moved to next slide');
+
+const renderMarkdown = async (text, isFile = false) => {
+  if (!text) return '';
+  try {
+    if (isFile) {
+      return await loadMarkdownFile(text);
+    } else {
+      return processInlineMarkdown(text);
     }
-    isFlipping.value = false;
-    // console.log('Choice processing complete');
-  } else {
-    // console.log('Choice not processed. Current card type:', currentCard.value?.type, 'isFlipping:', isFlipping.value);
+  } catch (error) {
+    console.error('Error rendering markdown:', error);
+    return text; // Fallback to plain text if markdown rendering fails
   }
 };
+const renderedCardText = ref('');
+const renderedLastDecisionText = ref('');
+
+watch(() => currentCard.value?.text, async (newText) => {
+  if (newText) {
+    renderedCardText.value = await renderMarkdown(newText);
+  }
+});
+
+watch(() => lastDecisionText.value, async (newText) => {
+  if (newText) {
+    renderedLastDecisionText.value = await renderMarkdown(newText);
+  }
+});
+
+
+const handleChoice = async (isTrust) => {
+  if (currentCard.value?.type === 'decision' && !isFlipping.value) {
+    isFlipping.value = true;
+    makeChoice(isTrust);
+    const feedback = isTrust
+      ? currentCard.value.trustChoice?.feedback
+      : currentCard.value.distrustChoice?.feedback;
+    decisionFeedback.value = await renderMarkdown(feedback);
+    lastDecisionText.value = currentCard.value.text;
+    await nextCard();
+    if (swiper.value) {
+      swiper.value.slideNext(300, true);
+    }
+    isFlipping.value = false;
+  }
+};
+
 
 const handleTrustClick = () => handleChoice(true);
 const handleDistrustClick = () => handleChoice(false);
@@ -825,15 +846,22 @@ const handlePreviousClick = async () => {
   --card-aspect-ratio: 1.2;
   /* Adjust this value to change the card's aspect ratio */
   --card-height: 90%;
-  /* Percentage of the middle section's height */
+  --card-aspect-ratio: 1.2;
+  --card-max-height: 70vh;
+  --card-horizontal-margin: 5vw;
 }
 
 .card-container {
-  height: var(--card-height);
-  width: calc(var(--card-height) / var(--card-aspect-ratio));
-  max-width: 95vw;
-  /* Prevent the card from being too wide on landscape orientations */
+  @apply aspect-[11/19] h-4/6 relative;
   perspective: 2000px;
+}
+
+@media (orientation: landscape) {
+  .card-container {
+    width: calc((100vh - 200px) / var(--card-aspect-ratio));
+    height: calc(100vh - 200px);
+    max-width: 90vw;
+  }
 }
 
 .card-face,
@@ -903,7 +931,7 @@ const handlePreviousClick = async () => {
 }
 
 .card-face {
-  @apply border-2 border-white rounded-xl overflow-hidden;
+  @apply aspect-[11/19];
 }
 
 .reveal {
