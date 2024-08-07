@@ -7,7 +7,7 @@
 
   <div v-else class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
-    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
+    <div class="flex-none h-1/6  flex items-center justify-center pointer-events-none p-6">
       <Transition name="fade" mode="out-in">
         <div v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
           class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
@@ -1024,11 +1024,19 @@ const handlePreviousClick = async () => {
 }
 
 .card-text {
+
+
+  br {
+    @apply mb-0 block;
+    content: "";
+  }
+
   p {
     @apply mb-0
   }
 
 }
+
 
 
 
