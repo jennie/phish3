@@ -32,8 +32,9 @@
                       <p class="text-white mb-2">Score change: {{ getScoreChange(scenario) }}</p>
                       <p class="text-white mb-4">{{ getUserFeedback(scenario) }}</p>
                     </div>
-                    <p class="text-white italic">Learning Objective: {{ scenario.learningObjective || 'Not specified' }}
-                    </p>
+                    <p class="text-white italic">Learning Objective: {{ scenario.learningObjectives || 'Not specified'
+                      }}</p>
+
 
                     <!-- Debug Information -->
                     <details class="mt-4 text-white">

@@ -1,8 +1,338 @@
 export default [
   {
+    id: 1,
+    scenarioType: "tutorial",
+    learningObjectives: "",
+    cards: [
+      {
+        id: 1,
+        type: "story",
+        order: 1,
+        text: "It's your first day at Reel Polytechnic. It's a beautiful day and the sun is shining.",
+        trustLabel: "Hi, world!",
+        distrustLabel: "Sun shining!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 2,
+        text: "Your friend Beejou finds you and buzzes over with a big smile. \\n\\n Hey there! Since you're here early, let me take you on a tour!",
+        trustLabel: "It's Beejou!",
+        distrustLabel: "What's up?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 3,
+        text: "Normally, I'd bring you to The Pond for a snack. It's our cafeteria with a real pond, but it's closed right now...",
+        trustLabel: "A real pond?",
+        distrustLabel: "Oh...",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 4,
+        text: "Beejou looks around and whispers: Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
+        trustLabel: "Geese?",
+        distrustLabel: "That's worrisome...",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 5,
+        text: "Come on, let me show you around the rest of the campus. There's so much to see!",
+        trustLabel: "Let's go!",
+        distrustLabel: "Okay!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 6,
+        text: "You follow Beejou through the campus, learning about the different buildings, facilities, and activities available here.",
+        trustLabel: "Beautiful...",
+        distrustLabel: "Is this real?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 7,
+        text: "Beejou: As you settle in, remember to stay alert for phishing scams.",
+        trustLabel: "A phish?",
+        distrustLabel: "Scams!?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 8,
+        text: "They can come in the form of suspicious emails, fake websites, or strange requests.",
+        trustLabel: "Oh...",
+        distrustLabel: "Dangerous...",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 9,
+        text: "There's been a lot more recently. The beavers working at IT Security are worried..",
+        trustLabel: "Scary...",
+        distrustLabel: "Should I worry?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 10,
+        text: "Remember, always verify the source before trusting any information!",
+        trustLabel: "I will!",
+        distrustLabel: "Of course!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 11,
+        text: "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the bulletin boards.",
+        trustLabel: "Peaceful...",
+        distrustLabel: "Exciting!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 12,
+        text: "Beejou stops suddenly.",
+        trustLabel: "What's up?",
+        distrustLabel: "Problem?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "story",
+        order: 13,
+        text: "Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
+        trustLabel: "Shortcut?",
+        distrustLabel: "Is it safe?",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "decision",
+        order: 14,
+        text: "Do you trust Beejou to get you back in time?",
+        trustLabel: "Trust Beejou's detour",
+        distrustLabel: "Distrust Beejou",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "reveal",
+        order: 15,
+        text: "",
+        trustLabel: "I see",
+        distrustLabel: "Got it",
+        image: "/images/card-back.png",
+        trustChoice: {
+          consequences: 1,
+          feedback:
+            "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback:
+            "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
+        },
+        overlayContent: "beejou-shortcut.md",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 1,
+        type: "scenario",
+        order: 16,
+        text: "",
+        trustLabel: "",
+        distrustLabel: "",
+        image: "",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+    ],
+  },
+  {
     id: 2,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "If an offer looks too good to be true, it probably is!",
     cards: [
       {
         id: 2,
@@ -189,358 +519,10 @@ export default [
     ],
   },
   {
-    id: 1,
-    scenarioType: "regular",
-    learningObjectives: "",
-    cards: [
-      {
-        id: 1,
-        type: "story",
-        order: 1,
-        text: "It's your first day at Reel Polytechnic. It's a beautiful day and the sun is shining.",
-        trustLabel: "Hi, world!",
-        distrustLabel: "Sun shining!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 2,
-        text: "Your friend Beejou finds you and buzzes over with a big smile. /n/n Hey there! Since you're here early, let me take you on a tour!",
-        trustLabel: "It's Beejou!",
-        distrustLabel: "What's up?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 3,
-        text: "Normally, I'd bring you to The Pond for a snack. It's our cafeteria with a real pond, but it's closed right now...",
-        trustLabel: "A real pond?",
-        distrustLabel: "Oh...",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 4,
-        text: "Beejou looks around and whispers: Also, watch out for the geese on campus.",
-        trustLabel: "Geese?",
-        distrustLabel: "What?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 5,
-        text: "The geese have been extra bothered since they closed The Pond. They can be quite a handful!",
-        trustLabel: "Oh no...",
-        distrustLabel: "That's worrisome...",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 6,
-        text: "Come on, let me show you around the rest of the campus. There's so much to see!",
-        trustLabel: "Let's go!",
-        distrustLabel: "Okay!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 7,
-        text: "You follow Beejou through the campus, learning about the different buildings, facilities, and activities available here.",
-        trustLabel: "Beautiful...",
-        distrustLabel: "Is this real?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 8,
-        text: "Beejou: As you settle in, remember to stay alert for phishing scams.",
-        trustLabel: "A phish?",
-        distrustLabel: "Scams!?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 9,
-        text: "They can come in the form of suspicious emails, fake websites, or strange requests.",
-        trustLabel: "Oh...",
-        distrustLabel: "Dangerous...",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 10,
-        text: "There's been a lot more recently. The beavers working at IT Security are worried..",
-        trustLabel: "Scary...",
-        distrustLabel: "Should I worry?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 11,
-        text: "Remember, always verify the source before trusting any information!",
-        trustLabel: "I will!",
-        distrustLabel: "Of course!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 12,
-        text: "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the bulletin boards.",
-        trustLabel: "Peaceful...",
-        distrustLabel: "Exciting!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 13,
-        text: "Beejou stops suddenly.",
-        trustLabel: "What's up?",
-        distrustLabel: "Problem?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 14,
-        text: "Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
-        trustLabel: "Shortcut?",
-        distrustLabel: "Is it safe?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "decision",
-        order: 15,
-        text: "Do you trust Beejou to get you back in time?",
-        trustLabel: "Trust Beejou's detour",
-        distrustLabel: "Distrust Beejou",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "reveal",
-        order: 16,
-        text: "",
-        trustLabel: "I see",
-        distrustLabel: "Got it",
-        image: "/images/card-back.png",
-        trustChoice: {
-          consequences: 1,
-          feedback:
-            "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams.",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback:
-            "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
-        },
-        overlayContent: "beejou-shortcut.md",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "scenario",
-        order: 17,
-        text: "",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-    ],
-  },
-  {
     id: 3,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Inconsistent language, unprofessional layouts, spelling mistakes, and an artificail sense of urgency are all red flags in a phishing scam!",
     cards: [
       {
         id: 3,
@@ -709,7 +691,8 @@ export default [
   {
     id: 4,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Alway make sure you're you when responding to MFA requests!",
     cards: [
       {
         id: 4,
@@ -898,7 +881,8 @@ export default [
   {
     id: 5,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Look for padlocks on https URLs, domain names you trust, and authentic language. ",
     cards: [
       {
         id: 5,
@@ -1088,7 +1072,8 @@ export default [
   {
     id: 6,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Phishing scams often ask for far more information than would be necessary for a normal transaction or information request. Be on the look out!",
     cards: [
       {
         id: 6,
@@ -1298,7 +1283,8 @@ export default [
   {
     id: 7,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Look for padlocks on URLs, domain names you trust, and authentic language\u2014and for commercial sites, professional branding and partner links!",
     cards: [
       {
         id: 7,
@@ -1508,7 +1494,8 @@ export default [
   {
     id: 8,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Be wary of providing personal identification through email or phone without security procedures, such as PINs, polytechnic portals, and other protective measures.",
     cards: [
       {
         id: 8,
@@ -1738,7 +1725,8 @@ export default [
   {
     id: 9,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Be on the look out for urgent, invasive demands to install software on your computer that doesn't come from polytechnic IT!",
     cards: [
       {
         id: 9,
@@ -1908,7 +1896,8 @@ export default [
   {
     id: 10,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Some phishing scams can be very sophisticated in their appearance and language. But official polytechnic correspondence will never ask for personal information via email.",
     cards: [
       {
         id: 10,
@@ -2116,116 +2105,10 @@ export default [
     ],
   },
   {
-    id: 20,
-    scenarioType: "regular",
-    learningObjectives: "",
-    cards: [
-      {
-        id: 20,
-        type: "story",
-        order: 1,
-        text: "You've been napping all afternoon at the library on campus. You found a nice spot on top of the shelves.",
-        trustLabel: "It's peaceful!",
-        distrustLabel: "No one's here!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 20,
-        type: "story",
-        order: 2,
-        text: "Your phone buzzes with an alert that almost knocks you off your shelf.",
-        trustLabel: "Powerful!",
-        distrustLabel: "Volume down!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 20,
-        type: "decision",
-        order: 3,
-        text: "Your location shows as: The Library",
-        trustLabel: "Approve!",
-        distrustLabel: "Deny!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: 1,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 20,
-        type: "reveal",
-        order: 4,
-        text: "",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "/images/card-back.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 20,
-        type: "scenario",
-        order: null,
-        text: "",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-    ],
-  },
-  {
     id: 11,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Polytechnic IT notices to update software and security procedures should be acted upon in a timely manner to protect staff and students alike! ",
     cards: [
       {
         id: 11,
@@ -2435,7 +2318,8 @@ export default [
   {
     id: 12,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Ransomware is a serious threat that could seriously affect your life, along with anyone associated with the polytechnic.",
     cards: [
       {
         id: 12,
@@ -2725,7 +2609,7 @@ export default [
   {
     id: 13,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives: "No objectve - just flavour.",
     cards: [
       {
         id: 13,
@@ -2903,7 +2787,7 @@ export default [
         distrustChoice: {
           consequences: null,
           feedback:
-            "They just want to taste your drink!!\\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
+            "They just want to taste your drink!! \\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
         },
         overlayContent:
           "Learning Objective - Just a fun one for trusting/distrusting",
@@ -2955,7 +2839,8 @@ export default [
   {
     id: 14,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Student job scams are a common phishing scheme that aim to extract sensitive information and exploit bad security habits.",
     cards: [
       {
         id: 14,
@@ -3145,7 +3030,8 @@ export default [
   {
     id: 15,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "If you absolutley have to leave your laptop or phone unattended, it's critical you secure it with a password to avoid access while you're away!",
     cards: [
       {
         id: 15,
@@ -3314,7 +3200,8 @@ export default [
   {
     id: 16,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "Review communications for official logos, links to trusted domains, and policies that are consisted with polytechnic security processes.",
     cards: [
       {
         id: 16,
@@ -3544,7 +3431,8 @@ export default [
   {
     id: 17,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
       {
         id: 17,
@@ -3651,7 +3539,8 @@ export default [
   {
     id: 18,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
       {
         id: 18,
@@ -3758,7 +3647,8 @@ export default [
   {
     id: 19,
     scenarioType: "regular",
-    learningObjectives: "",
+    learningObjectives:
+      "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
       {
         id: 19,
@@ -3863,6 +3753,114 @@ export default [
     ],
   },
   {
+    id: 20,
+    scenarioType: "mfa",
+    learningObjectives:
+      "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
+    cards: [
+      {
+        id: 20,
+        type: "story",
+        order: 1,
+        text: "You've been napping all afternoon at the library on campus. You found a nice spot on top of the shelves.",
+        trustLabel: "It's peaceful!",
+        distrustLabel: "No one's here!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 20,
+        type: "story",
+        order: 2,
+        text: "Your phone buzzes with an alert that almost knocks you off your shelf.",
+        trustLabel: "Powerful!",
+        distrustLabel: "Volume down!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 20,
+        type: "decision",
+        order: 3,
+        text: "Your location shows as: The Library",
+        trustLabel: "Approve!",
+        distrustLabel: "Deny!",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: 1,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 20,
+        type: "reveal",
+        order: 4,
+        text: "",
+        trustLabel: "",
+        distrustLabel: "",
+        image: "/images/card-back.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 20,
+        type: "scenario",
+        order: null,
+        text: "",
+        trustLabel: "",
+        distrustLabel: "",
+        image: "",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+    ],
+  },
+  {
     id: 101,
     scenarioType: "ending",
     learningObjectives: "Bad Ending",
@@ -3887,15 +3885,8 @@ export default [
         minScore: 17,
         maxScore: 20,
       },
-    ],
-  },
-  {
-    id: 102,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 102,
+        id: 101,
         type: "story",
         order: 2,
         text: 'Beejou: "Great job spotting phishing attempts! Just a few slipped by."',
@@ -3914,15 +3905,8 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: 103,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 103,
+        id: 101,
         type: "story",
         order: 3,
         text: "At the end of the party, as everyone's sweeping up, you notice something strange... There's a goose sweeping some dust into a corner. It seems they used the party to sneak in...",
@@ -3953,8 +3937,8 @@ export default [
         type: "ending_scenario",
         order: 1,
         text: "Tonight's the grand re-opening of The Pond! The party is bustling with floaties, snacks, and drinks.",
-        trustLabel: "",
-        distrustLabel: "",
+        trustLabel: "Enjoy the party!",
+        distrustLabel: "Stay cautious...",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
@@ -3968,20 +3952,13 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: 202,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 202,
+        id: 201,
         type: "story",
         order: 2,
         text: 'Beejou: "Unfortunately we missed a few phishing attempts... We should stay alert!"',
-        trustLabel: "",
-        distrustLabel: "",
+        trustLabel: "Understood.",
+        distrustLabel: "I'll be cautious!",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
@@ -3995,74 +3972,13 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: 203,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 203,
+        id: 201,
         type: "story",
         order: 3,
         text: "You see a goose with, you assume, a stolen credit card. What could they be planning?",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-    ],
-  },
-  {
-    id: 302,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
-      {
-        id: 302,
-        type: "story",
-        order: 2,
-        text: 'Beejou\'s panicking: "We missed too many phishing attempts! The geese have taken over!"',
-        trustLabel: "",
-        distrustLabel: "",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-    ],
-  },
-  {
-    id: 402,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
-      {
-        id: 402,
-        type: "story",
-        order: 2,
-        text: 'Beejou: "The party is a huge success! Everyone\'s enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!"',
-        trustLabel: "Thanks!",
-        distrustLabel: "Appreciate it!",
+        trustLabel: "This is bad...",
+        distrustLabel: "So suspicious!",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
@@ -4088,8 +4004,8 @@ export default [
         type: "ending_scenario",
         order: 1,
         text: "Tonight's the grand re-opening of The Pond! The party is bustling, but there's an eerie feeling...",
-        trustLabel: "",
-        distrustLabel: "",
+        trustLabel: "Investigate!",
+        distrustLabel: "This is bad...",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
@@ -4103,21 +4019,34 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: null,
-    scenarioType: "regular",
-    learningObjectives: "",
-    cards: [
       {
-        id: null,
-        type: "",
-        order: null,
-        text: "",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "",
+        id: 301,
+        type: "story",
+        order: 2,
+        text: 'Beejou\'s panicking: "We missed too many phishing attempts! The geese have taken over!"',
+        trustLabel: "Oh no!",
+        distrustLabel: "This isn't good...",
+        image: "/images/card-placeholder.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 301,
+        type: "story",
+        order: 3,
+        text: "Unfortunately, the geese run the campus now. They give themselves straight A's and the cafeteria sells worms and corn (gross).",
+        trustLabel: "So unfair!",
+        distrustLabel: "Disgusting...",
+        image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -4157,20 +4086,13 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: 403,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 403,
+        id: 401,
         type: "story",
-        order: 3,
-        text: "Even the geese are behaving, floating peacefully in the pond. It's a perfect day at Reel Polytechnic.",
-        trustLabel: "Celebrate!",
-        distrustLabel: "Honk!",
+        order: 2,
+        text: 'Beejou: "The party is a huge success! Everyone\'s enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!"',
+        trustLabel: "Thanks!",
+        distrustLabel: "Appreciate it!",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
@@ -4184,20 +4106,13 @@ export default [
         minScore: null,
         maxScore: null,
       },
-    ],
-  },
-  {
-    id: 303,
-    scenarioType: "ending",
-    learningObjectives: "",
-    cards: [
       {
-        id: 303,
+        id: 401,
         type: "story",
         order: 3,
-        text: "Unfortunately, the geese run the campus now. They give themselves straight A's and the cafeteria sells worms and corn (gross).",
-        trustLabel: "",
-        distrustLabel: "",
+        text: "Even the geese are behaving, floating peacefully in the pond. It's a perfect day at Reel Polytechnic.",
+        trustLabel: "Celebrate!",
+        distrustLabel: "Honk!",
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,

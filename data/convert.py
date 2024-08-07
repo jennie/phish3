@@ -14,10 +14,14 @@ def convert_csv_to_json(csv_file_path, json_file_path):
                 scenario = {
                     "id": scenario_id,
                     "scenarioType": scenario_type,
-                    "learningObjectives": row["learningObjectives"],
+                    "learningObjectives": row["learningObjectives"] if row["learningObjectives"] else "",
                     "cards": []
                 }
                 scenarios.append(scenario)
+            else:
+                # Update learningObjectives if they are present in the current row
+                if row["learningObjectives"]:
+                    scenario["learningObjectives"] = row["learningObjectives"]
             
             card = {
                 "id": int(row["id"]) if "id" in row and row["id"] else None,
