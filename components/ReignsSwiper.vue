@@ -9,83 +9,81 @@
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <Transition name="fade" mode="out-in">
-        <p v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-          class="text-xl text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
-        </p>
-        <p v-else-if="lastDecisionText" :key="'last-decision'" class="text-xl text-white leading-snug text-center"
-          v-html="parseCardText(lastDecisionText)">
-        </p>
+        <div v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
+          class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
+        </div>
+        <div v-else-if="lastDecisionText" :key="'last-decision'"
+          class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(lastDecisionText)">
+        </div>
       </Transition>
     </div>
 
     <!-- Slides/Cards Container -->
-    <div class="absolute h-screen w-screen flex items-center justify-center">
+    <div class="flex-grow h-4/6 flex items-center justify-center overflow-hidden">
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
-        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full ">
+        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
-          class="h-full flex flex-col items-center justify-center">
+          class="flex items-center justify-center">
           <div :ref="el => { if (el) cardRefs[index] = el }"
-            class="relative w-full h-4/6  flex items-center justify-center">
+            class="card-container w-[calc(min(100vw,100vh*4/6)*0.9)] h-[calc(100%*0.95)] relative">
             <div
-              :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden transition-transform duration-600 absolute', { 'rotate-y-180': cardFlipStates[card.id] }]">
-              <div class="w-full h-full">
-                <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
-                  :style="{ backgroundImage: `url(${card.image})` }">
-                  <Transition name="pop-fade">
-                    <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
-                      class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                      <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-                          <path fill="currentColor"
-                            d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
-                        </svg>
-                      </button>
-                    </div>
-                  </Transition>
-                  <!-- Overlay -->
-                  <Transition :name="overlayTransitionName">
-                    <div v-if="card.showOverlay"
-                      class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
-                      <div class="flex justify-between items-center mb-4">
+              :class="['card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+              <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white"
+                :style="{ backgroundImage: `url(${card.image})` }">
+                <Transition name="pop-fade">
+                  <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
+                    class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                    <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                        <path fill="currentColor"
+                          d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
+                      </svg>
+                    </button>
+                  </div>
+                </Transition>
+                <!-- Overlay -->
+                <Transition :name="overlayTransitionName">
+                  <div v-if="card.showOverlay"
+                    class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
+                    <div class="flex justify-between items-center mb-4">
 
-                        <div
-                          class="absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                          <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                              viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="flex-grow overflow-y-auto">
-                        <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent"
-                          class="overlay-content"></div>
-                        <p v-else>Loading content...</p>
+                      <div
+                        class="absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                        <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
                       </div>
                     </div>
-                  </Transition>
+                    <div class="flex-grow overflow-y-auto">
+                      <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent" class="overlay-content">
+                      </div>
+                      <p v-else>Loading content...</p>
+                    </div>
+                  </div>
+                </Transition>
 
-                  <!-- Existing trust/distrust labels -->
-                  <div
-                    class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
-                    data-swiper-parallax="-300" data-swiper-parallax-duration="600"
-                    v-html="card.distrustLabel || 'Distrust'" />
-                  <div
-                    class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
-                    data-swiper-parallax="-300" data-swiper-parallax-duration="600"
-                    v-html="card.trustLabel || 'Trust'" />
-                </div>
-              </div>
-            </div>
-            <div v-if="card.type === 'reveal'"
-              :class="['w-[calc(100vh*13/19*0.6)] max-w-[90vw] h-full rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 absolute backface-hidden reveal  border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
-              <div v-if="decisionFeedback" class="p-4 text-white">
-                <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
+                <!-- Existing trust/distrust labels -->
+                <div
+                  class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
+                  data-swiper-parallax="-300" data-swiper-parallax-duration="600"
+                  v-html="card.distrustLabel || 'Distrust'" />
+                <div
+                  class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
+                  data-swiper-parallax="-300" data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
               </div>
             </div>
           </div>
+          <div v-if="card.type === 'reveal'"
+            :class="['card-back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 backface-hidden reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+            <div v-if="decisionFeedback" class="p-4 text-white">
+              <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
+            </div>
+          </div>
+
         </swiper-slide>
       </swiper-container>
       <div v-else class="h-full flex items-center justify-center text-white">
@@ -95,27 +93,26 @@
 
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
-      <div class="flex justify-center gap-5 z-10 py-2 mb-4">
-        <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
-          :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-            { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]"
-          style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
-          <BackButton v-if="!isDecisionCard" />
-          <ThumbsDown v-else />
-        </button>
-        <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
-          :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-            { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]"
-          style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
-          <NextButton v-if="!isDecisionCard" />
-          <ThumbsUp v-else />
-        </button>
-      </div>
-
-      <div class="text-center p-4 flex flex-row justify-between items-center z-50">
+      <div class="flex justify-center items-center space-x-12 mb-6">
         <a href="/" @click.prevent="returnToStartScreen" class="p-2">
           <HomeButton />
         </a>
+        <div class="flex justify-center gap-5 z-10 py-2 mb-4">
+          <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
+            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
+              { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]"
+            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+            <BackButton v-if="!isDecisionCard" />
+            <ThumbsDown v-else />
+          </button>
+          <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
+            :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
+              { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]"
+            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+            <NextButton v-if="!isDecisionCard" />
+            <ThumbsUp v-else />
+          </button>
+        </div>
         <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
           :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
           <RetryButton />
@@ -300,7 +297,7 @@ const skipToEndingScenario = () => {
 
 // Update transitionToNextScenario
 const transitionToNextScenario = async () => {
-  console.log('Transitioning to next scenario');
+  // console.log('Transitioning to next scenario');
   isTransitioning.value = true;
 
   if (currentScenarioIndex.value < regularScenarios.value.length - 1) {
@@ -380,8 +377,8 @@ const isInRecap = computed(() => isRecapMode.value);
 
 
 const simulateAllChoices = () => {
-  console.log("Starting simulation of all choices");
-  console.log(`Total regular scenarios: ${regularScenarios.value.length}`);
+  // console.log("Starting simulation of all choices");
+  // console.log(`Total regular scenarios: ${regularScenarios.value.length}`);
 
   regularScenarios.value.forEach((scenario, index) => {
     if (!scenario || scenario.id === null) {
@@ -389,23 +386,23 @@ const simulateAllChoices = () => {
       return;
     }
 
-    console.log(`Processing scenario ${scenario.id}`);
+    // console.log(`Processing scenario ${scenario.id}`);
     const decisionCard = scenario.cards.find(card => card.type === 'decision');
     if (decisionCard) {
       const isTrust = Math.random() < 0.5;
-      console.log(`Scenario ${scenario.id}: Making ${isTrust ? 'trust' : 'distrust'} choice`);
+      // console.log(`Scenario ${scenario.id}: Making ${isTrust ? 'trust' : 'distrust'} choice`);
       makeChoice(isTrust, scenario.id);
     } else {
       console.warn(`No decision card found for scenario ${scenario.id}. This shouldn't happen based on current data.`);
     }
   });
 
-  console.log("Finished simulating all choices");
-  console.log(`Final score: ${playerState.value.score}`);
+  // console.log("Finished simulating all choices");
+  // console.log(`Final score: ${playerState.value.score}`);
 };
 
 const skipToRecap = () => {
-  console.log("Skipping to recap");
+  // console.log("Skipping to recap");
   simulateAllChoices();
   currentScenarioIndex.value = regularScenarios.value.length;
   startRecap();
@@ -440,7 +437,7 @@ const jumpToScenario = async (scenarioId) => {
       await swiper.value.update();
     }
 
-    console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
+    // console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
   } else {
     console.error(`Scenario with id ${scenarioId} not found`);
   }
@@ -477,13 +474,13 @@ const canNavigateBack = computed(() => {
 
 const currentCard = computed(() => {
   if (currentScenario.value && currentScenario.value.cards) {
-    console.log('currentScenarioIndex:', currentScenarioIndex.value);
-    console.log('currentCardIndex:', currentCardIndex.value);
-    console.log('scenarios:', scenarios.value);
+    // console.log('currentScenarioIndex:', currentScenarioIndex.value);
+    // console.log('currentCardIndex:', currentCardIndex.value);
+    // console.log('scenarios:', scenarios.value);
 
     const card = currentScenario.value.cards[currentCardIndex.value];
-    console.log('Current card:', card);
-    console.log('Current card overlayContent:', card.overlayContent);
+    // console.log('Current card:', card);
+    // console.log('Current card overlayContent:', card.overlayContent);
     return card;
   }
   return null;
@@ -642,18 +639,18 @@ watch(isDataReady, async (ready) => {
 
 watch(currentScenario, async (newScenario, oldScenario) => {
   if (newScenario && newScenario !== oldScenario) {
-    console.log('Current scenario changed to:', newScenario.id);
-    console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
+    // console.log('Current scenario changed to:', newScenario.id);
+    // console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
     cardFlipStates.value = {};
     newScenario.cards.forEach((card, index) => {
-      console.log(`Card ${index} initial overlayContent:`, card.overlayContent);
+      // console.log(`Card ${index} initial overlayContent:`, card.overlayContent);
       if (!card.id) {
         card.id = `card-${index}`;
       }
       cardFlipStates.value[card.id] = false;
       card.showOverlay = false;
       // Remove this line: card.overlayContent = null;
-      console.log(`Card ${index} final overlayContent:`, card.overlayContent);
+      // console.log(`Card ${index} final overlayContent:`, card.overlayContent);
     });
 
     // ... rest of the function
@@ -735,14 +732,14 @@ const overlayTransitionName = ref('');
 
 const toggleOverlay = async (card) => {
   console.log('Toggle overlay called for card:', card.id);
-  console.log('Card overlayContent:', card.overlayContent);
+  // console.log('Card overlayContent:', card.overlayContent);
 
   card.showOverlay = !card.showOverlay;
 
   if (card.showOverlay && card.overlayContent && !card.loadedOverlayContent) {
     try {
       card.loadedOverlayContent = await loadMarkdownContent(card.overlayContent);
-      console.log('Loaded content:', card.loadedOverlayContent.substring(0, 100) + '...');
+      // console.log('Loaded content:', card.loadedOverlayContent.substring(0, 100) + '...');
     } catch (error) {
       console.error('Error loading markdown:', error);
       card.loadedOverlayContent = "Failed to load content. Please try again.";
@@ -762,31 +759,31 @@ watch(currentCardIndex, () => {
 });
 
 watch(() => playerState.value, (newState, oldState) => {
-  console.log('PlayerState updated:', newState);
-  console.log('Score changed from', oldState.score, 'to', newState.score);
+  // console.log('PlayerState updated:', newState);
+  // console.log('Score changed from', oldState.score, 'to', newState.score);
 }, { deep: true });
 
 const handleChoice = async (isTrust) => {
-  console.log('handleChoice called with isTrust:', isTrust);
+  // console.log('handleChoice called with isTrust:', isTrust);
   if (currentCard.value?.type === 'decision' && !isFlipping.value) {
-    console.log('Processing choice...');
+    // console.log('Processing choice...');
     isFlipping.value = true;
     makeChoice(isTrust);
-    console.log('Choice made, feedback:', isTrust ? currentCard.value.trustChoice?.feedback : currentCard.value.distrustChoice?.feedback);
+    // console.log('Choice made, feedback:', isTrust ? currentCard.value.trustChoice?.feedback : currentCard.value.distrustChoice?.feedback);
     decisionFeedback.value = isTrust
       ? currentCard.value.trustChoice?.feedback
       : currentCard.value.distrustChoice?.feedback;
     lastDecisionText.value = currentCard.value.text;
     await nextCard();
-    console.log('Moved to next card');
+    // console.log('Moved to next card');
     if (swiper.value) {
       swiper.value.slideNext(300, true);
-      console.log('Swiper moved to next slide');
+      // console.log('Swiper moved to next slide');
     }
     isFlipping.value = false;
-    console.log('Choice processing complete');
+    // console.log('Choice processing complete');
   } else {
-    console.log('Choice not processed. Current card type:', currentCard.value?.type, 'isFlipping:', isFlipping.value);
+    // console.log('Choice not processed. Current card type:', currentCard.value?.type, 'isFlipping:', isFlipping.value);
   }
 };
 
@@ -825,6 +822,29 @@ const handlePreviousClick = async () => {
   --swiper-tinder-label-font-size: 32px;
   --swiper-tinder-button-size: 56px;
   --swiper-tinder-button-icon-size: 32px;
+  --card-aspect-ratio: 1.2;
+  /* Adjust this value to change the card's aspect ratio */
+  --card-height: 90%;
+  /* Percentage of the middle section's height */
+}
+
+.card-container {
+  height: var(--card-height);
+  width: calc(var(--card-height) / var(--card-aspect-ratio));
+  max-width: 95vw;
+  /* Prevent the card from being too wide on landscape orientations */
+  perspective: 2000px;
+}
+
+.card-face,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 }
 
 /* Enhance 3D effect for the card container */
@@ -973,5 +993,26 @@ const handlePreviousClick = async () => {
 .slide-vertical-enter-to {
   transform: translateY(0) scale(1);
   opacity: 1;
+}
+
+.card-text {
+  p {
+    @apply mb-0
+  }
+
+}
+
+
+
+.card-face,
+.card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }
 </style>
