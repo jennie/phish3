@@ -24,7 +24,7 @@
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
           class="flex items-center justify-center">
-          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative">
+          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative ">
             <div
               :class="['card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
@@ -856,13 +856,7 @@ const handlePreviousClick = async () => {
   perspective: 2000px;
 }
 
-@media (orientation: landscape) {
-  .card-container {
-    width: calc((100vh - 200px) / var(--card-aspect-ratio));
-    height: calc(100vh - 200px);
-    max-width: 90vw;
-  }
-}
+
 
 .card-face,
 .card-back {
