@@ -12,7 +12,7 @@
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="scenario in regularScenarios" :key="scenario.id" class="flex items-center justify-center">
-          <div class="card-container relative max-w-screen-sm w-10">
+          <div class="card-container relative">
             <div class="card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19]"
                 :style="{ backgroundImage: `url(${getScenarioImage(scenario)})` }">
@@ -274,13 +274,6 @@ onMounted(() => {
   perspective: 2000px;
 }
 
-@media (orientation: landscape) {
-  .card-container {
-    width: calc((100vh - 200px) / var(--card-aspect-ratio));
-    height: calc(100vh - 200px);
-    max-width: 90vw;
-  }
-}
 
 .card-face {
   backface-visibility: hidden;
