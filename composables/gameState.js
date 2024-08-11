@@ -9,8 +9,9 @@ const gameSequence = ref([]);
 const currentScenarioIndex = ref(0);
 const currentCardIndex = ref(0);
 const gameStage = ref("main");
-
+const isRevealCardFlipped = ref(false);
 const isTransitionCardVisible = ref(false);
+const lastDecisionText = ref("");
 
 const playerState = ref({
   score: 0,
@@ -186,7 +187,7 @@ const jumpToScenario = (scenarioId) => {
   const index = gameSequence.value.findIndex((s) => s.id === scenarioId);
   if (index !== -1) {
     currentScenarioIndex.value = index;
-    currentCardIndex.value = 0;
+    currentCardIndex.value = 0; // Set the current card to the first card of the selected scenario
     console.log(`Jumped to scenario ${scenarioId} at index ${index}`);
   } else {
     console.error(`Scenario with id ${scenarioId} not found`);
@@ -314,14 +315,19 @@ const completeCurrentScenario = async () => {
 };
 
 const moveToNextScenario = () => {
+  console.log("moveToNextScenario called");
   if (currentScenarioIndex.value < gameSequence.value.length - 1) {
     currentScenarioIndex.value++;
-    currentCardIndex.value = 0; // Reset card index to the start of the new scenario
+    currentCardIndex.value = 0;
+    isRevealCardFlipped.value = false;
     console.log(`Moved to scenario ${currentScenario.value.id}`);
   } else {
-    // Reached the last scenario, now move to the ending stage or next phase
+    console.log("No more scenarios, moving to next stage");
     moveToNextStage();
   }
+  // Reset any scenario-specific state here
+  lastDecisionText.value = "";
+  cardFlipStates.value = {};
 };
 
 const moveToNextStage = () => {

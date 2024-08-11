@@ -26,16 +26,22 @@
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="(card, index) in filteredCards" :key="index" class="flex items-center justify-center">
-          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative">
+
+
+
+
+          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative"
+            :class="{ 'is-flipped': isRevealCardFlipped }">
 
             <div
-              :class="['card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+              :class="['card-face front absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
                 :style="{ backgroundImage: `url(${card.image})` }">
                 <Transition name="pop-fade">
-                  <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping"
-                    class="absolute top-4 right-4 bg-yellow-200 leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                    <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
+                  <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
+
+                    <button @click.stop="toggleOverlay(card)"
+                      class="focus:outline-none absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                         <path fill="currentColor"
                           d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
@@ -49,9 +55,9 @@
                     class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
                     <div class="flex justify-between items-center mb-4">
 
-                      <div
-                        class="absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                        <button @click.stop="toggleOverlay(card)" class="focus:outline-none">
+                      <div>
+                        <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
+                          bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -80,7 +86,7 @@
             </div>
 
             <div v-if="card.type === 'reveal'"
-              :class="['card-back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 backface-hidden reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+              :class="['card-face back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
 
               <div v-if="decisionFeedback" class="p-4 text-white">
                 <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
@@ -170,6 +176,7 @@ const isDecisionCard = computed(() => {
   return currentCard.value?.type === 'decision';
 });
 const currentScore = computed(() => playerState.value.score);
+const isRevealCardFlipped = ref(false);
 
 const parseCardText = (text) => {
   return text.replace(/\\n/g, '<br>');
@@ -320,16 +327,20 @@ const transitionToNextScenario = async () => {
 
 
 const decisionFeedback = ref('');
-const isRevealCardFlipped = ref(false);
 let swipingTimeout = null;
 
+
 watch(() => currentCard.value, (newCard) => {
+  console.log("Current card changed:", newCard);
   if (newCard?.type === 'reveal') {
-    setTimeout(() => {
-      isRevealCardFlipped.value = true;
-    }, 1000);
+    console.log("Reveal card detected, scheduling flip");
+    setTimeout(flipRevealCard, 1000);
+  } else {
+    console.log("Resetting reveal card flip");
+    isRevealCardFlipped.value = false;
   }
 });
+
 const allScenariosComplete = computed(() => {
   return currentScenarioIndex.value >= scenarios.value.length - 1 &&
     Object.keys(userChoices.value).length === scenarios.value.length;
@@ -402,31 +413,6 @@ const skipToGameOver = () => {
 
 
 
-// const jumpToScenario = async (scenarioId) => {
-//   const scenarioIndex = regularScenarios.value.findIndex(s => s.id === scenarioId);
-//   if (scenarioIndex !== -1) {
-//     currentScenarioIndex.value = scenarioIndex;
-//     currentCardIndex.value = 0; // Reset to the first card of the scenario
-//     isEndingScenario.value = false; // Ensure we're not in ending scenario mode
-
-//     // Reset any necessary state for the new scenario
-//     isRevealCardFlipped.value = false;
-//     decisionFeedback.value = '';
-//     lastDecisionText.value = '';
-//     cardFlipStates.value = {};
-
-//     await nextTick();
-//     if (swiper.value) {
-//       swiper.value.slideTo(0, 0);
-//       await swiper.value.update();
-//     }
-
-//     // console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
-//   } else {
-//     console.error(`Scenario with id ${scenarioId} not found`);
-//   }
-// };
-
 const isDataReady = computed(() => {
   const ready = !!currentScenario.value &&
     !!currentScenario.value.cards &&
@@ -444,7 +430,23 @@ watch(() => currentScenario.value, (newScenario) => {
     });
   }
 }, { immediate: true });
+watch(() => currentScenario.value, async (newScenario) => {
+  if (newScenario) {
+    currentCardIndex.value = 0;
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(0, 0);
+      await swiper.value.update();
+    }
+  }
+}, { immediate: true });
 
+watch(() => currentCardIndex.value, async (newIndex) => {
+  console.log(`Card index changed to ${newIndex}`);
+  if (swiper.value) {
+    swiper.value.slideTo(newIndex, 0);
+  }
+});
 
 const scenarioIds = computed(() => {
   return scenarios.value ? scenarios.value.map(scenario => scenario.id) : [];
@@ -495,6 +497,17 @@ const handleTinderSwipe = async (s, direction) => {
 
 
 const showDecisionIcon = ref(false);
+
+const handleSlideChangeTransitionEnd = () => {
+  if (currentCard.value?.type === 'decision') {
+    showDecisionIcon.value = false;
+    nextTick(() => {
+      showDecisionIcon.value = true;
+    });
+  } else {
+    showDecisionIcon.value = false;
+  }
+};
 const isCardSwiping = ref(false);
 
 const handleSlideChange = (s) => {
@@ -525,21 +538,28 @@ const handleSlideChange = (s) => {
   }
 };
 
-
-const flipRevealCard = (index) => {
-  const card = currentScenario.value.cards[index];
-  if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
-    if (flipTimeout.value) {
-      clearTimeout(flipTimeout.value);
-    }
-    isFlipping.value = true;
-    flipTimeout.value = setTimeout(() => {
-      cardFlipStates.value[card.id] = true; // Flip the card
-      isRevealCardFlipped.value = true; // Mark the card as flipped
-      isFlipping.value = false;
-    }, 1000); // Adjust timing as necessary
+const flipRevealCard = () => {
+  if (currentCard.value?.type === 'reveal' && !isRevealCardFlipped.value) {
+    console.log("Flipping reveal card");
+    isRevealCardFlipped.value = true;
   }
 };
+// const flipRevealCard = (index) => {
+//   console.log("flipRevealCard called for index:", index);
+//   const card = currentScenario.value.cards[index];
+//   if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
+//     if (flipTimeout.value) {
+//       clearTimeout(flipTimeout.value);
+//     }
+//     isFlipping.value = true;
+//     flipTimeout.value = setTimeout(() => {
+//       console.log("Flipping card in flipRevealCard");
+//       cardFlipStates.value[card.id] = true;
+//       isRevealCardFlipped.value = true;
+//       isFlipping.value = false;
+//     }, 1000);
+//   }
+// };
 
 
 const initializeSwiper = () => {
@@ -553,6 +573,7 @@ const initializeSwiper = () => {
         watchSlidesProgress: true,
         virtualTranslate: true,
         on: {
+          slideChangeTransitionEnd: handleSlideChangeTransitionEnd,
           progress: function (s, progress) {
             const swiper = this;
             for (let i = 0; i < swiper.slides.length; i++) {
@@ -851,25 +872,25 @@ const handleTrustClick = () => handleChoice(true);
 const handleDistrustClick = () => handleChoice(false);
 
 
-
 const handleNextClick = async () => {
+  console.log("handleNextClick called");
   if (!isFlipping.value) {
-    if (currentCard.value?.type === 'decision') {
-      return;
-    }
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      if (isLastRegularScenario.value) {
-        moveToNextStage(); // Transition to EndingScenarioSwiper
-      } else {
-        moveToNextScenario(); // Move to the next scenario
-      }
+      console.log("Reveal card flipped, moving to next scenario");
+      isRevealCardFlipped.value = false;
+      await moveToNextScenario();
+      currentCardIndex.value = 0;
     } else if (!isLastCardOfScenario.value) {
+      console.log("Moving to next card");
       swiperRef.value.swiper.slideNext();
-
-    } else if (isLastRegularScenario.value) {
-      moveToNextStage(); // Transition to EndingScenarioSwiper
     } else {
-      moveToNextScenario(); // Move to the next scenario
+      console.log("Last card of scenario, moving to next scenario");
+      await moveToNextScenario();
+      currentCardIndex.value = 0;
+    }
+    await nextTick();
+    if (swiper.value) {
+      swiper.value.slideTo(currentCardIndex.value, 0);
     }
   }
 };
@@ -910,15 +931,44 @@ const handleMoveToNextScenario = () => {
   --card-horizontal-margin: 5vw;
 }
 
+
+
+.card-face.front {
+  z-index: 2;
+}
+
+.card-face.back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.card-container.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-container.is-flipped .card-face.front {
+  z-index: 1;
+}
+
+.card-container.is-flipped .card-face.back {
+  z-index: 2;
+}
+
+
 .card-container {
   @apply aspect-[11/19] h-4/6 relative;
   perspective: 2000px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
 }
 
 .card-face {
   @apply z-10;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
 }
 
 .card-back {
@@ -1049,8 +1099,8 @@ const handleMoveToNextScenario = () => {
     opacity: 0;
   }
 
-  50% {
-    transform: scale(1.2);
+  70% {
+    transform: scale(1.1);
     opacity: 1;
   }
 
@@ -1061,8 +1111,27 @@ const handleMoveToNextScenario = () => {
 }
 
 .icon-pop {
-  transform-origin: center;
-  will-change: transform, opacity;
+  animation: pop-in 0.3s ease-out;
+}
+
+.pop-fade-enter-active {
+  animation: pop-in 0.3s ease-out;
+}
+
+.pop-fade-leave-active {
+  animation: pop-out 0.2s ease-in;
+}
+
+@keyframes pop-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
 .slide-vertical-enter-active,
