@@ -45,15 +45,16 @@ def convert_csv_to_json(csv_file_path, json_file_path):
             }
             scenario["cards"].append(card)
 
-            # Sort the cards by their order field
-            for scenario in scenarios:
-                scenario["cards"].sort(key=lambda x: x["order"] if x["order"] is not None else float('inf'))
+    # Sort the cards by their order field after processing all rows
+    for scenario in scenarios:
+        scenario["cards"].sort(key=lambda x: x["order"] if x["order"] is not None else float('inf'))
 
-            with open(json_file_path, mode='w', encoding='utf-8') as json_file:
-                json_file.write('export default ')
-                json.dump(scenarios, json_file, indent=4)
+    # Write the final scenarios list to the JSON file
+    with open(json_file_path, mode='w', encoding='utf-8') as json_file:
+        json_file.write('export default ')
+        json.dump(scenarios, json_file, indent=4)
 
-            # Example usage
-            csv_file_path = 'scenarios.csv'
-            json_file_path = 'scenarios.json'
-            convert_csv_to_json(csv_file_path, json_file_path)
+# Example usage
+csv_file_path = 'scenarios.csv'
+json_file_path = 'scenarios.json'
+convert_csv_to_json(csv_file_path, json_file_path)

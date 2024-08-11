@@ -1,11 +1,14 @@
 <template>
+
   <StartGameScreen v-if="!gameStarted" />
   <EndingScenarioSwiper v-else-if="isPlayingEndingScenario" />
   <RecapSwiper v-else-if="isRecapMode" />
   <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
 
+  <TransitionCard v-if="isTransitionCardVisible" :title="getTransitionCardTitle" :message="getTransitionCardMessage"
+    :button-text="getTransitionCardButtonText" @proceed="handleMoveToNextStage" />
 
-  <div v-else class="bg-black flex flex-col h-dvh justify-between">
+  <div v-if="currentScenario && currentCard" class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6  flex items-center justify-center pointer-events-none p-6">
       <Transition name="fade" mode="out-in">
@@ -22,9 +25,9 @@
     <div class="flex-grow absolute h-full w-full flex items-center justify-center overflow-hidden">
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
-        <swiper-slide v-for="(card, index) in currentScenario.cards" :key="index"
-          class="flex items-center justify-center">
-          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative ">
+        <swiper-slide v-for="(card, index) in filteredCards" :key="index" class="flex items-center justify-center">
+          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative">
+
             <div
               :class="['card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
@@ -75,14 +78,24 @@
                   data-swiper-parallax="-300" data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
               </div>
             </div>
-          </div>
-          <div v-if="card.type === 'reveal'"
-            :class="['card-back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 backface-hidden reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
-            <div v-if="decisionFeedback" class="p-4 text-white">
-              <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
+
+            <div v-if="card.type === 'reveal'"
+              :class="['card-back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 backface-hidden reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+
+              <div v-if="decisionFeedback" class="p-4 text-white">
+                <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
+              </div>
             </div>
           </div>
-
+          <div v-if="isTransitionCard"
+            class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center text-white p-4 z-50">
+            <h2 class="text-2xl font-bold mb-4">Scenario Complete</h2>
+            <p class="mb-6 text-center">You've completed this scenario. Ready to move to the next one?</p>
+            <button @click="moveToNextScenario"
+              class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-600 transition-colors">
+              Proceed to Next Scenario
+            </button>
+          </div>
         </swiper-slide>
       </swiper-container>
       <div v-else class="h-full flex items-center justify-center text-white">
@@ -92,6 +105,7 @@
 
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col align-middle items-center justify-end w-full">
+
       <div class="flex space-x-12 justify-between z-10">
         <a href="/" @click.prevent="returnToStartScreen" class="p-2 self self-center">
           <HomeButton />
@@ -120,45 +134,12 @@
     </div>
 
     <!-- Debug Panel and Button -->
-    <div class="fixed top-4 right-4 flex flex-col items-end z-50">
-      <button @click="showDebugPanel = !showDebugPanel"
-        class="bg-red-500 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
-        {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
-      </button>
-
-      <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
-        <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
-        <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Scenario ID: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">Score: {{ currentScore }}</p>
-        <p class="mb-1">Scenario type: {{ currentScenario?.scenarioType || "N/A" }}</p>
-        <p class="mb-1">Regular Scenarios: {{ regularScenarios.length }}</p>
-
-
-        <!-- Dynamic Debug Buttons -->
-
-
-        <p class="mb-1">Scenarios in current order:</p>
-        <div class="flex flex-wrap gap-1">
-          <a v-for="scenario in regularScenarios" :key="scenario.id" @click.prevent="jumpToScenario(scenario.id)"
-            href="#" class="text-white text-2xl px-2 hover:text-yellow-200 underline">
-            {{ scenario.id }}
-          </a>
-        </div>
-        <div class="mt-4">
-          <button v-if="isInMainScenarios" @click="skipToEndingScenario"
-            class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Ending Scenario
-          </button>
-          <button v-if="isInEndingScenario" @click="skipToRecap" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Recap
-          </button>
-          <button v-if="isInRecap" @click="skipToGameOver" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Game Over
-          </button>
-        </div>
-      </div>
-    </div>
+    <DebugPanel :current-scenario="currentScenario" :current-scenario-index="currentScenarioIndex"
+      :current-card-index="currentCardIndex" :current-card="currentCard" :game-sequence="gameSequence"
+      :game-stage="gameStage" :is-ready-for-ending="isReadyForEnding" :score="playerState.score"
+      :regular-scenarios-count="regularScenarios.length" @jump-to-scenario="handleJumpToScenario"
+      @complete-scenario="handleCompleteScenario" @skip-to-ending="skipToEndingScenario"
+      @move-to-next-stage="handleMoveToNextStage" @skip-to-recap="skipToRecap" @skip-to-game-over="skipToGameOver" />
   </div>
 </template>
 
@@ -172,6 +153,10 @@ import { useMarkdownContent } from '~/composables/useMarkdownContent';
 
 register();
 const showDebugPanel = ref(false);
+
+const toggleDebugPanel = () => {
+  showDebugPanel.value = !showDebugPanel.value;
+};
 
 const modules = [EffectTinder];
 const swiperRef = ref(null);
@@ -194,38 +179,88 @@ const isFlipping = ref(false);
 const selectedScenarioId = ref(null);
 
 const {
+  completeCurrentScenario,
+  currentCard,
+  currentCardIndex,
+  currentScenario,
+  currentScenarioIndex,
+  filteredCards,
+  gameOver,
+  gameSequence,
+  gameStage,
   gameStarted,
+  initializeGame,
+  isEndingScenario,
+  isLastCardOfScenario,
+  isLastRegularScenario,
+  isRecapMode,
+  jumpToScenario,
+  jumpToScenarioById,
   makeChoice,
+  moveToNextScenario,
+  moveToNextStage,
   nextCard,
   nextScenario,
-  previousCard,
-  gameOver,
   playerState,
-  scenarios,
+  previousCard,
   resetGame,
-  jumpToScenarioById,
-  currentScenarioIndex,
-  currentCardIndex,
-  isRecapMode,
+  setGameOver,
+  scenarios,
   startRecap,
-  isEndingScenario,
   userChoices,
+  isTransitionCardVisible,
+
+
 } = useGameState();
 
 
+const isTransitionCard = computed(() => {
+  return currentCard.value && currentCard.value.type === 'transition';
+});
+const isReadyForEnding = computed(() => {
+  if (!currentScenario.value || !currentScenario.value.cards) {
+    // Handle the scenario where currentScenario or its cards are not yet defined
+    console.log("Current scenario or its cards are undefined.");
+    return false;
+  }
 
-// Separate regular scenarios from ending scenarios
+  return currentScenarioIndex.value === gameSequence.value.length - 1 &&
+    currentCardIndex.value === currentScenario.value.cards.length - 1;
+});
+
+
+const handleCompleteScenario = async () => {
+  console.log("handleCompleteScenario called");
+  await completeCurrentScenario();
+};
+
+const handleMoveToNextStage = () => {
+  console.log("handleMoveToNextStage called");
+  moveToNextStage();
+};
+
+const getTransitionCardTitle = computed(() => {
+  if (isLastRegularScenario.value) return "Main Scenarios Complete";
+  if (isEndingScenario.value) return "Ending Scenario Complete";
+  return "Scenario Complete";
+});
+
+const getTransitionCardMessage = computed(() => {
+  if (isLastRegularScenario.value) return "You've completed all main scenarios. Ready to see your ending?";
+  if (isEndingScenario.value) return "You've completed the ending scenario. Ready to review your choices?";
+  return "You've completed this scenario. Ready to move to the next one?";
+});
+
+const getTransitionCardButtonText = computed(() => {
+  if (isLastRegularScenario.value) return "Proceed to Ending";
+  if (isEndingScenario.value) return "Proceed to Recap";
+  return "Next Scenario";
+});
+
 const regularScenarios = computed(() =>
   scenarios.value.filter(s => s.scenarioType !== 'ending' && s.id !== null)
 );
 const endingScenarios = computed(() => scenarios.value.filter(s => s.scenarioType === 'ending'));
-
-const currentScenario = computed(() => {
-  if (isEndingScenario.value) {
-    return endingScenarios.value[0]; // Assume we're showing the first (and only) ending scenario
-  }
-  return regularScenarios.value[currentScenarioIndex.value] || null;
-});
 
 
 const unplayedRegularScenarios = computed(() => {
@@ -233,65 +268,10 @@ const unplayedRegularScenarios = computed(() => {
 });
 
 
-const simulateRandomChoices = () => {
-  let totalScoreChange = 0;
-  unplayedRegularScenarios.value.forEach((scenario) => {
-    const decisionCard = scenario.cards.find(card => card.type === 'decision');
-    if (decisionCard) {
-      const isTrust = Math.random() < 0.5; // This ensures a roughly 50/50 split between trust and distrust
-      const choice = isTrust ? decisionCard.trustChoice : decisionCard.distrustChoice;
-
-      let consequences = { trust: 0 };
-      if (choice && choice.consequences) {
-        try {
-          consequences = JSON.parse(choice.consequences);
-        } catch (error) {
-          console.error(`Error parsing consequences for scenario ${scenario.id}:`, error);
-        }
-      }
-
-      totalScoreChange += consequences.trust || 0;
-      makeChoice(isTrust, scenario.id);
-    }
-  });
-  return totalScoreChange;
-};
 
 
 const skipToEndingScenario = () => {
-  try {
-    const scoreChange = simulateRandomChoices();
-
-    playerState.value.score += scoreChange;
-
-    const score = playerState.value.score;
-    console.log('Updated score after simulation:', score);
-
-    const matchingEndingScenario = endingScenarios.value.find(scenario =>
-      score >= scenario.cards[0].minScore && score <= scenario.cards[0].maxScore
-    );
-
-    if (matchingEndingScenario) {
-      isEndingScenario.value = true;
-      currentScenarioIndex.value = regularScenarios.value.length; // Set to the index after regular scenarios
-      currentCardIndex.value = 0;
-    } else {
-      console.error('No matching ending scenario found for score:', score);
-      // Fallback to the first ending scenario if no match is found
-      isEndingScenario.value = true;
-      currentScenarioIndex.value = regularScenarios.value.length;
-      currentCardIndex.value = 0;
-    }
-
-    // Force a re-render of the current scenario and update the debug panel
-    nextTick(() => {
-      if (swiper.value) {
-        swiper.value.update();
-      }
-    });
-  } catch (error) {
-    console.error('Error in skipToEndingScenario:', error);
-  }
+  moveToNextStage();
 };
 
 // Update transitionToNextScenario
@@ -302,13 +282,12 @@ const transitionToNextScenario = async () => {
   if (currentScenarioIndex.value < regularScenarios.value.length - 1) {
     // Move to the next regular scenario
     currentScenarioIndex.value++;
-  } else if (!isEndingScenario.value) {
-    // We've reached the end of regular scenarios, transition to ending scenario
-    isEndingScenario.value = true;
-    currentScenarioIndex.value = 0;
+    currentCardIndex.value = 0;
+
   } else {
     // We're at the end of the ending scenario, start recap
-    startRecap();
+    moveToNextStage();
+
     isTransitioning.value = false;
     return;
   }
@@ -344,7 +323,13 @@ const decisionFeedback = ref('');
 const isRevealCardFlipped = ref(false);
 let swipingTimeout = null;
 
-
+watch(() => currentCard.value, (newCard) => {
+  if (newCard?.type === 'reveal') {
+    setTimeout(() => {
+      isRevealCardFlipped.value = true;
+    }, 1000);
+  }
+});
 const allScenariosComplete = computed(() => {
   return currentScenarioIndex.value >= scenarios.value.length - 1 &&
     Object.keys(userChoices.value).length === scenarios.value.length;
@@ -417,34 +402,49 @@ const skipToGameOver = () => {
 
 
 
-const jumpToScenario = async (scenarioId) => {
-  const scenarioIndex = regularScenarios.value.findIndex(s => s.id === scenarioId);
-  if (scenarioIndex !== -1) {
-    currentScenarioIndex.value = scenarioIndex;
-    currentCardIndex.value = 0; // Reset to the first card of the scenario
-    isEndingScenario.value = false; // Ensure we're not in ending scenario mode
+// const jumpToScenario = async (scenarioId) => {
+//   const scenarioIndex = regularScenarios.value.findIndex(s => s.id === scenarioId);
+//   if (scenarioIndex !== -1) {
+//     currentScenarioIndex.value = scenarioIndex;
+//     currentCardIndex.value = 0; // Reset to the first card of the scenario
+//     isEndingScenario.value = false; // Ensure we're not in ending scenario mode
 
-    // Reset any necessary state for the new scenario
-    isRevealCardFlipped.value = false;
-    decisionFeedback.value = '';
-    lastDecisionText.value = '';
-    cardFlipStates.value = {};
+//     // Reset any necessary state for the new scenario
+//     isRevealCardFlipped.value = false;
+//     decisionFeedback.value = '';
+//     lastDecisionText.value = '';
+//     cardFlipStates.value = {};
 
-    await nextTick();
-    if (swiper.value) {
-      swiper.value.slideTo(0, 0);
-      await swiper.value.update();
-    }
+//     await nextTick();
+//     if (swiper.value) {
+//       swiper.value.slideTo(0, 0);
+//       await swiper.value.update();
+//     }
 
-    // console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
-  } else {
-    console.error(`Scenario with id ${scenarioId} not found`);
-  }
-};
+//     // console.log(`Jumped to scenario ${scenarioId} at index ${scenarioIndex}`);
+//   } else {
+//     console.error(`Scenario with id ${scenarioId} not found`);
+//   }
+// };
 
 const isDataReady = computed(() => {
-  return !!currentScenario.value && !!scenarios.value && scenarios.value.length > 0;
+  const ready = !!currentScenario.value &&
+    !!currentScenario.value.cards &&
+    currentScenario.value.cards.length > 0;
+  console.log('isDataReady:', ready);
+  console.log('currentScenario:', currentScenario.value);
+  return ready;
 });
+
+watch(() => currentScenario.value, (newScenario) => {
+  console.log('currentScenario changed:', newScenario);
+  if (newScenario && newScenario.cards && newScenario.cards.length > 0) {
+    nextTick(() => {
+      initializeSwiper();
+    });
+  }
+}, { immediate: true });
+
 
 const scenarioIds = computed(() => {
   return scenarios.value ? scenarios.value.map(scenario => scenario.id) : [];
@@ -471,19 +471,7 @@ const canNavigateBack = computed(() => {
   return true;
 });
 
-const currentCard = computed(() => {
-  if (currentScenario.value && currentScenario.value.cards) {
-    // console.log('currentScenarioIndex:', currentScenarioIndex.value);
-    // console.log('currentCardIndex:', currentCardIndex.value);
-    // console.log('scenarios:', scenarios.value);
 
-    const card = currentScenario.value.cards[currentCardIndex.value];
-    // console.log('Current card:', card);
-    // console.log('Current card overlayContent:', card.overlayContent);
-    return card;
-  }
-  return null;
-});
 
 const handleTinderSwipe = async (s, direction) => {
   if (!isDataReady.value || !currentCard.value) return;
@@ -537,6 +525,7 @@ const handleSlideChange = (s) => {
   }
 };
 
+
 const flipRevealCard = (index) => {
   const card = currentScenario.value.cards[index];
   if (card && card.type === 'reveal' && !isRevealCardFlipped.value) {
@@ -545,88 +534,100 @@ const flipRevealCard = (index) => {
     }
     isFlipping.value = true;
     flipTimeout.value = setTimeout(() => {
-      cardFlipStates.value[card.id] = true;
-      isRevealCardFlipped.value = true;
-      if (swiper.value) {
-        swiper.value.allowSlideNext = true;
-      }
+      cardFlipStates.value[card.id] = true; // Flip the card
+      isRevealCardFlipped.value = true; // Mark the card as flipped
       isFlipping.value = false;
-    }, 1000);
+    }, 1000); // Adjust timing as necessary
   }
 };
-
-
 
 
 const initializeSwiper = () => {
   if (swiperRef.value && isDataReady.value) {
-    const swiperParams = {
-      modules: [EffectTinder],
-      effect: 'tinder',
-      slidesPerView: 1,
-      allowTouchMove: true,
-      watchSlidesProgress: true,
-      virtualTranslate: true,
-      on: {
-        progress: function (s, progress) {
-          const swiper = this;
-          for (let i = 0; i < swiper.slides.length; i++) {
-            const slideProgress = swiper.slides[i].progress;
-            const absProgress = Math.abs(slideProgress);
-            swiper.slides[i].style.opacity = 1 - absProgress / 1;
-          }
-        },
-        setTransition: function (s, duration) {
-          const swiper = this;
-          for (let i = 0; i < swiper.slides.length; i++) {
-            swiper.slides[i].style.transition = `${duration}ms`;
-          }
-        },
-        slideChange: handleSlideChange,
-        tinderSwipe: handleTinderSwipe,
-        sliderFirstMove: () => {
-          if (currentCard.value?.type === 'decision') {
-            isCardSwiping.value = true;
+    try {
+      const swiperParams = {
+        modules: [EffectTinder],
+        effect: 'tinder',
+        slidesPerView: 1,
+        allowTouchMove: true,
+        watchSlidesProgress: true,
+        virtualTranslate: true,
+        on: {
+          progress: function (s, progress) {
+            const swiper = this;
+            for (let i = 0; i < swiper.slides.length; i++) {
+              const slideProgress = swiper.slides[i].progress;
+              const absProgress = Math.abs(slideProgress);
+              swiper.slides[i].style.opacity = 1 - absProgress / 1;
+            }
+          },
+          setTransition: function (s, duration) {
+            const swiper = this;
+            for (let i = 0; i < swiper.slides.length; i++) {
+              swiper.slides[i].style.transition = `${duration}ms`;
+            }
+          },
+          slideChange: (swiper) => {
+            handleSlideChange(swiper);
+            // Disable swiping on decision and reveal cards
+            if (currentCard.value?.type === 'decision' || currentCard.value?.type === 'reveal') {
+              swiper.allowTouchMove = false;
+            } else {
+              swiper.allowTouchMove = true;
+            }
+          },
+          tinderSwipe: handleTinderSwipe,
+          sliderFirstMove: () => {
+            if (currentCard.value?.type === 'decision') {
+              isCardSwiping.value = true;
+              if (swipingTimeout) {
+                clearTimeout(swipingTimeout);
+              }
+            }
+          },
+          sliderMove: () => {
             if (swipingTimeout) {
               clearTimeout(swipingTimeout);
             }
-          }
-        },
-        sliderMove: () => {
-          if (swipingTimeout) {
-            clearTimeout(swipingTimeout);
-          }
-        },
-        touchEnd: () => {
-          if (currentCard.value?.type === 'decision') {
-            if (swipingTimeout) {
-              clearTimeout(swipingTimeout);
+          },
+          touchEnd: () => {
+            if (currentCard.value?.type === 'decision') {
+              if (swipingTimeout) {
+                clearTimeout(swipingTimeout);
+              }
+              swipingTimeout = setTimeout(() => {
+                isCardSwiping.value = false;
+              }, 300);
             }
-            swipingTimeout = setTimeout(() => {
-              isCardSwiping.value = false;
-            }, 300);
-          }
+          },
         },
-      },
-    };
-    Object.assign(swiperRef.value, swiperParams);
-    swiperRef.value.initialize();
-    swiper.value = swiperRef.value.swiper;
+      };
+      Object.assign(swiperRef.value, swiperParams);
+      swiperRef.value.initialize();
+      swiper.value = swiperRef.value.swiper;
+      console.log('Swiper initialized successfully');
+    } catch (error) {
+      console.error('Error initializing Swiper:', error);
+    }
+  } else {
+    console.log('Swiper not initialized: swiperRef or data not ready');
   }
 };
 
+
 onMounted(async () => {
-  await nextTick();
   await initializeSwiper();
+  if (gameStarted.value) {
+    initializeGame();
+  }
   if (flipTimeout.value) {
     clearTimeout(flipTimeout.value);
   }
 });
 
-watch(gameStarted, async (started) => {
-  if (started) {
-    await nextTick();
-    await initializeSwiper();
+watch(gameStarted, (newValue) => {
+  if (newValue) {
+    initializeGame();
   }
 });
 
@@ -638,23 +639,23 @@ watch(isDataReady, async (ready) => {
 
 watch(currentScenario, async (newScenario, oldScenario) => {
   if (newScenario && newScenario !== oldScenario) {
-    // console.log('Current scenario changed to:', newScenario.id);
-    // console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
+    // Reset card states and initialize swiper for the new scenario
     cardFlipStates.value = {};
     newScenario.cards.forEach((card, index) => {
-      // console.log(`Card ${index} initial overlayContent:`, card.overlayContent);
       if (!card.id) {
         card.id = `card-${index}`;
       }
       cardFlipStates.value[card.id] = false;
-      card.showOverlay = false;
-      // Remove this line: card.overlayContent = null;
-      // console.log(`Card ${index} final overlayContent:`, card.overlayContent);
     });
 
-    // ... rest of the function
+    await nextTick();
+    if (!swiper.value) { // Ensure Swiper isn't re-initialized unnecessarily
+      initializeSwiper();
+    }
   }
 }, { immediate: true });
+
+
 
 
 const isPlayingMainScenarios = computed(() =>
@@ -789,6 +790,34 @@ watch(() => lastDecisionText.value, async (newText) => {
   }
 });
 
+watch(isReadyForEnding, (ready) => {
+  console.log('isReadyForEnding changed:', ready);
+});
+
+watch(gameStage, (newStage) => {
+  console.log('Game stage changed to:', newStage);
+});
+
+watch(currentScenarioIndex, (newIndex) => {
+  console.log('Current scenario index:', newIndex, 'of', gameSequence.value.length);
+});
+watch(currentCardIndex, (newIndex, oldIndex) => {
+  console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
+  console.log('Current card:', currentCard.value);
+
+  if (currentCard.value?.type === 'reveal') {
+    isRevealCardFlipped.value = false;
+    setTimeout(() => {
+      isRevealCardFlipped.value = true;
+    }, 1000);
+  }
+});
+
+
+watch(cardFlipStates, (newStates) => {
+  console.log("Updated card flip states:", newStates);
+}, { deep: true });
+
 
 const handleChoice = async (isTrust) => {
   if (currentCard.value?.type === 'decision' && !isFlipping.value) {
@@ -799,27 +828,53 @@ const handleChoice = async (isTrust) => {
       : currentCard.value.distrustChoice?.feedback;
     decisionFeedback.value = await renderMarkdown(feedback);
     lastDecisionText.value = currentCard.value.text;
-    await nextCard();
-    if (swiper.value) {
-      swiper.value.slideNext(300, true);
-    }
+
+    // Move to the reveal card
+    swiperRef.value.swiper.slideNext();
+
+    // Ensure the reveal card is displayed before flipping
+    await nextTick();
+
+    // Flip the reveal card after a short delay
+    setTimeout(() => {
+      isRevealCardFlipped.value = true;
+    }, 1000);
+
     isFlipping.value = false;
   }
 };
 
-
+const handleJumpToScenario = (scenarioId) => {
+  jumpToScenario(scenarioId);
+};
 const handleTrustClick = () => handleChoice(true);
 const handleDistrustClick = () => handleChoice(false);
 
+
+
 const handleNextClick = async () => {
   if (!isFlipping.value) {
+    if (currentCard.value?.type === 'decision') {
+      return;
+    }
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      await transitionToNextScenario();
-    } else if (swiper.value && canNavigateForward.value) {
-      swiper.value.slideNext(300, true);
+      if (isLastRegularScenario.value) {
+        moveToNextStage(); // Transition to EndingScenarioSwiper
+      } else {
+        moveToNextScenario(); // Move to the next scenario
+      }
+    } else if (!isLastCardOfScenario.value) {
+      swiperRef.value.swiper.slideNext();
+
+    } else if (isLastRegularScenario.value) {
+      moveToNextStage(); // Transition to EndingScenarioSwiper
+    } else {
+      moveToNextScenario(); // Move to the next scenario
     }
   }
 };
+
+
 
 const handlePreviousClick = async () => {
   if (!isFlipping.value && canNavigateBack.value) {
@@ -830,6 +885,10 @@ const handlePreviousClick = async () => {
   }
 };
 
+const handleMoveToNextScenario = () => {
+  isTransitionCardVisible.value = false;
+  moveToNextScenario();
+};
 
 </script>
 
@@ -856,17 +915,37 @@ const handlePreviousClick = async () => {
   perspective: 2000px;
 }
 
+.card-face {
+  @apply z-10;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
 
+.card-back {
+  @apply z-20;
+  transform: rotateY(180deg);
+  /* Ensure the back starts flipped */
+}
 
 .card-face,
 .card-back {
-  position: absolute;
+  transform-style: preserve-3d;
   width: 100%;
   height: 100%;
+  position: absolute;
+}
+
+/* Apply backface-visibility only where needed */
+.card-face {
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+  /* Apply to front face */
+}
+
+.card-back {
+  backface-visibility: hidden;
+  /* Apply to back face */
+  transform: rotateY(180deg);
+  /* Start flipped */
 }
 
 /* Enhance 3D effect for the card container */
@@ -882,6 +961,7 @@ const handlePreviousClick = async () => {
 
 .rotate-y-180 {
   transform: rotateY(180deg) translate3d(0, 0, 50px);
+  z-index: 0;
 }
 
 /* Optional: Enhance the reveal card appearance */
@@ -920,9 +1000,7 @@ const handlePreviousClick = async () => {
   -webkit-backface-visibility: hidden;
 }
 
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
+
 
 .card-face {
   @apply aspect-[11/19];
@@ -1017,6 +1095,16 @@ const handlePreviousClick = async () => {
   opacity: 1;
 }
 
+.card-container.is-flipped .card-face {
+  z-index: 1;
+  /* Keep front on top initially */
+}
+
+.card-container.is-flipped .card-back {
+  z-index: 2;
+  /* Ensure back face is on top after flip */
+}
+
 .card-text {
 
 
@@ -1029,20 +1117,5 @@ const handlePreviousClick = async () => {
     @apply mb-0
   }
 
-}
-
-
-
-
-.card-face,
-.card-back {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
 }
 </style>

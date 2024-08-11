@@ -1,5 +1,7 @@
 <template>
   <div class="bg-black flex flex-col h-dvh justify-between">
+    <TransitionCard v-if="isTransitionCardVisible" :game-stage="'ending'" :is-last-regular-scenario="true"
+      @proceed="handleMoveToNextStage" />
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <p class="text-xl text-white leading-snug text-center">
@@ -27,6 +29,9 @@
         </swiper-slide>
       </swiper-container>
     </div>
+    <DebugPanel :current-scenario="endingScenario" :current-card-index="currentCardIndex" :current-card="currentCard"
+      :game-stage="'ending'" :score="playerState.score" @complete-scenario="handleCompleteScenario"
+      @move-to-next-stage="handleMoveToNextStage" @skip-to-recap="startRecap" />
 
     <!-- Controls Container -->
     <div class="flex-none h-1/6 flex flex-col justify-end pb-safe">
@@ -42,6 +47,12 @@
           <NextButton />
         </button>
       </div>
+    </div>
+    <div v-if="currentCardIndex === endingScenario.cards.length - 1"
+      class="fixed bottom-20 left-0 right-0 flex justify-center">
+      <button @click="moveToNextStage" class="bg-blue-500 text-white px-4 py-2 rounded">
+        Continue to Recap
+      </button>
     </div>
   </div>
 </template>
@@ -60,7 +71,7 @@ const modules = [EffectTinder];
 const swiperRef = ref(null);
 const currentCardIndex = ref(0);
 
-const { playerState, startRecap } = useGameState();
+const { playerState, startRecap, moveToNextStage, completeCurrentScenario, gameSequence } = useGameState();
 
 // This should be replaced with actual ending scenarios based on score ranges
 const endingScenarios = [
@@ -69,7 +80,19 @@ const endingScenarios = [
   { minScore: 11, maxScore: 15, scenario: { /* High score ending */ } },
   // Add more scenarios as needed
 ];
+const handleCompleteScenario = async () => {
+  await completeCurrentScenario();
+  isTransitionCardVisible.value = true;
+};
 
+const handleMoveToNextStage = () => {
+  isTransitionCardVisible.value = false;
+  moveToNextStage();
+};
+
+const handleContinueToRecap = () => {
+  moveToNextStage();
+};
 const endingScenario = computed(() => {
   const score = playerState.value.score;
   return endingScenarios.find(scenario => score >= scenario.minScore && score <= scenario.maxScore).scenario;
