@@ -1,4 +1,4 @@
-### What is a Phish?
+# What is a Phish?
 
 Phishing is a fraudulent attempt to obtain sensitive information by pretending to be a trustworthy entity via email, phone, or other communication channels.
 
