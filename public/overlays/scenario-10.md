@@ -1,7 +1,7 @@
-# Learning Objective - Urgent Requests, Downloading Software (Phish)
+# Learning Objective - Discerning Official Looking Emails
 
-Recognize phishing attempts that urge you to download malicious software.
+Learn to identify legitimate official emails.
 
-**What to look out for:** Some phishing scams can be very sophisticated in their appearance and language. Official polytechnic correspondence will never ask for personal information via email.
+**What to look out for:** Be wary of providing personal identification through email or phone without security procedures, such as PINs, polytechnic portals, and other protective measures.
 
 **References, Read More's, support and resources could go here.**
