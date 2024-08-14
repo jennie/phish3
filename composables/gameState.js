@@ -12,6 +12,7 @@ const gameStage = ref("main");
 const isRevealCardFlipped = ref(false);
 const isTransitionCardVisible = ref(false);
 const lastDecisionText = ref("");
+const loadingProgress = ref(0);
 
 const playerState = ref({
   score: 0,
@@ -61,21 +62,17 @@ const initializeGame = async () => {
     return;
   }
 
-  // Preload images for all scenarios
   const allScenarios = [
     ...regularScenarios.value,
     ...endingScenarios.value,
     tutorialScenario.value,
   ];
+
   await preloadAllScenarios(allScenarios);
 
   const shuffledRegularScenarios = shuffleArray(regularScenarios.value);
   gameSequence.value = [tutorialScenario.value, ...shuffledRegularScenarios];
-  // currentScenarioIndex.value = 0;
-  // currentCardIndex.value = 0;
-  // gameStage.value = "main";
 
-  // Do not start the game yet, wait for the user to press start
   console.log(
     "Game initialized with tutorial and shuffled regular scenarios:",
     gameSequence.value.map((s) => s.id)
@@ -83,11 +80,21 @@ const initializeGame = async () => {
 };
 
 const preloadAllScenarios = async (scenarios) => {
+  const totalAssets = scenarios.reduce(
+    (total, scenario) => total + scenario.cards.length,
+    0
+  );
+  let loadedAssets = 0;
+
   try {
     for (const scenario of scenarios) {
       for (const card of scenario.cards) {
         if (card.image) {
-          await preloadImage(card.image); // Preload each card image
+          await preloadImage(card.image);
+          loadedAssets++;
+          loadingProgress.value = Math.floor(
+            (loadedAssets / totalAssets) * 100
+          );
         }
       }
     }
@@ -385,6 +392,7 @@ export function useGameState() {
     isRecapMode,
     jumpToScenario,
     jumpToScenarioById,
+    loadingProgress,
     makeChoice,
     moveToEndingStage,
     moveToNextScenario,
