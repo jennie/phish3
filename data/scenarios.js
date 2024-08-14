@@ -1,197 +1,7 @@
 export default [
   {
-    id: 2,
-    scenarioType: "regular",
-    learningObjectives:
-      "If an offer looks too good to be true, it probably is!",
-    cards: [
-      {
-        id: 2,
-        type: "story",
-        order: 1,
-        text: "You're checking your email in between power naps at the campus library.",
-        trustLabel: "It's so quiet\u2026",
-        distrustLabel: "Keep sleeping...",
-        image: "/images/9-1.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "story",
-        order: 2,
-        text: "There's an offer to access a plentitude of ebooks and textbooks!",
-        trustLabel: "I love ebooks!",
-        distrustLabel: "Wait, what?",
-        image: "/images/9-2.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "story",
-        order: 3,
-        text: "It sounds like it could be a good deal...",
-        trustLabel: "Check it out!",
-        distrustLabel: "I like deals...",
-        image: "/images/9-2b.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "story",
-        order: 4,
-        text: "First, who's sending this to me.",
-        trustLabel: "Let's see...",
-        distrustLabel: "Who is it?",
-        image: "/images/9-3.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "story",
-        order: 5,
-        text: "Let's examine the body of the email.",
-        trustLabel: "Seems interesting.",
-        distrustLabel: "Hmm...",
-        image: "/images/9-4.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "story",
-        order: 6,
-        text: "Finally, let's look at the offer and the signature.",
-        trustLabel: "Sounds appealing...",
-        distrustLabel: "Tempting...",
-        image: "/images/9-5.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "decision",
-        order: 7,
-        text: "Do you trust this offer?",
-        trustLabel: "I want books!",
-        distrustLabel: "This isn't right!",
-        image: "/images/9-5.png",
-        trustChoice: {
-          consequences: null,
-          feedback:
-            "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \\n\\n It's just a single paged document listing out 3 study habits: \\n\\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast.",
-        },
-        distrustChoice: {
-          consequences: 1,
-          feedback:
-            "You report it as a phishing attempt and are thanked for your report. \\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!",
-        },
-        overlayContent: "scenario-02.md",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "reveal",
-        order: 8,
-        text: "",
-        trustLabel: "Wow!",
-        distrustLabel: "Let's go!",
-        image: "/images/card-back.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 2,
-        type: "scenario",
-        order: null,
-        text: "",
-        trustLabel: "",
-        distrustLabel: "",
-        image: "",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-    ],
-  },
-  {
     id: 1,
-    scenarioType: "tutorial",
+    scenarioType: "regular",
     learningObjectives: "",
     cards: [
       {
@@ -479,6 +289,196 @@ export default [
     ],
   },
   {
+    id: 2,
+    scenarioType: "regular",
+    learningObjectives:
+      "If an offer looks too good to be true, it probably is!",
+    cards: [
+      {
+        id: 2,
+        type: "story",
+        order: 1,
+        text: "You're checking your email in between power naps at the campus library.",
+        trustLabel: "It's so quiet\u2026",
+        distrustLabel: "Keep sleeping...",
+        image: "/images/9-1.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "story",
+        order: 2,
+        text: "There's an offer to access a plentitude of ebooks and textbooks!",
+        trustLabel: "I love ebooks!",
+        distrustLabel: "Wait, what?",
+        image: "/images/9-2.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "story",
+        order: 3,
+        text: "It sounds like it could be a good deal...",
+        trustLabel: "Check it out!",
+        distrustLabel: "I like deals...",
+        image: "/images/9-2b.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "story",
+        order: 4,
+        text: "First, who's sending this to me.",
+        trustLabel: "Let's see...",
+        distrustLabel: "Who is it?",
+        image: "/images/9-3.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "story",
+        order: 5,
+        text: "Let's examine the body of the email.",
+        trustLabel: "Seems interesting.",
+        distrustLabel: "Hmm...",
+        image: "/images/9-4.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "story",
+        order: 6,
+        text: "Finally, let's look at the offer and the signature.",
+        trustLabel: "Sounds appealing...",
+        distrustLabel: "Tempting...",
+        image: "/images/9-5.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "decision",
+        order: 7,
+        text: "Do you trust this offer?",
+        trustLabel: "I want books!",
+        distrustLabel: "This isn't right!",
+        image: "/images/9-5.png",
+        trustChoice: {
+          consequences: null,
+          feedback:
+            "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \\n\\n It's just a single paged document listing out 3 study habits: \\n\\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast.",
+        },
+        distrustChoice: {
+          consequences: 1,
+          feedback:
+            "You report it as a phishing attempt and are thanked for your report. \\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!",
+        },
+        overlayContent: "scenario-02.md",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "reveal",
+        order: 8,
+        text: "",
+        trustLabel: "Wow!",
+        distrustLabel: "Let's go!",
+        image: "/images/card-back.png",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+      {
+        id: 2,
+        type: "scenario",
+        order: null,
+        text: "",
+        trustLabel: "",
+        distrustLabel: "",
+        image: "",
+        trustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        distrustChoice: {
+          consequences: null,
+          feedback: "",
+        },
+        overlayContent: "",
+        minScore: null,
+        maxScore: null,
+      },
+    ],
+  },
+  {
     id: 3,
     scenarioType: "regular",
     learningObjectives:
@@ -602,7 +602,7 @@ export default [
           feedback:
             "You point out the red flags to Beejou. \\n\\n She's glad she asked you instead of trying to save some money and she thanks you for your help.",
         },
-        overlayContent: "Tutorial - teaches what is a phish, Links and Logins",
+        overlayContent: "scenario-03.md",
         minScore: null,
         maxScore: null,
       },
@@ -792,7 +792,7 @@ export default [
           feedback:
             "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?",
         },
-        overlayContent: "Tutorial - teaches what is MFA for",
+        overlayContent: "scenario-04.md",
         minScore: null,
         maxScore: null,
       },
@@ -982,8 +982,7 @@ export default [
           feedback:
             "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere. \\n\\n With features like these, this will take months to complete.",
         },
-        overlayContent:
-          "Learning Objective - Discerning websites for legitimacy (real site)",
+        overlayContent: "scenario-05.md",
         minScore: null,
         maxScore: null,
       },
@@ -1193,8 +1192,7 @@ export default [
           feedback:
             "Beejou discovers that you can just get tickets at a table by the gym and she says she'll get you a ticket as thanks since you helped her out.",
         },
-        overlayContent:
-          "Learning Objective - Discerning websites for legitimacy (phishing site)",
+        overlayContent: "scenario-06.md",
         minScore: null,
         maxScore: null,
       },
@@ -1404,8 +1402,7 @@ export default [
           feedback:
             "Sounds worrying so you decide not to go. \\n\\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks...",
         },
-        overlayContent:
-          "Learning Objective - Discerning offers, investigating sources (trust)",
+        overlayContent: "scenario-07.md",
         minScore: null,
         maxScore: null,
       },
@@ -1635,8 +1632,7 @@ export default [
           feedback:
             "It wants 3 different forms of ID!\\n\\n You warn Beejou that this is likely a scam. \\n\\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut.",
         },
-        overlayContent:
-          "Learning Objective - Discerning urgent, official looking emails (phish)",
+        overlayContent: "scenario-08.md",
         minScore: null,
         maxScore: null,
       },
@@ -1806,8 +1802,7 @@ export default [
           feedback:
             "You report the email to IT, who confirms it was a phishing attempt. \\n\\n Your caution pays off!\\n\\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows.",
         },
-        overlayContent:
-          "Learning Objective - Urgent requests, downloading software (phish)",
+        overlayContent: "scenario-09.md",
         minScore: null,
         maxScore: null,
       },
@@ -2017,8 +2012,7 @@ export default [
           feedback:
             "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!",
         },
-        overlayContent:
-          "Learning Objective - Discerning official looking emails (trust)",
+        overlayContent: "scenario-10.md",
         minScore: null,
         maxScore: null,
       },
@@ -2228,8 +2222,7 @@ export default [
           feedback:
             "Sure, it sounds critical, but it can't actually be that critical. It can wait!",
         },
-        overlayContent:
-          "Learning Objective - Updating software to address security risks (real software updates)",
+        overlayContent: "scenario-11.md",
         minScore: null,
         maxScore: null,
       },
@@ -2519,8 +2512,7 @@ export default [
           feedback:
             '"That\'s right!" the beaver nods, "If an offer sounds too good to be true, it probably is!"',
         },
-        overlayContent:
-          "Learning Objective - Ransomware, suspicious emails (phish)",
+        overlayContent: "scenario-12.md",
         minScore: null,
         maxScore: null,
       },
@@ -2749,8 +2741,7 @@ export default [
           feedback:
             "They just want to taste your drink!! \\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
         },
-        overlayContent:
-          "Learning Objective - Just a fun one for trusting/distrusting",
+        overlayContent: "scenario-13.md",
         minScore: null,
         maxScore: null,
       },
@@ -2940,8 +2931,7 @@ export default [
           feedback:
             "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT. \\n\\n They send out a warning to all students about the scam.",
         },
-        overlayContent:
-          "Learning Objective - Student job scams that sound too good to be true (phish)",
+        overlayContent: "scenario-14.md",
         minScore: null,
         maxScore: null,
       },
@@ -2991,7 +2981,7 @@ export default [
     id: 15,
     scenarioType: "regular",
     learningObjectives:
-      "If you absolutley have to leave your laptop or phone unattended, it's critical you secure it with a password to avoid access while you're away!",
+      "If you absolutely have to leave your laptop or phone unattended, it's critical you secure it with a password to avoid access while you're away!",
     cards: [
       {
         id: 15,
@@ -3111,7 +3101,7 @@ export default [
           feedback:
             "You lock your laptop and head towards the noise. You find an open vent and close it. \\n\\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop.",
         },
-        overlayContent: "Learning Objective - Security Hygiene with equipment",
+        overlayContent: "scenario-15.md",
         minScore: null,
         maxScore: null,
       },
@@ -3321,8 +3311,7 @@ export default [
           feedback:
             "Beejou hesitates to claim her scholarship, worried it might be a scam. She might still wonder, years from now if it was all just a dream.",
         },
-        overlayContent:
-          "Learning Objective - Official email, trustable source (trust)",
+        overlayContent: "scenario-16.md",
         minScore: null,
         maxScore: null,
       },
