@@ -1,7 +1,7 @@
 export default [
   {
     id: 1,
-    scenarioType: "regular",
+    scenarioType: "tutorial",
     learningObjectives: "",
     cards: [
       {
