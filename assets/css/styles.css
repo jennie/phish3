@@ -28,8 +28,6 @@ body {
 }
 .card-face {
   @apply h-3/5 flex flex-row items-center justify-center text-2xl text-white box-border;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 /* .card-gradient-overlay {
   @apply absolute bottom-0 left-0 w-full h-1/3;

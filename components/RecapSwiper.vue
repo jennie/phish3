@@ -1,5 +1,8 @@
 <template>
   <div class="bg-black flex flex-col h-dvh justify-between">
+    <TransitionCard v-if="isTransitionCardVisible" :game-stage="'recap'" :is-last-regular-scenario="true"
+      @proceed="handleMoveToNextStage" />
+
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
       <p class="text-xs text-white leading-snug text-center">
@@ -88,57 +91,16 @@
     </div>
 
     <!-- Debug Panel and Button -->
-    <div class="fixed top-4 right-4 flex flex-col items-end z-50">
-      <button @click="showDebugPanel = !showDebugPanel"
-        class="bg-red-500 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
-        {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
-      </button>
-
-      <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
-        <p class="mb-1">Current card: {{ currentCardIndex + 1 }}</p>
-        <p class="mb-1">Card type: {{ currentCard?.type || 'N/A' }}</p>
-        <p class="mb-1">Scenario ID: {{ currentScenario?.id || 'N/A' }}</p>
-        <p class="mb-1">Score: {{ currentScore }}</p>
-        <p class="mb-1">Scenario type: {{ currentScenario?.scenarioType || "N/A" }}</p>
-        <p class="mb-1">Regular Scenarios: {{ regularScenarios.length }}</p>
-
-
-        <!-- Dynamic Debug Buttons -->
-
-
-        <p class="mb-1">Scenarios in current order:</p>
-        <div class="flex flex-wrap gap-1">
-          <a v-for="scenario in regularScenarios" :key="scenario.id" @click.prevent="jumpToScenario(scenario.id)"
-            href="#" class="text-white text-2xl px-2 hover:text-yellow-200 underline">
-            {{ scenario.id }}
-          </a>
-        </div>
-        <div class="mt-4">
-          <button v-if="isInMainScenarios" @click="skipToEndingScenario"
-            class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Ending Scenario
-          </button>
-          <button v-if="isInEndingScenario" @click="skipToRecap" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Recap
-          </button>
-          <button v-if="isInRecap" @click="skipToGameOver" class="bg-black px-4 py-2 rounded-full mb-2 w-full">
-            Skip to Game Over
-          </button>
-        </div>
-      </div>
-    </div>
+    <DebugPanel :score="playerState.score" :regular-scenarios-count="regularScenarios.length" :game-stage="gameStage"
+      @show-transition-card="showTransitionCard" @skip-to-game-over="skipToGameOver" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '@/composables/gameState';
-import BackButton from './BackButton.vue';
-import NextButton from './NextButton.vue';
-import HomeButton from './HomeButton.vue';
-import RetryButton from './RetryButton.vue';
+
 
 register();
 
@@ -147,8 +109,11 @@ const swiperRef = ref(null);
 const currentSlideIndex = ref(0);
 const showGameOverPrompt = ref(false);
 const showDebugPanel = ref(false);
+const isTransitionCardVisible = ref(false);
 
-const { playerState, scenarios, userChoices, setGameOver, resetGame } = useGameState();
+const { playerState, scenarios, userChoices, setGameOver, resetGame, moveToNextStage, gameSequence, jumpToScenario,
+
+} = useGameState();
 
 const canNavigate = computed(() => currentSlideIndex.value < regularScenarios.value.length - 1);
 const canNavigateBack = computed(() => currentSlideIndex.value > 0);
@@ -174,8 +139,23 @@ const handlePreviousClick = () => {
     swiperRef.value.swiper.slidePrev();
   }
 };
-
 const goToGameOver = () => {
+  moveToNextStage();
+};
+
+const showTransitionCard = () => {
+  console.log('Showing transition card');
+  isTransitionCardVisible.value = true;
+};
+
+const handleMoveToNextStage = () => {
+  console.log('Moving to next stage');
+  isTransitionCardVisible.value = false;
+  moveToNextStage();
+};
+
+const skipToGameOver = () => {
+  console.log('Skipping to game over');
   setGameOver(true);
 };
 
