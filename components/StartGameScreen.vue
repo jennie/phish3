@@ -14,7 +14,6 @@
       <p class="text-center mt-2">{{ loadingProgress }}%</p>
     </div>
     <div v-else class="start-game">
-      <UProgress :value="70" />
       <button @click="startGame"
         class="bg-white text-zinc-800 rounded-full px-6 py-3 text-lg font-semibold hover:bg-gray-200 transition-colors">
         Start Game

@@ -13,6 +13,7 @@ const isRevealCardFlipped = ref(false);
 const isTransitionCardVisible = ref(false);
 const lastDecisionText = ref("");
 const loadingProgress = ref(0);
+const cardFlipStates = ref({});
 
 const playerState = ref({
   score: 0,
@@ -26,7 +27,17 @@ const regularScenarios = computed(() =>
 const endingScenarios = computed(() =>
   allScenarios.value.filter((s) => s.scenarioType === "ending")
 );
-
+const resetCardFlipStates = () => {
+  cardFlipStates.value = {};
+  if (currentScenario.value && currentScenario.value.cards) {
+    currentScenario.value.cards.forEach((card, index) => {
+      if (!card.id) {
+        card.id = `card-${index}`;
+      }
+      cardFlipStates.value[card.id] = false;
+    });
+  }
+};
 const resetGame = () => {
   gameStarted.value = false;
   currentScenarioIndex.value = 0;
@@ -327,6 +338,7 @@ const moveToNextScenario = () => {
     currentScenarioIndex.value++;
     currentCardIndex.value = 0;
     isRevealCardFlipped.value = false;
+    resetCardFlipStates();
     console.log(`Moved to scenario ${currentScenario.value.id}`);
   } else {
     console.log("No more scenarios, moving to next stage");
@@ -334,7 +346,6 @@ const moveToNextScenario = () => {
   }
   // Reset any scenario-specific state here
   lastDecisionText.value = "";
-  cardFlipStates.value = {};
 };
 
 const moveToNextStage = () => {
@@ -374,6 +385,7 @@ const moveToEndingStage = () => {
 export function useGameState() {
   return {
     scenarios: computed(() => scenarios.value),
+    cardFlipStates,
     completeCurrentScenario,
     currentCard,
     currentCardIndex,
@@ -402,6 +414,7 @@ export function useGameState() {
     playerState,
     previousCard,
     regularScenarios,
+    resetCardFlipStates,
     resetGame,
     scenarios,
     setGameOver,

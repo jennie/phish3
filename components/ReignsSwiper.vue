@@ -168,7 +168,6 @@ const modules = [EffectTinder];
 const swiperRef = ref(null);
 const swiper = ref(null);
 const cardRefs = ref([]);
-const cardFlipStates = ref({});
 const isTransitioning = ref(false);
 const flipTimeout = ref(null);
 const lastDecisionText = ref('');
@@ -186,6 +185,7 @@ const isFlipping = ref(false);
 const selectedScenarioId = ref(null);
 
 const {
+  cardFlipStates,
   completeCurrentScenario,
   currentCard,
   currentCardIndex,
@@ -208,8 +208,10 @@ const {
   moveToNextStage,
   nextCard,
   nextScenario,
+
   playerState,
   previousCard,
+  resetCardFlipStates,
   resetGame,
   setGameOver,
   scenarios,
@@ -660,7 +662,9 @@ watch(isDataReady, async (ready) => {
 
 watch(currentScenario, async (newScenario, oldScenario) => {
   if (newScenario && newScenario !== oldScenario) {
-    // Reset card states and initialize swiper for the new scenario
+    console.log('Current scenario changed to:', newScenario.id);
+    console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
+    resetCardFlipStates();
     cardFlipStates.value = {};
     newScenario.cards.forEach((card, index) => {
       if (!card.id) {

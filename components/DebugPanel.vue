@@ -2,7 +2,7 @@
   <div class="fixed top-4 right-4 flex flex-col items-end z-50">
     <button @click="toggleDebugPanel"
       class="bg-red-500 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
-      {{ showDebugPanel ? 'Hide' : 'Show' }} Debug
+      🐞
     </button>
 
     <div v-if="showDebugPanel" class="bg-red-500 bg-opacity-80 text-white p-3 rounded text-xs max-w-xs w-full mt-2">
