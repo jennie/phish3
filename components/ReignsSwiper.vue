@@ -13,7 +13,7 @@
     <div class="flex-none h-1/6  flex items-center justify-center pointer-events-none p-6">
       <Transition name="fade" mode="out-in">
         <div v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
-          class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
+          class="card-text text-xl text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
         </div>
         <div v-else-if="lastDecisionText" :key="'last-decision'"
           class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(lastDecisionText)">
@@ -178,7 +178,8 @@ const currentScore = computed(() => playerState.value.score);
 const isRevealCardFlipped = ref(false);
 
 const parseCardText = (text) => {
-  return text.replace(/\\n/g, '<br>');
+  console.log('Parsing card text:', text);
+  return text.replace(/\n/g, '<br>');
 };
 const isFlipping = ref(false);
 
@@ -1182,7 +1183,7 @@ const handleMoveToNextScenario = () => {
 
 
   br {
-    @apply mb-0 block;
+    @apply mb-2 block;
     content: "";
   }
 
