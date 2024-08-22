@@ -1,5 +1,9 @@
 import csv
 import json
+import re
+
+def unescape_newlines(text):
+    return re.sub(r'\\n', '\n', text)
 
 def convert_csv_to_json(csv_file_path, json_file_path):
     scenarios = []
@@ -14,32 +18,32 @@ def convert_csv_to_json(csv_file_path, json_file_path):
                 scenario = {
                     "id": scenario_id,
                     "scenarioType": scenario_type,
-                    "learningObjectives": row["learningObjectives"] if row["learningObjectives"] else "",
+                    "learningObjectives": unescape_newlines(row["learningObjectives"]) if row["learningObjectives"] else "",
                     "cards": []
                 }
                 scenarios.append(scenario)
             else:
                 # Update learningObjectives if they are present in the current row
                 if row["learningObjectives"]:
-                    scenario["learningObjectives"] = row["learningObjectives"]
+                    scenario["learningObjectives"] = unescape_newlines(row["learningObjectives"])
                         
             card = {
                 "id": int(row["id"]) if "id" in row and row["id"] else None,
                 "type": row["type"],
                 "order": int(row["order"]) if "order" in row and row["order"] else None,
-                "text": row["text"].replace('\\n', '\n') if "text" in row and row["text"] else "",
-                "trustLabel": row["trustLabel"],
-                "distrustLabel": row["distrustLabel"],
+                "text": unescape_newlines(row["text"]) if "text" in row and row["text"] else "",
+                "trustLabel": unescape_newlines(row["trustLabel"]),
+                "distrustLabel": unescape_newlines(row["distrustLabel"]),
                 "image": row["image"],
                 "trustChoice": {
                     "consequences": int(row["trustChoice.consequences"]) if row["trustChoice.consequences"] else None,
-                    "feedback": row["trustChoice.feedback"]
+                    "feedback": unescape_newlines(row["trustChoice.feedback"])
                 },
                 "distrustChoice": {
                     "consequences": int(row["distrustChoice.consequences"]) if row["distrustChoice.consequences"] else None,
-                    "feedback": row["distrustChoice.feedback"]
+                    "feedback": unescape_newlines(row["distrustChoice.feedback"])
                 },
-                "overlayContent": row["overlayContent"],
+                "overlayContent": unescape_newlines(row["overlayContent"]),
                 "minScore": int(row["minScore"]) if "minScore" in row and row["minScore"] else None,
                 "maxScore": int(row["maxScore"]) if "maxScore" in row and row["maxScore"] else None
             }
@@ -52,7 +56,7 @@ def convert_csv_to_json(csv_file_path, json_file_path):
     # Write the final scenarios list to the JSON file
     with open(json_file_path, mode='w', encoding='utf-8') as json_file:
         json_file.write('export default ')
-        json.dump(scenarios, json_file, indent=4)
+        json.dump(scenarios, json_file, indent=4, ensure_ascii=False)
 
 # Example usage
 csv_file_path = 'scenarios.csv'

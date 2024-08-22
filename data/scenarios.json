@@ -1,7 +1,7 @@
 export default [
     {
         "id": 1,
-        "scenarioType": "regular",
+        "scenarioType": "tutorial",
         "learningObjectives": "",
         "cards": [
             {
@@ -254,11 +254,11 @@ export default [
                 "image": "/images/card-back.png",
                 "trustChoice": {
                     "consequences": 1,
-                    "feedback": "You trust Beejou and follow her shortcut. \\n\\n The path takes you through a lovely garden and you reach the main building quickly. \\n\\n 'See? Told you it was a good shortcut!' Beejou beams."
+                    "feedback": "You trust Beejou and follow her shortcut. \n\n The path takes you through a lovely garden and you reach the main building quickly. \n\n 'See? Told you it was a good shortcut!' Beejou beams."
                 },
                 "distrustChoice": {
                     "consequences": null,
-                    "feedback": "You suggest another route back to the main building. \\n\\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare."
+                    "feedback": "You suggest another route back to the main building. \n\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare."
                 },
                 "overlayContent": "beejou-shortcut.md",
                 "minScore": null,
@@ -296,7 +296,7 @@ export default [
                 "type": "story",
                 "order": 1,
                 "text": "You're checking your email in between power naps at the campus library.",
-                "trustLabel": "It's so quiet\u2026",
+                "trustLabel": "It's so quiet…",
                 "distrustLabel": "Keep sleeping...",
                 "image": "/images/2-1.png",
                 "trustChoice": {
@@ -421,11 +421,11 @@ export default [
                 "image": "/images/2-6.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \\n\\n It's just a single paged document listing out 3 study habits: \\n\\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast."
+                    "feedback": "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \n\n It's just a single paged document listing out 3 study habits: \n\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast."
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "You report it as a phishing attempt and are thanked for your report. \\n\\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!"
+                    "feedback": "You report it as a phishing attempt and are thanked for your report. \n\n You worry you'll have to find 10,000's of books elsewhere, but you remember you can go to the library!"
                 },
                 "overlayContent": "scenario-02.md",
                 "minScore": null,
@@ -588,11 +588,11 @@ export default [
                 "image": "/images/3-6.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "After booking, Beejou receives an email saying there's an issue with her payment. \\n\\n She's starting to wonder if it was a good idea after all..."
+                    "feedback": "After booking, Beejou receives an email saying there's an issue with her payment. \n\n She's starting to wonder if it was a good idea after all..."
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "You point out the red flags to Beejou. \\n\\n She's glad she asked you instead of trying to save some money and she thanks you for your help."
+                    "feedback": "You point out the red flags to Beejou. \n\n She's glad she asked you instead of trying to save some money and she thanks you for your help."
                 },
                 "overlayContent": "scenario-03.md",
                 "minScore": null,
@@ -857,7 +857,7 @@ export default [
                 "type": "story",
                 "order": 3,
                 "text": "But you're dismayed that it's closed for \"beautification\"!",
-                "trustLabel": "Oh no\u2026",
+                "trustLabel": "Oh no…",
                 "distrustLabel": "Why???",
                 "image": "/images/5-3.png",
                 "trustChoice": {
@@ -897,7 +897,7 @@ export default [
                 "type": "story",
                 "order": 5,
                 "text": "You head to the Reel Polytechnic website.",
-                "trustLabel": "Okay\u2026",
+                "trustLabel": "Okay…",
                 "distrustLabel": "Check it out",
                 "image": "/images/5-5.png",
                 "trustChoice": {
@@ -917,7 +917,7 @@ export default [
                 "type": "story",
                 "order": 6,
                 "text": "There's a post about it! Let's read on...",
-                "trustLabel": "Keep looking\u2026",
+                "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
                 "image": "/images/5-6.png",
                 "trustChoice": {
@@ -946,7 +946,7 @@ export default [
                 },
                 "distrustChoice": {
                     "consequences": null,
-                    "feedback": "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere. \\n\\n With features like these, this will take months to complete."
+                    "feedback": "Unfortunately the doors are locked. Looks like you better be looking for refreshments elsewhere. \n\n With features like these, this will take months to complete."
                 },
                 "overlayContent": "scenario-05.md",
                 "minScore": null,
@@ -1104,7 +1104,7 @@ export default [
                 "type": "story",
                 "order": 6,
                 "text": "Beejou sends you the website and you open it up on your phone.",
-                "trustLabel": "Okay\u2026",
+                "trustLabel": "Okay…",
                 "distrustLabel": "Let's see...",
                 "image": "/images/6-6.png",
                 "trustChoice": {
@@ -1124,7 +1124,7 @@ export default [
                 "type": "story",
                 "order": 7,
                 "text": "Let's take a look at this webpage",
-                "trustLabel": "Keep looking\u2026",
+                "trustLabel": "Keep looking…",
                 "distrustLabel": "Look closely",
                 "image": "/images/6-7.png",
                 "trustChoice": {
@@ -1149,7 +1149,7 @@ export default [
                 "image": "/images/6-8.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "You check out and are promised the hand delivery. \\n\\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives."
+                    "feedback": "You check out and are promised the hand delivery. \n\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives."
                 },
                 "distrustChoice": {
                     "consequences": 1,
@@ -1204,7 +1204,7 @@ export default [
     {
         "id": 7,
         "scenarioType": "regular",
-        "learningObjectives": "Look for padlocks on URLs, domain names you trust, and authentic language\u2014and for commercial sites, professional branding and partner links!",
+        "learningObjectives": "Look for padlocks on URLs, domain names you trust, and authentic language—and for commercial sites, professional branding and partner links!",
         "cards": [
             {
                 "id": 7,
@@ -1331,7 +1331,7 @@ export default [
                 "type": "story",
                 "order": 7,
                 "text": "Next, we're going to look at the webpage.",
-                "trustLabel": "Keep looking\u2026",
+                "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
                 "image": "/images/7-7.png",
                 "trustChoice": {
@@ -1360,7 +1360,7 @@ export default [
                 },
                 "distrustChoice": {
                     "consequences": null,
-                    "feedback": "Sounds worrying so you decide not to go. \\n\\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks..."
+                    "feedback": "Sounds worrying so you decide not to go. \n\n But you can't help but wonder if concert will be one of those life changing, world altering one that everyone won't stop talking about for weeks..."
                 },
                 "overlayContent": "scenario-07.md",
                 "minScore": null,
@@ -1418,7 +1418,7 @@ export default [
                 "type": "story",
                 "order": 1,
                 "text": "You're the only one at the lounge this morning. You can't wait until The Pond reopens for morning coffee!",
-                "trustLabel": "Enjoy the quiet\u2026",
+                "trustLabel": "Enjoy the quiet…",
                 "distrustLabel": "Enjoy the quiet!",
                 "image": "/images/8-1.png",
                 "trustChoice": {
@@ -1458,7 +1458,7 @@ export default [
                 "type": "story",
                 "order": 3,
                 "text": "I just got an email that says Security Team Alpha detected suspicious activity using my student ID!",
-                "trustLabel": "Oh no\u2026",
+                "trustLabel": "Oh no…",
                 "distrustLabel": "Suspicious?",
                 "image": "/images/8-3.png",
                 "trustChoice": {
@@ -1478,7 +1478,7 @@ export default [
                 "type": "story",
                 "order": 4,
                 "text": "They're gonna lock my account if I don't verify my identity...That can't be good.",
-                "trustLabel": "\u2026verify?",
+                "trustLabel": "…verify?",
                 "distrustLabel": "That's bad",
                 "image": "/images/8-4.png",
                 "trustChoice": {
@@ -1518,7 +1518,7 @@ export default [
                 "type": "story",
                 "order": 6,
                 "text": "The first thing we're going to look at is the header.",
-                "trustLabel": "Let's keep reading\u2026",
+                "trustLabel": "Let's keep reading…",
                 "distrustLabel": "What's this?",
                 "image": "/images/8-6.png",
                 "trustChoice": {
@@ -1538,7 +1538,7 @@ export default [
                 "type": "story",
                 "order": 7,
                 "text": "Next, we're going to look at the email's body.",
-                "trustLabel": "Keep looking\u2026",
+                "trustLabel": "Keep looking…",
                 "distrustLabel": "Huh...",
                 "image": "/images/8-7.png",
                 "trustChoice": {
@@ -1559,7 +1559,7 @@ export default [
                 "order": 8,
                 "text": "Finally, we're going to look at the email's call to action and signature.",
                 "trustLabel": "Okay...",
-                "distrustLabel": "Hmm\u2026",
+                "distrustLabel": "Hmm…",
                 "image": "/images/8-8.png",
                 "trustChoice": {
                     "consequences": null,
@@ -1583,11 +1583,11 @@ export default [
                 "image": "/images/8-9.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "It asks for 3 different forms of ID!\\n\\n Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone."
+                    "feedback": "It asks for 3 different forms of ID!\n\n Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone."
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "It wants 3 different forms of ID!\\n\\n You warn Beejou that this is likely a scam. \\n\\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut."
+                    "feedback": "It wants 3 different forms of ID!\n\n You warn Beejou that this is likely a scam. \n\n She's relieved because she actually was acting a little suspicious, but only cause she wanted to surprise you with a fresh donut from Do or Donut."
                 },
                 "overlayContent": "scenario-08.md",
                 "minScore": null,
@@ -1750,11 +1750,11 @@ export default [
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "You download the fix and crack the window as requested. \\n\\n Your computer starts acting weird... and later you learn a goose was spotted causing a scene in the study lounge. \\n\\n Must be unrelated."
+                    "feedback": "You download the fix and crack the window as requested. \n\n Your computer starts acting weird... and later you learn a goose was spotted causing a scene in the study lounge. \n\n Must be unrelated."
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "You report the email to IT, who confirms it was a phishing attempt. \\n\\n Your caution pays off!\\n\\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows."
+                    "feedback": "You report the email to IT, who confirms it was a phishing attempt. \n\n Your caution pays off!\n\n IT updates the campus security systems to better detect such phishing attempts in the future, and new locks are installed on the campus windows."
                 },
                 "overlayContent": "scenario-09.md",
                 "minScore": null,
@@ -1852,7 +1852,7 @@ export default [
                 "type": "story",
                 "order": 3,
                 "text": "I guess it could be worth it to check out.",
-                "trustLabel": "Let's see about this\u2026",
+                "trustLabel": "Let's see about this…",
                 "distrustLabel": "Ok fine...",
                 "image": "/images/10-3.png",
                 "trustChoice": {
@@ -1872,7 +1872,7 @@ export default [
                 "type": "story",
                 "order": 4,
                 "text": "Let's start by examining the email's header.",
-                "trustLabel": "Let's keep reading\u2026",
+                "trustLabel": "Let's keep reading…",
                 "distrustLabel": "I get it",
                 "image": "/images/10-4.png",
                 "trustChoice": {
@@ -1892,7 +1892,7 @@ export default [
                 "type": "story",
                 "order": 5,
                 "text": "Next up, we'll focus on the email's message.",
-                "trustLabel": "Keep looking\u2026",
+                "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
                 "image": "/images/10-5.png",
                 "trustChoice": {
@@ -1912,7 +1912,7 @@ export default [
                 "type": "story",
                 "order": 6,
                 "text": "Finally, let's look at the email's call to action and signature.",
-                "trustLabel": "Hmm\u2026",
+                "trustLabel": "Hmm…",
                 "distrustLabel": "Alright",
                 "image": "/images/10-6.png",
                 "trustChoice": {
@@ -1957,7 +1957,7 @@ export default [
                 "image": "/images/card-back.png",
                 "trustChoice": {
                     "consequences": 1,
-                    "feedback": "You get a sweet $10 campus store gift card. \\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs."
+                    "feedback": "You get a sweet $10 campus store gift card. \n\n A follow up email gives you two more to share with your friends, or get two really small mugs."
                 },
                 "distrustChoice": {
                     "consequences": null,
@@ -2411,7 +2411,7 @@ export default [
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "The beaver nods, \"I know flowers are tempting but you should be wary about offers that sound too good to be true. \\n\\n Also you knew it locked Beejou's computer! Don't let yourself get flower bamboozled.\""
+                    "feedback": "The beaver nods, \"I know flowers are tempting but you should be wary about offers that sound too good to be true. \n\n Also you knew it locked Beejou's computer! Don't let yourself get flower bamboozled.\""
                 },
                 "distrustChoice": {
                     "consequences": 1,
@@ -2638,11 +2638,11 @@ export default [
                 "image": "/images/card-back.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \\n\\n They thank you for your trouble."
+                    "feedback": "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \n\n They thank you for your trouble."
                 },
                 "distrustChoice": {
                     "consequences": null,
-                    "feedback": "They just want to taste your drink!! \\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!"
+                    "feedback": "They just want to taste your drink!! \n\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!"
                 },
                 "overlayContent": "scenario-13.md",
                 "minScore": null,
@@ -2780,7 +2780,7 @@ export default [
                 "type": "story",
                 "order": 6,
                 "text": "Hmm... Let's keep reading.",
-                "trustLabel": "Okay\u2026",
+                "trustLabel": "Okay…",
                 "distrustLabel": "Alright",
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
@@ -2809,7 +2809,7 @@ export default [
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT. \\n\\n They send out a warning to all students about the scam."
+                    "feedback": "Beejou decides to distrust the email after you point out the red flags and reports it to Campus IT. \n\n They send out a warning to all students about the scam."
                 },
                 "overlayContent": "scenario-14.md",
                 "minScore": null,
@@ -2972,11 +2972,11 @@ export default [
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "You leave your laptop unlocked and go check the window. \\n\\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!"
+                    "feedback": "You leave your laptop unlocked and go check the window. \n\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!"
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "You lock your laptop and head towards the noise. You find an open vent and close it. \\n\\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop."
+                    "feedback": "You lock your laptop and head towards the noise. You find an open vent and close it. \n\n While you're screwing it tight, someone passes by. You're relieved you locked your laptop."
                 },
                 "overlayContent": "scenario-15.md",
                 "minScore": null,
