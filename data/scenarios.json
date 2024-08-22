@@ -68,7 +68,7 @@ export default [
                 "id": 1,
                 "type": "story",
                 "order": 4,
-                "text": "Beejou: Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
+                "text": "(Beejou:) Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
                 "trustLabel": "Geese?",
                 "distrustLabel": "That's worrisome...",
                 "image": "/images/card-placeholder.png",
@@ -128,7 +128,7 @@ export default [
                 "id": 1,
                 "type": "story",
                 "order": 7,
-                "text": "Beejou: As you settle in, remember to stay alert for phishing scams. \n\n They can come in the form of suspicious emails, fake websites, or strange requests. ",
+                "text": "(Beejou:) As you settle in, stay alert for phishing scams. They could be suspicious emails, fake websites, or strange requests. ",
                 "trustLabel": "A phish?",
                 "distrustLabel": "Scams!?",
                 "image": "/images/card-placeholder.png",
@@ -148,7 +148,7 @@ export default [
                 "id": 1,
                 "type": "story",
                 "order": 8,
-                "text": "There's been a lot more recently. The beavers working at IT Security are worried..  \n\n Remember, always verify the source before trusting any information!",
+                "text": "There's been a lot more recently. The campus IT Security team's worried.. Remember, always verify the source before trusting any information!",
                 "trustLabel": "I will!",
                 "distrustLabel": "Of course!",
                 "image": "/images/card-placeholder.png",
@@ -209,7 +209,7 @@ export default [
                 "type": "story",
                 "order": 11,
                 "text": "Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
-                "trustLabel": "Shortcut?",
+                "trustLabel": "A shortcut?",
                 "distrustLabel": "Is it safe?",
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
@@ -298,7 +298,7 @@ export default [
                 "text": "You're checking your email in between power naps at the campus library.",
                 "trustLabel": "It's so quiet\u2026",
                 "distrustLabel": "Keep sleeping...",
-                "image": "/images/9-1.png",
+                "image": "/images/2-1.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -318,7 +318,7 @@ export default [
                 "text": "There's an offer to access a plentitude of ebooks and textbooks!",
                 "trustLabel": "I love ebooks!",
                 "distrustLabel": "Wait, what?",
-                "image": "/images/9-2.png",
+                "image": "/images/2-2.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -338,7 +338,7 @@ export default [
                 "text": "It sounds like it could be a good deal...",
                 "trustLabel": "Check it out!",
                 "distrustLabel": "I like deals...",
-                "image": "/images/9-2b.png",
+                "image": "/images/2-2b.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -355,10 +355,10 @@ export default [
                 "id": 2,
                 "type": "story",
                 "order": 4,
-                "text": "First, who's sending this to me.",
+                "text": "First, you check who's sending this to you.",
                 "trustLabel": "Let's see...",
                 "distrustLabel": "Who is it?",
-                "image": "/images/9-3.png",
+                "image": "/images/2-3.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -375,10 +375,10 @@ export default [
                 "id": 2,
                 "type": "story",
                 "order": 5,
-                "text": "Let's examine the body of the email.",
+                "text": "Then you examine the body of the email.",
                 "trustLabel": "Seems interesting.",
                 "distrustLabel": "Hmm...",
-                "image": "/images/9-4.png",
+                "image": "/images/2-4.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -395,10 +395,10 @@ export default [
                 "id": 2,
                 "type": "story",
                 "order": 6,
-                "text": "Finally, let's look at the offer and the signature.",
+                "text": "Finally, look at the offer and the signature.",
                 "trustLabel": "Sounds appealing...",
                 "distrustLabel": "Tempting...",
-                "image": "/images/9-5.png",
+                "image": "/images/2-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -415,10 +415,10 @@ export default [
                 "id": 2,
                 "type": "decision",
                 "order": 7,
-                "text": "Do you trust this offer?",
+                "text": "Should you trust this offer?",
                 "trustLabel": "I want books!",
                 "distrustLabel": "This isn't right!",
-                "image": "/images/9-5.png",
+                "image": "/images/2-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \\n\\n It's just a single paged document listing out 3 study habits: \\n\\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast."
@@ -482,10 +482,10 @@ export default [
                 "id": 3,
                 "type": "story",
                 "order": 1,
-                "text": "You're taking a walk around campus enjoying the fresh air.",
+                "text": "You're taking a walk around campus enjoying the fresh air when you get a call from Beejou!",
                 "trustLabel": "Fresh!",
                 "distrustLabel": "Smells nice.",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/3-1.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -502,10 +502,10 @@ export default [
                 "id": 3,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou calls you! She says: I'm planning a weekend getaway with my friends!",
+                "text": "(Beejou calls you) I'm planning a weekend getaway with my friends!",
                 "trustLabel": "Sounds expensive!",
-                "distrustLabel": "Sounds nice!",
-                "image": "/images/card-placeholder.png",
+                "distrustLabel": "I want to go!",
+                "image": "/images/3-2.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -525,7 +525,7 @@ export default [
                 "text": "We're looking for a cool AirBee & Beaver and found this site with amazing discounts!",
                 "trustLabel": "A deal?",
                 "distrustLabel": "What site?",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/3-3.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -545,7 +545,7 @@ export default [
                 "text": "She sends you the link.",
                 "trustLabel": "Take a closer look.",
                 "distrustLabel": "Let's see...",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/3-4.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -565,7 +565,7 @@ export default [
                 "text": "You take a good look at the website...",
                 "trustLabel": "Hmm...",
                 "distrustLabel": "What's this?",
-                "image": "",
+                "image": "/images/3-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -585,7 +585,7 @@ export default [
                 "text": "Should I go ahead and book it? What do you think?",
                 "trustLabel": "Looks good to me",
                 "distrustLabel": "I don't trust it",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/3-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "After booking, Beejou receives an email saying there's an issue with her payment. \\n\\n She's starting to wonder if it was a good idea after all..."
@@ -652,7 +652,7 @@ export default [
                 "text": "You and Beejou are standing outside The Pond, looking into the windows to see if it's almost ready to re-open.",
                 "trustLabel": "Peek inside...",
                 "distrustLabel": "Can you see?",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/4-1.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -672,7 +672,7 @@ export default [
                 "text": "I wanted to ask, have you set up MFA on your account yet?",
                 "trustLabel": "Not yet. Why?",
                 "distrustLabel": "I haven't...",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/4-2.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -689,10 +689,10 @@ export default [
                 "id": 4,
                 "type": "story",
                 "order": 3,
-                "text": "I think it's pretty cool cause it adds an extra layer of security.",
+                "text": "I think it's pretty cool cause it adds an extra layer of security. \n\n Even if someone gets your password, they still need a second factor to access your account.",
                 "trustLabel": "Sounds important...",
                 "distrustLabel": "I see",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/4-3.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -709,10 +709,10 @@ export default [
                 "id": 4,
                 "type": "story",
                 "order": 4,
-                "text": "Even if someone gets your password, they still need a second factor to access your account.",
-                "trustLabel": "Wow!",
-                "distrustLabel": "I get it",
-                "image": "/images/card-placeholder.png",
+                "text": "You should always check the location before approving any MFA requests and make sure it's really you!",
+                "trustLabel": "Good idea",
+                "distrustLabel": "Smart!",
+                "image": "/images/4-4.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -729,30 +729,10 @@ export default [
                 "id": 4,
                 "type": "story",
                 "order": 5,
-                "text": "You should always check the location before approving any MFA requests and make sure it's really you!",
-                "trustLabel": "Good idea",
-                "distrustLabel": "Smart!",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "overlayContent": "",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 4,
-                "type": "story",
-                "order": 6,
                 "text": "Later, you're logging into your account and you get an MFA prompt!",
                 "trustLabel": "Check the location...",
                 "distrustLabel": "Is this me?",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/4-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -768,31 +748,11 @@ export default [
             {
                 "id": 4,
                 "type": "decision",
-                "order": 7,
+                "order": 6,
                 "text": "Should you approve the login attempt?",
                 "trustLabel": "Approve it",
                 "distrustLabel": "Deny!",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": 1,
-                    "feedback": "Nice job checking the location! You feel reassured knowing your account is protected with MFA."
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?"
-                },
-                "overlayContent": "scenario-04.md",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 4,
-                "type": "reveal",
-                "order": 8,
-                "text": "",
-                "trustLabel": "I see",
-                "distrustLabel": "Got it",
-                "image": "/images/card-back.png",
+                "image": "/images/4-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -802,6 +762,26 @@ export default [
                     "feedback": ""
                 },
                 "overlayContent": "",
+                "minScore": null,
+                "maxScore": null
+            },
+            {
+                "id": 4,
+                "type": "reveal",
+                "order": 7,
+                "text": "",
+                "trustLabel": "I see",
+                "distrustLabel": "Got it",
+                "image": "/images/card-back.png",
+                "trustChoice": {
+                    "consequences": 1,
+                    "feedback": "Nice job checking the location! You feel reassured knowing your account is protected with MFA."
+                },
+                "distrustChoice": {
+                    "consequences": null,
+                    "feedback": "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?"
+                },
+                "overlayContent": "scenario-04.md",
                 "minScore": null,
                 "maxScore": null
             },
@@ -836,7 +816,7 @@ export default [
                 "id": 5,
                 "type": "story",
                 "order": 1,
-                "text": "One of the best features of Reel Polytechnic's campus is The Pond cafeteria",
+                "text": "One of the best features of Reel Polytechnic's campus is The Pond cafeteria!",
                 "trustLabel": "The best!",
                 "distrustLabel": "Love it here",
                 "image": "/images/5-1.png",
@@ -959,7 +939,7 @@ export default [
                 "text": "Is this a trusted source for this information?",
                 "trustLabel": "I believe it",
                 "distrustLabel": "This is fake!",
-                "image": "/images/5-6.png",
+                "image": "/images/5-7.png",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Sounds like you'll have to go somewhere else for Advanced Salad options, but the new features sound great."
@@ -1023,7 +1003,7 @@ export default [
                 "id": 6,
                 "type": "story",
                 "order": 1,
-                "text": "You're enjoying your morning outside, daydreaming about your next visit to The Pond when it reopens.",
+                "text": "You're enjoying your morning outside, daydreaming about your next visit to The Pond when it reopens when Beejou flies by.",
                 "trustLabel": "Relax and wait...",
                 "distrustLabel": "Nice clouds",
                 "image": "/images/6-1.png",
@@ -1043,7 +1023,7 @@ export default [
                 "id": 6,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou flies in, buzzing: Did you see the posters? We're hosting a Four-Armed Basketball tournament!",
+                "text": "(Beejou:) Did you see the posters? We're hosting a Four-Armed Basketball tournament!",
                 "trustLabel": "Tell me more!",
                 "distrustLabel": "What!",
                 "image": "/images/6-2.png",
@@ -1106,7 +1086,7 @@ export default [
                 "text": "Can you help me get them? Please, I don't want to miss this!",
                 "trustLabel": "Let me check it out...",
                 "distrustLabel": "Hmm...",
-                "image": "/images/6-4.png",
+                "image": "/images/6-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1126,7 +1106,7 @@ export default [
                 "text": "Beejou sends you the website and you open it up on your phone.",
                 "trustLabel": "Okay\u2026",
                 "distrustLabel": "Let's see...",
-                "image": "/images/6-5.png",
+                "image": "/images/6-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1146,7 +1126,7 @@ export default [
                 "text": "Let's take a look at this webpage",
                 "trustLabel": "Keep looking\u2026",
                 "distrustLabel": "Look closely",
-                "image": "/images/6-5.png",
+                "image": "/images/6-7.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1166,7 +1146,7 @@ export default [
                 "text": "Do you buy the tickets?",
                 "trustLabel": "Gotta see the game!",
                 "distrustLabel": "I don't like this...",
-                "image": "",
+                "image": "/images/6-8.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "You check out and are promised the hand delivery. \\n\\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives."
@@ -1230,7 +1210,7 @@ export default [
                 "id": 7,
                 "type": "story",
                 "order": 1,
-                "text": "You're sitting out on the grass, sipping your coffee and catching up on some reading.",
+                "text": "You're sitting out on the grass, sipping your coffee and catching up on some reading when Beejou calls you.",
                 "trustLabel": "Enjoy the moment...",
                 "distrustLabel": "Mmm coffee",
                 "image": "/images/7-1.png",
@@ -1250,7 +1230,7 @@ export default [
                 "id": 7,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou calls you: Guess what! Beeyonce is coming to campus!!",
+                "text": "(Beejou: )Guess what! Beeyonce is coming to campus!!",
                 "trustLabel": "Really?",
                 "distrustLabel": "Beeyonce?!",
                 "image": "/images/7-2.png",
@@ -1313,7 +1293,7 @@ export default [
                 "text": "It opens a link that asks for my student ID and credit card info. Do you think it's ok?",
                 "trustLabel": "Let's look together.",
                 "distrustLabel": "Show me!",
-                "image": "/images/7-6.png",
+                "image": "/images/7-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1333,7 +1313,7 @@ export default [
                 "text": "Take a look at the URL",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Hmm",
-                "image": "/images/7-7.png",
+                "image": "/images/7-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1353,7 +1333,7 @@ export default [
                 "text": "Next, we're going to look at the webpage.",
                 "trustLabel": "Keep looking\u2026",
                 "distrustLabel": "Okay...",
-                "image": "/images/7-8.png",
+                "image": "/images/7-7.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1457,7 +1437,7 @@ export default [
                 "id": 8,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou enters anxiously: Ah! Oh! I'm so glad you're here!",
+                "text": "Ah! Oh! I'm so glad you're here!",
                 "trustLabel": "Did something happen?",
                 "distrustLabel": "Hey Beejou!",
                 "image": "/images/8-2.png",
@@ -1480,7 +1460,7 @@ export default [
                 "text": "I just got an email that says Security Team Alpha detected suspicious activity using my student ID!",
                 "trustLabel": "Oh no\u2026",
                 "distrustLabel": "Suspicious?",
-                "image": "/images/8-2.png",
+                "image": "/images/8-3.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1500,7 +1480,7 @@ export default [
                 "text": "They're gonna lock my account if I don't verify my identity...That can't be good.",
                 "trustLabel": "\u2026verify?",
                 "distrustLabel": "That's bad",
-                "image": "/images/8-3.png",
+                "image": "/images/8-4.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1520,7 +1500,7 @@ export default [
                 "text": "I'm me, the one and only Beejou! Could you watch my things while I go and sort this out?",
                 "trustLabel": "Show me the email!",
                 "distrustLabel": "Hold on!",
-                "image": "/images/8-3.png",
+                "image": "/images/8-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1540,7 +1520,7 @@ export default [
                 "text": "The first thing we're going to look at is the header.",
                 "trustLabel": "Let's keep reading\u2026",
                 "distrustLabel": "What's this?",
-                "image": "/images/8-4.png",
+                "image": "/images/8-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1560,7 +1540,7 @@ export default [
                 "text": "Next, we're going to look at the email's body.",
                 "trustLabel": "Keep looking\u2026",
                 "distrustLabel": "Huh...",
-                "image": "/images/8-5.png",
+                "image": "/images/8-7.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1580,7 +1560,7 @@ export default [
                 "text": "Finally, we're going to look at the email's call to action and signature.",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Hmm\u2026",
-                "image": "/images/8-6.png",
+                "image": "/images/8-8.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1600,7 +1580,7 @@ export default [
                 "text": "Is this email legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
-                "image": "/images/8-6.png",
+                "image": "/images/8-9.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It asks for 3 different forms of ID!\\n\\n Beejou heads to the library to scan her cards and you make sure her things don't move an inch while she's gone."
@@ -1834,7 +1814,7 @@ export default [
                 "text": "You're working late in the study lounge getting some last minute things done before you go home.",
                 "trustLabel": "Gotta finish...",
                 "distrustLabel": "So late!",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/10-1.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1851,10 +1831,10 @@ export default [
                 "id": 10,
                 "type": "story",
                 "order": 2,
-                "text": "You get an email asking you participate in an official college survey about student life.",
+                "text": "You get an email asking you participate in an official college survey about student life. \n\n You've gotten three of these this week!",
                 "trustLabel": "I have opinions...",
-                "distrustLabel": "How official?",
-                "image": "/images/card-placeholder.png",
+                "distrustLabel": "No inbox space!",
+                "image": "/images/10-2.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1871,10 +1851,10 @@ export default [
                 "id": 10,
                 "type": "story",
                 "order": 3,
-                "text": "You've gotten three of these this week!",
-                "trustLabel": "No inbox space!",
-                "distrustLabel": "Too many!",
-                "image": "/images/card-placeholder.png",
+                "text": "I guess it could be worth it to check out.",
+                "trustLabel": "Let's see about this\u2026",
+                "distrustLabel": "Ok fine...",
+                "image": "/images/10-3.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1891,10 +1871,10 @@ export default [
                 "id": 10,
                 "type": "story",
                 "order": 4,
-                "text": "I guess it could be worth it to check out.",
-                "trustLabel": "Let's see about this\u2026",
-                "distrustLabel": "Ok fine...",
-                "image": "/images/card-placeholder.png",
+                "text": "Let's start by examining the email's header.",
+                "trustLabel": "Let's keep reading\u2026",
+                "distrustLabel": "I get it",
+                "image": "/images/10-4.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1911,10 +1891,10 @@ export default [
                 "id": 10,
                 "type": "story",
                 "order": 5,
-                "text": "Let's start by examining the email's header.",
-                "trustLabel": "Let's keep reading\u2026",
-                "distrustLabel": "I get it",
-                "image": "/images/card-placeholder.png",
+                "text": "Next up, we'll focus on the email's message.",
+                "trustLabel": "Keep looking\u2026",
+                "distrustLabel": "Okay...",
+                "image": "/images/10-5.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1931,30 +1911,10 @@ export default [
                 "id": 10,
                 "type": "story",
                 "order": 6,
-                "text": "Next up, we'll focus on the email's message.",
-                "trustLabel": "Keep looking\u2026",
-                "distrustLabel": "Okay...",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "overlayContent": "",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 10,
-                "type": "story",
-                "order": 7,
                 "text": "Finally, let's look at the email's call to action and signature.",
                 "trustLabel": "Hmm\u2026",
                 "distrustLabel": "Alright",
-                "image": "/images/card-placeholder.png",
+                "image": "/images/10-6.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1970,31 +1930,11 @@ export default [
             {
                 "id": 10,
                 "type": "decision",
-                "order": 8,
+                "order": 7,
                 "text": "Is this email legit?",
                 "trustLabel": "Give my feedback!",
                 "distrustLabel": "They want my thoughts?",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": 1,
-                    "feedback": "You get a sweet $10 campus store gift card. \\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs."
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!"
-                },
-                "overlayContent": "scenario-10.md",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 10,
-                "type": "reveal",
-                "order": 9,
-                "text": "",
-                "trustLabel": "I see",
-                "distrustLabel": "Got it",
-                "image": "/images/card-back.png",
+                "image": "/images/10-7.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2004,6 +1944,26 @@ export default [
                     "feedback": ""
                 },
                 "overlayContent": "",
+                "minScore": null,
+                "maxScore": null
+            },
+            {
+                "id": 10,
+                "type": "reveal",
+                "order": 8,
+                "text": "",
+                "trustLabel": "I see",
+                "distrustLabel": "Got it",
+                "image": "/images/card-back.png",
+                "trustChoice": {
+                    "consequences": 1,
+                    "feedback": "You get a sweet $10 campus store gift card. \\n\\n A follow up email gives you two more to share with your friends, or get two really small mugs."
+                },
+                "distrustChoice": {
+                    "consequences": null,
+                    "feedback": "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!"
+                },
+                "overlayContent": "scenario-10.md",
                 "minScore": null,
                 "maxScore": null
             },
@@ -2038,7 +1998,7 @@ export default [
                 "id": 11,
                 "type": "story",
                 "order": 1,
-                "text": "Your computer's going into red alert mode!!!",
+                "text": "Your computer's going into red alert mode!!! \n\n There's a flashing software update message for BugBuster Antivirus!",
                 "trustLabel": "What's going on?!",
                 "distrustLabel": "Aaa!!!",
                 "image": "/images/card-placeholder.png",
@@ -2058,26 +2018,6 @@ export default [
                 "id": 11,
                 "type": "story",
                 "order": 2,
-                "text": "There's a flashing software update message for BugBuster Antivirus!",
-                "trustLabel": "Check the message",
-                "distrustLabel": "Read it!",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "overlayContent": "",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 11,
-                "type": "story",
-                "order": 3,
                 "text": "You're unsure whether to trust it.",
                 "trustLabel": "Call for help?",
                 "distrustLabel": "Please, help!",
@@ -2097,8 +2037,8 @@ export default [
             {
                 "id": 11,
                 "type": "story",
-                "order": 4,
-                "text": "You call the IT service desk for help. They ask you to meet them at The Pond, where they're busy angling the phish.",
+                "order": 3,
+                "text": "You call the IT service desk for help and they ask you to meet them at The Pond!",
                 "trustLabel": "Head to The Pond",
                 "distrustLabel": "Let's go!",
                 "image": "/images/card-placeholder.png",
@@ -2117,8 +2057,8 @@ export default [
             {
                 "id": 11,
                 "type": "story",
-                "order": 5,
-                "text": "One of them looks up and says: Hey there! Let's see what's going on with your computer.",
+                "order": 4,
+                "text": "(beaver 1:) Hey there! Let's see what's going on with your computer.",
                 "trustLabel": "Explain the issue",
                 "distrustLabel": "Show them",
                 "image": "/images/card-placeholder.png",
@@ -2137,7 +2077,7 @@ export default [
             {
                 "id": 11,
                 "type": "story",
-                "order": 6,
+                "order": 5,
                 "text": "Ah, yes! They mentioned this update on BugBuster's blog.",
                 "trustLabel": "Tell me more",
                 "distrustLabel": "Oh yeah?",
@@ -2157,7 +2097,7 @@ export default [
             {
                 "id": 11,
                 "type": "story",
-                "order": 7,
+                "order": 6,
                 "text": "It says this update fixes a security bug. It's important to install it for your safety.",
                 "trustLabel": "Lemmie think...",
                 "distrustLabel": "Oh...",
@@ -2177,31 +2117,11 @@ export default [
             {
                 "id": 11,
                 "type": "decision",
-                "order": 8,
+                "order": 7,
                 "text": "Is this update legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
                 "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": 1,
-                    "feedback": "You decide to trust their advice and install the update. You feel secure knowing your system is protected."
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": "Sure, it sounds critical, but it can't actually be that critical. It can wait!"
-                },
-                "overlayContent": "scenario-11.md",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 11,
-                "type": "reveal",
-                "order": 9,
-                "text": "",
-                "trustLabel": "I see",
-                "distrustLabel": "Got it",
-                "image": "/images/card-back.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2211,6 +2131,26 @@ export default [
                     "feedback": ""
                 },
                 "overlayContent": "",
+                "minScore": null,
+                "maxScore": null
+            },
+            {
+                "id": 11,
+                "type": "reveal",
+                "order": 8,
+                "text": "",
+                "trustLabel": "I see",
+                "distrustLabel": "Got it",
+                "image": "/images/card-back.png",
+                "trustChoice": {
+                    "consequences": 1,
+                    "feedback": "You decide to trust their advice and install the update. You feel secure knowing your system is protected."
+                },
+                "distrustChoice": {
+                    "consequences": null,
+                    "feedback": "Sure, it sounds critical, but it can't actually be that critical. It can wait!"
+                },
+                "overlayContent": "scenario-11.md",
                 "minScore": null,
                 "maxScore": null
             },
@@ -2265,7 +2205,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou: AAA DONT CLIKC FOR FREE FLOPWERS!!!",
+                "text": "(Beejou: )AAA DONT CLIKC FOR FREE FLOPWERS!!!",
                 "trustLabel": "What??",
                 "distrustLabel": "Sorry???",
                 "image": "/images/card-placeholder.png",
@@ -2345,7 +2285,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 6,
-                "text": "(beaver 1): Oh my, this looks like ransomware!",
+                "text": "(beaver 1:) Oh my, this looks like ransomware!",
                 "trustLabel": "What can we do?",
                 "distrustLabel": "Ransom!?",
                 "image": "/images/card-placeholder.png",
@@ -2365,7 +2305,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 7,
-                "text": "(beaver 2): We can try to fix it, but Beejou you need to be careful with suspicious emails.",
+                "text": "(beaver 2:) We can try to fix it, but Beejou you need to be careful with suspicious emails.",
                 "trustLabel": "Thank you!",
                 "distrustLabel": "Wow!",
                 "image": "/images/card-placeholder.png",
@@ -2533,7 +2473,7 @@ export default [
                 "type": "story",
                 "order": 1,
                 "text": "You recently read that the Campus Cafe is trying out a new robotic coffee handler.",
-                "trustLabel": "Robot coffee!",
+                "trustLabel": "I'm curious...",
                 "distrustLabel": "Is it good?",
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
@@ -2552,8 +2492,8 @@ export default [
                 "id": 13,
                 "type": "story",
                 "order": 2,
-                "text": "There's a special right now that uses AI to craft the perfect morning beverage based entirely on your mood!",
-                "trustLabel": "I'm curious...",
+                "text": "There's a special right now that uses AI to craft the perfect morning beverage based entirely on your mood! \n\n But, when you get your drink, it doesn't seem like it's actually yours...",
+                "trustLabel": "Is this my mood?",
                 "distrustLabel": "So advanced",
                 "image": "/images/card-placeholder.png",
                 "trustChoice": {
@@ -2572,26 +2512,6 @@ export default [
                 "id": 13,
                 "type": "story",
                 "order": 3,
-                "text": "But, when you get your drink, it just doesn't taste right. It doesn't seem like it's actually yours.",
-                "trustLabel": "I don't trust it...",
-                "distrustLabel": "Is this my mood?",
-                "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": ""
-                },
-                "overlayContent": "",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 13,
-                "type": "story",
-                "order": 4,
                 "text": "You call the IT support team for help. They listen to your problem.",
                 "trustLabel": "I need help",
                 "distrustLabel": "Please!",
@@ -2611,8 +2531,8 @@ export default [
             {
                 "id": 13,
                 "type": "story",
-                "order": 5,
-                "text": "(beaver 1): Bring it to The Pond and we'll test it for you!",
+                "order": 4,
+                "text": "(beaver 1:) Bring it to The Pond and we'll test it for you!",
                 "trustLabel": "Head over there.",
                 "distrustLabel": "Let's see...",
                 "image": "/images/card-placeholder.png",
@@ -2631,7 +2551,7 @@ export default [
             {
                 "id": 13,
                 "type": "story",
-                "order": 6,
+                "order": 5,
                 "text": "You arrive at The Pond, drink in hand.",
                 "trustLabel": "Thanks for helping",
                 "distrustLabel": "You'll fix it?",
@@ -2651,8 +2571,8 @@ export default [
             {
                 "id": 13,
                 "type": "story",
-                "order": 7,
-                "text": "(beaver 1): Let's take a look...",
+                "order": 6,
+                "text": "(beaver 1:) Let's take a look...",
                 "trustLabel": "Is this my drink?",
                 "distrustLabel": "Not my order",
                 "image": "/images/card-placeholder.png",
@@ -2671,7 +2591,7 @@ export default [
             {
                 "id": 13,
                 "type": "story",
-                "order": 8,
+                "order": 7,
                 "text": "They gather around and slap the water with their tails, looking excited.",
                 "trustLabel": "Wait a sec...",
                 "distrustLabel": "Watch closely.",
@@ -2691,31 +2611,11 @@ export default [
             {
                 "id": 13,
                 "type": "decision",
-                "order": 9,
+                "order": 8,
                 "text": "You start to suspect that they might just be aiming to get a free drink out of you.",
                 "trustLabel": "Give it to them",
                 "distrustLabel": "I'll take it back!",
                 "image": "/images/card-placeholder.png",
-                "trustChoice": {
-                    "consequences": null,
-                    "feedback": "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \\n\\n They thank you for your trouble."
-                },
-                "distrustChoice": {
-                    "consequences": null,
-                    "feedback": "They just want to taste your drink!! \\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!"
-                },
-                "overlayContent": "scenario-13.md",
-                "minScore": null,
-                "maxScore": null
-            },
-            {
-                "id": 13,
-                "type": "reveal",
-                "order": 10,
-                "text": "",
-                "trustLabel": "I see",
-                "distrustLabel": "Got it",
-                "image": "/images/card-back.png",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2725,6 +2625,26 @@ export default [
                     "feedback": ""
                 },
                 "overlayContent": "",
+                "minScore": null,
+                "maxScore": null
+            },
+            {
+                "id": 13,
+                "type": "reveal",
+                "order": 9,
+                "text": "",
+                "trustLabel": "I see",
+                "distrustLabel": "Got it",
+                "image": "/images/card-back.png",
+                "trustChoice": {
+                    "consequences": null,
+                    "feedback": "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \\n\\n They thank you for your trouble."
+                },
+                "distrustChoice": {
+                    "consequences": null,
+                    "feedback": "They just want to taste your drink!! \\n\\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!"
+                },
+                "overlayContent": "scenario-13.md",
                 "minScore": null,
                 "maxScore": null
             },
@@ -2779,7 +2699,7 @@ export default [
                 "id": 14,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou: I just got a really cool email!",
+                "text": "(Beejou:) I just got a really cool email!",
                 "trustLabel": "Oh yeah?",
                 "distrustLabel": "Did you?",
                 "image": "/images/card-placeholder.png",
@@ -3320,7 +3240,7 @@ export default [
                 "id": 17,
                 "type": "story",
                 "order": 1,
-                "text": "You and Beejou are taking on a kickboxing class together.",
+                "text": "You and Beejou are taking a kickboxing class together.",
                 "trustLabel": "Oof!",
                 "distrustLabel": "Pow!",
                 "image": "/images/card-placeholder.png",
@@ -3742,7 +3662,7 @@ export default [
     {
         "id": 101,
         "scenarioType": "ending",
-        "learningObjectives": "Bad Ending",
+        "learningObjectives": "OK Ending (1-2 Missed)",
         "cards": [
             {
                 "id": 101,
@@ -3768,7 +3688,7 @@ export default [
                 "id": 101,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou: \"Great job spotting phishing attempts! Just a few slipped by.\"",
+                "text": "(Beejou:) Great job spotting phishing attempts! Just a few slipped by.",
                 "trustLabel": "Thanks!",
                 "distrustLabel": "I'll be vigilant!",
                 "image": "/images/card-placeholder.png",
@@ -3835,7 +3755,7 @@ export default [
                 "id": 201,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou: \"Unfortunately we missed a few phishing attempts... We should stay alert!\"",
+                "text": "(Beejou:) Unfortunately we missed a few phishing attempts... We should stay alert!",
                 "trustLabel": "Understood.",
                 "distrustLabel": "I'll be cautious!",
                 "image": "/images/card-placeholder.png",
@@ -3902,7 +3822,7 @@ export default [
                 "id": 301,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou's panicking: \"We missed too many phishing attempts! The geese have taken over!\"",
+                "text": "(Beejou's panicking:) We missed too many phishing attempts! The geese have taken over!",
                 "trustLabel": "Oh no!",
                 "distrustLabel": "This isn't good...",
                 "image": "/images/card-placeholder.png",
@@ -3943,7 +3863,7 @@ export default [
     {
         "id": 401,
         "scenarioType": "ending",
-        "learningObjectives": "Best Ending",
+        "learningObjectives": "Best Ending (0 Missed)",
         "cards": [
             {
                 "id": 401,
@@ -3969,7 +3889,7 @@ export default [
                 "id": 401,
                 "type": "story",
                 "order": 2,
-                "text": "Beejou: \"The party is a huge success! Everyone's enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!\"",
+                "text": "(Beejou:) The party is a huge success! Everyone's enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!",
                 "trustLabel": "Thanks!",
                 "distrustLabel": "Appreciate it!",
                 "image": "/images/card-placeholder.png",
