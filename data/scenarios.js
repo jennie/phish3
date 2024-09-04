@@ -650,9 +650,9 @@ export default [
   },
   {
     id: 4,
-    scenarioType: "regular",
+    scenarioType: "mfa",
     learningObjectives:
-      "Always make sure you're you when responding to MFA requests!",
+      "Make sure you're you when responding to MFA requests! \n\n Always check before you tap! If you didn’t attempt to login, deny \nthe request!",
     cards: [
       {
         id: 4,
@@ -763,14 +763,16 @@ export default [
         distrustLabel: "Deny!",
         image: "/images/4-6.png",
         trustChoice: {
-          consequences: null,
-          feedback: "",
+          consequences: 1,
+          feedback:
+            "Nice job checking the location! You feel reassured knowing your account is protected with MFA.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?",
         },
-        overlayContent: "",
+        overlayContent: "scenario-04.md",
         minScore: null,
         maxScore: null,
       },
@@ -783,16 +785,14 @@ export default [
         distrustLabel: "Got it",
         image: "/images/card-back.png",
         trustChoice: {
-          consequences: 1,
-          feedback:
-            "Nice job checking the location! You feel reassured knowing your account is protected with MFA.",
+          consequences: null,
+          feedback: "",
         },
         distrustChoice: {
           consequences: null,
-          feedback:
-            "You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?",
+          feedback: "",
         },
-        overlayContent: "scenario-04.md",
+        overlayContent: "",
         minScore: null,
         maxScore: null,
       },
@@ -822,7 +822,7 @@ export default [
     id: 5,
     scenarioType: "regular",
     learningObjectives:
-      "Look for padlocks on https URLs, domain names you trust, and authentic language. ",
+      "Always double-check a website's legtitimacy \nbefore entering info - don't get caught by scams!",
     cards: [
       {
         id: 5,
@@ -1222,7 +1222,7 @@ export default [
     id: 7,
     scenarioType: "regular",
     learningObjectives:
-      "Look for padlocks on URLs, domain names you trust, and authentic language—and for commercial sites, professional branding and partner links!",
+      "Always double-check a website's legtitimacy \nbefore entering info - don't get caught by scams!",
     cards: [
       {
         id: 7,
@@ -1432,7 +1432,7 @@ export default [
     id: 8,
     scenarioType: "regular",
     learningObjectives:
-      "Be wary of providing personal identification through email or phone without security procedures, such as PINs, polytechnic portals, and other protective measures.",
+      "Don't spill your personal info via email or phone without security \nchecks like PINs, institutional portals or other protective measures! Always \ndouble-check who's asking before you share",
     cards: [
       {
         id: 8,
@@ -1963,14 +1963,16 @@ export default [
         distrustLabel: "They want my thoughts?",
         image: "/images/10-7.png",
         trustChoice: {
-          consequences: null,
-          feedback: "",
+          consequences: 1,
+          feedback:
+            "You get a sweet $10 campus store gift card. \n\n A follow up email gives you two more to share with your friends, or get two really small mugs.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!",
         },
-        overlayContent: "",
+        overlayContent: "scenario-10.md",
         minScore: null,
         maxScore: null,
       },
@@ -1983,16 +1985,14 @@ export default [
         distrustLabel: "Got it",
         image: "/images/card-back.png",
         trustChoice: {
-          consequences: 1,
-          feedback:
-            "You get a sweet $10 campus store gift card. \n\n A follow up email gives you two more to share with your friends, or get two really small mugs.",
+          consequences: null,
+          feedback: "",
         },
         distrustChoice: {
           consequences: null,
-          feedback:
-            "You receive an email thanking you for your vigilance in identifying phishing scams, but remember, phishing emails often request sensitive information, which Reel Polytechnic will never do!",
+          feedback: "",
         },
-        overlayContent: "scenario-10.md",
+        overlayContent: "",
         minScore: null,
         maxScore: null,
       },
@@ -2153,14 +2153,16 @@ export default [
         distrustLabel: "Something's not right!",
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: null,
-          feedback: "",
+          consequences: 1,
+          feedback:
+            "You decide to trust their advice and install the update. You feel secure knowing your system is protected.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "Sure, it sounds critical, but it can't actually be that critical. It can wait!",
         },
-        overlayContent: "",
+        overlayContent: "scenario-11.md",
         minScore: null,
         maxScore: null,
       },
@@ -2173,16 +2175,14 @@ export default [
         distrustLabel: "Got it",
         image: "/images/card-back.png",
         trustChoice: {
-          consequences: 1,
-          feedback:
-            "You decide to trust their advice and install the update. You feel secure knowing your system is protected.",
+          consequences: null,
+          feedback: "",
         },
         distrustChoice: {
           consequences: null,
-          feedback:
-            "Sure, it sounds critical, but it can't actually be that critical. It can wait!",
+          feedback: "",
         },
-        overlayContent: "scenario-11.md",
+        overlayContent: "",
         minScore: null,
         maxScore: null,
       },
@@ -2653,13 +2653,15 @@ export default [
         image: "/images/card-placeholder.png",
         trustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \n\n They thank you for your trouble.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "They just want to taste your drink!! \n\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
         },
-        overlayContent: "",
+        overlayContent: "scenario-13.md",
         minScore: null,
         maxScore: null,
       },
@@ -2673,15 +2675,13 @@ export default [
         image: "/images/card-back.png",
         trustChoice: {
           consequences: null,
-          feedback:
-            "You watch as they all take a little sip each. It's kinda cute, so you don't mind, but now you have to go get a new one. \n\n They thank you for your trouble.",
+          feedback: "",
         },
         distrustChoice: {
           consequences: null,
-          feedback:
-            "They just want to taste your drink!! \n\n Even if it's wrong, you might as well keep it. You've gotta get to the gym before it closes!",
+          feedback: "",
         },
-        overlayContent: "scenario-13.md",
+        overlayContent: "",
         minScore: null,
         maxScore: null,
       },
@@ -3279,7 +3279,7 @@ export default [
   },
   {
     id: 17,
-    scenarioType: "regular",
+    scenarioType: "mfa",
     learningObjectives:
       "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
@@ -3387,7 +3387,7 @@ export default [
   },
   {
     id: 18,
-    scenarioType: "regular",
+    scenarioType: "mfa",
     learningObjectives:
       "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
@@ -3495,7 +3495,7 @@ export default [
   },
   {
     id: 19,
-    scenarioType: "regular",
+    scenarioType: "mfa",
     learningObjectives:
       "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [
@@ -3603,7 +3603,7 @@ export default [
   },
   {
     id: 20,
-    scenarioType: "regular",
+    scenarioType: "mfa",
     learningObjectives:
       "MFA authorization can provide clues to the veracity of the request, including location info from your mobile phone!",
     cards: [

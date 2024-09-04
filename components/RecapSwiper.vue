@@ -19,24 +19,36 @@
             <div class="card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19]"
                 :style="{ backgroundImage: `url(${getScenarioImage(scenario)})` }">
-                <div class="absolute inset-0 bg-black bg-opacity-50 p-4 flex flex-col justify-between overflow-y-auto">
+                <div class="absolute inset-0  bg-blue-900  bg-opacity-90 p-4 flex flex-col  overflow-y-auto">
                   <div>
-                    <h2 class="text-lg font-bold text-white mb-2">#{{ scenario.id }}</h2>
+                    <h2 class="text-lg font-bold text-gray-200 mb-2">#{{ scenario.id }}</h2>
                     <p class=" text-white mb-2 text-center font-bold text-xl">{{ getDecisionCardText(scenario) }}
                     </p>
-                    <p class="text-center text-xs text-white mb-1">
+                    <p class="text-center text-xs text-white mb-1 flex flex-row items-center justify-center">
+                      <span class="uppercase font-bold mr-2">You chose:</span>
                       <span :class="getChoiceClass(scenario)" class="text-xl">
                         {{ getUserChoice(scenario) }}
                       </span>
                     </p>
-                    <p class="text-xs text-white mb-1 text-center"><span
-                        v-if="getScoreChange(scenario) === 1">Correct!</span>
-                      <span v-else>Incorrect!</span>
-                    </p>
-                    <p class="text-xs text-white mb-2" v-html="getUserFeedback(scenario)" />
-                  </div>
-                  <p class="text-lg leading-tight text-white italic">{{ scenario.learningObjectives }}</p>
+                    <!-- Sash container -->
+                    <div class="absolute -top-3 -left-3 w-64 h-64 overflow-hidden">
+                      <!-- Sash -->
+                      <div :class="[
+                        'absolute -top-10 -left-10 w-full text-center pt-20 pb-2 text-white text-2xl font-bold transform -rotate-45 translate-y-10 -translate-x-10',
+                        getScoreChange(scenario) === 1 ? 'bg-green-500' : 'bg-red-500'
+                      ]">
+                        {{ getScoreChange(scenario) === 1 ? 'Correct!' : 'Incorrect!' }}
+                      </div>
+                    </div>
 
+
+                    <p class="text-base text-white mb-2" v-html="getUserFeedback(scenario)" />
+                  </div>
+                  <div class="learning-objective bg-black p-6">
+
+                    <p class="text-lg leading-tight text-white font-bold italic">{{ scenario.learningObjectives }}</p>
+
+                  </div>
                   <!-- Debug Information -->
                   <details v-if="showDebugPanel" class="mt-2 text-white">
                     <summary class="cursor-pointer text-xs">Debug Info</summary>

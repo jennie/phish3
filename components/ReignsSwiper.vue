@@ -66,7 +66,7 @@
                         </button>
                       </div>
                     </div>
-                    <div class="flex-grow overflow-y-auto">
+                    <div class="flex-grow overflow-y-auto overlay">
                       <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent" class="overlay-content">
                       </div>
                       <p v-else>Loading content...</p>
@@ -116,21 +116,27 @@
         <a href="/" @click.prevent="returnToStartScreen" class="p-2 self self-center">
           <HomeButton />
         </a>
-        <div class="flex justify-center gap-5 z-10 py-2 mb-4">
+        <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-10 w-full">
           <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
             :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
               { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]"
             style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
             <BackButton v-if="!isDecisionCard" />
+            <div v-else-if="currentScenario?.scenarioType === 'mfa'"
+              class="bg-red-400 rounded-full py-2 px-4 font-bold text-base">DENY</div>
             <ThumbsDown v-else />
           </button>
+
           <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
             :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
               { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]"
             style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
             <NextButton v-if="!isDecisionCard" />
+            <span v-else-if="currentScenario?.scenarioType === 'mfa'"
+              class="bg-green-400 rounded-full py-2 px-4 font-bold text-base">APPROVE</span>
             <ThumbsUp v-else />
           </button>
+
         </div>
         <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
           :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">

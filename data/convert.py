@@ -12,12 +12,14 @@ def convert_csv_to_json(csv_file_path, json_file_path):
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             scenario_id = int(row["id"]) if row["id"] else None
-            scenario_type = row["scenarioType"] if row["scenarioType"] else "regular"
+            scenario_type = row["scenarioType"] if row["scenarioType"] else None  # Do not default to "regular" here
             scenario = next((s for s in scenarios if s["id"] == scenario_id), None)
+            
             if not scenario:
+                # Only set the scenarioType when creating the scenario, default to "regular" if it's not provided in this row
                 scenario = {
                     "id": scenario_id,
-                    "scenarioType": scenario_type,
+                    "scenarioType": scenario_type if scenario_type else "regular",
                     "learningObjectives": unescape_newlines(row["learningObjectives"]) if row["learningObjectives"] else "",
                     "cards": []
                 }
@@ -26,7 +28,11 @@ def convert_csv_to_json(csv_file_path, json_file_path):
                 # Update learningObjectives if they are present in the current row
                 if row["learningObjectives"]:
                     scenario["learningObjectives"] = unescape_newlines(row["learningObjectives"])
-                        
+                
+                # Only update scenarioType if it's not already set (i.e., if it's still "regular")
+                if scenario["scenarioType"] == "regular" and scenario_type:
+                    scenario["scenarioType"] = scenario_type
+
             card = {
                 "id": int(row["id"]) if "id" in row and row["id"] else None,
                 "type": row["type"],

@@ -22,7 +22,9 @@ const tutorialScenario = computed(() =>
   allScenarios.value.find((s) => s.scenarioType === "tutorial")
 );
 const regularScenarios = computed(() =>
-  allScenarios.value.filter((s) => s.scenarioType === "regular")
+  allScenarios.value.filter(
+    (s) => s.scenarioType === "regular" || s.scenarioType === "mfa"
+  )
 );
 const endingScenarios = computed(() =>
   allScenarios.value.filter((s) => s.scenarioType === "ending")
@@ -73,22 +75,41 @@ const initializeGame = async () => {
     return;
   }
 
-  const allScenarios = [
-    ...regularScenarios.value,
-    ...endingScenarios.value,
-    tutorialScenario.value,
-  ];
+  // Only preload the tutorial scenario (Scenario 1)
+  await preloadScenarioAssets(tutorialScenario.value);
 
-  await preloadAllScenarios(allScenarios);
-
+  // Initialize the game sequence (but don't preload all scenarios yet)
   const shuffledRegularScenarios = shuffleArray(regularScenarios.value);
   gameSequence.value = [tutorialScenario.value, ...shuffledRegularScenarios];
 
   console.log(
-    "Game initialized with tutorial and shuffled regular scenarios:",
+    "Game initialized with tutorial scenario and shuffled regular scenarios:",
     gameSequence.value.map((s) => s.id)
   );
 };
+
+// const initializeGame = async () => {
+//   if (!tutorialScenario.value) {
+//     console.error("No tutorial scenario found!");
+//     return;
+//   }
+
+//   const allScenarios = [
+//     ...regularScenarios.value,
+//     ...endingScenarios.value,
+//     tutorialScenario.value,
+//   ];
+
+//   await preloadAllScenarios(allScenarios);
+
+//   const shuffledRegularScenarios = shuffleArray(regularScenarios.value);
+//   gameSequence.value = [tutorialScenario.value, ...shuffledRegularScenarios];
+
+//   console.log(
+//     "Game initialized with tutorial and shuffled regular scenarios:",
+//     gameSequence.value.map((s) => s.id)
+//   );
+// };
 
 const preloadAllScenarios = async (scenarios) => {
   const totalAssets = scenarios.reduce(
@@ -134,7 +155,6 @@ const jumpToScenarioById = async (targetId) => {
   }
   return false;
 };
-
 const nextScenario = async (targetIndex = null) => {
   console.log("nextScenario called with targetIndex:", targetIndex);
   let nextIndex;
@@ -150,12 +170,56 @@ const nextScenario = async (targetIndex = null) => {
     currentScenarioIndex.value = nextIndex;
     currentCardIndex.value = 0;
     console.log("New currentScenario:", currentScenario.value);
+
+    // Preload next scenario's assets if there is another scenario in sequence
+    const followingIndex = nextIndex + 1;
+    if (followingIndex < gameSequence.value.length) {
+      const nextScenario = gameSequence.value[followingIndex];
+      preloadScenarioAssets(nextScenario);
+    }
+
     return true;
   } else {
     console.log("No more scenarios available");
     return false;
   }
 };
+
+// Preload the assets for a given scenario
+const preloadScenarioAssets = async (scenario) => {
+  try {
+    for (const card of scenario.cards) {
+      if (card.image) {
+        await preloadImage(card.image);
+        console.log(`Preloaded image for card ${card.id}`);
+      }
+    }
+  } catch (error) {
+    console.error("Error preloading scenario assets:", error);
+  }
+};
+
+// const nextScenario = async (targetIndex = null) => {
+//   console.log("nextScenario called with targetIndex:", targetIndex);
+//   let nextIndex;
+
+//   if (targetIndex !== null) {
+//     nextIndex = targetIndex;
+//   } else {
+//     nextIndex = currentScenarioIndex.value + 1;
+//   }
+
+//   if (nextIndex < scenarios.value.length) {
+//     console.log("Setting currentScenario to index:", nextIndex);
+//     currentScenarioIndex.value = nextIndex;
+//     currentCardIndex.value = 0;
+//     console.log("New currentScenario:", currentScenario.value);
+//     return true;
+//   } else {
+//     console.log("No more scenarios available");
+//     return false;
+//   }
+// };
 
 const currentScenario = computed(() => {
   if (!gameSequence.value || !gameSequence.value[currentScenarioIndex.value]) {
