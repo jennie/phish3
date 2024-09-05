@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  @apply bg-black leading-normal font-sans antialiased px-4;
+  @apply bg-black leading-normal antialiased px-4 font-serif;
 }
 
 .swiper-tinder {

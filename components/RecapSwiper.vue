@@ -5,8 +5,8 @@
 
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
-      <p class="text-xs text-white leading-snug text-center">
-        Recap: Review your choices
+      <p class="text-2xl font-serif text-white leading-snug text-center">
+        Review your choices
       </p>
     </div>
 
@@ -19,34 +19,40 @@
             <div class="card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19]"
                 :style="{ backgroundImage: `url(${getScenarioImage(scenario)})` }">
-                <div class="absolute inset-0  bg-blue-900  bg-opacity-90 p-4 flex flex-col  overflow-y-auto">
+                <div
+                  :class="`absolute inset-0 ${getScoreChange(scenario) === 1 ? 'bg-green-400' : 'bg-red-300'} bg-opacity-90 p-4 flex flex-col  overflow-y-auto justify-between`">
                   <div>
-                    <h2 class="text-lg font-bold text-gray-200 mb-2">#{{ scenario.id }}</h2>
-                    <p class=" text-white mb-2 text-center font-bold text-xl">{{ getDecisionCardText(scenario) }}
-                    </p>
-                    <p class="text-center text-xs text-white mb-1 flex flex-row items-center justify-center">
-                      <span class="uppercase font-bold mr-2">You chose:</span>
-                      <span :class="getChoiceClass(scenario)" class="text-xl">
-                        {{ getUserChoice(scenario) }}
-                      </span>
-                    </p>
-                    <!-- Sash container -->
-                    <div class="absolute -top-3 -left-3 w-64 h-64 overflow-hidden">
-                      <!-- Sash -->
-                      <div :class="[
-                        'absolute -top-10 -left-10 w-full text-center pt-20 pb-2 text-white text-2xl font-bold transform -rotate-45 translate-y-10 -translate-x-10',
-                        getScoreChange(scenario) === 1 ? 'bg-green-500' : 'bg-red-500'
-                      ]">
-                        {{ getScoreChange(scenario) === 1 ? 'Correct!' : 'Incorrect!' }}
-                      </div>
+                    <div class="mx-16 mt-20">
+                      <p class="font-serif font-black text-black mb-2 text-center text-2xl">{{
+                        getDecisionCardText(scenario) }}
+                      </p>
                     </div>
-
-
-                    <p class="text-base text-white mb-2" v-html="getUserFeedback(scenario)" />
+                    <div class="p-3">
+                      <p class="text-center text-xs text-white mb-1 flex flex-col items-center justify-center">
+                        <span class="text-xl rounded-md text-black">
+                          <span class="uppercase font-bold mr-2 text-xl">You chose: {{ getChoiceDirection(scenario)
+                            }}
+                          </span>
+                          <div>{{ getUserChoice(scenario) }}</div>
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                  <div class="learning-objective bg-black p-6">
 
-                    <p class="text-lg leading-tight text-white font-bold italic">{{ scenario.learningObjectives }}</p>
+                  <!-- Sash container -->
+                  <div class="absolute -top-3 -left-3 w-64 h-64 overflow-hidden clip-diagonal">
+                    <!-- Sash -->
+                    <div :class="[
+                      'absolute -top-10 -left-10 w-full text-center pt-20 pb-2 text-white text-2xl font-bold font-sans uppercase transform -rotate-45 translate-y-10 -translate-x-10 clip-diagonal',
+                      getScoreChange(scenario) === 1 ? 'bg-green-500' : 'bg-red-500'
+                    ]">
+                      {{ getScoreChange(scenario) === 1 ? 'Correct!' : 'Incorrect!' }}
+                    </div>
+                  </div>
+                  <div class="learning-objective text-black p-3">
+
+                    <p class="font-serif text-lg text-black text-center leading-snug ">{{ scenario.learningObjectives }}
+                    </p>
 
                   </div>
                   <!-- Debug Information -->
@@ -198,8 +204,14 @@ const getUserChoice = (scenario) => {
 
 const getChoiceClass = (scenario) => {
   const choice = userChoices.value[scenario.id];
-  if (!choice) return 'text-yellow-500';
-  return choice.choice === 'trust' ? 'text-green-500' : 'text-red-500';
+  if (!choice) return 'bg-yellow-500';
+  return choice.choice === 'trust' ? 'bg-green-500' : 'bg-red-300';
+};
+
+const getChoiceDirection = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  if (!choice) return 'No choice made';
+  return choice.choice === 'trust' ? '👍' : '👎';
 };
 
 const getUserFeedback = (scenario) => {
@@ -282,5 +294,9 @@ onMounted(() => {
 /* Safe area adjustment */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
 }
 </style>

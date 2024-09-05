@@ -12,8 +12,15 @@ export default defineNuxtConfig({
         "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
     },
   },
-  modules: ["@nuxtjs/tailwindcss"],
-
+  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts"],
+  googleFonts: {
+    families: {
+      Roboto: [400, 700],
+      "Roboto Slab": [800],
+    },
+    display: "swap",
+    preload: true,
+  },
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => tag.includes("swiper"),
