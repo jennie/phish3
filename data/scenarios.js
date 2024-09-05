@@ -2,7 +2,8 @@ export default [
   {
     id: 1,
     scenarioType: "tutorial",
-    learningObjectives: "",
+    learningObjectives:
+      "Tutorial Text: It's decision time! click/tap or swipe left or right to Trust or Distrust",
     cards: [
       {
         id: 1,
@@ -88,26 +89,6 @@ export default [
         id: 1,
         type: "story",
         order: 5,
-        text: "Come on, let me show you around the rest of the campus. There's so much to see!",
-        trustLabel: "Let's go!",
-        distrustLabel: "Okay!",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
-        order: 6,
         text: "You follow Beejou through the campus, learning about the different buildings, facilities, and activities available here.",
         trustLabel: "Beautiful...",
         distrustLabel: "Is this real?",
@@ -127,7 +108,7 @@ export default [
       {
         id: 1,
         type: "story",
-        order: 7,
+        order: 6,
         text: "(Beejou:) As you settle in, stay alert for phishing scams. They could be suspicious emails, fake websites, or strange requests. ",
         trustLabel: "A phish?",
         distrustLabel: "Scams!?",
@@ -147,7 +128,7 @@ export default [
       {
         id: 1,
         type: "story",
-        order: 8,
+        order: 7,
         text: "There's been a lot more recently. The campus IT Security team's worried.. Remember, always verify the source before trusting any information!",
         trustLabel: "I will!",
         distrustLabel: "Of course!",
@@ -167,7 +148,7 @@ export default [
       {
         id: 1,
         type: "story",
-        order: 9,
+        order: 8,
         text: "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the bulletin boards.",
         trustLabel: "Peaceful...",
         distrustLabel: "Exciting!",
@@ -187,28 +168,8 @@ export default [
       {
         id: 1,
         type: "story",
-        order: 10,
-        text: "Beejou stops suddenly.",
-        trustLabel: "What's up?",
-        distrustLabel: "Problem?",
-        image: "/images/card-placeholder.png",
-        trustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        distrustChoice: {
-          consequences: null,
-          feedback: "",
-        },
-        overlayContent: "",
-        minScore: null,
-        maxScore: null,
-      },
-      {
-        id: 1,
-        type: "story",
         order: 11,
-        text: "Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
+        text: "Beejou stops suddenly. \n\n Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
         trustLabel: "A shortcut?",
         distrustLabel: "Is it safe?",
         image: "/images/card-placeholder.png",
@@ -233,14 +194,16 @@ export default [
         distrustLabel: "Distrust Beejou",
         image: "/images/card-placeholder.png",
         trustChoice: {
-          consequences: null,
-          feedback: "",
+          consequences: 1,
+          feedback:
+            "You trust Beejou and follow her shortcut. \n\n The path takes you through a lovely garden and you reach the main building quickly. \n\n 'See? Told you it was a good shortcut!' Beejou beams.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "You suggest another route back to the main building. \n\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
         },
-        overlayContent: "",
+        overlayContent: "beejou-shortcut.md",
         minScore: null,
         maxScore: null,
       },
@@ -253,16 +216,14 @@ export default [
         distrustLabel: "Got it",
         image: "/images/card-back.png",
         trustChoice: {
-          consequences: 1,
-          feedback:
-            "You trust Beejou and follow her shortcut. \n\n The path takes you through a lovely garden and you reach the main building quickly. \n\n 'See? Told you it was a good shortcut!' Beejou beams.",
+          consequences: null,
+          feedback: "",
         },
         distrustChoice: {
           consequences: null,
-          feedback:
-            "You suggest another route back to the main building. \n\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare.",
+          feedback: "",
         },
-        overlayContent: "beejou-shortcut.md",
+        overlayContent: "",
         minScore: null,
         maxScore: null,
       },
@@ -738,7 +699,7 @@ export default [
         id: 4,
         type: "story",
         order: 5,
-        text: "Later, you're logging into your account and you get an MFA prompt!",
+        text: "Later, you're working in the library and logging into your student account. \n\n You get an MFA prompt!",
         trustLabel: "Check the location...",
         distrustLabel: "Is this me?",
         image: "/images/4-5.png",
@@ -1668,10 +1629,10 @@ export default [
         id: 9,
         type: "story",
         order: 1,
-        text: "Academic journals and reference books are piled high on your desk.",
+        text: "You're holed up in the library, surrounded by books.",
         trustLabel: "Hard working!",
         distrustLabel: "I'm tired",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1691,7 +1652,7 @@ export default [
         text: "Deep into your research for a paper, your open tabs are all important articles, except for your email.",
         trustLabel: "Take a break!",
         distrustLabel: "Check it!",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1711,7 +1672,7 @@ export default [
         text: "You decide to take a peek, but you didn't expect to see this!",
         trustLabel: "It looks urgent...",
         distrustLabel: "Oh my...",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1731,7 +1692,7 @@ export default [
         text: "This email looks really important.",
         trustLabel: "This is bad...",
         distrustLabel: "Scary!",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-4.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1751,7 +1712,7 @@ export default [
         text: "Keep reading?",
         trustLabel: "Okay...",
         distrustLabel: "I'm looking...",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-5.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1771,7 +1732,7 @@ export default [
         text: "Should you download the fix?",
         trustLabel: "Download it!",
         distrustLabel: "No! This is bad!",
-        image: "/images/card-placeholder.png",
+        image: "/images/9-6.png",
         trustChoice: {
           consequences: null,
           feedback:
@@ -2647,7 +2608,7 @@ export default [
         id: 13,
         type: "decision",
         order: 8,
-        text: "You start to suspect that they might just be aiming to get a free drink out of you.",
+        text: "You suspect that they just might be aiming to get a free drink…",
         trustLabel: "Give it to them",
         distrustLabel: "I'll take it back!",
         image: "/images/card-placeholder.png",
@@ -3007,7 +2968,7 @@ export default [
         id: 15,
         type: "decision",
         order: 6,
-        text: "But before you leave your desk, should you lock your laptop before you go, even if no one's around?",
+        text: "Before you leave your desk, should you lock your laptop?",
         trustLabel: "I can leave it unlocked",
         distrustLabel: "I should lock it",
         image: "/images/card-placeholder.png",
@@ -3290,7 +3251,7 @@ export default [
         text: "You and Beejou are taking a kickboxing class together.",
         trustLabel: "Oof!",
         distrustLabel: "Pow!",
-        image: "/images/card-placeholder.png",
+        image: "/images/17-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3310,7 +3271,7 @@ export default [
         text: "You're just getting into it when you get a notification on your phone.",
         trustLabel: "Take a look",
         distrustLabel: "What's this?",
-        image: "/images/card-placeholder.png",
+        image: "/images/17-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3330,7 +3291,7 @@ export default [
         text: 'Your location shows as: "Spooky" Graveyard',
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/card-placeholder.png",
+        image: "/images/17-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3398,7 +3359,7 @@ export default [
         text: "You and Beejou are watching the sunset at the end of a long day on campus.",
         trustLabel: "Look at that sun!",
         distrustLabel: "Take in the breeze",
-        image: "/images/card-placeholder.png",
+        image: "/images/18-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3418,7 +3379,7 @@ export default [
         text: "When you go to log in to your email, you get an alert.",
         trustLabel: "What's this?",
         distrustLabel: "Just checking!",
-        image: "/images/card-placeholder.png",
+        image: "/images/18-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3438,7 +3399,7 @@ export default [
         text: "Your location shows as: Outside Reel Polytechnic",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/card-placeholder.png",
+        image: "/images/18-3.png",
         trustChoice: {
           consequences: 1,
           feedback: "",
@@ -3506,7 +3467,7 @@ export default [
         text: "You're listening to a guest lecture by famous marine biologist Dr. Silliam Billiam on their findings about sea squirrels.",
         trustLabel: "I see, I see",
         distrustLabel: "Tell me more",
-        image: "/images/card-placeholder.png",
+        image: "/images/19-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3526,7 +3487,7 @@ export default [
         text: "You get an alert on your phone that someone's trying to log in as you.",
         trustLabel: "Why now?",
         distrustLabel: "Okay...",
-        image: "/images/card-placeholder.png",
+        image: "/images/19-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3546,7 +3507,7 @@ export default [
         text: "Your location shows as: Ched's Grocer",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/card-placeholder.png",
+        image: "/images/19-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3614,7 +3575,7 @@ export default [
         text: "You've been napping all afternoon at the library on campus. You found a nice spot on top of the shelves.",
         trustLabel: "It's peaceful!",
         distrustLabel: "No one's here!",
-        image: "/images/card-placeholder.png",
+        image: "/images/20-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3634,7 +3595,7 @@ export default [
         text: "Your phone buzzes with an alert that almost knocks you off your shelf.",
         trustLabel: "Powerful!",
         distrustLabel: "Volume down!",
-        image: "/images/card-placeholder.png",
+        image: "/images/20-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3654,7 +3615,7 @@ export default [
         text: "Your location shows as: The Library",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/card-placeholder.png",
+        image: "/images/20-3.png",
         trustChoice: {
           consequences: 1,
           feedback: "",
