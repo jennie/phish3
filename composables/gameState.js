@@ -75,15 +75,23 @@ const initializeGame = async () => {
     return;
   }
 
-  // Only preload the tutorial scenario (Scenario 1)
+  // Find scenario 4
+  const scenarioFour = allScenarios.value.find((s) => s.id === 4);
+
   await preloadScenarioAssets(tutorialScenario.value);
 
-  // Initialize the game sequence (but don't preload all scenarios yet)
-  const shuffledRegularScenarios = shuffleArray(regularScenarios.value);
-  gameSequence.value = [tutorialScenario.value, ...shuffledRegularScenarios];
+  const shuffledRegularScenarios = shuffleArray(
+    regularScenarios.value.filter((s) => s.id !== 4) // Exclude scenario 4 from shuffle
+  );
+
+  gameSequence.value = [
+    tutorialScenario.value,
+    scenarioFour,
+    ...shuffledRegularScenarios,
+  ];
 
   console.log(
-    "Game initialized with tutorial scenario and shuffled regular scenarios:",
+    "Game initialized with tutorial, scenario 4, and shuffled regular scenarios:",
     gameSequence.value.map((s) => s.id)
   );
 };
