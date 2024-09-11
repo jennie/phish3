@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import confetti from 'canvas-confetti';
+
 export default {
   props: {
     finalScore: {
@@ -25,6 +27,9 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  mounted() {
+    this.checkAndTriggerConfetti();
   },
   computed: {
     gameOverArt() {
@@ -58,8 +63,44 @@ export default {
     }
   },
   methods: {
-    restartGame() {
-      this.$emit('restart-game');
+    async restartGame() {
+      try {
+        const response = await fetch('/api/update-score', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ score: this.finalScore }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update score');
+        }
+
+        const result = await response.json();
+        console.log('Score updated:', result);
+
+        if (result.finalScore > 5 || result.isNewBestScore) {
+          this.triggerConfetti();
+        }
+
+        // Emit the restart-game event
+        this.$emit('restart-game');
+      } catch (error) {
+        console.error('Error updating score:', error);
+      }
+    },
+    triggerConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { x: 0.5, y: 0.5 }
+      });
+    },
+    checkAndTriggerConfetti() {
+      if (this.finalScore > 5 || this.isNewBestScore) {
+        this.triggerConfetti();
+      }
     }
   }
 };
