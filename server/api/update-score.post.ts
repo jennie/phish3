@@ -13,12 +13,21 @@ export default defineEventHandler(async (event: H3Event) => {
     });
   }
 
+  user.latestScore = score;
+  user.lastPlayedAt = new Date();
+
   if (score > user.bestScore) {
     user.bestScore = score;
-    await user.save();
     session.user.bestScore = score;
     await setUserSession(event, session);
   }
 
-  return { message: "Score updated successfully", bestScore: user.bestScore };
+  await user.save();
+
+  return {
+    message: "Score updated successfully",
+    latestScore: user.latestScore,
+    bestScore: user.bestScore,
+    isNewBestScore: score > user.bestScore,
+  };
 });

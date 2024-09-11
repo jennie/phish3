@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   bestScore: { type: Number, default: 0 },
+  latestScore: { type: Number, default: 0 },
   lastLoginAt: Date,
+  lastPlayedAt: Date,
 });
 
 export default mongoose.model("User", userSchema);

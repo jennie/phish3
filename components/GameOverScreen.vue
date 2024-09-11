@@ -3,7 +3,9 @@
     <img :src="gameOverArt" alt="Game Over Art" class="mb-4" />
     <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
     <p class="text-xl mb-4">{{ gameOverText }}</p>
-    <p class="text-lg mb-6">Your Score: {{ finalScore }}</p>
+    <p class="text-lg mb-2">Your Score: {{ finalScore }}</p>
+    <p class="text-lg mb-6">Best Score: {{ bestScore }}</p>
+    <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>
     <button @click="restartGame" class="bg-red-500 px-6 py-2 rounded-full hover:bg-red-600">Play Again</button>
   </div>
 </template>
@@ -13,6 +15,14 @@ export default {
   props: {
     finalScore: {
       type: Number,
+      required: true
+    },
+    bestScore: {
+      type: Number,
+      required: true
+    },
+    isNewBestScore: {
+      type: Boolean,
       required: true
     }
   },
@@ -27,7 +37,9 @@ export default {
       }
     },
     gameOverTitle() {
-      if (this.finalScore >= 20) {
+      if (this.isNewBestScore) {
+        return 'New Personal Best!';
+      } else if (this.finalScore >= 20) {
         return 'Congratulations!';
       } else if (this.finalScore >= 16) {
         return 'Wow, Great Job!';
