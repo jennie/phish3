@@ -1,7 +1,8 @@
-# Learning Objective - Discerning Websites for Legitimacy
+# Discerning Websites for Legitimacy
 
-Learn how to identify legitimate websites by paying attention to certain details.
+Don’t get fooled by fake websites! 
 
-**What to look out for:** Look for padlocks on https URLs, domain names you trust, and authentic language. Professional branding and partner links can also indicate legitimacy.
+**Tip:** Look for padlocks🔒 on https URLs, domain names you trust, official logos and authentic language.
 
-**References, Read More's, support and resources could go here.**
+Even legit-looking sites can be tricky, so stay alert and surf safely! 
+
