@@ -1,7 +1,7 @@
-# Learning Objective - Discerning Urgent, Official Looking Emails
+# Discerning Urgent, Official Looking Emails
 
-Identify phishing emails disguised as urgent official communication.
+Official or Phishy? 
 
-**What to look out for:** Inconsistent language, unprofessional layouts, spelling mistakes, and an artificial sense of urgency are all red flags in a phishing scam!
+Phishing emails can look real but don’t be fooled! They often pose as trusted sources but aim to steal your sensitive information.
 
-**References, Read More's, support and resources could go here.
+**Tip:** Inconsistent language, unprofessional layouts, spelling mistakes, and an artificial sense of urgency scream “phishing scam!”
