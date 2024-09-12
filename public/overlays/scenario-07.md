@@ -1,7 +1,6 @@
-# Learning Objective - Discerning Offers, Investigating Sources
+# Discerning Offers, Investigating Sources
 
-Learn to evaluate the trustworthiness of offers by investigating their sources.
+Trust or Bust? Spot trustworthy offers by checking their sources. 
 
-**What to look out for:** Look for padlocks on URLs, domain names you trust, and authentic language—and for commercial sites, professional branding and partner links!
+**Tip:** Look for padlocks 🔒 on https URLs, domain names you trust, authentic language and official logos.
 
-**References, Read More's, support and resources could go here.**
