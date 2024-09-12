@@ -1,7 +1,5 @@
-# Learning Objective - Ransomware, Suspicious Emails
+# Ransomware Alert!
 
-Be aware of ransomware threats and how they can come through phishing emails.
+Beware of ransomware threats and how they can come through phishing emails – they are a serious threat that can disrupt your life and impact everyone at the polytechnic. 
 
-**What to look out for:** Be on the lookout for urgent, invasive demands to install software on your computer that doesn't come from polytechnic IT! Ransomware is a serious threat that could seriously affect your life, along with anyone associated with the polytechnic.
-
-**References, Read More's, support and resources could go here.**
+**Tip:** Inconsistent language, unprofessional layouts, spelling mistakes, invasive software install demands and an artificial sense of urgency scream “phishing scam!”
