@@ -1,7 +1,7 @@
-# Learning Objective - Discerning Websites for Legitimacy
+# Discerning Websites for Legitimacy
 
-Understand how to spot phishing websites that aim to steal your information.
+Too Good to Be True? It probably is!
 
-**What to look out for:** If an offer looks too good to be true, it probably is! Watch for inconsistent language, unprofessional layouts, and suspicious URLs.
+Know how to spot phishing websites that aim to steal your information.
 
-**References, Read More's, support and resources could go here.**
+**Tip:** Watch for inconsistent language, unprofessional layouts, spelling mistakes and suspicious URLs.
