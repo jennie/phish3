@@ -1,7 +1,5 @@
-# Learning Objective - Student Job Scams That Sound Too Good to be True
+# Avoid the job scam jam!
 
-Recognize student job scams designed to steal your information.
+Student job scams are a common phishing scheme that aim to steal sensitive information and exploit bad security habits.
 
-**What to look out for:** Student job scams are a common phishing scheme that aim to extract sensitive information and exploit bad security habits.
-
-**References, Read More's, support and resources could go here.**
+**Tip:** Verify job offers with trusted sources. Never share personal info or pay to secure a job.
