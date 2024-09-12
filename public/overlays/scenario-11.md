@@ -1,7 +1,6 @@
-# Learning Objective - Updating Software to Address Security Risks
+# Updating Software
+ITS Notices Matter?
 
-Understand the importance of timely software updates to maintain security.
+Acting on Polytechnic ITS software update notices promptly is crucial for your digital safety - but be sure it's coming from a legitimate and trusted source.
 
-**What to look out for:** Polytechnic IT notices to update software and security procedures should be acted upon in a timely manner to protect staff and students alike!
-
-**References, Read More's, support and resources could go here.**
+**Tip:** If it’s not from a legitimate and trusted source, it’s likely trouble. Double-check before installing anything. If in doubt, contact ITS to be sure!
