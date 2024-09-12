@@ -1,7 +1,7 @@
-# Learning Objective - Urgent Requests, Downloading Software
+# Urgent Requests, Downloading Software
 
-Recognize phishing attempts that urge you to download malicious software.
+Download Danger!
 
-**What to look out for:** Some phishing scams can be very sophisticated in their appearance and language. Official polytechnic correspondence will never ask for personal information via email.
+Beware of phishing scams urging software downloads – they can look convincing. If it’s not from a trusted source, it’s likely trouble. Double-check before installing!
 
-**References, Read More's, support and resources could go here.
+**Tip:** Official sources will never ask for sensitive information via email.
