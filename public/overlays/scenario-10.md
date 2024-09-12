@@ -1,7 +1,7 @@
-# Learning Objective - Discerning Official Looking Emails
+# Discerning Official Looking Emails
 
-Learn to identify legitimate official emails.
+Can You Spot the Real Deal?
 
-**What to look out for:** Be wary of providing personal identification through email or phone without security procedures, such as PINs, polytechnic portals, and other protective measures.
+Identify legit emails by checking for official logos and trusted links.
 
-**References, Read More's, support and resources could go here.**
+**Tip:** Never provide personal information through email or phone without security procedures like PINs, official portals, and other protective measures. 
