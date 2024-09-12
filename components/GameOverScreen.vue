@@ -80,7 +80,7 @@ export default {
         const result = await response.json();
         console.log('Score updated:', result);
 
-        if (result.finalScore > 5 || result.isNewBestScore) {
+        if (result.finalScore > 16 || result.isNewBestScore) {
           this.triggerConfetti();
         }
 
@@ -98,7 +98,7 @@ export default {
       });
     },
     checkAndTriggerConfetti() {
-      if (this.finalScore > 5 || this.isNewBestScore) {
+      if (this.finalScore > 16 || this.isNewBestScore) {
         this.triggerConfetti();
       }
     }
