@@ -1,7 +1,5 @@
-# Learning Objective - Official Email, Trustable Source
+# Can You Spot the Real Deal?
 
-Identify trustworthy sources of official communications.
+Stay vigilant and know how to spot legitimate official emails.
 
-**What to look out for:** Review communications for official logos, links to trusted domains, and policies that are consistent with polytechnic security processes.
-
-**References, Read More's, support and resources could go here.
+**Tip:** Look for official logos, trusted domain links, and security policies that match with your polytechnic’s standards.
