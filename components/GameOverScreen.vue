@@ -19,10 +19,6 @@ export default {
       type: Number,
       required: true
     },
-    bestScore: {
-      type: Number,
-      required: true
-    },
     isNewBestScore: {
       type: Boolean,
       required: true
@@ -33,7 +29,9 @@ export default {
   },
   computed: {
     bestScorePercentage() {
-      return (this.bestScore / 20) * 100;
+      const user = useUserSession().user;
+      console.log('user', user);
+      return user.value.bestScore > 0 ? (user.value.bestScore / 20) * 100 : 0;
     },
     finalScorePercentage() {
       return (this.finalScore / 20) * 100;
