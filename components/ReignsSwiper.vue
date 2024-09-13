@@ -603,8 +603,15 @@ const flipRevealCard = () => {
   if (currentCard.value?.type === 'reveal' && !isRevealCardFlipped.value) {
     console.log("Flipping reveal card");
     isRevealCardFlipped.value = true;
+
+    // Add a timeout or use the transitionend event to update the face after the flip is done
+    setTimeout(() => {
+      // Update the card face here
+      currentCard.value = getNextCard();
+    }, 600); // Match this time with your CSS transition time
   }
 };
+
 // const flipRevealCard = (index) => {
 //   console.log("flipRevealCard called for index:", index);
 //   const card = currentScenario.value.cards[index];

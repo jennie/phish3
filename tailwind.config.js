@@ -1,20 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-
 module.exports = {
-  content: [
-    "./components/**/*.{js,vue,ts,md}",
-    "./content/**/*.{js,vue,ts,md}",
-    "./layouts/**/*.vue",
-    "./pages/**/*.vue",
-    "./plugins/**/*.{js,ts}",
-    "./nuxt.config.{js,ts}",
-    "./tailwind-theme.js",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx,vue,html}"],
   theme: {
     extend: {
       fontFamily: {
-        body: "Roboto",
-        display: "Roboto Slab",
+        body: ["Roboto", "sans-serif"],
+        display: ["Roboto Slab", "serif"],
       },
     },
   },
