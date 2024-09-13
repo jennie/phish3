@@ -99,7 +99,7 @@
                     :class="card.isCorrect ? 'bg-green-400' : 'bg-red-300'">
                     <div>
                       <div class="mx-16 mt-20">
-                        <p class="font-serif font-black text-black mb-2 text-center text-2xl">
+                        <p class="font-display font-black text-black mb-2 text-center text-2xl">
                           {{ card.userAction }}
                         </p>
                       </div>
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="learning-objective text-black p-3">
-                      <p class="font-serif text-lg text-black text-center leading-snug">
+                      <p class="font-display text-lg text-black text-center leading-snug">
                         {{ currentScenario.learningObjectives }}
                       </p>
                     </div>

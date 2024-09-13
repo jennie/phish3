@@ -5,7 +5,7 @@
 
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none px-6">
-      <p class="text-2xl font-serif text-white leading-snug text-center">
+      <p class="text-2xl font-display text-white leading-snug text-center">
         Review your choices
       </p>
     </div>
@@ -23,7 +23,7 @@
                   :class="`absolute inset-0 ${getScoreChange(scenario) === 1 ? 'bg-green-400' : 'bg-red-300'} bg-opacity-90 p-4 flex flex-col  overflow-y-auto justify-between`">
                   <div>
                     <div class="mx-16 mt-20">
-                      <p class="font-serif font-black text-black mb-2 text-center text-2xl">{{
+                      <p class="font-display font-black text-black mb-2 text-center text-2xl">{{
                         getDecisionCardText(scenario) }}
                       </p>
                     </div>
@@ -51,7 +51,8 @@
                   </div>
                   <div class="learning-objective text-black p-3">
 
-                    <p class="font-serif text-lg text-black text-center leading-snug ">{{ scenario.learningObjectives }}
+                    <p class="font-display text-lg text-black text-center leading-snug ">{{ scenario.learningObjectives
+                      }}
                     </p>
 
                   </div>
