@@ -10,13 +10,16 @@
 
   <div v-if="currentScenario && currentCard" class="bg-black flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
-    <div class="flex-none h-1/6  flex items-center justify-center pointer-events-none p-6">
+    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none p-6">
       <Transition name="fade" mode="out-in">
-        <div v-if="currentCard && currentCard.type !== 'reveal'" :key="currentCardIndex"
+        <div v-if="currentCard && currentCard.text" :key="currentCardIndex"
           class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
         </div>
         <div v-else-if="lastDecisionText" :key="'last-decision'"
           class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(lastDecisionText)">
+        </div>
+        <div v-else key="no-text" class="text-sm text-white leading-snug text-center">
+          <!-- You can add a loading message or leave it empty -->
         </div>
       </Transition>
     </div>
@@ -26,10 +29,6 @@
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
         <swiper-slide v-for="(card, index) in filteredCards" :key="index" class="flex items-center justify-center">
-
-
-
-
           <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative"
             :class="{ 'is-flipped': isRevealCardFlipped }">
 
@@ -84,23 +83,75 @@
                   data-swiper-parallax="-300" data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
               </div>
             </div>
+            <!-- Back face (reveal card) -->
+            <div v-if="card.type === 'reveal'" :class="['card-face back absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600 border-8 border-white',
+              {
+                'rotate-y-180': !cardFlipStates[card.id],
+                'mfa-reveal-card': currentScenario.scenarioType === 'mfa',
+                'regular-reveal-card': currentScenario.scenarioType !== 'mfa'
+              }]">
 
-            <div v-if="card.type === 'reveal'"
-              :class="['card-face back absolute inset-0 rounded-xl overflow-hidden bg-gray-800 flex items-center justify-center transition-transform duration-600 reveal border-8 border-white', { 'rotate-y-180': !cardFlipStates[card.id] }]">
+              <!-- MFA-specific reveal card content -->
+              <template v-if="currentScenario.scenarioType === 'mfa'">
+                <div class="absolute inset-0 bg-cover bg-center"
+                  :style="{ backgroundImage: `url(${getScenarioImage(currentScenario)})` }">
+                  <div class="absolute inset-0 bg-opacity-90 p-4 flex flex-col overflow-y-auto justify-between"
+                    :class="card.isCorrect ? 'bg-green-400' : 'bg-red-300'">
+                    <div>
+                      <div class="mx-16 mt-20">
+                        <p class="font-serif font-black text-black mb-2 text-center text-2xl">
+                          {{ card.userAction }}
+                        </p>
+                      </div>
+                      <div class="p-3">
+                        <p class="text-center text-xs text-white mb-1 flex flex-col items-center justify-center">
+                          <span class="text-xl rounded-md text-black">
+                            <div>{{ card.outcome }}</div>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
 
-              <div v-if="decisionFeedback" class="p-4 text-white">
-                <p class="text-xl px-8" v-html="parseCardText(decisionFeedback)" />
-              </div>
+                    <!-- Sash container -->
+                    <div class="absolute -top-3 -left-3 w-64 h-64 overflow-hidden clip-diagonal">
+                      <!-- Sash -->
+                      <div :class="[
+                        'absolute -top-10 -left-10 w-full text-center pt-20 pb-2 text-white text-2xl font-bold font-sans uppercase transform -rotate-45 translate-y-10 -translate-x-10 clip-diagonal',
+                        card.isCorrect ? 'bg-green-500' : 'bg-red-500'
+                      ]">
+                        {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
+                      </div>
+                    </div>
+
+                    <div class="learning-objective text-black p-3">
+                      <p class="font-serif text-lg text-black text-center leading-snug">
+                        {{ currentScenario.learningObjectives }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </template>
+
+              <!-- Regular reveal card content -->
+              <template v-else>
+                <div class="regular-reveal-content h-full flex items-center justify-center">
+                  <div class="p-4 text-white">
+                    <p v-if="card.feedback" class="text-xl px-8" v-html="parseCardText(card.feedback)" />
+                    <p v-else class="text-xl px-8">No feedback available</p>
+                  </div>
+                </div>
+              </template>
+
             </div>
-          </div>
-          <div v-if="isTransitionCard"
-            class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center text-white p-4 z-50">
-            <h2 class="text-2xl font-bold mb-4">Scenario Complete</h2>
-            <p class="mb-6 text-center">You've completed this scenario. Ready to move to the next one?</p>
-            <button @click="moveToNextScenario"
-              class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-600 transition-colors">
-              Proceed to Next Scenario
-            </button>
+            <div v-if="isTransitionCard"
+              class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center text-white p-4 z-50">
+              <h2 class="text-2xl font-bold mb-4">Scenario Complete</h2>
+              <p class="mb-6 text-center">You've completed this scenario. Ready to move to the next one?</p>
+              <button @click="moveToNextScenario"
+                class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-600 transition-colors">
+                Proceed to Next Scenario
+              </button>
+            </div>
           </div>
         </swiper-slide>
       </swiper-container>
@@ -184,6 +235,7 @@ const currentScore = computed(() => playerState.value.score);
 const isRevealCardFlipped = ref(false);
 
 const parseCardText = (text) => {
+  if (!text) return ''; // Return an empty string if text is undefined or null
   console.log('Parsing card text:', text);
   return text.replace(/\n/g, '<br>');
 };
@@ -851,15 +903,32 @@ watch(cardFlipStates, (newStates) => {
 }, { deep: true });
 
 
+const getScenarioImage = (scenario) => {
+  const decisionCard = scenario.cards.find(card => card.type === 'decision');
+  return decisionCard?.image || '/images/card-placeholder.png';
+};
+
+const getScoreChange = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  return choice ? choice.scoreChange : 0;
+};
+
 const handleChoice = async (isTrust) => {
   if (currentCard.value?.type === 'decision' && !isFlipping.value) {
     isFlipping.value = true;
     makeChoice(isTrust);
-    const feedback = isTrust
-      ? currentCard.value.trustChoice?.feedback
-      : currentCard.value.distrustChoice?.feedback;
-    decisionFeedback.value = await renderMarkdown(feedback);
-    lastDecisionText.value = currentCard.value.text;
+
+    const choice = isTrust ? currentCard.value.trustChoice : currentCard.value.distrustChoice;
+    const revealCard = currentScenario.value.cards.find(card => card.type === 'reveal');
+
+    if (revealCard && currentScenario.value.scenarioType === 'mfa') {
+      revealCard.userAction = isTrust ? 'Approved the login attempt' : 'Denied the login attempt';
+      revealCard.outcome = choice.feedback;
+      revealCard.scoreChange = choice.consequences;
+      revealCard.isCorrect = choice.consequences === 1;
+    } else if (revealCard) {
+      revealCard.feedback = choice.feedback;
+    }
 
     // Move to the reveal card
     swiperRef.value.swiper.slideNext();
@@ -875,6 +944,7 @@ const handleChoice = async (isTrust) => {
     isFlipping.value = false;
   }
 };
+
 
 const handleJumpToScenario = (scenarioId) => {
   jumpToScenario(scenarioId);
@@ -921,6 +991,27 @@ const handleMoveToNextScenario = () => {
   isTransitionCardVisible.value = false;
   moveToNextScenario();
 };
+
+
+const isCorrectChoice = (scenario) => {
+  const choice = userChoices.value[scenario.id];
+  if (!choice) return false;
+
+  const decisionCard = scenario.cards.find(card => card.type === 'decision');
+  if (!decisionCard) return false;
+
+  // For MFA scenarios, we determine correctness based on the consequences value
+  if (scenario.scenarioType === 'mfa') {
+    const chosenConsequences = choice.choice === 'trust'
+      ? decisionCard.trustChoice.consequences
+      : decisionCard.distrustChoice.consequences;
+    return chosenConsequences === 1;
+  }
+
+  // For non-MFA scenarios, we can use the existing logic
+  return choice.scoreChange > 0;
+};
+
 
 </script>
 
@@ -1197,5 +1288,64 @@ const handleMoveToNextScenario = () => {
     @apply mb-0
   }
 
+}
+
+.mfa-reveal-card {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+}
+
+.mfa-reveal-card .card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Swiper specific styles */
+.swiper-slide-shadow {
+  @apply absolute inset-0 bg-black bg-opacity-15 pointer-events-none z-10;
+}
+
+/* Safe area adjustment */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.mfa-reveal-card .learning-objective {
+  br {
+    @apply mb-2 block;
+    content: "";
+  }
+
+  p {
+    @apply mb-0;
+  }
+}
+
+.regular-reveal-card {
+  background-image: url('/images/card-reveal.png');
+  background-size: cover;
+  background-position: center center;
+}
+
+.regular-reveal-content {
+  background-color: rgba(0, 0, 100, 0.7);
+  /* Semi-transparent blue background */
+}
+
+
+/* Ensure MFA styles don't bleed into regular cards */
+.card-face.back:not(.mfa-reveal-card) .absolute.inset-0.bg-opacity-90 {
+  display: none;
 }
 </style>

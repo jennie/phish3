@@ -1,7 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
+  runtimeConfig: {
+    mongodbUri: process.env.MONGODB_URI,
+  },
   public: {
     data: "~/data",
   },
@@ -15,8 +17,12 @@ export default defineNuxtConfig({
   build: {
     analyze: true,
   },
-
-  modules: ["@nuxtjs/tailwindcss"],
+  nitro: {
+    routeRules: {
+      "/api/**": { cors: true },
+    },
+  },
+  modules: ["@nuxtjs/tailwindcss", "nuxt-auth-utils"],
   // googleFonts: {
   //   families: {
   //     Roboto: [400, 700],
