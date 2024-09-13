@@ -1,6 +1,6 @@
 <template>
   <div class="start-screen h-screen flex flex-col justify-center items-center  text-blue-100">
-    <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class="max-w-96 mb-4" />
+    <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" />
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
       <div class="flex justify-center items-center">
