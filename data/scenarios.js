@@ -3,7 +3,7 @@ export default [
     id: 1,
     scenarioType: "tutorial",
     learningObjectives:
-      "Tutorial Text: It's decision time! click/tap or swipe left or right to Trust or Distrust",
+      "It's decision time! click/tap or swipe left or right to Trust or Distrust",
     cards: [
       {
         id: 1,
@@ -12,7 +12,7 @@ export default [
         text: "It's your first day at Reel Polytechnic. It's a beautiful day and the sun is shining.",
         trustLabel: "Hi, world!",
         distrustLabel: "Sun shining!",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -32,7 +32,7 @@ export default [
         text: "Your friend Beejou finds you and buzzes over. \n\n Hey there! Since you're here early, let me take you on a tour!",
         trustLabel: "It's Beejou!",
         distrustLabel: "What's up?",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -52,7 +52,7 @@ export default [
         text: "Normally, I'd bring you to The Pond for a snack. It's our cafeteria with a real pond, but it's closed right now...",
         trustLabel: "A real pond?",
         distrustLabel: "Oh...",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -69,10 +69,10 @@ export default [
         id: 1,
         type: "story",
         order: 4,
-        text: "(Beejou:) Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
+        text: "Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
         trustLabel: "Geese?",
         distrustLabel: "That's worrisome...",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-4.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -92,7 +92,7 @@ export default [
         text: "You follow Beejou through the campus, learning about the different buildings, facilities, and activities available here.",
         trustLabel: "Beautiful...",
         distrustLabel: "Is this real?",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-5.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -109,10 +109,10 @@ export default [
         id: 1,
         type: "story",
         order: 6,
-        text: "(Beejou:) As you settle in, stay alert for phishing scams. They could be suspicious emails, fake websites, or strange requests. ",
+        text: "As you settle in, stay alert for phishing scams. They could be suspicious emails, fake websites, or strange requests. ",
         trustLabel: "A phish?",
         distrustLabel: "Scams!?",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-6.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -132,7 +132,7 @@ export default [
         text: "There's been a lot more recently. The campus IT Security team's worried.. Remember, always verify the source before trusting any information!",
         trustLabel: "I will!",
         distrustLabel: "Of course!",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-7.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -152,7 +152,7 @@ export default [
         text: "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the bulletin boards.",
         trustLabel: "Peaceful...",
         distrustLabel: "Exciting!",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-8.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -168,11 +168,11 @@ export default [
       {
         id: 1,
         type: "story",
-        order: 11,
+        order: 9,
         text: "Beejou stops suddenly. \n\n Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
         trustLabel: "A shortcut?",
         distrustLabel: "Is it safe?",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-9.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -188,11 +188,11 @@ export default [
       {
         id: 1,
         type: "decision",
-        order: 12,
+        order: 10,
         text: "Do you trust Beejou to get you back in time?",
         trustLabel: "Trust Beejou's detour",
         distrustLabel: "Distrust Beejou",
-        image: "/images/card-placeholder.png",
+        image: "/images/1-10.png",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -3288,19 +3288,20 @@ export default [
         id: 17,
         type: "decision",
         order: 3,
-        text: 'Your location shows as: "Spooky" Graveyard',
+        text: 'Your location shows as: "Spooky" Library',
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
         image: "/images/17-3.png",
         trustChoice: {
           consequences: null,
-          feedback: "",
+          feedback: 'Wait, you\'re not at the "spooky" library... are you?',
         },
         distrustChoice: {
           consequences: 1,
-          feedback: "",
+          feedback:
+            'Good job! Your kickboxing class is definitely not in some "spooky" library... You\'d know!',
         },
-        overlayContent: "",
+        overlayContent: "scenario-17.md",
         minScore: null,
         maxScore: null,
       },
@@ -3402,13 +3403,15 @@ export default [
         image: "/images/18-3.png",
         trustChoice: {
           consequences: 1,
-          feedback: "",
+          feedback:
+            "You watch the rest of the sunset, confident you made the right choice.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "You could've approved it. It was you logging in, after all, but maybe the sun's glare made you hit the wrong button.",
         },
-        overlayContent: "",
+        overlayContent: "scenario-18.md",
         minScore: null,
         maxScore: null,
       },
@@ -3510,13 +3513,15 @@ export default [
         image: "/images/19-3.png",
         trustChoice: {
           consequences: null,
-          feedback: "",
+          feedback:
+            "Oh no! You're not at Ched's Grocer! That's halfway across town!",
         },
         distrustChoice: {
           consequences: 1,
-          feedback: "",
+          feedback:
+            "You're right! You're on campus, not at Ched's Grocer! Phew.",
         },
-        overlayContent: "",
+        overlayContent: "scenario-19.md",
         minScore: null,
         maxScore: null,
       },
@@ -3618,13 +3623,14 @@ export default [
         image: "/images/20-3.png",
         trustChoice: {
           consequences: 1,
-          feedback: "",
+          feedback:
+            "Good job! You're definitely in the library, sleeping between Canadian Studies and Cognitive Science.",
         },
         distrustChoice: {
           consequences: null,
-          feedback: "",
+          feedback: "Wait a sec, did that say the library? Whoops!",
         },
-        overlayContent: "",
+        overlayContent: "scenario-20.md",
         minScore: null,
         maxScore: null,
       },
@@ -3682,7 +3688,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! It's finally been beautified! \n\n The pond is sparkling, floaties are in the water, and everyone is enjoying the snacks and drinks.",
         trustLabel: "Celebrate!",
         distrustLabel: "Stay cautious...",
-        image: "/images/card-placeholder.png",
+        image: "/images/101-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3699,10 +3705,10 @@ export default [
         id: 101,
         type: "story",
         order: 2,
-        text: "(Beejou:) Great job spotting phishing attempts! Just a few slipped by.",
+        text: "Great job spotting phishing attempts! Just a few slipped by.",
         trustLabel: "Thanks!",
         distrustLabel: "I'll be vigilant!",
-        image: "/images/card-placeholder.png",
+        image: "/images/101-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3722,7 +3728,7 @@ export default [
         text: "At the end of the party, as everyone's sweeping up, you notice something strange... \n\n There's a goose sweeping some dust into a corner. It seems they used the party to sneak in...",
         trustLabel: "Suspicious...",
         distrustLabel: "Keep an eye out!",
-        image: "/images/card-placeholder.png",
+        image: "/images/101-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3749,7 +3755,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party is bustling with floaties, snacks, and drinks.",
         trustLabel: "Enjoy the party!",
         distrustLabel: "Stay cautious...",
-        image: "/images/card-placeholder.png",
+        image: "/images/201-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3766,10 +3772,10 @@ export default [
         id: 201,
         type: "story",
         order: 2,
-        text: "(Beejou:) Unfortunately we missed a few phishing attempts... We should stay alert!",
+        text: "Unfortunately we missed a few phishing attempts... We should stay alert!",
         trustLabel: "Understood.",
         distrustLabel: "I'll be cautious!",
-        image: "/images/card-placeholder.png",
+        image: "/images/201-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3789,7 +3795,7 @@ export default [
         text: "You see a goose with, you assume, a stolen credit card. What could they be planning?",
         trustLabel: "This is bad...",
         distrustLabel: "So suspicious!",
-        image: "/images/card-placeholder.png",
+        image: "/images/201-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3816,7 +3822,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party is bustling, but there's an eerie feeling...",
         trustLabel: "Investigate!",
         distrustLabel: "This is bad...",
-        image: "/images/card-placeholder.png",
+        image: "/images/301-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3833,10 +3839,10 @@ export default [
         id: 301,
         type: "story",
         order: 2,
-        text: "(Beejou's panicking:) We missed too many phishing attempts! The geese have taken over!",
+        text: "We missed too many phishing attempts! \n\n The geese have taken over!",
         trustLabel: "Oh no!",
         distrustLabel: "This isn't good...",
-        image: "/images/card-placeholder.png",
+        image: "/images/301-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3856,7 +3862,7 @@ export default [
         text: "Unfortunately, the geese run the campus now. \n\n They give themselves straight A's and the cafeteria sells worms and corn (gross).",
         trustLabel: "So unfair!",
         distrustLabel: "Disgusting...",
-        image: "/images/card-placeholder.png",
+        image: "/images/301-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3883,7 +3889,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party's in full swing. \n\n The cafeteria is buzzing with excitement, and the pond is sparkling.",
         trustLabel: "Join the fun!",
         distrustLabel: "Stay alert...",
-        image: "/images/card-placeholder.png",
+        image: "/images/401-1.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3903,7 +3909,7 @@ export default [
         text: "(Beejou:) The party is a huge success! Everyone's enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!",
         trustLabel: "Thanks!",
         distrustLabel: "Appreciate it!",
-        image: "/images/card-placeholder.png",
+        image: "/images/401-2.png",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3923,7 +3929,7 @@ export default [
         text: "Even the geese are behaving, floating peacefully in the pond. It's a perfect day at Reel Polytechnic.",
         trustLabel: "Celebrate!",
         distrustLabel: "Honk!",
-        image: "/images/card-placeholder.png",
+        image: "/images/401-3.png",
         trustChoice: {
           consequences: null,
           feedback: "",

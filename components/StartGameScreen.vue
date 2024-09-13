@@ -1,14 +1,15 @@
 <template>
   <div class="start-screen h-screen flex flex-col justify-center items-center  text-blue-100">
+    <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class="max-w-96 mb-4" />
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
-      <!-- Tailwind Spinner -->
       <div class="flex justify-center items-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-green-400"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-400"></div>
       </div>
     </div>
 
     <div v-else class="start-game w-full max-w-md px-4">
+
       <AuthState v-slot="{ loggedIn, user, clear }">
         <div v-if="loggedIn" class="text-center">
           <p class="text-xl mb-2">Welcome, {{ user.email }}!</p>
