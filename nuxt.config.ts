@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   },
   modules: ["@nuxtjs/tailwindcss", "nuxt-auth-utils", "@nuxtjs/google-fonts"],
   googleFonts: {
+    download: false,
     families: {
       Roboto: [400, 700],
       "Roboto Slab": [800],
