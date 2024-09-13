@@ -29,7 +29,6 @@ export default defineNuxtConfig({
       "Roboto Slab": [800],
     },
     display: "swap",
-    preload: true,
   },
   vue: {
     compilerOptions: {
