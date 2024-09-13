@@ -22,15 +22,15 @@ export default defineNuxtConfig({
       "/api/**": { cors: true },
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-auth-utils"],
-  // googleFonts: {
-  //   families: {
-  //     Roboto: [400, 700],
-  //     "Roboto Slab": [800],
-  //   },
-  //   display: "swap",
-  //   preload: true,
-  // },
+  modules: ["@nuxtjs/tailwindcss", "nuxt-auth-utils", "@nuxtjs/google-fonts"],
+  googleFonts: {
+    families: {
+      Roboto: [400, 700],
+      "Roboto Slab": [800],
+    },
+    display: "swap",
+    preload: true,
+  },
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => tag.includes("swiper"),

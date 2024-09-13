@@ -9,7 +9,7 @@
 
 html,
 body {
-  @apply relative h-full m-0 p-0;
+  @apply relative h-full m-0 p-0 font-body;
 }
 
 body {
@@ -30,6 +30,9 @@ body {
   @apply h-3/5 flex flex-row items-center justify-center text-2xl text-white box-border;
   .overlay {
     @apply text-base;
+    h2 {
+      @apply text-3xl font-display;
+    }
   }
 }
 /* .card-gradient-overlay {
