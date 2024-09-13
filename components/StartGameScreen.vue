@@ -11,16 +11,16 @@
     <div v-else class="start-game w-full max-w-md px-4">
       <AuthState v-slot="{ loggedIn, user, clear }">
         <div v-if="loggedIn" class="text-center">
-          <p class="text-xl mb-4">Welcome, {{ user.email }}!</p>
-          <p class="mb-4">Your best score: {{ user.bestScore }}</p>
-          <button @click="startGame"
-            class="bg-white text-zinc-800 rounded-full px-6 py-3 text-lg font-semibold hover:bg-gray-200 transition-colors mb-4">
-            Start Game
-          </button>
-          <button @click="logout"
-            class="bg-red-500 text-white rounded-full px-6 py-3 text-lg font-semibold hover:bg-red-600 transition-colors">
+          <p class="text-xl mb-2">Welcome, {{ user.email }}!</p>
+          <button @click="logout" class="uppercase text-red-500 underline text-sm font-semibold transition-colors mb-2">
             Logout
           </button>
+          <p class="mb-4" v-if="user.bestScore > 0">Your best score: {{ bestScorePercentage }}%</p>
+          <button @click="startGame"
+            class="bg-green-200 text-zinc-800 rounded-full px-12 py-3 text-lg font-semibold hover:bg-green-300 transition-colors mb-4">
+            Start Game
+          </button>
+
         </div>
         <div v-else>
           <h2 class="text-2xl mb-4 text-center">Enter Your Seneca Email to Play</h2>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useGameState } from '@/composables/gameState';
 import { useUserSession } from '#imports';
 
@@ -89,5 +89,12 @@ onMounted(async () => {
   setTimeout(() => {
     isLoading.value = false;
   }, 500); // A small delay to ensure smoother transition after loading
+});
+
+// Computed property for bestScore percentage
+const bestScorePercentage = computed(() => {
+  const user = useUserSession().user;
+  console.log('user', user);
+  return user.value.bestScore > 0 ? (user.value.bestScore / 20) * 100 : 0;
 });
 </script>

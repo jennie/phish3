@@ -344,8 +344,8 @@ const skipToEndingScenario = () => {
 
 // Update transitionToNextScenario
 const transitionToNextScenario = async () => {
-  // console.log('Transitioning to next scenario');
   isTransitioning.value = true;
+  isRevealCardFlipped.value = false; // Reset flip state
 
   if (currentScenarioIndex.value < regularScenarios.value.length - 1) {
     // Move to the next regular scenario
@@ -896,8 +896,9 @@ watch(currentCardIndex, (newIndex, oldIndex) => {
   console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
   console.log('Current card:', currentCard.value);
 
+  isRevealCardFlipped.value = false; // Reset flip state
+
   if (currentCard.value?.type === 'reveal') {
-    isRevealCardFlipped.value = false;
     setTimeout(() => {
       isRevealCardFlipped.value = true;
     }, 1000);
@@ -973,6 +974,7 @@ const handleNextClick = async () => {
       swiperRef.value.swiper.slideNext();
     } else {
       console.log("Last card of scenario, moving to next scenario");
+      isRevealCardFlipped.value = false; // Reset flip state
       await moveToNextScenario();
       currentCardIndex.value = 0;
     }
@@ -1040,29 +1042,30 @@ const isCorrectChoice = (scenario) => {
   --card-horizontal-margin: 5vw;
 }
 
-
+/* 
 
 .card-face.front {
   z-index: 2;
+  transform: rotateY(0deg);
 }
 
 .card-face.back {
-  transform: rotateY(180deg);
   z-index: 1;
-}
-
-.card-container.is-flipped {
   transform: rotateY(180deg);
 }
 
 .card-container.is-flipped .card-face.front {
   z-index: 1;
+  transform: rotateY(180deg);
 }
 
 .card-container.is-flipped .card-face.back {
   z-index: 2;
+  transform: rotateY(0deg);
 }
 
+
+ */
 
 .card-container {
   @apply aspect-[11/19] h-4/6 relative;
@@ -1344,12 +1347,6 @@ const isCorrectChoice = (scenario) => {
   background-size: cover;
   background-position: center center;
 }
-
-.regular-reveal-content {
-  background-color: rgba(0, 0, 100, 0.7);
-  /* Semi-transparent blue background */
-}
-
 
 /* Ensure MFA styles don't bleed into regular cards */
 .card-face.back:not(.mfa-reveal-card) .absolute.inset-0.bg-opacity-90 {

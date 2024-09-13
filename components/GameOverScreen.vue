@@ -3,8 +3,8 @@
     <img :src="gameOverArt" alt="Game Over Art" class="mb-4" />
     <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
     <p class="text-xl mb-4">{{ gameOverText }}</p>
-    <p class="text-lg mb-2">Your Score: {{ finalScore }}</p>
-    <p class="text-lg mb-6">Best Score: {{ bestScore }}</p>
+    <p class="text-lg mb-2">Your Score: {{ finalScorePercentage }}%</p>
+    <p class="text-lg mb-6">Best Score: {{ bestScorePercentage }}%</p>
     <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>
     <button @click="restartGame" class="bg-red-500 px-6 py-2 rounded-full hover:bg-red-600">Play Again</button>
   </div>
@@ -32,6 +32,12 @@ export default {
     this.checkAndTriggerConfetti();
   },
   computed: {
+    bestScorePercentage() {
+      return (this.bestScore / 20) * 100;
+    },
+    finalScorePercentage() {
+      return (this.finalScore / 20) * 100;
+    },
     gameOverArt() {
       if (this.finalScore >= 20) {
         return '/path/to/high-score-art.png';
