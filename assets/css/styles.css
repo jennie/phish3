@@ -193,7 +193,7 @@ body {
   h1,
   h2,
   h3 {
-    @apply pb-4;
+    @apply pb-4 font-display mr-12;
   }
   h1 {
     @apply text-3xl;

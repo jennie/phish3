@@ -51,19 +51,17 @@
                 <!-- Overlay -->
                 <Transition :name="overlayTransitionName">
                   <div v-if="card.showOverlay"
-                    class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
-                    <div class="flex justify-between items-center mb-4">
+                    class="absolute inset-0 bg-zinc-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
 
-                      <div>
-                        <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
+                    <div>
+                      <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
                           bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
                     </div>
                     <div class="flex-grow overflow-y-auto overlay">
                       <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent" class="overlay-content">
