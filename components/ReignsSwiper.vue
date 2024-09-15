@@ -1352,4 +1352,9 @@ const isCorrectChoice = (scenario) => {
 .card-face.back:not(.mfa-reveal-card) .absolute.inset-0.bg-opacity-90 {
   display: none;
 }
+
+/* Add this to your CSS */
+swiper-container {
+  perspective: 1000px;
+}
 </style>
