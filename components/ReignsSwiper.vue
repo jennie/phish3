@@ -109,7 +109,7 @@
                         </div>
                       </div>
                       <div>
-                        <div class="pt-6">
+                        <div class="pt-6 px-3">
                           <p class="font-display font-black text-black mb-2 text-center text-lg">
                             {{ card.userAction }}
                           </p>
@@ -177,7 +177,7 @@
               { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]">
             <BackButton v-if="!isDecisionCard" />
             <div v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-red-400 rounded-full py-2 px-4 font-bold text-2xl">DENY</div>
+              class="bg-red-400 rounded-full py-2 px-4 font-bold text-base">DENY</div>
             <ThumbsDown v-else />
           </button>
 
@@ -186,7 +186,7 @@
               { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]">
             <NextButton v-if="!isDecisionCard" />
             <span v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-green-400 rounded-full py-2 px-4 font-bold text-2xl">APPROVE</span>
+              class="bg-green-400 rounded-full py-2 px-4 font-bold text-base">APPROVE</span>
             <ThumbsUp v-else />
           </button>
 
