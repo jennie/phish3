@@ -3,8 +3,8 @@
   --swiper-tinder-yes-color: green;
   --swiper-tinder-label-text-color: #fff;
   --swiper-tinder-label-font-size: 32px;
-  --swiper-tinder-button-size: 56px;
-  --swiper-tinder-button-icon-size: 32px;
+  --swiper-tinder-button-size: 110px;
+  --swiper-tinder-button-icon-size: 200px;
 }
 
 html,
@@ -207,4 +207,7 @@ body {
   p {
     @apply pb-3;
   }
+}
+.embossed-text {
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.75);
 }

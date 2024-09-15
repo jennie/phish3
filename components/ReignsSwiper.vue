@@ -95,39 +95,42 @@
               <template v-if="currentScenario.scenarioType === 'mfa'">
                 <div class="absolute inset-0 bg-cover bg-center"
                   :style="{ backgroundImage: `url(${getScenarioImage(currentScenario)})` }">
-                  <div class="absolute inset-0 bg-opacity-90 p-4 flex flex-col overflow-y-auto justify-between"
+                  <div class="absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
                     :class="card.isCorrect ? 'bg-green-400' : 'bg-red-300'">
-                    <div>
-                      <div class="mx-16 mt-20">
-                        <p class="font-display font-black text-black mb-2 text-center text-2xl">
-                          {{ card.userAction }}
-                        </p>
+                    <div class="flex flex-col">
+                      <!-- Sash container -->
+                      <div class=" top-0 left-0  w-full overflow-hidden ">
+                        <!-- Sash -->
+                        <div :class="[
+                          'w-full text-center py-4 text-white text-2xl font-bold font-sans uppercase',
+                          card.isCorrect ? 'bg-green-500' : 'bg-red-500'
+                        ]">
+                          {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
+                        </div>
                       </div>
-                      <div class="p-3">
-                        <p class="text-center text-xs text-white mb-1 flex flex-col items-center justify-center">
-                          <span class="text-xl rounded-md text-black">
-                            <div>{{ card.outcome }}</div>
-                          </span>
+                      <div>
+                        <div class="pt-6">
+                          <p class="font-display font-black text-black mb-2 text-center text-lg">
+                            {{ card.userAction }}
+                          </p>
+                        </div>
+                        <div class="p-3">
+                          <p class="text-center text-xs text-white mb-1 flex flex-col items-center justify-center">
+                            <span class="text-sm rounded-md text-black">
+                              <div>{{ card.outcome }}</div>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="learning-objective text-black p-3">
+                        <p class="font-display text-base text-black text-center leading-snug">
+                          {{ currentScenario.learningObjectives }}
                         </p>
                       </div>
                     </div>
 
-                    <!-- Sash container -->
-                    <div class="absolute -top-3 -left-3 w-64 h-64 overflow-hidden clip-diagonal">
-                      <!-- Sash -->
-                      <div :class="[
-                        'absolute -top-10 -left-10 w-full text-center pt-20 pb-2 text-white text-2xl font-bold font-sans uppercase transform -rotate-45 translate-y-10 -translate-x-10 clip-diagonal',
-                        card.isCorrect ? 'bg-green-500' : 'bg-red-500'
-                      ]">
-                        {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
-                      </div>
-                    </div>
 
-                    <div class="learning-objective text-black p-3">
-                      <p class="font-display text-lg text-black text-center leading-snug">
-                        {{ currentScenario.learningObjectives }}
-                      </p>
-                    </div>
+
                   </div>
                 </div>
               </template>
@@ -136,7 +139,8 @@
               <template v-else>
                 <div class="regular-reveal-content h-full flex items-center justify-center">
                   <div class="p-4 text-white">
-                    <p v-if="card.feedback" class="text-xl px-8" v-html="parseCardText(card.feedback)" />
+                    <p v-if="card.feedback" class="text-lg text-center font-display embossed-text text-blue-100"
+                      v-html="parseCardText(card.feedback)" />
                     <p v-else class="text-xl px-8">No feedback available</p>
                   </div>
                 </div>
@@ -161,30 +165,28 @@
     </div>
 
     <!-- Controls Container -->
-    <div class="flex-none h-1/6 flex flex-col align-middle items-center justify-end w-full">
+    <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full">
 
-      <div class="flex space-x-12 justify-between z-10">
+      <div class="px-6 w-full flex space-x-12 justify-between z-10 ">
         <a href="/" @click.prevent="returnToStartScreen" class="p-2 self self-center">
           <HomeButton />
         </a>
-        <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-10 w-full">
+        <div class="flex -mt-8 justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full ">
           <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
-            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-              { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]"
-            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+              { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]">
             <BackButton v-if="!isDecisionCard" />
             <div v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-red-400 rounded-full py-2 px-4 font-bold text-base">DENY</div>
+              class="bg-red-400 rounded-full py-2 px-4 font-bold text-2xl">DENY</div>
             <ThumbsDown v-else />
           </button>
 
           <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
-            :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-              { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]"
-            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+            :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+              { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]">
             <NextButton v-if="!isDecisionCard" />
             <span v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-green-400 rounded-full py-2 px-4 font-bold text-base">APPROVE</span>
+              class="bg-green-400 rounded-full py-2 px-4 font-bold text-2xl">APPROVE</span>
             <ThumbsUp v-else />
           </button>
 

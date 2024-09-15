@@ -1,6 +1,6 @@
 <template>
 
-  <svg width="56px" height="68.0976562px" viewBox="0 0 56 68.0976562" version="1.1" xmlns="http://www.w3.org/2000/svg"
+  <svg width="80px" height="80px" viewBox="0 0 56 68.0976562" version="1.1" xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="UX-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
       <g id="Decision-Card" transform="translate(-202, -665)">
