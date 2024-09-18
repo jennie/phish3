@@ -1,6 +1,4 @@
-# Links and Logins
-
-Stay sharp and don’t take the bait!
+# Stay sharp and don’t take the bait!
 
 Phishing scams trick you into clicking on malicious links or entering your login details on fake websites.
 
