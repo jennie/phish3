@@ -15,12 +15,14 @@ export default defineEventHandler(async (event: H3Event) => {
   else if (domain === "senecapolytechnic.ca") userType = "employee";
   else if (domain === "senecagovernors.ca") userType = "governor";
   else if (domain === "gammaspace.ca") userType = "gammaspace";
-  else {
-    throw createError({
-      statusCode: 400,
-      message: "Invalid email domain",
-    });
-  }
+  else userType = "tester";
+  // todo: reimplement domain restriction
+  // else {
+  //   throw createError({
+  //     statusCode: 400,
+  //     message: "Invalid email domain",
+  //   });
+  // }
 
   // Find or create user
   let user = await User.findOne({ email });

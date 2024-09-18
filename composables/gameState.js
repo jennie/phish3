@@ -322,7 +322,7 @@ const makeChoice = (isTrust, scenarioId) => {
       userChoices.value[scenarioId] = {
         choice: isTrust ? "trust" : "distrust",
         feedback: choice.feedback,
-        isCorrect: true, // You may want to implement logic to determine if the choice was correct
+        isCorrect: true,
         choiceText: isTrust
           ? decisionCard.trustLabel
           : decisionCard.distrustLabel,
