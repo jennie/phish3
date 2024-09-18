@@ -930,7 +930,7 @@ const handleChoice = async (isTrust) => {
     const revealCard = currentScenario.value.cards.find(card => card.type === 'reveal');
 
     if (revealCard && currentScenario.value.scenarioType === 'mfa') {
-      revealCard.userAction = isTrust ? 'Approved the login attempt' : 'Denied the login attempt';
+      revealCard.userAction = isTrust ? 'You approved the login attempt!' : 'You denied the login attempt!';
       revealCard.outcome = choice.feedback;
       revealCard.scoreChange = choice.consequences;
       revealCard.isCorrect = choice.consequences === 1;
