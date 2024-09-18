@@ -1,6 +1,4 @@
-# Discerning Urgent, Official Looking Emails
-
-Official or Phishy? 
+# Official or Phishy? 
 
 Phishing emails can look real but don’t be fooled! They often pose as trusted sources but aim to steal your sensitive information.
 

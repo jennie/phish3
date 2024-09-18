@@ -1,5 +1,3 @@
 ## Hello!
 
-This is a shortcut for the Beejou overlay. It's a simple overlay. **It also has a few other features.**
-
-[Link!](#)
+Throughout the game, if you find yourself stuck at a decision point, simply tap the ? icon for helpful insights and tips!

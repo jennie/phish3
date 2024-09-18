@@ -1,5 +1,4 @@
-# Updating Software
-ITS Notices Matter?
+# ITS Notices Matter?
 
 Update software when prompted by Polytechnic IT notices but beware of sneaky impersonators!
 

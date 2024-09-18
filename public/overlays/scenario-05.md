@@ -1,6 +1,4 @@
-# Discerning Websites for Legitimacy
-
-Don’t get fooled by fake websites! 
+# Don’t get fooled by fake websites! 
 
 **Tip:** Look for padlocks🔒 on https URLs, domain names you trust, official logos and authentic language.
 
