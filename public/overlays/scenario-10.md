@@ -1,6 +1,4 @@
-# Discerning Official Looking Emails
-
-Can You Spot the Real Deal?
+# Can You Spot the Real Deal?
 
 Identify legit emails by checking for official logos and trusted links.
 
