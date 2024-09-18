@@ -12,7 +12,7 @@ export default [
         text: "It's your first day at Reel Polytechnic. It's a beautiful day and the sun is shining.",
         trustLabel: "Hi, world!",
         distrustLabel: "Sun shining!",
-        image: "/images/1-1.png",
+        image: "/images/1-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -32,7 +32,7 @@ export default [
         text: "Your friend Beejou finds you and buzzes over. \n\n Hey there! Since you're here early, let me take you on a tour!",
         trustLabel: "It's Beejou!",
         distrustLabel: "What's up?",
-        image: "/images/1-2.png",
+        image: "/images/1-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -52,7 +52,7 @@ export default [
         text: "Normally, I'd bring you to The Pond for a snack. It's our cafeteria with a real pond, but it's closed right now...",
         trustLabel: "A real pond?",
         distrustLabel: "Oh...",
-        image: "/images/1-3.png",
+        image: "/images/1-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -72,7 +72,7 @@ export default [
         text: "Also, watch out for the geese on campus. They've been extra bothered since they closed The Pond.",
         trustLabel: "Geese?",
         distrustLabel: "That's worrisome...",
-        image: "/images/1-4.png",
+        image: "/images/1-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -92,7 +92,7 @@ export default [
         text: "You follow Beejou through the campus, learning about the different buildings, facilities, and activities available here.",
         trustLabel: "Beautiful...",
         distrustLabel: "Is this real?",
-        image: "/images/1-5.png",
+        image: "/images/1-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -112,7 +112,7 @@ export default [
         text: "As you settle in, stay alert for phishing scams. They could be suspicious emails, fake websites, or strange requests. ",
         trustLabel: "A phish?",
         distrustLabel: "Scams!?",
-        image: "/images/1-6.png",
+        image: "/images/1-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -132,7 +132,7 @@ export default [
         text: "There's been a lot more recently. The campus IT Security team's worried.. Remember, always verify the source before trusting any information!",
         trustLabel: "I will!",
         distrustLabel: "Of course!",
-        image: "/images/1-7.png",
+        image: "/images/1-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -152,7 +152,7 @@ export default [
         text: "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the bulletin boards.",
         trustLabel: "Peaceful...",
         distrustLabel: "Exciting!",
-        image: "/images/1-8.png",
+        image: "/images/1-8.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -172,7 +172,7 @@ export default [
         text: "Beejou stops suddenly. \n\n Oh wow, we've wandered far! I know a shortcut back. Let's take a bee-tour back to the main building.",
         trustLabel: "A shortcut?",
         distrustLabel: "Is it safe?",
-        image: "/images/1-9.png",
+        image: "/images/1-9.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -192,7 +192,7 @@ export default [
         text: "Do you trust Beejou to get you back in time?",
         trustLabel: "Trust Beejou's detour",
         distrustLabel: "Distrust Beejou",
-        image: "/images/1-10.png",
+        image: "/images/1-10.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -214,7 +214,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/1-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -262,7 +262,7 @@ export default [
         text: "You're checking your email in between power naps at the campus library.",
         trustLabel: "It's so quiet…",
         distrustLabel: "Keep sleeping...",
-        image: "/images/2-1.png",
+        image: "/images/2-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -282,7 +282,7 @@ export default [
         text: "There's an offer to access a plentitude of ebooks and textbooks!",
         trustLabel: "I love ebooks!",
         distrustLabel: "Wait, what?",
-        image: "/images/2-2.png",
+        image: "/images/2-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -302,7 +302,7 @@ export default [
         text: "It sounds like it could be a good deal...",
         trustLabel: "Check it out!",
         distrustLabel: "I like deals...",
-        image: "/images/2-2b.png",
+        image: "/images/2-2b.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -322,7 +322,7 @@ export default [
         text: "First, you check who's sending this to you.",
         trustLabel: "Let's see...",
         distrustLabel: "Who is it?",
-        image: "/images/2-3.png",
+        image: "/images/2-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -342,7 +342,7 @@ export default [
         text: "Then you examine the body of the email.",
         trustLabel: "Seems interesting.",
         distrustLabel: "Hmm...",
-        image: "/images/2-4.png",
+        image: "/images/2-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -362,7 +362,7 @@ export default [
         text: "Finally, look at the offer and the signature.",
         trustLabel: "Sounds appealing...",
         distrustLabel: "Tempting...",
-        image: "/images/2-5.png",
+        image: "/images/2-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -382,7 +382,7 @@ export default [
         text: "Should you trust this offer?",
         trustLabel: "I want books!",
         distrustLabel: "This isn't right!",
-        image: "/images/2-6.png",
+        image: "/images/2-6.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -404,7 +404,7 @@ export default [
         text: "",
         trustLabel: "Wow!",
         distrustLabel: "Let's go!",
-        image: "/images/card-back.png",
+        image: "/images/2-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -452,7 +452,7 @@ export default [
         text: "You're taking a walk around campus enjoying the fresh air when you get a call from Beejou!",
         trustLabel: "Fresh!",
         distrustLabel: "Smells nice.",
-        image: "/images/3-1.png",
+        image: "/images/3-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -472,7 +472,7 @@ export default [
         text: "(Beejou calls you) I'm planning a weekend getaway with my friends!",
         trustLabel: "Sounds expensive!",
         distrustLabel: "I want to go!",
-        image: "/images/3-2.png",
+        image: "/images/3-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -492,7 +492,7 @@ export default [
         text: "We're looking for a cool AirBee & Beaver and found this site with amazing discounts!",
         trustLabel: "A deal?",
         distrustLabel: "What site?",
-        image: "/images/3-3.png",
+        image: "/images/3-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -512,7 +512,7 @@ export default [
         text: "She sends you the link.",
         trustLabel: "Take a closer look.",
         distrustLabel: "Let's see...",
-        image: "/images/3-4.png",
+        image: "/images/3-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -532,7 +532,7 @@ export default [
         text: "You take a good look at the website...",
         trustLabel: "Hmm...",
         distrustLabel: "What's this?",
-        image: "/images/3-5.png",
+        image: "/images/3-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -552,7 +552,7 @@ export default [
         text: "Should I go ahead and book it? What do you think?",
         trustLabel: "Looks good to me",
         distrustLabel: "I don't trust it",
-        image: "/images/3-6.png",
+        image: "/images/3-6.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -574,7 +574,7 @@ export default [
         text: "",
         trustLabel: "Got it",
         distrustLabel: "Good to go",
-        image: "/images/card-back.png",
+        image: "/images/3-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -622,7 +622,7 @@ export default [
         text: "You and Beejou are standing outside The Pond, looking into the windows to see if it's almost ready to re-open.",
         trustLabel: "Peek inside...",
         distrustLabel: "Can you see?",
-        image: "/images/4-1.png",
+        image: "/images/4-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -642,7 +642,7 @@ export default [
         text: "I wanted to ask, have you set up MFA on your account yet?",
         trustLabel: "Not yet. Why?",
         distrustLabel: "I haven't...",
-        image: "/images/4-2.png",
+        image: "/images/4-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -662,7 +662,7 @@ export default [
         text: "I think it's pretty cool cause it adds an extra layer of security. \n\n Even if someone gets your password, they still need a second factor to access your account.",
         trustLabel: "Sounds important...",
         distrustLabel: "I see",
-        image: "/images/4-3.png",
+        image: "/images/4-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -682,7 +682,7 @@ export default [
         text: "You should always check the location before approving any MFA requests and make sure it's really you!",
         trustLabel: "Good idea",
         distrustLabel: "Smart!",
-        image: "/images/4-4.png",
+        image: "/images/4-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -702,7 +702,7 @@ export default [
         text: "Later, you're working in the library and logging into your student account. \n\n You get an MFA prompt!",
         trustLabel: "Check the location...",
         distrustLabel: "Is this me?",
-        image: "/images/4-5.png",
+        image: "/images/4-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -722,7 +722,7 @@ export default [
         text: "Should you approve the login attempt?",
         trustLabel: "Approve it",
         distrustLabel: "Deny!",
-        image: "/images/4-6.png",
+        image: "/images/4-6.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -744,7 +744,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/4-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -792,7 +792,7 @@ export default [
         text: "One of the best features of Reel Polytechnic's campus is The Pond cafeteria!",
         trustLabel: "The best!",
         distrustLabel: "Love it here",
-        image: "/images/5-1.png",
+        image: "/images/5-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -812,7 +812,7 @@ export default [
         text: "You read all about it in the brochure, so you're excited to experience the Advanced Salad Bar.",
         trustLabel: "Yummy toppings!",
         distrustLabel: "Salad+",
-        image: "/images/5-2.png",
+        image: "/images/5-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -832,7 +832,7 @@ export default [
         text: "But you're dismayed that it's closed for \"beautification\"!",
         trustLabel: "Oh no…",
         distrustLabel: "Why???",
-        image: "/images/5-3.png",
+        image: "/images/5-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -852,7 +852,7 @@ export default [
         text: "What does that even mean?",
         trustLabel: "beautification?",
         distrustLabel: "I dont get it",
-        image: "/images/5-4.png",
+        image: "/images/5-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -872,7 +872,7 @@ export default [
         text: "You head to the Reel Polytechnic website.",
         trustLabel: "Okay…",
         distrustLabel: "Check it out",
-        image: "/images/5-5.png",
+        image: "/images/5-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -892,7 +892,7 @@ export default [
         text: "There's a post about it! Let's read on...",
         trustLabel: "Keep looking…",
         distrustLabel: "Okay...",
-        image: "/images/5-6.png",
+        image: "/images/5-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -912,7 +912,7 @@ export default [
         text: "Is this a trusted source for this information?",
         trustLabel: "I believe it",
         distrustLabel: "This is fake!",
-        image: "/images/5-7.png",
+        image: "/images/5-7.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -934,7 +934,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/5-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -982,7 +982,7 @@ export default [
         text: "You're enjoying your morning outside, daydreaming about your next visit to The Pond when it reopens when Beejou flies by.",
         trustLabel: "Relax and wait...",
         distrustLabel: "Nice clouds",
-        image: "/images/6-1.png",
+        image: "/images/6-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1002,7 +1002,7 @@ export default [
         text: "(Beejou:) Did you see the posters? We're hosting a Four-Armed Basketball tournament!",
         trustLabel: "Tell me more!",
         distrustLabel: "What!",
-        image: "/images/6-2.png",
+        image: "/images/6-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1022,7 +1022,7 @@ export default [
         text: "We have to go! I used to play, back in the day, you know!",
         trustLabel: "Of course!",
         distrustLabel: "Me too",
-        image: "/images/6-3.png",
+        image: "/images/6-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1042,7 +1042,7 @@ export default [
         text: "But there's a problem... I tried to get tickets, and my card isn't working!",
         trustLabel: "Oh no...",
         distrustLabel: "Why not?",
-        image: "/images/6-4.png",
+        image: "/images/6-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1062,7 +1062,7 @@ export default [
         text: "Can you help me get them? Please, I don't want to miss this!",
         trustLabel: "Let me check it out...",
         distrustLabel: "Hmm...",
-        image: "/images/6-5.png",
+        image: "/images/6-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1082,7 +1082,7 @@ export default [
         text: "Beejou sends you the website and you open it up on your phone.",
         trustLabel: "Okay…",
         distrustLabel: "Let's see...",
-        image: "/images/6-6.png",
+        image: "/images/6-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1102,7 +1102,7 @@ export default [
         text: "Let's take a look at this webpage",
         trustLabel: "Keep looking…",
         distrustLabel: "Look closely",
-        image: "/images/6-7.png",
+        image: "/images/6-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1122,7 +1122,7 @@ export default [
         text: "Do you buy the tickets?",
         trustLabel: "Gotta see the game!",
         distrustLabel: "I don't like this...",
-        image: "/images/6-8.png",
+        image: "/images/6-8.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -1144,7 +1144,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/6-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1192,7 +1192,7 @@ export default [
         text: "You're sitting out on the grass, sipping your coffee and catching up on some reading when Beejou calls you.",
         trustLabel: "Enjoy the moment...",
         distrustLabel: "Mmm coffee",
-        image: "/images/7-1.png",
+        image: "/images/7-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1212,7 +1212,7 @@ export default [
         text: "(Beejou: )Guess what! Beeyonce is coming to campus!!",
         trustLabel: "Really?",
         distrustLabel: "Beeyonce?!",
-        image: "/images/7-2.png",
+        image: "/images/7-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1232,7 +1232,7 @@ export default [
         text: "I just got an email from my Beeyonce fan community with an exclusive link to buy tickets before they go on sale to the public!",
         trustLabel: "Sounds awesome!",
         distrustLabel: "Woah!",
-        image: "/images/7-3.png",
+        image: "/images/7-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1252,7 +1252,7 @@ export default [
         text: "I'm so excited, but also a little nervous...",
         trustLabel: "Why's that?",
         distrustLabel: "What for?",
-        image: "/images/7-4.png",
+        image: "/images/7-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1272,7 +1272,7 @@ export default [
         text: "It opens a link that asks for my student ID and credit card info. Do you think it's ok?",
         trustLabel: "Let's look together.",
         distrustLabel: "Show me!",
-        image: "/images/7-5.png",
+        image: "/images/7-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1292,7 +1292,7 @@ export default [
         text: "Take a look at the URL",
         trustLabel: "Okay...",
         distrustLabel: "Hmm",
-        image: "/images/7-6.png",
+        image: "/images/7-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1312,7 +1312,7 @@ export default [
         text: "Next, we're going to look at the webpage.",
         trustLabel: "Keep looking…",
         distrustLabel: "Okay...",
-        image: "/images/7-7.png",
+        image: "/images/7-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1332,7 +1332,7 @@ export default [
         text: "Should Beejou trust the site?",
         trustLabel: "Yes! Let's get tickets!",
         distrustLabel: "Maybe we shouldn't",
-        image: "/images/7-8.png",
+        image: "/images/7-8.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -1354,7 +1354,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/7-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1402,7 +1402,7 @@ export default [
         text: "You're the only one at the lounge this morning. You can't wait until The Pond reopens for morning coffee!",
         trustLabel: "Enjoy the quiet…",
         distrustLabel: "Enjoy the quiet!",
-        image: "/images/8-1.png",
+        image: "/images/8-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1422,7 +1422,7 @@ export default [
         text: "Ah! Oh! I'm so glad you're here!",
         trustLabel: "Did something happen?",
         distrustLabel: "Hey Beejou!",
-        image: "/images/8-2.png",
+        image: "/images/8-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1442,7 +1442,7 @@ export default [
         text: "I just got an email that says Security Team Alpha detected suspicious activity using my student ID!",
         trustLabel: "Oh no…",
         distrustLabel: "Suspicious?",
-        image: "/images/8-3.png",
+        image: "/images/8-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1462,7 +1462,7 @@ export default [
         text: "They're gonna lock my account if I don't verify my identity...That can't be good.",
         trustLabel: "…verify?",
         distrustLabel: "That's bad",
-        image: "/images/8-4.png",
+        image: "/images/8-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1482,7 +1482,7 @@ export default [
         text: "I'm me, the one and only Beejou! Could you watch my things while I go and sort this out?",
         trustLabel: "Show me the email!",
         distrustLabel: "Hold on!",
-        image: "/images/8-5.png",
+        image: "/images/8-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1502,7 +1502,7 @@ export default [
         text: "The first thing we're going to look at is the header.",
         trustLabel: "Let's keep reading…",
         distrustLabel: "What's this?",
-        image: "/images/8-6.png",
+        image: "/images/8-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1522,7 +1522,7 @@ export default [
         text: "Next, we're going to look at the email's body.",
         trustLabel: "Keep looking…",
         distrustLabel: "Huh...",
-        image: "/images/8-7.png",
+        image: "/images/8-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1542,7 +1542,7 @@ export default [
         text: "Finally, we're going to look at the email's call to action and signature.",
         trustLabel: "Okay...",
         distrustLabel: "Hmm…",
-        image: "/images/8-8.png",
+        image: "/images/8-8.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1562,7 +1562,7 @@ export default [
         text: "Is this email legit?",
         trustLabel: "Looks like the real deal!",
         distrustLabel: "Something's not right!",
-        image: "/images/8-9.png",
+        image: "/images/8-9.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -1584,7 +1584,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/8-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1632,7 +1632,7 @@ export default [
         text: "You're holed up in the library, surrounded by books.",
         trustLabel: "Hard working!",
         distrustLabel: "I'm tired",
-        image: "/images/9-1.png",
+        image: "/images/9-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1652,7 +1652,7 @@ export default [
         text: "Deep into your research for a paper, your open tabs are all important articles, except for your email.",
         trustLabel: "Take a break!",
         distrustLabel: "Check it!",
-        image: "/images/9-2.png",
+        image: "/images/9-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1672,7 +1672,7 @@ export default [
         text: "You decide to take a peek, but you didn't expect to see this!",
         trustLabel: "It looks urgent...",
         distrustLabel: "Oh my...",
-        image: "/images/9-3.png",
+        image: "/images/9-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1692,7 +1692,7 @@ export default [
         text: "This email looks really important.",
         trustLabel: "This is bad...",
         distrustLabel: "Scary!",
-        image: "/images/9-4.png",
+        image: "/images/9-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1712,7 +1712,7 @@ export default [
         text: "Keep reading?",
         trustLabel: "Okay...",
         distrustLabel: "I'm looking...",
-        image: "/images/9-5.png",
+        image: "/images/9-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1732,7 +1732,7 @@ export default [
         text: "Should you download the fix?",
         trustLabel: "Download it!",
         distrustLabel: "No! This is bad!",
-        image: "/images/9-6.png",
+        image: "/images/9-6.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -1754,7 +1754,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/9-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1802,7 +1802,7 @@ export default [
         text: "You're working late in the study lounge getting some last minute things done before you go home.",
         trustLabel: "Gotta finish...",
         distrustLabel: "So late!",
-        image: "/images/10-1.png",
+        image: "/images/10-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1819,10 +1819,10 @@ export default [
         id: 10,
         type: "story",
         order: 2,
-        text: "You get an email asking you participate in an official college survey about student life. \n\n You've gotten three of these this week!",
+        text: "You get an email asking you participate in an official polytechnic survey about student life. \n\n You've gotten three of these this week!",
         trustLabel: "I have opinions...",
         distrustLabel: "No inbox space!",
-        image: "/images/10-2.png",
+        image: "/images/10-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1842,7 +1842,7 @@ export default [
         text: "I guess it could be worth it to check out.",
         trustLabel: "Let's see about this…",
         distrustLabel: "Ok fine...",
-        image: "/images/10-3.png",
+        image: "/images/10-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1862,7 +1862,7 @@ export default [
         text: "Let's start by examining the email's header.",
         trustLabel: "Let's keep reading…",
         distrustLabel: "I get it",
-        image: "/images/10-4.png",
+        image: "/images/10-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1882,7 +1882,7 @@ export default [
         text: "Next up, we'll focus on the email's message.",
         trustLabel: "Keep looking…",
         distrustLabel: "Okay...",
-        image: "/images/10-5.png",
+        image: "/images/10-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1902,7 +1902,7 @@ export default [
         text: "Finally, let's look at the email's call to action and signature.",
         trustLabel: "Hmm…",
         distrustLabel: "Alright",
-        image: "/images/10-6.png",
+        image: "/images/10-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1922,7 +1922,7 @@ export default [
         text: "Is this email legit?",
         trustLabel: "Give my feedback!",
         distrustLabel: "They want my thoughts?",
-        image: "/images/10-7.png",
+        image: "/images/10-7.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -1944,7 +1944,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/10-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -1992,7 +1992,7 @@ export default [
         text: "Your computer's going into red alert mode!!! \n\n There's a flashing software update message for BugBuster Antivirus!",
         trustLabel: "What's going on?!",
         distrustLabel: "Aaa!!!",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2012,7 +2012,7 @@ export default [
         text: "You're unsure whether to trust it.",
         trustLabel: "Call for help?",
         distrustLabel: "Please, help!",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2032,7 +2032,7 @@ export default [
         text: "You call the IT service desk for help and they ask you to meet them at The Pond!",
         trustLabel: "Head to The Pond",
         distrustLabel: "Let's go!",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2049,10 +2049,10 @@ export default [
         id: 11,
         type: "story",
         order: 4,
-        text: "(beaver 1:) Hey there! Let's see what's going on with your computer.",
+        text: "Hey there! Let's see what's going on with your computer.",
         trustLabel: "Explain the issue",
         distrustLabel: "Show them",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2069,10 +2069,10 @@ export default [
         id: 11,
         type: "story",
         order: 5,
-        text: "Ah, yes! They mentioned this update on BugBuster's blog.",
+        text: "Ah, yes! They mentioned this critical update on BugBuster's blog.",
         trustLabel: "Tell me more",
         distrustLabel: "Oh yeah?",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2089,10 +2089,10 @@ export default [
         id: 11,
         type: "story",
         order: 6,
-        text: "It says this update fixes a security bug. It's important to install it for your safety.",
+        text: "We reviewed it and send out a Polytechnic-wide alert to update it immediately.",
         trustLabel: "Lemmie think...",
         distrustLabel: "Oh...",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2112,7 +2112,7 @@ export default [
         text: "Is this update legit?",
         trustLabel: "Looks like the real deal!",
         distrustLabel: "Something's not right!",
-        image: "/images/card-placeholder.png",
+        image: "/images/11-7.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -2134,7 +2134,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/imgaes/11-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2182,7 +2182,7 @@ export default [
         text: "You're researching at the library and get a frantic text from Beejou.",
         trustLabel: "What's happening?",
         distrustLabel: "Nice book smell",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2202,7 +2202,7 @@ export default [
         text: "(Beejou: )AAA DONT CLIKC FOR FREE FLOPWERS!!!",
         trustLabel: "What??",
         distrustLabel: "Sorry???",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2222,7 +2222,7 @@ export default [
         text: "You rush to find Beejou. She looks desperate and worried about her computer.",
         trustLabel: "What's wrong?",
         distrustLabel: "Hey Beejou",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2242,7 +2242,7 @@ export default [
         text: "All I did was click a link to get free flowers and now my computer's locked!",
         trustLabel: "Let's get help!",
         distrustLabel: "Come with me",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2262,7 +2262,7 @@ export default [
         text: "You take Beejou to the IT service team to check over her computer. They're catching phish, but they're happy to help.",
         trustLabel: "Explain the situation",
         distrustLabel: "Show them",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2282,7 +2282,7 @@ export default [
         text: "(beaver 1:) Oh my, this looks like ransomware!",
         trustLabel: "What can we do?",
         distrustLabel: "Ransom!?",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2302,7 +2302,7 @@ export default [
         text: "(beaver 2:) We can try to fix it, but Beejou you need to be careful with suspicious emails.",
         trustLabel: "Thank you!",
         distrustLabel: "Wow!",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2322,7 +2322,7 @@ export default [
         text: "As they work on Beejou's computer, you receive a notification. It's the same email!",
         trustLabel: "Show them",
         distrustLabel: "Get their attention",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-8.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2342,7 +2342,7 @@ export default [
         text: "(beaver 2): Since you're already here, let's walk through it together.",
         trustLabel: "Read the email.",
         distrustLabel: "Okay",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-9.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2362,7 +2362,7 @@ export default [
         text: "Hmm. Now, let's look at the body.",
         trustLabel: "Okay...",
         distrustLabel: "Keep reading...",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-10.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2382,7 +2382,7 @@ export default [
         text: "I can see how Beejou was fooled.",
         trustLabel: "Me too...",
         distrustLabel: "Hmm...",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-11.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2402,7 +2402,7 @@ export default [
         text: "What do you think about this offer?",
         trustLabel: "It could be legit..",
         distrustLabel: "So suspicious!",
-        image: "/images/card-placeholder.png",
+        image: "/images/12-12.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -2424,7 +2424,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/12-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2462,7 +2462,7 @@ export default [
   {
     id: 13,
     scenarioType: "regular",
-    learningObjectives: "No objectve - just flavour.",
+    learningObjectives: "",
     cards: [
       {
         id: 13,
@@ -2471,7 +2471,7 @@ export default [
         text: "You recently read that the Campus Cafe is trying out a new robotic coffee handler.",
         trustLabel: "I'm curious...",
         distrustLabel: "Is it good?",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2491,7 +2491,7 @@ export default [
         text: "There's a special right now that uses AI to craft the perfect morning beverage based entirely on your mood! \n\n But, when you get your drink, it doesn't seem like it's actually yours...",
         trustLabel: "Is this my mood?",
         distrustLabel: "So advanced",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2511,7 +2511,7 @@ export default [
         text: "You call the IT support team for help. They listen to your problem.",
         trustLabel: "I need help",
         distrustLabel: "Please!",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2531,7 +2531,7 @@ export default [
         text: "(beaver 1:) Bring it to The Pond and we'll test it for you!",
         trustLabel: "Head over there.",
         distrustLabel: "Let's see...",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2551,7 +2551,7 @@ export default [
         text: "You arrive at The Pond, drink in hand.",
         trustLabel: "Thanks for helping",
         distrustLabel: "You'll fix it?",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2571,7 +2571,7 @@ export default [
         text: "(beaver 1:) Let's take a look...",
         trustLabel: "Is this my drink?",
         distrustLabel: "Not my order",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2591,7 +2591,7 @@ export default [
         text: "They gather around and slap the water with their tails, looking excited.",
         trustLabel: "Wait a sec...",
         distrustLabel: "Watch closely.",
-        image: "",
+        image: "/images/13-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2608,10 +2608,10 @@ export default [
         id: 13,
         type: "decision",
         order: 8,
-        text: "You suspect that they just might be aiming to get a free drink…",
+        text: "You suspect that they just might be angling for a free drink…",
         trustLabel: "Give it to them",
         distrustLabel: "I'll take it back!",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-8.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -2633,7 +2633,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/13-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2681,7 +2681,7 @@ export default [
         text: "You find Beejou buzzing with excitement in the library.",
         trustLabel: "What's up, Beejou?",
         distrustLabel: "Hey Beejou!",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2701,7 +2701,7 @@ export default [
         text: "(Beejou:) I just got a really cool email!",
         trustLabel: "Oh yeah?",
         distrustLabel: "Did you?",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2721,7 +2721,7 @@ export default [
         text: "They're looking for cake taste testers for the re-opening of The Pond!",
         trustLabel: "What, really?",
         distrustLabel: "Mm cake..",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2741,7 +2741,7 @@ export default [
         text: "It's always been my dream to be paid to eat cake!",
         trustLabel: "Me too!",
         distrustLabel: "Hmm...",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2761,7 +2761,7 @@ export default [
         text: "You ask to take a look at that email...",
         trustLabel: "I wanna see.",
         distrustLabel: "Can I look?",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2781,7 +2781,7 @@ export default [
         text: "Hmm... Let's keep reading.",
         trustLabel: "Okay…",
         distrustLabel: "Alright",
-        image: "/images/card-placeholder.png",
+        image: "/images/14-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2801,7 +2801,7 @@ export default [
         text: "Interesting... What do you tell Beejou?",
         trustLabel: "Sign me up too!",
         distrustLabel: "This doesn't look right!",
-        image: "/images/card-placeholder.png",
+        image: "/images/13-7.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -2823,7 +2823,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/14-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2871,7 +2871,7 @@ export default [
         text: "You're working late into the night in the quiet library.",
         trustLabel: "Gotta finish!",
         distrustLabel: "Soo tired...",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2891,7 +2891,7 @@ export default [
         text: "Only the sound of your focused typing fills the air.",
         trustLabel: "Keep typing",
         distrustLabel: "Gotta type",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2911,7 +2911,7 @@ export default [
         text: "Plip... plop... plip... plop...",
         trustLabel: "What's that?",
         distrustLabel: "A sound?",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2931,7 +2931,7 @@ export default [
         text: "You hear a soft pattering on the tiled floor.",
         trustLabel: "What could it be?",
         distrustLabel: "Is it rain?",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2951,7 +2951,7 @@ export default [
         text: "You wonder if a window was left open or if something got in...",
         trustLabel: "Go check!",
         distrustLabel: "Kinda chilly",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -2968,10 +2968,10 @@ export default [
         id: 15,
         type: "decision",
         order: 6,
-        text: "Before you leave your desk, should you lock your laptop?",
+        text: "Do you trust the library is empty and leave your laptop unlocked?",
         trustLabel: "I can leave it unlocked",
         distrustLabel: "I should lock it",
-        image: "/images/card-placeholder.png",
+        image: "/images/15-6.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -2993,7 +2993,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/15-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3041,7 +3041,7 @@ export default [
         text: "You're preparing for an exam, surrounded by textbooks, notes, and a rainbow of highlighters.",
         trustLabel: "Gotta prep!",
         distrustLabel: "Highlight everything",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3061,7 +3061,7 @@ export default [
         text: "Beejou: I'm glad I found you! You'll never beelieve it!!",
         trustLabel: "What's up, Beejou?",
         distrustLabel: "Oh hi!",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3081,7 +3081,7 @@ export default [
         text: "This email says I'm getting the Buzz Worthy Scholar Award for my work!",
         trustLabel: "Congrats!",
         distrustLabel: "Woah, amazing!",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3101,7 +3101,7 @@ export default [
         text: "But isn't it a little suspicious to get emails like this?",
         trustLabel: "You said it...",
         distrustLabel: "Yeah, I suppose",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-4.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3121,7 +3121,7 @@ export default [
         text: "Can you take a look at it for me?",
         trustLabel: "Okay!",
         distrustLabel: "I can look",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-5.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3141,7 +3141,7 @@ export default [
         text: "First we'll look at the header.",
         trustLabel: "Keep reading...",
         distrustLabel: "Scanning...",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-6.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3161,7 +3161,7 @@ export default [
         text: "Next we'll look at the body.",
         trustLabel: "Keep reading...",
         distrustLabel: "Let's think...",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-7.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3181,7 +3181,7 @@ export default [
         text: "Should you tell Beejou to trust or distrust the email?",
         trustLabel: "I'd trust it",
         distrustLabel: "No, it's a scam!",
-        image: "/images/card-placeholder.png",
+        image: "/images/16-8.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -3203,7 +3203,7 @@ export default [
         text: "",
         trustLabel: "I see",
         distrustLabel: "Got it",
-        image: "/images/card-back.png",
+        image: "/images/16-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3251,7 +3251,7 @@ export default [
         text: "You and Beejou are taking a kickboxing class together.",
         trustLabel: "Oof!",
         distrustLabel: "Pow!",
-        image: "/images/17-1.png",
+        image: "/images/17-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3271,7 +3271,7 @@ export default [
         text: "You're just getting into it when you get a notification on your phone.",
         trustLabel: "Take a look",
         distrustLabel: "What's this?",
-        image: "/images/17-2.png",
+        image: "/images/17-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3291,7 +3291,7 @@ export default [
         text: 'Your location shows as: "Spooky" Library',
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/17-3.png",
+        image: "/images/17-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: 'Wait, you\'re not at the "spooky" library... are you?',
@@ -3312,7 +3312,7 @@ export default [
         text: "",
         trustLabel: "",
         distrustLabel: "",
-        image: "/images/card-back.png",
+        image: "/images/card-back.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3360,7 +3360,7 @@ export default [
         text: "You and Beejou are watching the sunset at the end of a long day on campus.",
         trustLabel: "Look at that sun!",
         distrustLabel: "Take in the breeze",
-        image: "/images/18-1.png",
+        image: "/images/18-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3380,7 +3380,7 @@ export default [
         text: "When you go to log in to your email, you get an alert.",
         trustLabel: "What's this?",
         distrustLabel: "Just checking!",
-        image: "/images/18-2.png",
+        image: "/images/18-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3400,7 +3400,7 @@ export default [
         text: "Your location shows as: Outside Reel Polytechnic",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/18-3.png",
+        image: "/images/18-3.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -3422,7 +3422,7 @@ export default [
         text: "",
         trustLabel: "",
         distrustLabel: "",
-        image: "/images/card-back.png",
+        image: "/images/18-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3470,7 +3470,7 @@ export default [
         text: "You're listening to a guest lecture by famous marine biologist Dr. Silliam Billiam on their findings about sea squirrels.",
         trustLabel: "I see, I see",
         distrustLabel: "Tell me more",
-        image: "/images/19-1.png",
+        image: "/images/19-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3490,7 +3490,7 @@ export default [
         text: "You get an alert on your phone that someone's trying to log in as you.",
         trustLabel: "Why now?",
         distrustLabel: "Okay...",
-        image: "/images/19-2.png",
+        image: "/images/19-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3510,7 +3510,7 @@ export default [
         text: "Your location shows as: Ched's Grocer",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/19-3.png",
+        image: "/images/19-3.jpg",
         trustChoice: {
           consequences: null,
           feedback:
@@ -3532,7 +3532,7 @@ export default [
         text: "",
         trustLabel: "",
         distrustLabel: "",
-        image: "/images/card-back.png",
+        image: "/images/19-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3580,7 +3580,7 @@ export default [
         text: "You've been napping all afternoon at the library on campus. You found a nice spot on top of the shelves.",
         trustLabel: "It's peaceful!",
         distrustLabel: "No one's here!",
-        image: "/images/20-1.png",
+        image: "/images/20-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3600,7 +3600,7 @@ export default [
         text: "Your phone buzzes with an alert that almost knocks you off your shelf.",
         trustLabel: "Powerful!",
         distrustLabel: "Volume down!",
-        image: "/images/20-2.png",
+        image: "/images/20-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3620,7 +3620,7 @@ export default [
         text: "Your location shows as: The Library",
         trustLabel: "Approve!",
         distrustLabel: "Deny!",
-        image: "/images/20-3.png",
+        image: "/images/20-3.jpg",
         trustChoice: {
           consequences: 1,
           feedback:
@@ -3641,7 +3641,7 @@ export default [
         text: "",
         trustLabel: "",
         distrustLabel: "",
-        image: "/images/card-back.png",
+        image: "/images/20-reveal.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3679,7 +3679,7 @@ export default [
   {
     id: 101,
     scenarioType: "ending",
-    learningObjectives: "OK Ending (1-2 Missed)",
+    learningObjectives: "",
     cards: [
       {
         id: 101,
@@ -3688,7 +3688,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! It's finally been beautified! \n\n The pond is sparkling, floaties are in the water, and everyone is enjoying the snacks and drinks.",
         trustLabel: "Celebrate!",
         distrustLabel: "Stay cautious...",
-        image: "/images/101-1.png",
+        image: "/images/101-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3708,7 +3708,7 @@ export default [
         text: "Great job spotting phishing attempts! Just a few slipped by.",
         trustLabel: "Thanks!",
         distrustLabel: "I'll be vigilant!",
-        image: "/images/101-2.png",
+        image: "/images/101-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3728,7 +3728,7 @@ export default [
         text: "At the end of the party, as everyone's sweeping up, you notice something strange... \n\n There's a goose sweeping some dust into a corner. It seems they used the party to sneak in...",
         trustLabel: "Suspicious...",
         distrustLabel: "Keep an eye out!",
-        image: "/images/101-3.png",
+        image: "/images/101-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3746,7 +3746,7 @@ export default [
   {
     id: 201,
     scenarioType: "ending",
-    learningObjectives: "Mid Ending",
+    learningObjectives: "",
     cards: [
       {
         id: 201,
@@ -3755,7 +3755,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party is bustling with floaties, snacks, and drinks.",
         trustLabel: "Enjoy the party!",
         distrustLabel: "Stay cautious...",
-        image: "/images/201-1.png",
+        image: "/images/201-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3775,7 +3775,7 @@ export default [
         text: "Unfortunately we missed a few phishing attempts... We should stay alert!",
         trustLabel: "Understood.",
         distrustLabel: "I'll be cautious!",
-        image: "/images/201-2.png",
+        image: "/images/201-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3795,7 +3795,7 @@ export default [
         text: "You see a goose with, you assume, a stolen credit card. What could they be planning?",
         trustLabel: "This is bad...",
         distrustLabel: "So suspicious!",
-        image: "/images/201-3.png",
+        image: "/images/201-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3813,7 +3813,7 @@ export default [
   {
     id: 301,
     scenarioType: "ending",
-    learningObjectives: "Worst Ending",
+    learningObjectives: "",
     cards: [
       {
         id: 301,
@@ -3822,7 +3822,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party is bustling, but there's an eerie feeling...",
         trustLabel: "Investigate!",
         distrustLabel: "This is bad...",
-        image: "/images/301-1.png",
+        image: "/images/301-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3842,7 +3842,7 @@ export default [
         text: "We missed too many phishing attempts! \n\n The geese have taken over!",
         trustLabel: "Oh no!",
         distrustLabel: "This isn't good...",
-        image: "/images/301-2.png",
+        image: "/images/301-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3862,7 +3862,7 @@ export default [
         text: "Unfortunately, the geese run the campus now. \n\n They give themselves straight A's and the cafeteria sells worms and corn (gross).",
         trustLabel: "So unfair!",
         distrustLabel: "Disgusting...",
-        image: "/images/301-3.png",
+        image: "/images/301-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3880,7 +3880,7 @@ export default [
   {
     id: 401,
     scenarioType: "ending",
-    learningObjectives: "Best Ending (0 Missed)",
+    learningObjectives: "",
     cards: [
       {
         id: 401,
@@ -3889,7 +3889,7 @@ export default [
         text: "Tonight's the grand re-opening of The Pond! The party's in full swing. \n\n The cafeteria is buzzing with excitement, and the pond is sparkling.",
         trustLabel: "Join the fun!",
         distrustLabel: "Stay alert...",
-        image: "/images/401-1.png",
+        image: "/images/401-1.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3909,7 +3909,7 @@ export default [
         text: "(Beejou:) The party is a huge success! Everyone's enjoying the snacks and drinks. You did an amazing job spotting those phishing attempts!",
         trustLabel: "Thanks!",
         distrustLabel: "Appreciate it!",
-        image: "/images/401-2.png",
+        image: "/images/401-2.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
@@ -3929,7 +3929,7 @@ export default [
         text: "Even the geese are behaving, floating peacefully in the pond. It's a perfect day at Reel Polytechnic.",
         trustLabel: "Celebrate!",
         distrustLabel: "Honk!",
-        image: "/images/401-3.png",
+        image: "/images/401-3.jpg",
         trustChoice: {
           consequences: null,
           feedback: "",
