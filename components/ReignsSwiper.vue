@@ -781,7 +781,7 @@ const returnToStartScreen = () => {
 };
 
 const isRetryDisabled = computed(() => {
-  return currentCard.value?.type === 'decision' || currentCard.value?.type === 'reveal';
+  return currentCard.value?.type === 'reveal';
 });
 
 const retryScenario = async () => {
