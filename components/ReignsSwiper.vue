@@ -158,15 +158,15 @@
     </div>
 
     <!-- Controls Container -->
-    <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full">
+    <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full ">
 
-      <div class="px-6 w-full flex space-x-12 justify-between z-10 ">
-        <a href="/" @click.prevent="returnToStartScreen" class="p-2 self self-center">
-          <HomeButton />
-        </a>
-        <div class="flex -mt-8 justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full ">
+      <div class="px-6 w-full flex flex-col items-center space-y-4 z-10 ">
+        <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full">
+          <a href="/" @click.prevent="returnToStartScreen" class="p-2 self-center">
+            <HomeButton />
+          </a>
           <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
-            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
               { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]">
             <BackButton v-if="!isDecisionCard" />
             <div v-else-if="currentScenario?.scenarioType === 'mfa'"
@@ -175,7 +175,7 @@
           </button>
 
           <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
-            :disabled="!canNavigateForward || isFlipping" :class="['flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+            :disabled="!canNavigateForward || isFlipping" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
               { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]">
             <NextButton v-if="!isDecisionCard" />
             <span v-else-if="currentScenario?.scenarioType === 'mfa'"
@@ -183,11 +183,11 @@
             <ThumbsUp v-else />
           </button>
 
+          <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
+            :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
+            <RetryButton />
+          </button>
         </div>
-        <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
-          :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
-          <RetryButton />
-        </button>
       </div>
     </div>
 
