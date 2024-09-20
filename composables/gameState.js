@@ -303,16 +303,20 @@ const makeChoice = (isTrust, scenarioId) => {
       const choice = isTrust
         ? decisionCard.trustChoice
         : decisionCard.distrustChoice;
-      let consequences = { trust: 0 };
-      try {
-        consequences = JSON.parse(choice.consequences);
-      } catch (error) {
-        console.error(
-          `Error parsing consequences for scenario ${scenarioId}:`,
-          error
-        );
+      let consequences = 0;
+      if (typeof choice.consequences === "number") {
+        consequences = choice.consequences;
+      } else if (typeof choice.consequences === "string") {
+        try {
+          consequences = JSON.parse(choice.consequences);
+        } catch (error) {
+          console.error(
+            `Error parsing consequences for scenario ${scenarioId}:`,
+            error
+          );
+        }
       }
-      playerState.value.score += consequences || 0;
+      playerState.value.score += consequences;
       console.log(
         `Score updated: ${playerState.value.score} (${
           isTrust ? "trust" : "distrust"
@@ -322,11 +326,11 @@ const makeChoice = (isTrust, scenarioId) => {
       userChoices.value[scenarioId] = {
         choice: isTrust ? "trust" : "distrust",
         feedback: choice.feedback,
-        isCorrect: true,
+        isCorrect: consequences > 0,
         choiceText: isTrust
           ? decisionCard.trustLabel
           : decisionCard.distrustLabel,
-        scoreChange: consequences || 0,
+        scoreChange: consequences,
       };
     }
   }

@@ -232,6 +232,8 @@ const isDecisionCard = computed(() => {
   return currentCard.value?.type === 'decision';
 });
 const currentScore = computed(() => playerState.value.score);
+
+
 const isRevealCardFlipped = ref(false);
 
 const parseCardText = (text) => {
@@ -924,7 +926,7 @@ const getScoreChange = (scenario) => {
 const handleChoice = async (isTrust) => {
   if (currentCard.value?.type === 'decision' && !isFlipping.value) {
     isFlipping.value = true;
-    makeChoice(isTrust);
+    makeChoice(isTrust, currentScenario.value.id);
 
     const choice = isTrust ? currentCard.value.trustChoice : currentCard.value.distrustChoice;
     const revealCard = currentScenario.value.cards.find(card => card.type === 'reveal');
@@ -952,7 +954,6 @@ const handleChoice = async (isTrust) => {
     isFlipping.value = false;
   }
 };
-
 
 const handleJumpToScenario = (scenarioId) => {
   jumpToScenario(scenarioId);
@@ -1002,7 +1003,7 @@ const handleMoveToNextScenario = () => {
 };
 
 
-const isCorrectChoice = (scenario) => {
+const isCorrect = (scenario) => {
   const choice = userChoices.value[scenario.id];
   if (!choice) return false;
 
@@ -1343,7 +1344,7 @@ const isCorrectChoice = (scenario) => {
 }
 
 .regular-reveal-card {
-  background-image: url('/images/card-reveal.png');
+  background-image: url('/images/card-back.jpg');
   background-size: cover;
   background-position: center center;
 }
