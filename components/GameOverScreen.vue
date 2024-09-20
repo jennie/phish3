@@ -57,13 +57,13 @@ export default {
         return 'Better Luck Next Time!';
       }
     },
-    gameOverText() {
+     gameOverText() {
       if (this.finalScore >= 20) {
-        return 'Perfect score! You are now eligible for the contest!';
+        return 'Perfect score! You’ve aced every challenge and proven your phishing detection skills are top-notch. You\'ve now been entered in the grand prize draw for a new monitor!\n\n Stay vigilant!';
       } else if (this.finalScore >= 16) {
-        return 'You did ok, but there\'s room for improvement. Keep trying!';
+        return 'You did great! You\'ve! achieved an impressive score! You\'ve now been entered into the prize draw for a new webcam!\n\n Keep honing those skills and stay vigilant!';
       } else {
-        return 'Not so good. Try again and see if you can do better!';
+        return 'You\'re almost there! You\'ve completed the game, but didn\'t hit the mark. Give it another shot! A higher score means a chance at the prize draw from a webcam or the grand prize draw for a monitor!\n\n Remember, practice makes perfect and every attemps strengthens your defenses!';
       }
     }
   },
