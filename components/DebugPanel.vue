@@ -1,6 +1,6 @@
 <template>
   <div class="fixed top-4 right-4 flex flex-col items-end z-50">
-    <button @click="toggleDebugPanel"
+    <button v-if="isDebugMode" @click="toggleDebugPanel"
       class="bg-red-500 bg-opacity-20 text-white px-4 py-2 rounded-full uppercase text-xs hover:bg-red-600 transition-colors mb-2">
       🐞
     </button>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useGameState } from '@/composables/gameState';
 const { filteredCards } = useGameState();
 const props = defineProps({
@@ -95,8 +95,14 @@ const emit = defineEmits([
 ]);
 
 const showDebugPanel = ref(false);
+const isDebugMode = ref(false);
 
 const toggleDebugPanel = () => {
   showDebugPanel.value = !showDebugPanel.value;
 };
+
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  isDebugMode.value = urlParams.has('debug') && urlParams.get('debug') === 'true';
+});
 </script>
