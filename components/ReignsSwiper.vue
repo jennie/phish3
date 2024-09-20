@@ -125,18 +125,14 @@
                         </p>
                       </div>
                     </div>
-
-
-
                   </div>
                 </div>
               </template>
 
-              <!-- Regular reveal card content -->
               <template v-else>
-                <div class="regular-reveal-content h-full flex items-center justify-center">
-                  <div class="p-4 text-white">
-                    <p v-if="card.feedback" class="text-lg text-center font-display embossed-text text-blue-100"
+                <div class="regular-reveal-content h-full flex flex-col justify-start items-center">
+                  <div class="w-full h-full p-4 text-white bg-gradient-to-b from-blue-600 to-transparent">
+                    <p v-if="card.feedback" class="text-2xl text-center font-display embossed-text text-blue-100"
                       v-html="parseCardText(card.feedback)" />
                     <p v-else class="text-xl px-8">No feedback available</p>
                   </div>
@@ -963,27 +959,40 @@ const handleDistrustClick = () => handleChoice(false);
 
 const handleNextClick = async () => {
   console.log("handleNextClick called");
+
   if (!isFlipping.value) {
     if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
       console.log("Reveal card flipped, moving to next scenario");
       isRevealCardFlipped.value = false;
-      await moveToNextScenario();
-      currentCardIndex.value = 0;
+
+      // Delay moving to the next scenario until after the flip animation completes
+      setTimeout(async () => {
+        await moveToNextScenario();
+        currentCardIndex.value = 0;
+      }, 600); // Match this time with your flip animation duration
+
     } else if (!isLastCardOfScenario.value) {
       console.log("Moving to next card");
       swiperRef.value.swiper.slideNext();
     } else {
       console.log("Last card of scenario, moving to next scenario");
-      isRevealCardFlipped.value = false; // Reset flip state
-      await moveToNextScenario();
-      currentCardIndex.value = 0;
+
+      // Delay scenario change to ensure the flip is visually complete first
+      setTimeout(async () => {
+        isRevealCardFlipped.value = false; // Reset flip state
+        await moveToNextScenario();
+        currentCardIndex.value = 0;
+      }, 600); // Match this time with your flip animation duration
     }
+
+    // Ensure the swiper slides to the correct index after the delay
     await nextTick();
     if (swiper.value) {
       swiper.value.slideTo(currentCardIndex.value, 0);
     }
   }
 };
+
 
 
 

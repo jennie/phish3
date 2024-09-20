@@ -1,12 +1,13 @@
 <template>
   <div class="game-over-screen flex flex-col items-center justify-center text-white">
-    <img :src="gameOverArt" alt="Game Over Art" class="mb-4" />
+    <!-- <img :src="gameOverArt" alt="Game Over Art" class="mb-4" /> -->
+    <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" />
     <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
     <p class="text-xl mb-4">{{ gameOverText }}</p>
     <p class="text-lg mb-2">Your Score: {{ finalScorePercentage }}%</p>
     <p class="text-lg mb-6">Best Score: {{ bestScorePercentage }}%</p>
     <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>
-    <button @click="restartGame" class="bg-red-500 px-6 py-2 rounded-full hover:bg-red-600">Play Again</button>
+    <button @click="restartGame" class="bg-blue-500 px-6 py-2 rounded-full hover:bg-blue-600">Play Again</button>
   </div>
 </template>
 
@@ -112,7 +113,7 @@ export default {
 
 <style scoped>
 .game-over-screen {
-  background-color: black;
+  background-image: url('/images/home-bg.png');
   height: 100vh;
   padding: 20px;
   text-align: center;
