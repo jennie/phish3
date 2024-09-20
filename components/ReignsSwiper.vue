@@ -35,7 +35,7 @@
             <div
               :class="['card-face front absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
-                :style="{ backgroundImage: `url(${card.image})` }">
+                :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
                 <Transition name="pop-fade">
                   <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
 
@@ -87,8 +87,7 @@
                 'rotate-y-180': !cardFlipStates[card.id],
                 'mfa-reveal-card': currentScenario.scenarioType === 'mfa',
                 'regular-reveal-card': currentScenario.scenarioType !== 'mfa'
-              }]">
-
+              }]" :style="{ backgroundImage: `url(${getCardImage(card, false)})` }" class="w-full h-full">
               <!-- MFA-specific reveal card content -->
               <template v-if="currentScenario.scenarioType === 'mfa'">
                 <div class="absolute inset-0 bg-cover bg-center"
@@ -1022,6 +1021,13 @@ const isCorrect = (scenario) => {
   return choice.scoreChange > 0;
 };
 
+function getCardImage(card, isFront) {
+  if (card.type === 'reveal' && isFront) {
+    return '/images/card-back.jpg';
+  }
+  return card.image;
+}
+
 
 </script>
 
@@ -1343,7 +1349,8 @@ const isCorrect = (scenario) => {
   }
 }
 
-.regular-reveal-card {
+.regular-reveal-card,
+.is-flipped .card-face.front {
   background-image: url('/images/card-back.jpg');
   background-size: cover;
   background-position: center center;
