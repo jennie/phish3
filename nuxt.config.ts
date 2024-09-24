@@ -22,7 +22,12 @@ export default defineNuxtConfig({
       "/api/**": { cors: true },
     },
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-auth-utils", "@nuxtjs/google-fonts"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "nuxt-auth-utils",
+    "@nuxtjs/google-fonts",
+    "@nuxt/image",
+  ],
   googleFonts: {
     download: false,
     families: {
@@ -36,6 +41,10 @@ export default defineNuxtConfig({
       isCustomElement: (tag) => tag.includes("swiper"),
     },
   },
-
+  image: {
+    provider: "netlify",
+    format: ["webp"],
+    quality: 20,
+  },
   compatibilityDate: "2024-08-10",
 });
