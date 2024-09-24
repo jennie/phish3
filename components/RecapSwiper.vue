@@ -76,27 +76,27 @@
     </div>
 
     <!-- Controls Container -->
-    <div class="flex-none h-1/6 flex flex-col align-middle items-center justify-end w-full">
-      <div class="flex space-x-12 justify-between z-10">
+    <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full ">
 
-        <div class="flex justify-center gap-5 z-10 py-2 mb-4">
-          <button @click="handlePreviousClick" :disabled="!canNavigateBack" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-            { 'opacity-50 cursor-not-allowed': !canNavigateBack }]"
-            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+      <div class="px-6 w-full flex flex-col items-center space-y-4 z-10 ">
+        <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full self-center">
+
+          <button @click="handlePreviousClick" :disabled="!canNavigateBack" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+            { 'opacity-50 cursor-not-allowed': !canNavigateBack }]">
             <BackButton />
           </button>
-          <button @click="handleNextClick" :disabled="!canNavigate" :class="['flex items-center justify-center shadow-md cursor-pointer transition-transform duration-200 hover:scale-110',
-            { 'opacity-50 cursor-not-allowed': !canNavigate }]"
-            style="width: var(--swiper-tinder-button-size); height: var(--swiper-tinder-button-size);">
+          <button @click="handleNextClick" :disabled="!canNavigate" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+            { 'opacity-50 cursor-not-allowed': !canNavigate }]">
             <NextButton />
           </button>
-        </div>
 
+        </div>
       </div>
     </div>
 
     <!-- Game Over Prompt Modal -->
     <div v-if="showGameOverPrompt" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+
       <div class="bg-white p-6 rounded-lg text-center">
         <h2 class="text-2xl font-bold mb-4">Recap Complete</h2>
         <p class="mb-4">You've reviewed all your choices. Ready to see your final results?</p>
