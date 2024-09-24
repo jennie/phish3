@@ -1,7 +1,8 @@
 <template>
-  <div class="start-screen h-screen flex flex-col justify-center items-center  text-blue-100">
+  <div class="start-screen h-screen flex flex-col justify-center items-center text-blue-100">
     <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" />
     <h2 class="text-3xl text-blue-50 uppercase font-bold mb-2">Cybersecurity Trainer</h2>
+
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
       <div class="flex justify-center items-center">
@@ -10,22 +11,29 @@
     </div>
 
     <div v-else class="start-game w-full max-w-md px-4">
-
       <AuthState v-slot="{ loggedIn, user, clear }">
         <div v-if="loggedIn" class="text-center">
+          <button v-if="canDownloadCsv" @click="downloadCsv"
+            class=" text-orange-200 underline text-lg font-semibold  mb-4">
+            Download Scores
+          </button>
           <p class="text-xl mb-2">Welcome, {{ user.email }}!</p>
 
           <p class="mb-4" v-if="user.bestScore > 0">Your best score: {{ bestScorePercentage }}%</p>
+
           <button @click="startGame"
             class="bg-blue-200 text-zinc-800 rounded-full px-12 py-3 text-lg font-semibold hover:bg-blue-300 transition-colors mb-4">
             Start Game
           </button>
+
+
+
           <button @click="logout"
             class="block text-center mx-auto uppercase text-blue-300 underline text-sm font-semibold transition-colors mb-2">
             Logout
           </button>
-
         </div>
+
         <div v-else>
           <h2 class="text-2xl mb-4 text-center">Enter Your Seneca Email to Play</h2>
           <p class="text-sm mb-4 text-center">New to Reel Polytechnic? We'll create an account for you!</p>
@@ -90,6 +98,38 @@ const logout = async () => {
   }
 };
 
+const downloadCsv = async () => {
+  try {
+    const { data, error } = await useFetch('/api/admin/download-scores', {
+      responseType: 'blob',
+    });
+
+    // Access the value of the refs
+    if (error.value) {
+      console.error('Error downloading CSV:', error.value);
+      return;
+    }
+
+    // Create a blob from the data and generate a download link
+    const csvBlob = new Blob([data.value], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(csvBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'users.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Check if the user can download the CSV
+const canDownloadCsv = computed(() => {
+  const user = useUserSession().user;
+  return user.value.type === 'gammaspace' || user.value.type === 'employee';
+});
+
 // Load scenarios on mount and handle loading state
 onMounted(async () => {
   await initializeGame();
@@ -102,7 +142,6 @@ onMounted(async () => {
 // Computed property for bestScore percentage
 const bestScorePercentage = computed(() => {
   const user = useUserSession().user;
-  console.log('user', user);
   return user.value.bestScore > 0 ? (user.value.bestScore / 20) * 100 : 0;
 });
 </script>
