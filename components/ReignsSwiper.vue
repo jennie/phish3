@@ -323,8 +323,15 @@ const getTransitionCardButtonText = computed(() => {
 });
 
 const regularScenarios = computed(() =>
-  scenarios.value.filter(s => s.scenarioType !== 'ending' && s.id !== null)
+  scenarios.value.filter(s =>
+    s.scenarioType !== 'ending' &&
+    (
+      (s.cards.find(card => card.type === 'decision')?.trustChoice?.consequences?.length > 0) ||
+      (s.cards.find(card => card.type === 'decision')?.distrustChoice?.consequences?.length > 0)
+    )
+  )
 );
+
 const endingScenarios = computed(() => scenarios.value.filter(s => s.scenarioType === 'ending'));
 
 
