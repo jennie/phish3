@@ -1,7 +1,7 @@
 <template>
   <div class="start-screen h-screen flex flex-col justify-center items-center text-blue-100">
     <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" />
-    <h2 class="text-3xl text-blue-50 uppercase font-bold mb-2">Cybersecurity Trainer</h2>
+    <h2 class="text-3xl text-blue-50 uppercase font-bold mb-2">Phishing Awareness Trainer</h2>
 
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
