@@ -154,7 +154,7 @@
       </g>
     </svg>
     <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
-    <p class="text-xl mb-4" v-html="gameOverText" />
+    <p class="text-xl mt-12 mb-4 font-display" v-html="gameOverText" />
     <p class="text-lg mb-2">Your Score: {{ finalScorePercentage }}%</p>
     <p class="text-lg mb-6">Best Score: {{ bestScorePercentage }}%</p>
     <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>

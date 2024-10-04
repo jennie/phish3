@@ -158,7 +158,7 @@
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
       <div class="flex justify-center items-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-gray-400"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-white"></div>
       </div>
     </div>
 
