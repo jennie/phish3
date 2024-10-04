@@ -41,9 +41,9 @@ export default defineEventHandler(async (event: H3Event) => {
   const msg = {
     to: email,
     from: "noreply@reelpolytechnic.com",
-    subject: "Your Reel Polytechnic Login Link",
+    subject: "Your Seneca Polytechnic Phishing Training Login Link",
     text: `Click this link to log in: ${loginUrl}`,
-    html: `<p>Click <a href="${loginUrl}">here</a> to log in to Reel Polytechnic.</p>`,
+    html: `<p>Click <a href="${loginUrl}">here</a> to log in.</p>`,
   };
 
   await sgMail.send(msg);
