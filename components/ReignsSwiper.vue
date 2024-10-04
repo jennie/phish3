@@ -58,7 +58,7 @@
                   <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
 
                     <button @click.stop="toggleOverlay(card)"
-                      class="focus:outline-none absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                      class="focus:outline-none absolute top-4 right-4 bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                         <path fill="currentColor"
                           d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
@@ -69,11 +69,11 @@
                 <!-- Overlay -->
                 <Transition :name="overlayTransitionName">
                   <div v-if="card.showOverlay"
-                    class="absolute inset-0 bg-zinc-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
+                    class="absolute inset-0 bg-zinc-800 rounded-2xl bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
 
                     <div>
                       <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
-                          bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                          bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

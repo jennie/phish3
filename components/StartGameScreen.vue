@@ -1,12 +1,12 @@
 <template>
-  <div class="start-screen h-screen flex flex-col justify-center items-center text-blue-100">
-    <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" />
-    <h2 class="text-3xl text-blue-50 uppercase font-bold mb-2">Phishing Awareness Trainer</h2>
+  <div class="start-screen h-screen flex flex-col justify-center items-center text-gray-100">
+    <!-- <img src="/images/reelPolytechnicLogo.png" alt="Reel Polytechnic Logo" class=" max-w-72 mb-4" /> -->
+    <h2 class="text-3xl text-gray-50 uppercase font-bold mb-2">Phishing Awareness Trainer</h2>
 
     <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
       <div class="flex justify-center items-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-400"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-gray-400"></div>
       </div>
     </div>
 
@@ -22,14 +22,14 @@
           <p class="mb-4" v-if="user.bestScore > 0">Your best score: {{ bestScorePercentage }}%</p>
 
           <button @click="startGame"
-            class="bg-blue-200 text-zinc-800 rounded-full px-12 py-3 text-lg font-semibold hover:bg-blue-300 transition-colors mb-4">
+            class="bg-gray-200 text-zinc-800 rounded-full px-12 py-3 text-lg font-semibold hover:bg-gray-300 transition-colors mb-4">
             Start Game
           </button>
 
 
 
           <button @click="logout"
-            class="block text-center mx-auto uppercase text-blue-300 underline text-sm font-semibold transition-colors mb-2">
+            class="block text-center mx-auto uppercase text-gray-300 underline text-sm font-semibold transition-colors mb-2">
             Logout
           </button>
         </div>
