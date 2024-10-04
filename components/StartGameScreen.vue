@@ -197,7 +197,7 @@
       </AuthState>
     </div>
 
-    <div v-if="loginMessage" class="mt-4 text-center text-green-400">
+    <div v-if="loginMessage" class="mt-4 text-center text-white">
       {{ loginMessage }}
     </div>
   </div>

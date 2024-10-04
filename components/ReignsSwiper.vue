@@ -149,8 +149,8 @@
 
               <template v-else>
                 <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
-                  <div class="w-full h-full p-4 self-center">
-                    <p v-if="card.feedback" class="text-2xl text-center font-display embossed-text text-zinc-800"
+                  <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
+                    <p v-if="card.feedback" class="text-2xl text-center font-display text-black"
                       v-html="parseCardText(card.feedback)" />
                     <p v-else class="text-xl px-8">No feedback available</p>
                   </div>
