@@ -95,7 +95,7 @@
     </div>
 
     <!-- Game Over Prompt Modal -->
-    <div v-if="showGameOverPrompt" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div v-if="showGameOverPrompt" class="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
 
       <div class="bg-white p-6 rounded-lg text-center">
         <h2 class="text-2xl font-bold mb-4">Recap Complete</h2>

@@ -54,11 +54,7 @@
     </div>
   </div>
 </template>
-<style>
-body {
-  background-image: url('/images/home-bg.png');
-}
-</style>
+
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useGameState } from '@/composables/gameState';

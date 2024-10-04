@@ -7,7 +7,7 @@
   <TransitionCard v-if="isTransitionCardVisible" :title="getTransitionCardTitle" :message="getTransitionCardMessage"
     :button-text="getTransitionCardButtonText" @proceed="handleMoveToNextStage" />
 
-  <div v-if="currentScenario && currentCard" class="bg-black flex flex-col h-dvh justify-between">
+  <div v-if="currentScenario && currentCard" class="flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
     <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none w-full max-w-[300px] mx-auto">
 
@@ -35,11 +35,23 @@
             :class="{ 'is-flipped': isRevealCardFlipped }">
 
             <div
-              :class="['card-face front absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+              :class="['card-face front absolute inset-0 rounded-3xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+
+              >
+
               <div
-                class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] bg-gray-300 text-left">
-                <div class=" absolute inset-0 flex items-center justify-center p-4">
-                  <div class="card-text text-gray-800 text-left font-display" v-html="parseCardText(card.text)"></div>
+                class="absolute inset-0 bg-cover bg-center rounded-3xl border-8 border-white aspect-[11/19] bg-[#ebeadc] text-left"
+                :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
+                <div class="absolute inset-0 flex p-4" :class="{
+                  'items-start justify-start': card.image, // Align text to the top when there is an image
+                  'items-center justify-center': !card.image
+                }">
+                  <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
+                    'bg-gray-950 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
+                    'bg-gray-950 p-4 text-white rounded-lg border-white border-2': card.image,
+                    'text-gray-800': !(card.type === 'decision') && !card.image
+                  }">
+                  </div>
                 </div>
 
                 <Transition name="pop-fade">

@@ -11,7 +11,7 @@ export default [
                 "text": "It's your first day at Seneca Polytechnic. It's a beautiful day and the sun is shining.",
                 "trustLabel": "Hi, world!",
                 "distrustLabel": "Sun shining!",
-                "image": "/images/1-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -31,7 +31,7 @@ export default [
                 "text": "Your friend, Sammy Sting, finds you and buzzes over. \n\n Hey there! Since you're here early, let me take you on a tour!",
                 "trustLabel": "It's Sammy!",
                 "distrustLabel": "What's up?",
-                "image": "/images/1-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -51,7 +51,7 @@ export default [
                 "text": "Normally, I'd bring you to Starbucks for a snack. It's a great place to hang out, but it's closed right now...",
                 "trustLabel": "I love my Starbies?",
                 "distrustLabel": "Oh...",
-                "image": "/images/1-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -68,10 +68,10 @@ export default [
                 "id": 1,
                 "type": "story",
                 "order": 4,
-                "text": "Folks have been extra grum[y in the morning since they closed Starbucks.",
+                "text": "Folks have been extra grumpy in the morning since they closed Starbucks.",
                 "trustLabel": "I get it?",
                 "distrustLabel": "That's worrisome...",
-                "image": "/images/1-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -91,7 +91,7 @@ export default [
                 "text": "You follow Sammy through the campus, learning about the different buildings, facilities, and activities available here.",
                 "trustLabel": "Beautiful...",
                 "distrustLabel": "Is this real?",
-                "image": "/images/1-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -111,7 +111,7 @@ export default [
                 "text": "\"As you settle in, stay alert for phishing scams,\" says Sammy. \n\n \"They could be suspicious emails, fake websites, or strange requests.\" ",
                 "trustLabel": "A phish?",
                 "distrustLabel": "Scams!?",
-                "image": "/images/1-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -131,7 +131,7 @@ export default [
                 "text": "\"There's been a lot more recently! IT Security team has been on it!\" \n\n \"Remember, always verify the source before trusting any information!\" Sammy warns.",
                 "trustLabel": "I will!",
                 "distrustLabel": "Of course!",
-                "image": "/images/1-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -151,7 +151,7 @@ export default [
                 "text": "As you both explore, you notice the beautiful building, vibrant student life and the various events advertised on the digital screens.",
                 "trustLabel": "Peaceful...",
                 "distrustLabel": "Exciting!",
-                "image": "/images/1-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -171,7 +171,7 @@ export default [
                 "text": "Sammy stops suddenly. \n\n Oh wow, we've wandered far! I know a shortcut back. Let's take a detour back to the main building.",
                 "trustLabel": "A shortcut?",
                 "distrustLabel": "Is it safe?",
-                "image": "/images/1-9.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -191,7 +191,7 @@ export default [
                 "text": "Do you trust Sammy to get you back in time?",
                 "trustLabel": "Trust Sammy's detour",
                 "distrustLabel": "Distrust Sammy",
-                "image": "/images/1-10.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You trust Sammy and follow their shortcut. \n\n The path takes you through a lovely garden and you reach the main building quickly. \n\n \"See? Told you it was a good shortcut!\" Sammy beams."
@@ -211,7 +211,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/1-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -258,7 +258,7 @@ export default [
                 "text": "You're checking your email in between power naps at the campus library.",
                 "trustLabel": "It's so quiet…",
                 "distrustLabel": "Keep sleeping...",
-                "image": "/images/2-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -278,7 +278,7 @@ export default [
                 "text": "There's an offer to access a plentitude of ebooks and textbooks!",
                 "trustLabel": "I love ebooks!",
                 "distrustLabel": "Wait, what?",
-                "image": "/images/2-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -298,7 +298,7 @@ export default [
                 "text": "It sounds like it could be a good deal...",
                 "trustLabel": "Check it out!",
                 "distrustLabel": "I like deals...",
-                "image": "/images/2-2b.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -318,7 +318,7 @@ export default [
                 "text": "First, you check who's sending this to you.",
                 "trustLabel": "Let's see...",
                 "distrustLabel": "Who is it?",
-                "image": "/images/2-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -338,7 +338,7 @@ export default [
                 "text": "Then you examine the body of the email.",
                 "trustLabel": "Seems interesting.",
                 "distrustLabel": "Hmm...",
-                "image": "/images/2-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -358,7 +358,7 @@ export default [
                 "text": "Finally, look at the offer and the signature.",
                 "trustLabel": "Sounds appealing...",
                 "distrustLabel": "Tempting...",
-                "image": "/images/2-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -378,7 +378,7 @@ export default [
                 "text": "Should you trust this offer?",
                 "trustLabel": "I want books!",
                 "distrustLabel": "This isn't right!",
-                "image": "/images/2-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \n\n It's just a single paged document listing out 3 study habits: \n\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast."
@@ -398,7 +398,7 @@ export default [
                 "text": "",
                 "trustLabel": "Wow!",
                 "distrustLabel": "Let's go!",
-                "image": "/images/2-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -445,7 +445,7 @@ export default [
                 "text": "You're taking a walk around campus enjoying the fresh air when you get a call from Sammy!",
                 "trustLabel": "Fresh!",
                 "distrustLabel": "Smells nice.",
-                "image": "/images/3-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -465,7 +465,7 @@ export default [
                 "text": "\"I'm planning a weekend getaway with my friends!\" Sammy exclaims.",
                 "trustLabel": "Sounds expensive!",
                 "distrustLabel": "I want to go!",
-                "image": "/images/3-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -485,7 +485,7 @@ export default [
                 "text": "\"We were looking for a cool AirBnB, but found this site with amazing discounts!",
                 "trustLabel": "A deal?",
                 "distrustLabel": "What site?",
-                "image": "/images/3-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -505,7 +505,7 @@ export default [
                 "text": "They send you the link.",
                 "trustLabel": "Take a closer look.",
                 "distrustLabel": "Let's see...",
-                "image": "/images/3-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -525,7 +525,7 @@ export default [
                 "text": "You take a good look at the website...",
                 "trustLabel": "Hmm...",
                 "distrustLabel": "What's this?",
-                "image": "/images/3-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -545,7 +545,7 @@ export default [
                 "text": "\"Should I go ahead and book it? What do you think?\"",
                 "trustLabel": "Looks good to me",
                 "distrustLabel": "I don't trust it",
-                "image": "/images/3-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "After booking, Sammy receives an email saying there's an issue with their payment. \n\n They're starting to wonder if it was a good idea after all..."
@@ -565,7 +565,7 @@ export default [
                 "text": "",
                 "trustLabel": "Got it",
                 "distrustLabel": "Good to go",
-                "image": "/images/3-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -612,7 +612,7 @@ export default [
                 "text": "You and Sammy are standing outside Starbucks, looking into the windows to see if it's almost ready to re-open.",
                 "trustLabel": "Peek inside...",
                 "distrustLabel": "Can you see?",
-                "image": "/images/4-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -632,7 +632,7 @@ export default [
                 "text": "\"I've been meaning to ask you! Have you set up MFA on your account yet?\" questions Sammy.",
                 "trustLabel": "Not yet. Why?",
                 "distrustLabel": "I haven't...",
-                "image": "/images/4-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -652,7 +652,7 @@ export default [
                 "text": "\"I think it's pretty cool cause it adds an extra layer of security. \n\n Even if someone gets your password, they still need a second factor to access your account.\"",
                 "trustLabel": "Sounds important...",
                 "distrustLabel": "I see",
-                "image": "/images/4-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -672,7 +672,7 @@ export default [
                 "text": "\"You should always check the location before approving any MFA requests and make sure it's really you!\"",
                 "trustLabel": "Good idea",
                 "distrustLabel": "Smart!",
-                "image": "/images/4-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -692,7 +692,7 @@ export default [
                 "text": "Later, you're working in the library and logging into your student account. \n\n You get an MFA prompt!",
                 "trustLabel": "Check the location...",
                 "distrustLabel": "Is this me?",
-                "image": "/images/4-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -712,7 +712,7 @@ export default [
                 "text": "Should you approve the login attempt?",
                 "trustLabel": "Approve it",
                 "distrustLabel": "Deny!",
-                "image": "/images/4-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Nice job checking the location! You feel reassured knowing your account is protected with MFA."
@@ -732,7 +732,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/4-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -779,7 +779,7 @@ export default [
                 "text": "One of the best features of Seneca Polytechnic's campus is how it has its own Starbucks!",
                 "trustLabel": "The best!",
                 "distrustLabel": "Love it here",
-                "image": "/images/5-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -799,7 +799,7 @@ export default [
                 "text": "You read all about it in the amenties list for the campus.",
                 "trustLabel": "GIMME CAFFEINE",
                 "distrustLabel": "Mmmmm!",
-                "image": "/images/5-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -819,7 +819,7 @@ export default [
                 "text": "But you're dismayed that it's closed for renovations",
                 "trustLabel": "Oh no…",
                 "distrustLabel": "Why???",
-                "image": "/images/5-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -839,7 +839,7 @@ export default [
                 "text": "There's a sign taped to the door.",
                 "trustLabel": "What could they have to do!?",
                 "distrustLabel": "I dont get it",
-                "image": "/images/5-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -859,7 +859,7 @@ export default [
                 "text": "There's a QR code on it!",
                 "trustLabel": "Okay…",
                 "distrustLabel": "Check it out",
-                "image": "/images/5-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -879,7 +879,7 @@ export default [
                 "text": "There's a post about it on MySeneca! Let's read on...",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
-                "image": "/images/5-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -899,7 +899,7 @@ export default [
                 "text": "Is this a trusted source for this information?",
                 "trustLabel": "I believe it",
                 "distrustLabel": "This is fake!",
-                "image": "/images/5-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Sounds like you'll have to go somewhere else for your caffeine fix, but it's hopefully coming back soon."
@@ -919,7 +919,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/5-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -966,7 +966,7 @@ export default [
                 "text": "You're enjoying your morning outside, daydreaming about visiting Starbucks, when Sammy flies by.",
                 "trustLabel": "Relax and wait...",
                 "distrustLabel": "Nice clouds",
-                "image": "/images/6-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -986,7 +986,7 @@ export default [
                 "text": "\"Did you see the posters? We're hosting an interschool basketball tournament!\"",
                 "trustLabel": "Tell me more!",
                 "distrustLabel": "What!",
-                "image": "/images/6-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1006,7 +1006,7 @@ export default [
                 "text": "\"We have to go! I used to play, back in the day, you know!\"",
                 "trustLabel": "Of course!",
                 "distrustLabel": "Me too",
-                "image": "/images/6-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1026,7 +1026,7 @@ export default [
                 "text": "\"But there's a problem... I tried to get tickets from this site that I found, and my card isn't working!\"",
                 "trustLabel": "Oh no...",
                 "distrustLabel": "Why not?",
-                "image": "/images/6-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1046,7 +1046,7 @@ export default [
                 "text": "\"Can you help me get them? Please, I don't want to miss this!\" Sammy pleads.",
                 "trustLabel": "Let me check it out...",
                 "distrustLabel": "Hmm...",
-                "image": "/images/6-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1066,7 +1066,7 @@ export default [
                 "text": "Sammy sends you the website and you open it up on your phone.",
                 "trustLabel": "Okay…",
                 "distrustLabel": "Let's see...",
-                "image": "/images/6-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1086,7 +1086,7 @@ export default [
                 "text": "Let's take a look at this webpage",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Look closely",
-                "image": "/images/6-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1106,7 +1106,7 @@ export default [
                 "text": "Do you buy the tickets?",
                 "trustLabel": "Gotta see the game!",
                 "distrustLabel": "I don't like this...",
-                "image": "/images/6-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "You check out and are promised the hand delivery. \n\n You're advised to stay on campus, otherwise they wont be able to find you, but no one ever arrives."
@@ -1126,7 +1126,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/6-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1173,7 +1173,7 @@ export default [
                 "text": "You're sitting out on the grass, sipping your coffee and catching up on some reading when Sammy calls you.",
                 "trustLabel": "Enjoy the moment...",
                 "distrustLabel": "Mmm coffee",
-                "image": "/images/7-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1193,7 +1193,7 @@ export default [
                 "text": "\"Guess what! The Raptors are playing back-to-back home games!\"",
                 "trustLabel": "Really?",
                 "distrustLabel": "Raptors?!",
-                "image": "/images/7-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1213,7 +1213,7 @@ export default [
                 "text": "\"I got an email from my Raptors fan community with an exclusive link for Seneca Polytechnic students discount tickets!\"",
                 "trustLabel": "Sounds awesome!",
                 "distrustLabel": "Woah!",
-                "image": "/images/7-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1233,7 +1233,7 @@ export default [
                 "text": "\"I'm so excited, but also a little nervous...\"",
                 "trustLabel": "Why's that?",
                 "distrustLabel": "What for?",
-                "image": "/images/7-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1253,7 +1253,7 @@ export default [
                 "text": "\"It opens a link asking for my student ID and credit card info. Do you think it's ok?\" Sammy asks nervously.",
                 "trustLabel": "Let's look together.",
                 "distrustLabel": "Show me!",
-                "image": "/images/7-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1273,7 +1273,7 @@ export default [
                 "text": "Take a look at the URL",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Hmm",
-                "image": "/images/7-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1293,7 +1293,7 @@ export default [
                 "text": "Next, we're going to look at the webpage.",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
-                "image": "/images/7-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1313,7 +1313,7 @@ export default [
                 "text": "Should Sammy trust the site?",
                 "trustLabel": "Yes! Let's get tickets!",
                 "distrustLabel": "Maybe we shouldn't",
-                "image": "/images/7-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You and Sammy get front row tickets. Sammy's so excited, they say they wont sleep for weeks."
@@ -1333,7 +1333,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/7-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1380,7 +1380,7 @@ export default [
                 "text": "You're the only one in the Computing Commons this morning. You can't wait until Starbucks reopens for morning coffee!",
                 "trustLabel": "Enjoy the quiet…",
                 "distrustLabel": "Enjoy the quiet!",
-                "image": "/images/8-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1400,7 +1400,7 @@ export default [
                 "text": "\"Ah! Oh! I'm so glad you're here!\" Sammy says, suddenly appearing.",
                 "trustLabel": "Did something happen?",
                 "distrustLabel": "Hey Sammy!",
-                "image": "/images/8-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1420,7 +1420,7 @@ export default [
                 "text": "\"I just got an email that says Security Team Alpha detected suspicious activity using my student ID!\"",
                 "trustLabel": "Oh no…",
                 "distrustLabel": "Suspicious?",
-                "image": "/images/8-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1440,7 +1440,7 @@ export default [
                 "text": "\"They're gonna lock my account if I don't verify my identity...That can't be good!\" Sammy says wide-eyed.",
                 "trustLabel": "…verify?",
                 "distrustLabel": "That's bad",
-                "image": "/images/8-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1460,7 +1460,7 @@ export default [
                 "text": "\"I'm me, the one and only Sammy! Could you watch my things while I go and sort this out?\"",
                 "trustLabel": "Show me the email!",
                 "distrustLabel": "Hold on!",
-                "image": "/images/8-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1480,7 +1480,7 @@ export default [
                 "text": "The first thing we're going to look at is the header.",
                 "trustLabel": "Let's keep reading…",
                 "distrustLabel": "What's this?",
-                "image": "/images/8-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1500,7 +1500,7 @@ export default [
                 "text": "Next, we're going to look at the email's body.",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Huh...",
-                "image": "/images/8-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1520,7 +1520,7 @@ export default [
                 "text": "Finally, we're going to look at the email's call to action and signature.",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Hmm…",
-                "image": "/images/8-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1540,7 +1540,7 @@ export default [
                 "text": "Is this email legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
-                "image": "/images/8-9.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It asks for 3 different forms of ID!\n\n Sammy heads to the library to scan their cards and you make sure their things don't move an inch while they're gone."
@@ -1560,7 +1560,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/8-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1607,7 +1607,7 @@ export default [
                 "text": "You're holed up in the library, surrounded by books.",
                 "trustLabel": "Hard working!",
                 "distrustLabel": "I'm tired",
-                "image": "/images/9-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1627,7 +1627,7 @@ export default [
                 "text": "Deep into your research for a paper, your open tabs are all important articles, except for your email.",
                 "trustLabel": "Take a break!",
                 "distrustLabel": "Check it!",
-                "image": "/images/9-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1647,7 +1647,7 @@ export default [
                 "text": "You decide to take a peek, but you didn't expect to see this!",
                 "trustLabel": "It looks urgent...",
                 "distrustLabel": "Oh my...",
-                "image": "/images/9-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1667,7 +1667,7 @@ export default [
                 "text": "This email looks really important.",
                 "trustLabel": "This is bad...",
                 "distrustLabel": "Scary!",
-                "image": "/images/9-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1687,7 +1687,7 @@ export default [
                 "text": "Keep reading?",
                 "trustLabel": "Okay...",
                 "distrustLabel": "I'm looking...",
-                "image": "/images/9-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1707,7 +1707,7 @@ export default [
                 "text": "Should you download the fix?",
                 "trustLabel": "Download it!",
                 "distrustLabel": "No! This is bad!",
-                "image": "/images/9-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "You download the fix as requested. \n\n Your computer starts acting really weird...!"
@@ -1727,7 +1727,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/9-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1774,7 +1774,7 @@ export default [
                 "text": "You're working late in the study lounge getting some last minute things done before you go home.",
                 "trustLabel": "Gotta finish...",
                 "distrustLabel": "So late!",
-                "image": "/images/10-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1794,7 +1794,7 @@ export default [
                 "text": "You get an email asking you participate in an official Polytechnic survey about student life. \n\n You've gotten three of these this week!",
                 "trustLabel": "I have opinions...",
                 "distrustLabel": "No inbox space!",
-                "image": "/images/10-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1814,7 +1814,7 @@ export default [
                 "text": "I guess it could be worth it to check out.",
                 "trustLabel": "Let's see about this…",
                 "distrustLabel": "Ok fine...",
-                "image": "/images/10-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1834,7 +1834,7 @@ export default [
                 "text": "Let's start by examining the email's header.",
                 "trustLabel": "Let's keep reading…",
                 "distrustLabel": "I get it",
-                "image": "/images/10-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1854,7 +1854,7 @@ export default [
                 "text": "Next up, we'll focus on the email's message.",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
-                "image": "/images/10-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1874,7 +1874,7 @@ export default [
                 "text": "Finally, let's look at the email's call to action and signature.",
                 "trustLabel": "Hmm…",
                 "distrustLabel": "Alright",
-                "image": "/images/10-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1894,7 +1894,7 @@ export default [
                 "text": "Is this email legit?",
                 "trustLabel": "Give my feedback!",
                 "distrustLabel": "They want my thoughts?",
-                "image": "/images/10-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You get a sweet $10 campus store gift card."
@@ -1914,7 +1914,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/10-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1961,7 +1961,7 @@ export default [
                 "text": "Your computer's going into red alert mode!!! \n\n There's a flashing software update message for your polytechnic approved anitvirus software!",
                 "trustLabel": "What's going on?!",
                 "distrustLabel": "Aaa!!!",
-                "image": "/images/11-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1981,7 +1981,7 @@ export default [
                 "text": "You're unsure whether to trust it.",
                 "trustLabel": "Call for help?",
                 "distrustLabel": "Please, help!",
-                "image": "/images/11-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2001,7 +2001,7 @@ export default [
                 "text": "You call the IT service desk for help and they ask you bring your computer in.",
                 "trustLabel": "Head to IT Service Desk",
                 "distrustLabel": "Let's go!",
-                "image": "/images/11-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2021,7 +2021,7 @@ export default [
                 "text": "\"Hey there! Let's see what's going on with your computer,\" a friendly IT services employee offers.",
                 "trustLabel": "Explain the issue",
                 "distrustLabel": "Show them",
-                "image": "/images/11-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2041,7 +2041,7 @@ export default [
                 "text": "\"Ah, yes! We saw this issued on the anitvirus software vendor's web site.\"",
                 "trustLabel": "Tell me more",
                 "distrustLabel": "Oh yeah?",
-                "image": "/images/11-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2061,7 +2061,7 @@ export default [
                 "text": "\"We reviewed it and sent out a Polytechnic-wide notice recommeding to install the update.\"",
                 "trustLabel": "Lemmie think...",
                 "distrustLabel": "Oh...",
-                "image": "/images/11-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2081,7 +2081,7 @@ export default [
                 "text": "Is this update legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
-                "image": "/images/11-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You decide to trust their advice and install the update. You feel secure knowing your system is protected."
@@ -2101,7 +2101,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/11-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2148,7 +2148,7 @@ export default [
                 "text": "You're researching at the library and get a frantic text from Sammy.",
                 "trustLabel": "What's happening?",
                 "distrustLabel": "Nice book smell",
-                "image": "/images/12-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2168,7 +2168,7 @@ export default [
                 "text": "\"AAA DONT CLIKC FOR FREE FLOPWERS!!!\"",
                 "trustLabel": "What??",
                 "distrustLabel": "Sorry???",
-                "image": "/images/12-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2188,7 +2188,7 @@ export default [
                 "text": "You rush to find Sammy. They look desperate and worried about their computer.",
                 "trustLabel": "What's wrong?",
                 "distrustLabel": "Hey Sammy",
-                "image": "/images/12-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2208,7 +2208,7 @@ export default [
                 "text": "\"All I did was click a link to get free flowers and now my computer's locked!\"",
                 "trustLabel": "Let's get help!",
                 "distrustLabel": "Come with me",
-                "image": "/images/12-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2228,7 +2228,7 @@ export default [
                 "text": "You take Sammy to the IT service desk to check over their computer.",
                 "trustLabel": "Explain the situation",
                 "distrustLabel": "Show them",
-                "image": "/images/12-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2248,7 +2248,7 @@ export default [
                 "text": "\"Oh my, Sammy, this looks like ransomware!\" the IT service staff quickly assess.",
                 "trustLabel": "What can we do?",
                 "distrustLabel": "Ransom!?",
-                "image": "/images/12-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2268,7 +2268,7 @@ export default [
                 "text": "\"We can try to fix it, but Sammy you need to be careful with suspicious emails!\"",
                 "trustLabel": "Thank you!",
                 "distrustLabel": "Wow!",
-                "image": "/images/12-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2288,7 +2288,7 @@ export default [
                 "text": "As ITS work on Sammy's computer, you receive a notification. It's the same email Sammy received!",
                 "trustLabel": "Show them",
                 "distrustLabel": "Get their attention",
-                "image": "/images/12-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2308,7 +2308,7 @@ export default [
                 "text": "\"Since you're already here, let's walk through it together\", an ITS employee suggests.",
                 "trustLabel": "Read the email.",
                 "distrustLabel": "Okay",
-                "image": "/images/12-9.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2328,7 +2328,7 @@ export default [
                 "text": "Hmm. Now, let's look at the body.",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Keep reading...",
-                "image": "/images/12-10.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2348,7 +2348,7 @@ export default [
                 "text": "\"I can see how Sammy was fooled,\" frowns the ITS employee.",
                 "trustLabel": "Me too...",
                 "distrustLabel": "Hmm...",
-                "image": "/images/12-11.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2368,7 +2368,7 @@ export default [
                 "text": "What do you think about this offer?",
                 "trustLabel": "It could be legit..",
                 "distrustLabel": "So suspicious!",
-                "image": "/images/12-12.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "\"You should be wary about offers that sound too good to be true. \n\n Also you knew it locked Sammy's computer! Don't let yourself get tricked!\""
@@ -2388,7 +2388,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/12-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2642,7 +2642,7 @@ export default [
                 "text": "You find Sammy buzzing with excitement in the library.",
                 "trustLabel": "What's up, Sammy?",
                 "distrustLabel": "Hey Sammy!",
-                "image": "/images/14-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2662,7 +2662,7 @@ export default [
                 "text": "\"I just got a really cool email!\" Sammy says, barely containing themselves.",
                 "trustLabel": "Oh yeah?",
                 "distrustLabel": "Did you?",
-                "image": "/images/14-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2682,7 +2682,7 @@ export default [
                 "text": "\"They're looking for baristas for the re-opening of Starbucks!\"",
                 "trustLabel": "What, really?",
                 "distrustLabel": "Mm cake..",
-                "image": "/images/14-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2702,7 +2702,7 @@ export default [
                 "text": "\"No experience necessary, all the snacks and coffee you can handle, extended health insurance included!\"",
                 "trustLabel": "Me too!",
                 "distrustLabel": "Hmm...",
-                "image": "/images/14-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2722,7 +2722,7 @@ export default [
                 "text": "You ask to take a look at that email...",
                 "trustLabel": "I wanna see.",
                 "distrustLabel": "Can I look?",
-                "image": "/images/14-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2742,7 +2742,7 @@ export default [
                 "text": "Hmm... Let's keep reading.",
                 "trustLabel": "Okay…",
                 "distrustLabel": "Alright",
-                "image": "/images/14-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2762,7 +2762,7 @@ export default [
                 "text": "Interesting... What do you tell Sammy?",
                 "trustLabel": "Sign me up too!",
                 "distrustLabel": "This doesn't look right!",
-                "image": "/images/14-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Sammy arrives later to the job, only to find Starbucks still closed."
@@ -2782,7 +2782,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/14-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2829,7 +2829,7 @@ export default [
                 "text": "You're working late into the night in the quiet library.",
                 "trustLabel": "Gotta finish!",
                 "distrustLabel": "Soo tired...",
-                "image": "/images/15-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2849,7 +2849,7 @@ export default [
                 "text": "Only the sound of your focused typing fills the air.",
                 "trustLabel": "Keep typing",
                 "distrustLabel": "Gotta type",
-                "image": "/images/15-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2869,7 +2869,7 @@ export default [
                 "text": "Suddenly, your bladder reminds you it's been a while since you've used the washroom.",
                 "trustLabel": "What's that?",
                 "distrustLabel": "A sound?",
-                "image": "/images/15-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2889,7 +2889,7 @@ export default [
                 "text": "You take a quick look around the room.",
                 "trustLabel": "What could it be?",
                 "distrustLabel": "Is it rain?",
-                "image": "/images/15-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2909,7 +2909,7 @@ export default [
                 "text": "It doesn't seem like anybody is here.",
                 "trustLabel": "Go check!",
                 "distrustLabel": "Kinda chilly",
-                "image": "/images/15-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2929,7 +2929,7 @@ export default [
                 "text": "Do you trust the library is empty and leave your laptop unlocked?",
                 "trustLabel": "I can leave it unlocked",
                 "distrustLabel": "I should lock it",
-                "image": "/images/15-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "You leave your laptop unlocked and go check the window. \n\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!"
@@ -2949,7 +2949,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/15-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2996,7 +2996,7 @@ export default [
                 "text": "You're preparing for an exam, surrounded by textbooks, notes, and a rainbow of highlighters.",
                 "trustLabel": "Gotta prep!",
                 "distrustLabel": "Highlight everything",
-                "image": "/images/16-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3016,7 +3016,7 @@ export default [
                 "text": "\"I'm glad I found you! You'll never believe it!!!\" Sammy appears in front of you, full of energy!",
                 "trustLabel": "What's up, Sammy?",
                 "distrustLabel": "Oh hi!",
-                "image": "/images/16-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3036,7 +3036,7 @@ export default [
                 "text": "\"This email says I'm getting the Diploma-to-Degree scholarship!\"",
                 "trustLabel": "Congrats!",
                 "distrustLabel": "Woah, amazing!",
-                "image": "/images/16-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3056,7 +3056,7 @@ export default [
                 "text": "\"But isn't it a little suspicious to get emails like this?\" Sammy asks, worried.",
                 "trustLabel": "You said it...",
                 "distrustLabel": "Yeah, I suppose",
-                "image": "/images/16-4.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3076,7 +3076,7 @@ export default [
                 "text": "\"Can you take a look at it for me?\" Sammy gently pleads.",
                 "trustLabel": "Okay!",
                 "distrustLabel": "I can look",
-                "image": "/images/16-5.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3096,7 +3096,7 @@ export default [
                 "text": "First we'll look at the header.",
                 "trustLabel": "Keep reading...",
                 "distrustLabel": "Scanning...",
-                "image": "/images/16-6.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3116,7 +3116,7 @@ export default [
                 "text": "Next we'll look at the body.",
                 "trustLabel": "Keep reading...",
                 "distrustLabel": "Let's think...",
-                "image": "/images/16-7.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3136,7 +3136,7 @@ export default [
                 "text": "Should you tell Sammy to trust or distrust the email?",
                 "trustLabel": "I'd trust it",
                 "distrustLabel": "No, it's a scam!",
-                "image": "/images/16-8.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Sammy visits the Office of the Registrar and receives their scholarship. They thank you for helping them make the right choice."
@@ -3156,7 +3156,7 @@ export default [
                 "text": "",
                 "trustLabel": "I see",
                 "distrustLabel": "Got it",
-                "image": "/images/16-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3203,7 +3203,7 @@ export default [
                 "text": "You and Sammy are taking a kickboxing class together.",
                 "trustLabel": "Oof!",
                 "distrustLabel": "Pow!",
-                "image": "/images/17-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3223,7 +3223,7 @@ export default [
                 "text": "You're just getting into it when you get a notification on your phone.",
                 "trustLabel": "Take a look",
                 "distrustLabel": "What's this?",
-                "image": "/images/17-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3243,7 +3243,7 @@ export default [
                 "text": "Your location shows as: \"Spooky\" Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "/images/17-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Wait, you're not at the \"spooky\" library... are you?"
@@ -3263,7 +3263,7 @@ export default [
                 "text": "",
                 "trustLabel": "",
                 "distrustLabel": "",
-                "image": "/images/17-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3310,7 +3310,7 @@ export default [
                 "text": "You and Sammy are watching the sunset at the end of a long day on campus.",
                 "trustLabel": "Look at that sun!",
                 "distrustLabel": "Take in the breeze",
-                "image": "/images/18-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3330,7 +3330,7 @@ export default [
                 "text": "When you go to log in to your email, you get an alert.",
                 "trustLabel": "What's this?",
                 "distrustLabel": "Just checking!",
-                "image": "/images/18-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3350,7 +3350,7 @@ export default [
                 "text": "Your location shows as: Outside Seneca Polytechnic",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "/images/18-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You watch the rest of the sunset, confident you made the right choice."
@@ -3370,7 +3370,7 @@ export default [
                 "text": "",
                 "trustLabel": "",
                 "distrustLabel": "",
-                "image": "/images/18-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3417,7 +3417,7 @@ export default [
                 "text": "You're listening to a guest lecture by a researcher from the UBC marine biologist faculty, Dr. Auger-Méthé.",
                 "trustLabel": "I see, I see",
                 "distrustLabel": "Tell me more",
-                "image": "/images/19-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3437,7 +3437,7 @@ export default [
                 "text": "You get an alert on your phone that someone's trying to log in as you.",
                 "trustLabel": "Why now?",
                 "distrustLabel": "Okay...",
-                "image": "/images/19-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3457,7 +3457,7 @@ export default [
                 "text": "Your location shows as: Ched's Grocer",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "/images/19-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Oh no! You're not at Ched's Grocer! That's halfway across town!"
@@ -3477,7 +3477,7 @@ export default [
                 "text": "",
                 "trustLabel": "",
                 "distrustLabel": "",
-                "image": "/images/19-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3524,7 +3524,7 @@ export default [
                 "text": "You've been napping all afternoon at the library on campus. You found a nice spot on top of the shelves.",
                 "trustLabel": "It's peaceful!",
                 "distrustLabel": "No one's here!",
-                "image": "/images/20-1.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3544,7 +3544,7 @@ export default [
                 "text": "Your phone buzzes with an alert that almost knocks you off your shelf.",
                 "trustLabel": "Powerful!",
                 "distrustLabel": "Volume down!",
-                "image": "/images/20-2.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3564,7 +3564,7 @@ export default [
                 "text": "Your location shows as: The Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "/images/20-3.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Good job! You're definitely in the library, sleeping between Canadian Studies and Cognitive Science."
@@ -3584,7 +3584,7 @@ export default [
                 "text": "",
                 "trustLabel": "",
                 "distrustLabel": "",
-                "image": "/images/20-reveal.jpg",
+                "image": "",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
