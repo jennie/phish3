@@ -153,12 +153,14 @@
         </g>
       </g>
     </svg>
-    <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
-    <p class="text-xl mt-12 mb-4 font-display" v-html="gameOverText" />
-    <p class="text-lg mb-2">Your Score: {{ finalScorePercentage }}%</p>
-    <p class="text-lg mb-6">Best Score: {{ bestScorePercentage }}%</p>
-    <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>
-    <button @click="restartGame" class="bg-red-500 px-6 py-2 rounded-full hover:bg-red-600">Play Again</button>
+    <div class="end-game w-full max-w-md px-4">
+      <h1 class="text-3xl font-bold mb-2">{{ gameOverTitle }}</h1>
+      <p class="text-xl mt-12 mb-4 font-display" v-html="gameOverText" />
+      <p class="text-lg mb-2">Your Score: {{ finalScorePercentage }}%</p>
+      <p class="text-lg mb-6">Best Score: {{ bestScorePercentage }}%</p>
+      <p v-if="isNewBestScore" class="text-lg font-bold text-yellow-400 mb-6">New Best Score!</p>
+      <button @click="restartGame" class="bg-red-500 px-6 py-2 rounded-full hover:bg-red-600">Play Again</button>
+    </div>
   </div>
 </template>
 
