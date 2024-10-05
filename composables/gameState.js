@@ -376,6 +376,9 @@ function nextCard() {
 }
 
 function previousCard() {
+  console.log("previousCard() called");
+  console.log("Current card index:", currentCardIndex.value);
+  console.log("currentCardIndex.value--", currentCardIndex.value--);
   if (currentCardIndex.value > 0) {
     currentCardIndex.value--;
     return true;

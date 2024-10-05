@@ -19,6 +19,9 @@
             <div class="h-2 rounded-full bg-red-600" :style="`width: ${progressPercentage}%`" />
           </div>
           <h5 class="text-sm uppercase text-gray-400 mt-2">Training Completed</h5>
+          <!-- <p>Current card index:
+            <span class="font-bold">{{ currentCardIndex }}</span>
+          </p> -->
 
         </div>
 
@@ -312,6 +315,7 @@ const isReadyForEnding = computed(() => {
 });
 
 
+
 const handleCompleteScenario = async () => {
   console.log("handleCompleteScenario called");
   await completeCurrentScenario();
@@ -525,7 +529,7 @@ watch(() => currentScenario.value, async (newScenario) => {
 }, { immediate: true });
 
 watch(() => currentCardIndex.value, async (newIndex) => {
-  console.log(`Card index changed to ${newIndex}`);
+  // console.log(`Card index changed to ${newIndex}`);
   if (swiper.value) {
     swiper.value.slideTo(newIndex, 0);
   }
@@ -595,6 +599,8 @@ const isCardSwiping = ref(false);
 
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
+  if (isTransitioning.value) return;
+  isTransitioning.value = true;
 
   currentCardIndex.value = s.activeIndex;
   const card = currentCard.value;
@@ -619,6 +625,9 @@ const handleSlideChange = (s) => {
     decisionFeedback.value = '';
     showDecisionIcon.value = false;
   }
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 300);
 };
 
 const flipRevealCard = () => {
@@ -913,8 +922,8 @@ watch(currentScenarioIndex, (newIndex) => {
   console.log('Current scenario index:', newIndex, 'of', gameSequence.value.length);
 });
 watch(currentCardIndex, (newIndex, oldIndex) => {
-  console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
-  console.log('Current card:', currentCard.value);
+  // console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
+  // console.log('Current card:', currentCard.value);
 
   isRevealCardFlipped.value = false; // Reset flip state
 
@@ -1021,7 +1030,7 @@ const handleNextClick = async () => {
 
 const handlePreviousClick = async () => {
   if (!isFlipping.value && canNavigateBack.value) {
-    await previousCard();
+    previousCard();
     if (swiper.value) {
       swiper.value.slidePrev(300, true);
     }
