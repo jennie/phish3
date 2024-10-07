@@ -50,8 +50,8 @@
                   'items-center justify-center': !card.image
                 }">
                   <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
-                    'bg-gray-950 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
-                    'bg-gray-950 p-4 text-white rounded-lg border-white border-2': card.image,
+                    'bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
+                    'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
                     'text-gray-800': !(card.type === 'decision') && !card.image
                   }">
                   </div>

@@ -107,7 +107,7 @@
           <p class="text-sm mb-4 text-center">New to the game? We'll create an account for you!</p>
           <form @submit.prevent="requestLogin" class="flex flex-col items-center">
             <input v-model="email" type="email" placeholder="Your Seneca Email" required
-              class="w-full px-4 py-2 mb-4 text-black rounded-full">
+              class="w-full px-4 py-2 mb-4 text-black rounded-full focus:outline-red-500">
             <button type="submit"
               class="bg-white text-zinc-800 rounded-full px-6 py-3 text-lg font-semibold hover:bg-gray-200 transition-colors">
               Send Login Link
@@ -206,6 +206,6 @@ onMounted(async () => {
 // Computed property for bestScore percentage
 const bestScorePercentage = computed(() => {
   const user = useUserSession().user;
-  return user.value.bestScore > 0 ? (user.value.bestScore / 20) * 100 : 0;
+  return user.value.bestScore > 0 ? (user.value.bestScore / 5) * 100 : 0;
 });
 </script>

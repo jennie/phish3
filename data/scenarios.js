@@ -672,7 +672,7 @@ export default [
                 "text": "\"You should always check the location before approving any MFA requests and make sure it's really you!\"",
                 "trustLabel": "Good idea",
                 "distrustLabel": "Smart!",
-                "image": "",
+                "image": "/images/4-4.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -712,7 +712,7 @@ export default [
                 "text": "Should you approve the login attempt?",
                 "trustLabel": "Approve it",
                 "distrustLabel": "Deny!",
-                "image": "",
+                "image": "/images/4-6.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Nice job checking the location! You feel reassured knowing your account is protected with MFA."
@@ -3243,7 +3243,7 @@ export default [
                 "text": "Your location shows as: \"Spooky\" Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "",
+                "image": "/images/17-3.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Wait, you're not at the \"spooky\" library... are you?"
@@ -3350,7 +3350,7 @@ export default [
                 "text": "Your location shows as: Outside Seneca Polytechnic",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "",
+                "image": "/images/18-3.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You watch the rest of the sunset, confident you made the right choice."
@@ -3457,7 +3457,7 @@ export default [
                 "text": "Your location shows as: Ched's Grocer",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "",
+                "image": "/images/19-3.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Oh no! You're not at Ched's Grocer! That's halfway across town!"
@@ -3564,7 +3564,7 @@ export default [
                 "text": "Your location shows as: The Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
-                "image": "",
+                "image": "/images/20-3.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Good job! You're definitely in the library, sleeping between Canadian Studies and Cognitive Science."
