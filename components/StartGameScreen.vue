@@ -75,14 +75,14 @@
       </g>
     </svg>
 
-    <div v-if="isLoading" class="loading-container w-full max-w-md px-4 text-center">
+    <!-- <div class="loading-container w-full max-w-md px-4 text-center">
       <p class="text-2xl mb-4">Loading...</p>
       <div class="flex justify-center items-center">
         <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-white"></div>
       </div>
-    </div>
+    </div> -->
 
-    <div v-else class="start-game w-full max-w-md px-4">
+    <div class="start-game w-full max-w-md px-4">
       <AuthState v-slot="{ loggedIn, user, clear }">
         <div v-if="loggedIn" class="text-center">
           <button v-if="canDownloadCsv" @click="downloadCsv"
@@ -207,7 +207,7 @@ onMounted(async () => {
   await fetchSession();
   setTimeout(() => {
     isLoading.value = false;
-  }, 500); // A small delay to ensure smoother transition after loading
+  }, 100); // A small delay to ensure smoother transition after loading
 });
 
 // Computed property for bestScore percentage

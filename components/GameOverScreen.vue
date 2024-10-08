@@ -245,7 +245,7 @@ export default {
         const result = await response.json();
         console.log('Score updated:', result);
 
-        if (result.finalScore > 4 || result.isNewBestScore) {
+        if (result.finalScore > 3 || result.isNewBestScore) {
           this.triggerConfetti();
         }
 
@@ -263,7 +263,7 @@ export default {
       });
     },
     checkAndTriggerConfetti() {
-      if (this.finalScore > 4 || this.isNewBestScore) {
+      if (this.finalScore > 3 || this.isNewBestScore) {
         this.triggerConfetti();
       }
     }

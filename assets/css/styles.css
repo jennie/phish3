@@ -27,7 +27,7 @@ body {
   @apply absolute top-0 left-0  h-full bg-cover bg-center bg-no-repeat;
 }
 .card-face {
-  @apply h-3/5 flex flex-row items-center justify-center text-2xl text-white box-border;
+  @apply h-3/5 flex flex-row items-center justify-center text-2xl box-border;
   .overlay {
     @apply text-base;
     h2 {

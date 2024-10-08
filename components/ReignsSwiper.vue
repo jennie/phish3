@@ -54,8 +54,8 @@
                       'items-center justify-center': !card.image
                     }">
                       <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
-                        'mr-16 bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
-                        'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
+                        'mr-16 bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2 text-lg': card.type === 'decision',
+                        'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2 text-lg': card.image,
                         'text-gray-800': !(card.type === 'decision') && !card.image
                       }">
                       </div>
@@ -99,11 +99,11 @@
 
                     <!-- Existing trust/distrust labels -->
                     <div
-                      class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
+                      class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 rounded-t-xl rounded-b-none transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
                       data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                       v-html="card.distrustLabel || 'Distrust'" />
                     <div
-                      class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
+                      class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 rounded-t-xl rounded-b-none transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
                       data-swiper-parallax="-300" data-swiper-parallax-duration="600"
                       v-html="card.trustLabel || 'Trust'" />
                   </div>
@@ -133,7 +133,7 @@
                           </div>
                           <div class="flex flex-col justify-between">
                             <div class="pt-6 px-3">
-                              <p class="font-display font-black text-black mb-2 text-center text-2xl">
+                              <p class="font-display font-black text-black mb-2 text-center text-xl">
                                 {{ card.userAction }}
                               </p>
                             </div>

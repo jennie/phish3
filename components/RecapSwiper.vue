@@ -112,11 +112,16 @@ const isLastSlide = computed(() => currentSlideIndex.value === filteredScenarios
 const isDataReady = computed(() => filteredScenarios.value.length > 0);
 
 const regularScenarios = computed(() =>
-  scenarios.value.filter(s => s.scenarioType !== 'ending')
+  scenarios.value.filter(s =>
+    s.scenarioType !== 'ending' && s.scenarioType !== 'tutorial'
+  )
 );
 
+
 const filteredScenarios = computed(() =>
-  regularScenarios.value.filter(scenario => userChoices.value[scenario.id])
+  regularScenarios.value.filter(scenario =>
+    userChoices.value[scenario.id] && scenario.scenarioType !== 'tutorial'
+  )
 );
 
 const handleNextClick = () => {
