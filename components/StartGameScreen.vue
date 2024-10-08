@@ -147,10 +147,17 @@ const requestLogin = async () => {
     loginMessage.value = 'Login link sent to your email. If this is your first time, we\'ve created an account for you. Please check your inbox.';
     email.value = '';
   } catch (error) {
+    if (error.data && error.data.message) {
+      // Display the error message from the server if available
+      loginMessage.value = error.data.message;
+    } else {
+      // Default error message
+      loginMessage.value = 'Failed to send login link. Please try again.';
+    }
     console.error('Login request failed:', error);
-    loginMessage.value = 'Failed to send login link. Please try again.';
   }
 };
+
 
 const logout = async () => {
   try {
