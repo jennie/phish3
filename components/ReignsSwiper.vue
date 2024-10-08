@@ -1,27 +1,32 @@
 <template>
 
   <StartGameScreen v-if="!gameStarted" />
-  <EndingScenarioSwiper v-else-if="isPlayingEndingScenario" />
   <RecapSwiper v-else-if="isRecapMode" />
   <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
 
   <TransitionCard v-if="isTransitionCardVisible" :title="getTransitionCardTitle" :message="getTransitionCardMessage"
     :button-text="getTransitionCardButtonText" @proceed="handleMoveToNextStage" />
 
-  <div v-if="currentScenario && currentCard" class="bg-black flex flex-col h-dvh justify-between">
+  <div v-if="currentScenario && currentCard" class="flex flex-col h-dvh justify-between">
     <!-- Floating Text Container -->
-    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none p-6">
-      <Transition name="fade" mode="out-in">
-        <div v-if="currentCard && currentCard.text" :key="currentCardIndex"
-          class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(currentCard.text)">
+    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none w-full max-w-[300px] mx-auto">
+
+      <div v-if="gameStarted && !gameOver && !isRecapMode" class="text-white text-center p-2  w-full">
+
+        <div class="mt-6  w-full" aria-hidden="true">
+          <h4 class="text-xl font-bold uppercase mb-2 tracking-wide">{{ progressPercentage }}%</h4>
+          <div class="overflow-hidden rounded-full bg-gray-200">
+            <div class="h-2 rounded-full bg-red-600" :style="`width: ${progressPercentage}%`" />
+          </div>
+          <h5 class="text-sm uppercase text-gray-400 mt-2">Training Completed</h5>
+          <!-- <p>Current card index:
+            <span class="font-bold">{{ currentCardIndex }}</span>
+          </p> -->
+
         </div>
-        <div v-else-if="lastDecisionText" :key="'last-decision'"
-          class="card-text text-sm text-white leading-snug text-center" v-html="parseCardText(lastDecisionText)">
-        </div>
-        <div v-else key="no-text" class="text-sm text-white leading-snug text-center">
-          <!-- You can add a loading message or leave it empty -->
-        </div>
-      </Transition>
+
+
+      </div>
     </div>
 
     <!-- Slides/Cards Container -->
@@ -33,14 +38,30 @@
             :class="{ 'is-flipped': isRevealCardFlipped }">
 
             <div
-              :class="['card-face front absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
-              <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19] "
+              :class="['card-face front absolute inset-0 rounded-3xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+
+              >
+
+              <div
+                class="absolute inset-0 bg-cover bg-center rounded-3xl border-8 border-white aspect-[11/19] bg-[#ebeadc] text-left"
                 :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
+                <div class="absolute inset-0 flex p-4" :class="{
+                  'items-start justify-start': card.image, // Align text to the top when there is an image
+                  'items-center justify-center': !card.image
+                }">
+                  <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
+                    'bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
+                    'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
+                    'text-gray-800': !(card.type === 'decision') && !card.image
+                  }">
+                  </div>
+                </div>
+
                 <Transition name="pop-fade">
                   <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
 
                     <button @click.stop="toggleOverlay(card)"
-                      class="focus:outline-none absolute top-4 right-4 bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                      class="focus:outline-none absolute top-4 right-4 bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
                         <path fill="currentColor"
                           d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
@@ -51,11 +72,11 @@
                 <!-- Overlay -->
                 <Transition :name="overlayTransitionName">
                   <div v-if="card.showOverlay"
-                    class="absolute inset-0 bg-zinc-800 bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
+                    class="absolute inset-0 bg-zinc-800 rounded-2xl bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
 
                     <div>
                       <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
-                          bg-yellow-200 text-black leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                          bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -130,9 +151,9 @@
               </template>
 
               <template v-else>
-                <div class="regular-reveal-content h-full flex flex-col justify-start items-center">
-                  <div class="w-full h-full p-4 text-white bg-gradient-to-b from-blue-600 to-transparent">
-                    <p v-if="card.feedback" class="text-2xl text-center font-display embossed-text text-blue-100"
+                <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
+                  <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
+                    <p v-if="card.feedback" class="text-2xl text-center font-display text-black"
                       v-html="parseCardText(card.feedback)" />
                     <p v-else class="text-xl px-8">No feedback available</p>
                   </div>
@@ -233,7 +254,7 @@ const isRevealCardFlipped = ref(false);
 
 const parseCardText = (text) => {
   if (!text) return ''; // Return an empty string if text is undefined or null
-  console.log('Parsing card text:', text);
+  // console.log('Parsing card text:', text);
   return text.replace(/\n/g, '<br>');
 };
 const isFlipping = ref(false);
@@ -292,6 +313,7 @@ const isReadyForEnding = computed(() => {
   return currentScenarioIndex.value === gameSequence.value.length - 1 &&
     currentCardIndex.value === currentScenario.value.cards.length - 1;
 });
+
 
 
 const handleCompleteScenario = async () => {
@@ -507,7 +529,7 @@ watch(() => currentScenario.value, async (newScenario) => {
 }, { immediate: true });
 
 watch(() => currentCardIndex.value, async (newIndex) => {
-  console.log(`Card index changed to ${newIndex}`);
+  // console.log(`Card index changed to ${newIndex}`);
   if (swiper.value) {
     swiper.value.slideTo(newIndex, 0);
   }
@@ -577,6 +599,8 @@ const isCardSwiping = ref(false);
 
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
+  if (isTransitioning.value) return;
+  isTransitioning.value = true;
 
   currentCardIndex.value = s.activeIndex;
   const card = currentCard.value;
@@ -601,6 +625,9 @@ const handleSlideChange = (s) => {
     decisionFeedback.value = '';
     showDecisionIcon.value = false;
   }
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 300);
 };
 
 const flipRevealCard = () => {
@@ -732,8 +759,8 @@ watch(isDataReady, async (ready) => {
 
 watch(currentScenario, async (newScenario, oldScenario) => {
   if (newScenario && newScenario !== oldScenario) {
-    console.log('Current scenario changed to:', newScenario.id);
-    console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
+    // console.log('Current scenario changed to:', newScenario.id);
+    // console.log('New scenario data:', JSON.stringify(newScenario, null, 2));
     resetCardFlipStates();
     cardFlipStates.value = {};
     newScenario.cards.forEach((card, index) => {
@@ -757,9 +784,7 @@ const isPlayingMainScenarios = computed(() =>
   gameStarted && currentScenarioIndex < scenarios.length - 1
 );
 
-const isPlayingEndingScenario = computed(() =>
-  gameStarted && currentScenarioIndex === scenarios.length - 1 && !isRecapMode
-);
+
 
 const swipeRight = async () => {
   if (swiper.value && canNavigate.value && !isTransitioning.value) {
@@ -897,8 +922,8 @@ watch(currentScenarioIndex, (newIndex) => {
   console.log('Current scenario index:', newIndex, 'of', gameSequence.value.length);
 });
 watch(currentCardIndex, (newIndex, oldIndex) => {
-  console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
-  console.log('Current card:', currentCard.value);
+  // console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
+  // console.log('Current card:', currentCard.value);
 
   isRevealCardFlipped.value = false; // Reset flip state
 
@@ -1005,7 +1030,7 @@ const handleNextClick = async () => {
 
 const handlePreviousClick = async () => {
   if (!isFlipping.value && canNavigateBack.value) {
-    await previousCard();
+    previousCard();
     if (swiper.value) {
       swiper.value.slidePrev(300, true);
     }
@@ -1043,8 +1068,35 @@ function getCardImage(card, isFront) {
   }
   return card.image;
 }
+const filteredScenarios = computed(() =>
+  regularScenarios.value.filter((scenario) => userChoices.value[scenario.id])
+);
+const totalCardsCount = computed(() => {
+  return gameSequence.value.reduce((acc, scenario) => acc + scenario.cards.length, 0);
+});
+const viewedCardsCount = computed(() => {
+  let count = 0;
+
+  for (let i = 0; i < currentScenarioIndex.value; i++) {
+    count += gameSequence.value[i].cards.length;
+  }
+
+  count += currentCardIndex.value + 1; // +1 to include the current card
+
+  return count;
+});
 
 
+const progressPercentage = computed(() => {
+  if (!totalCardsCount.value) return 0;
+  return Math.round((viewedCardsCount.value / totalCardsCount.value) * 100);
+});
+
+
+watch(currentCardIndex, () => {
+  console.log(`Current card index: ${currentCardIndex.value}`);
+  console.log(`Progress percentage: ${progressPercentage.value}%`);
+});
 </script>
 
 

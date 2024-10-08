@@ -75,23 +75,40 @@ const initializeGame = async () => {
     return;
   }
 
-  // Find scenario 4
+  const scenarioOne = allScenarios.value.find((s) => s.id === 1);
   const scenarioFour = allScenarios.value.find((s) => s.id === 4);
+  const randomScenario12or14 = shuffleArray(
+    allScenarios.value.filter((s) => s.id === 12 || s.id === 14)
+  )[0];
+  const randomMfaScenario = shuffleArray(
+    allScenarios.value.filter((s) => s.id >= 17 && s.id <= 20)
+  )[0];
+  const scenarioEleven = allScenarios.value.find((s) => s.id === 11);
+  const randomNonMfaScenario = shuffleArray(
+    allScenarios.value.filter(
+      (s) =>
+        s.scenarioType !== "mfa" &&
+        s.id !== 1 &&
+        s.id !== 4 &&
+        s.id !== 11 &&
+        s.id !== 12 &&
+        s.id !== 14
+    )
+  )[0];
 
   await preloadScenarioAssets(tutorialScenario.value);
 
-  const shuffledRegularScenarios = shuffleArray(
-    regularScenarios.value.filter((s) => s.id !== 4) // Exclude scenario 4 from shuffle
-  );
-
   gameSequence.value = [
-    tutorialScenario.value,
+    scenarioOne,
     scenarioFour,
-    ...shuffledRegularScenarios,
+    randomScenario12or14,
+    randomMfaScenario,
+    scenarioEleven,
+    randomNonMfaScenario,
   ];
 
   console.log(
-    "Game initialized with tutorial, scenario 4, and shuffled regular scenarios:",
+    "Game initialized with the specified scenarios:",
     gameSequence.value.map((s) => s.id)
   );
 };
@@ -359,6 +376,9 @@ function nextCard() {
 }
 
 function previousCard() {
+  console.log("previousCard() called");
+  console.log("Current card index:", currentCardIndex.value);
+  console.log("currentCardIndex.value--", currentCardIndex.value--);
   if (currentCardIndex.value > 0) {
     currentCardIndex.value--;
     return true;
@@ -379,7 +399,6 @@ const setGameStage = (stage) => {
 
 const completeCurrentScenario = async () => {
   console.log("completeCurrentScenario called");
-  console.log("Current scenario before completion:", currentScenario.value);
 
   if (!currentScenario.value) {
     console.error("No current scenario found");
@@ -395,13 +414,14 @@ const completeCurrentScenario = async () => {
     makeChoice(isTrust, scenarioId);
   }
 
-  // Check if it's the last scenario in the main sequence
+  // Check if it's the last scenario
   const isLastMainScenario =
     currentScenarioIndex.value === gameSequence.value.length - 1;
 
   if (isLastMainScenario) {
-    console.log("Last main scenario completed. Ready for ending.");
+    console.log("Last main scenario completed. Starting recap.");
     isTransitionCardVisible.value = true;
+    moveToNextStage(); // Start recap
   } else {
     // Move to the next scenario
     moveToNextScenario();
@@ -427,33 +447,11 @@ const moveToNextScenario = () => {
 const moveToNextStage = () => {
   isTransitionCardVisible.value = false;
   if (gameStage.value === "main") {
-    console.log("Moving to ending stage");
-    gameStage.value = "ending";
-    moveToEndingStage();
-  } else if (gameStage.value === "ending") {
-    console.log("Moving to recap stage");
+    console.log("Main scenarios completed. Starting recap.");
     startRecap();
   } else if (gameStage.value === "recap") {
     console.log("Moving to game over");
     setGameOver(true);
-  }
-};
-
-const moveToEndingStage = () => {
-  const playerScore = playerState.value.score;
-  const matchingEndingScenario = endingScenarios.value.find(
-    (s) =>
-      playerScore >= s.cards[0].minScore && playerScore <= s.cards[0].maxScore
-  );
-
-  if (matchingEndingScenario) {
-    gameSequence.value = [matchingEndingScenario];
-    currentScenarioIndex.value = 0;
-    currentCardIndex.value = 0;
-    setGameStage("ending");
-    console.log(`Moved to ending scenario ${matchingEndingScenario.id}`);
-  } else {
-    console.error(`No matching ending scenario found for score ${playerScore}`);
   }
 };
 
@@ -482,7 +480,6 @@ export function useGameState() {
     jumpToScenarioById,
     loadingProgress,
     makeChoice,
-    moveToEndingStage,
     moveToNextScenario,
     moveToNextStage,
     nextCard,

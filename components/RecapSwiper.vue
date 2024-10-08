@@ -14,7 +14,7 @@
     <div class="flex-grow absolute h-full w-full flex items-center justify-center overflow-hidden">
       <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
         :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
-        <swiper-slide v-for="scenario in regularScenarios" :key="scenario.id" class="flex items-center justify-center">
+        <swiper-slide v-for="scenario in filteredScenarios" :key="scenario.id" class="flex items-center justify-center">
           <div class="card-container relative">
             <div class="card-face absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600">
               <div class="absolute inset-0 bg-cover bg-center rounded-xl border-8 border-white aspect-[11/19]"
@@ -95,7 +95,7 @@
     </div>
 
     <!-- Game Over Prompt Modal -->
-    <div v-if="showGameOverPrompt" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div v-if="showGameOverPrompt" class="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
 
       <div class="bg-white p-6 rounded-lg text-center">
         <h2 class="text-2xl font-bold mb-4">Recap Complete</h2>
@@ -120,7 +120,6 @@ import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '@/composables/gameState';
 
-
 register();
 
 const modules = [EffectTinder];
@@ -130,19 +129,21 @@ const showGameOverPrompt = ref(false);
 const showDebugPanel = ref(false);
 const isTransitionCardVisible = ref(false);
 
-const { playerState, scenarios, userChoices, setGameOver, resetGame, moveToNextStage, gameSequence, jumpToScenario,
+const { playerState, scenarios, userChoices, setGameOver, resetGame, moveToNextStage, gameSequence, jumpToScenario } = useGameState();
 
-} = useGameState();
-
-const canNavigate = computed(() => currentSlideIndex.value < regularScenarios.value.length - 1);
+const canNavigate = computed(() => currentSlideIndex.value < filteredScenarios.value.length - 1);
 const canNavigateBack = computed(() => currentSlideIndex.value > 0);
-const isLastSlide = computed(() => currentSlideIndex.value === regularScenarios.value.length - 1);
+const isLastSlide = computed(() => currentSlideIndex.value === filteredScenarios.value.length - 1);
 const isRetryDisabled = computed(() => true); // Disable retry in recap mode
 
-const isDataReady = computed(() => regularScenarios.value.length > 0);
+const isDataReady = computed(() => filteredScenarios.value.length > 0);
 
 const regularScenarios = computed(() =>
   scenarios.value.filter(s => s.scenarioType !== 'ending')
+);
+
+const filteredScenarios = computed(() =>
+  regularScenarios.value.filter(scenario => userChoices.value[scenario.id])
 );
 
 const handleNextClick = () => {
@@ -158,6 +159,7 @@ const handlePreviousClick = () => {
     swiperRef.value.swiper.slidePrev();
   }
 };
+
 const goToGameOver = () => {
   moveToNextStage();
 };
@@ -176,15 +178,6 @@ const handleMoveToNextStage = () => {
 const skipToGameOver = () => {
   console.log('Skipping to game over');
   setGameOver(true);
-};
-
-const returnToStartScreen = () => {
-  resetGame();
-};
-
-const retryScenario = () => {
-  // Implement retry functionality if needed
-  console.log('Retry functionality not implemented in recap mode');
 };
 
 const getDecisionCardText = (scenario) => {
@@ -279,7 +272,6 @@ onMounted(() => {
   perspective: 2000px;
 }
 
-
 .card-face {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -298,6 +290,6 @@ onMounted(() => {
 }
 
 .clip-diagonal {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 85% 0, 100% 15%, 100% 100%);
 }
 </style>
