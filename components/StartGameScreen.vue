@@ -128,15 +128,13 @@ import { ref, onMounted, computed } from 'vue';
 import { useGameState } from '@/composables/gameState';
 import { useUserSession } from '#imports';
 
-const { initializeGame, gameStarted, loadingProgress } = useGameState();
+const { initializeGame, startGame, gameStarted, loadingProgress } = useGameState();
 const { clear, fetch: fetchSession } = useUserSession();
 const isLoading = ref(true);
 const email = ref('');
 const loginMessage = ref('');
 
-const startGame = () => {
-  gameStarted.value = true;
-};
+
 
 const requestLogin = async () => {
   try {

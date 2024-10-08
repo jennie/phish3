@@ -26,6 +26,9 @@ const regularScenarios = computed(() =>
     (s) => s.scenarioType === "regular" || s.scenarioType === "mfa"
   )
 );
+const isLastScenario = computed(() => {
+  return currentScenarioIndex.value === gameSequence.value.length - 1;
+});
 const endingScenarios = computed(() =>
   allScenarios.value.filter((s) => s.scenarioType === "ending")
 );
@@ -390,13 +393,13 @@ const startGame = () => {
   gameStarted.value = true;
   currentScenarioIndex.value = 0;
   currentCardIndex.value = 0;
-  // Additional logic to begin the first scenario, if needed
+  setGameStage("main");
 };
 
 const setGameStage = (stage) => {
+  console.log(`Setting game stage to: ${stage}`);
   gameStage.value = stage;
 };
-
 const completeCurrentScenario = async () => {
   console.log("completeCurrentScenario called");
 
@@ -431,12 +434,15 @@ const completeCurrentScenario = async () => {
 const moveToNextScenario = () => {
   console.log("moveToNextScenario called");
   if (currentScenarioIndex.value < gameSequence.value.length - 1) {
+    console.log("Moving to next scenario");
     currentScenarioIndex.value++;
     currentCardIndex.value = 0;
     isRevealCardFlipped.value = false;
     resetCardFlipStates();
     console.log(`Moved to scenario ${currentScenario.value.id}`);
   } else {
+    console.log("currentScenarioIndex.value", currentScenarioIndex.value);
+    console.log("gameSequence.value.length", gameSequence.value.length - 1);
     console.log("No more scenarios, moving to next stage");
     moveToNextStage();
   }
@@ -455,7 +461,6 @@ const moveToNextStage = () => {
   }
 };
 
-// ... rest of the code ...
 export function useGameState() {
   return {
     scenarios: computed(() => scenarios.value),
@@ -497,5 +502,8 @@ export function useGameState() {
     tutorialScenario,
     userChoices,
     isTransitionCardVisible,
+    isLastScenario,
+    setGameStage,
+    startGame,
   };
 }

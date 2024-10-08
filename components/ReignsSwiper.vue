@@ -14,22 +14,14 @@
       <div v-if="currentScenario && currentCard" class="flex flex-col h-dvh justify-between">
         <!-- Floating Text Container -->
         <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none w-full max-w-[300px] mx-auto">
-
           <div v-if="gameStarted && !gameOver && !isRecapMode" class="text-white text-center p-2  w-full">
-
             <div class="mt-6  w-full" aria-hidden="true">
               <h4 class="text-xl font-bold uppercase mb-2 tracking-wide">{{ progressPercentage }}%</h4>
               <div class="overflow-hidden rounded-full bg-gray-200">
                 <div class="h-2 rounded-full bg-red-600" :style="`width: ${progressPercentage}%`" />
               </div>
               <h5 class="text-sm uppercase text-gray-400 mt-2">Training Completed</h5>
-              <!-- <p>Current card index:
-            <span class="font-bold">{{ currentCardIndex }}</span>
-          </p> -->
-
             </div>
-
-
           </div>
         </div>
 
@@ -43,14 +35,11 @@
 
                 <div
                   :class="['card-face front absolute inset-0 rounded-3xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
-
-                  >
-
                   <div
                     class="absolute inset-0 bg-cover bg-center rounded-3xl border-8 border-white aspect-[11/19] bg-[#ebeadc] text-left"
                     :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
                     <div class="absolute inset-0 flex p-4" :class="{
-                      'items-start justify-start': card.image, // Align text to the top when there is an image
+                      'items-start justify-start': card.image,
                       'items-center justify-center': !card.image
                     }">
                       <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
@@ -118,11 +107,11 @@
                   <!-- MFA-specific reveal card content -->
                   <template v-if="currentScenario.scenarioType === 'mfa'">
                     <div class="h-full absolute inset-0 bg-cover bg-center">
-                      <div class="h-full absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
-                        :class="card.isCorrect ? 'bg-stone-200' : 'bg-red-300'">
+                      <div
+                        class="h-full absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between bg-stone-200">
                         <div class="flex flex-col h-full justify-between">
                           <!-- Sash container -->
-                          <div class=" top-0 left-0  w-full overflow-hidden ">
+                          <div class=" top-0 left-0  w-full  ">
                             <!-- Sash -->
                             <div :class="[
                               'w-full text-center font-display py-4 text-white text-2xl font-bold uppercase',
@@ -139,14 +128,14 @@
                             </div>
                             <div class="p-3">
                               <p class="text-center text-lg text-white mb-1 flex flex-col items-center justify-center">
-                                <span class="text-lg rounded-md text-black">
+                                <span class="text-base leading-tight rounded-md text-black">
                                   <div>{{ card.outcome }}</div>
                                 </span>
                               </p>
                             </div>
                           </div>
                           <div class="learning-objective text-stone-800 p-3 self-end">
-                            <p class="font-display text-lg pb-20 text-stone-800 text-center leading-snug">
+                            <p class="font-display text-base md:text-lg pb-20 text-stone-800 text-center leading-snug">
                               {{ currentScenario.learningObjectives }}
                             </p>
                           </div>
@@ -158,7 +147,7 @@
                   <template v-else>
                     <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
                       <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
-                        <p v-if="card.feedback" class="text-2xl text-left font-display text-black"
+                        <p v-if="card.feedback" class="text-xl md:text-2xl text-left font-display text-black"
                           v-html="parseCardText(card.feedback)" />
                         <p v-else class="text-xl px-8">No feedback available</p>
                       </div>
@@ -300,7 +289,7 @@ const {
   moveToNextStage,
   nextCard,
   nextScenario,
-
+  isLastScenario,
   playerState,
   previousCard,
   resetCardFlipStates,
@@ -310,6 +299,8 @@ const {
   startRecap,
   userChoices,
   isTransitionCardVisible,
+  setGameStage,
+  startGame,
 
 
 } = useGameState();
