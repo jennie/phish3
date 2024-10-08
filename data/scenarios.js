@@ -200,7 +200,7 @@ export default [
                     "consequences": null,
                     "feedback": "You suggest another route back to the main building. \n\n The path takes a bit longer and you're running out of you-time, but you make it to your next lesson with a minute to spare."
                 },
-                "overlayContent": "Sammy-shortcut.md",
+                "overlayContent": "sammy-shortcut.md",
                 "minScore": null,
                 "maxScore": null
             },
@@ -318,7 +318,7 @@ export default [
                 "text": "First, you check who's sending this to you.",
                 "trustLabel": "Let's see...",
                 "distrustLabel": "Who is it?",
-                "image": "",
+                "image": "/images/2-3.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -338,7 +338,7 @@ export default [
                 "text": "Then you examine the body of the email.",
                 "trustLabel": "Seems interesting.",
                 "distrustLabel": "Hmm...",
-                "image": "",
+                "image": "/images/2-4.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -358,7 +358,7 @@ export default [
                 "text": "Finally, look at the offer and the signature.",
                 "trustLabel": "Sounds appealing...",
                 "distrustLabel": "Tempting...",
-                "image": "",
+                "image": "/images/2-5.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -378,7 +378,7 @@ export default [
                 "text": "Should you trust this offer?",
                 "trustLabel": "I want books!",
                 "distrustLabel": "This isn't right!",
-                "image": "",
+                "image": "/images/2-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It's worrying when you crack open the dusty .pdf of 'Key Study Habits for Sucess.' \n\n It's just a single paged document listing out 3 study habits: \n\n 1. Studie with TV on. 2. Pcrorastinate until the last minnit. 3. Skip brekfast."
@@ -1480,7 +1480,7 @@ export default [
                 "text": "The first thing we're going to look at is the header.",
                 "trustLabel": "Let's keep reading…",
                 "distrustLabel": "What's this?",
-                "image": "",
+                "image": "/images/8-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1500,7 +1500,7 @@ export default [
                 "text": "Next, we're going to look at the email's body.",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Huh...",
-                "image": "",
+                "image": "/images/8-7.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1520,7 +1520,7 @@ export default [
                 "text": "Finally, we're going to look at the email's call to action and signature.",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Hmm…",
-                "image": "",
+                "image": "/images/8-8.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1540,7 +1540,7 @@ export default [
                 "text": "Is this email legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
-                "image": "",
+                "image": "/images/8-9.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "It asks for 3 different forms of ID!\n\n Sammy heads to the library to scan their cards and you make sure their things don't move an inch while they're gone."
@@ -1667,7 +1667,7 @@ export default [
                 "text": "This email looks really important.",
                 "trustLabel": "This is bad...",
                 "distrustLabel": "Scary!",
-                "image": "",
+                "image": "/images/9-4.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1687,7 +1687,7 @@ export default [
                 "text": "Keep reading?",
                 "trustLabel": "Okay...",
                 "distrustLabel": "I'm looking...",
-                "image": "",
+                "image": "/images/9-5.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1707,7 +1707,7 @@ export default [
                 "text": "Should you download the fix?",
                 "trustLabel": "Download it!",
                 "distrustLabel": "No! This is bad!",
-                "image": "",
+                "image": "/images/9-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "You download the fix as requested. \n\n Your computer starts acting really weird...!"
@@ -1834,7 +1834,7 @@ export default [
                 "text": "Let's start by examining the email's header.",
                 "trustLabel": "Let's keep reading…",
                 "distrustLabel": "I get it",
-                "image": "",
+                "image": "/images/10-4.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1854,7 +1854,7 @@ export default [
                 "text": "Next up, we'll focus on the email's message.",
                 "trustLabel": "Keep looking…",
                 "distrustLabel": "Okay...",
-                "image": "",
+                "image": "/images/10-5.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1874,7 +1874,7 @@ export default [
                 "text": "Finally, let's look at the email's call to action and signature.",
                 "trustLabel": "Hmm…",
                 "distrustLabel": "Alright",
-                "image": "",
+                "image": "/images/10-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -1894,7 +1894,7 @@ export default [
                 "text": "Is this email legit?",
                 "trustLabel": "Give my feedback!",
                 "distrustLabel": "They want my thoughts?",
-                "image": "",
+                "image": "/images/10-7.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You get a sweet $10 campus store gift card."
@@ -2305,7 +2305,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 9,
-                "text": "\"Since you're already here, let's walk through it together\", an ITS employee suggests.",
+                "text": "\"Since you're already here, let's walk through it together\", an ITS staff member suggests.",
                 "trustLabel": "Read the email.",
                 "distrustLabel": "Okay",
                 "image": "",
@@ -2328,7 +2328,7 @@ export default [
                 "text": "Hmm. Now, let's look at the body.",
                 "trustLabel": "Okay...",
                 "distrustLabel": "Keep reading...",
-                "image": "",
+                "image": "/images/12-10.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2345,7 +2345,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 11,
-                "text": "\"I can see how Sammy was fooled,\" frowns the ITS employee.",
+                "text": "\"I can see how Sammy was fooled,\" frowns the ITS staff member.",
                 "trustLabel": "Me too...",
                 "distrustLabel": "Hmm...",
                 "image": "",
@@ -2368,14 +2368,14 @@ export default [
                 "text": "What do you think about this offer?",
                 "trustLabel": "It could be legit..",
                 "distrustLabel": "So suspicious!",
-                "image": "",
+                "image": "/images/12-12.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "\"You should be wary about offers that sound too good to be true. \n\n Also you knew it locked Sammy's computer! Don't let yourself get tricked!\""
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "\"That's right!\" the ITS employee nods, \"If an offer sounds too good to be true, it probably is!\""
+                    "feedback": "\"That's right!\" the ITS staff member nods, \"If an offer sounds too good to be true, it probably is!\""
                 },
                 "overlayContent": "scenario-12.md",
                 "minScore": null,
@@ -2722,7 +2722,7 @@ export default [
                 "text": "You ask to take a look at that email...",
                 "trustLabel": "I wanna see.",
                 "distrustLabel": "Can I look?",
-                "image": "",
+                "image": "/images/14-5.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2742,7 +2742,7 @@ export default [
                 "text": "Hmm... Let's keep reading.",
                 "trustLabel": "Okay…",
                 "distrustLabel": "Alright",
-                "image": "",
+                "image": "/images/14-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2762,7 +2762,7 @@ export default [
                 "text": "Interesting... What do you tell Sammy?",
                 "trustLabel": "Sign me up too!",
                 "distrustLabel": "This doesn't look right!",
-                "image": "",
+                "image": "/images/14-7.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": "Sammy arrives later to the job, only to find Starbucks still closed."
@@ -2932,7 +2932,7 @@ export default [
                 "image": "",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "You leave your laptop unlocked and go check the window. \n\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!"
+                    "feedback": "You leave your laptop unlocked and head to the washroom. \n\n When you return, you find your laptop screen showing an unfamiliar web page! Someone used your laptop!"
                 },
                 "distrustChoice": {
                     "consequences": 1,
@@ -3096,7 +3096,7 @@ export default [
                 "text": "First we'll look at the header.",
                 "trustLabel": "Keep reading...",
                 "distrustLabel": "Scanning...",
-                "image": "",
+                "image": "/images/16-6.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3116,7 +3116,7 @@ export default [
                 "text": "Next we'll look at the body.",
                 "trustLabel": "Keep reading...",
                 "distrustLabel": "Let's think...",
-                "image": "",
+                "image": "/images/16-7.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -3136,7 +3136,7 @@ export default [
                 "text": "Should you tell Sammy to trust or distrust the email?",
                 "trustLabel": "I'd trust it",
                 "distrustLabel": "No, it's a scam!",
-                "image": "",
+                "image": "/images/16-8.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "Sammy visits the Office of the Registrar and receives their scholarship. They thank you for helping them make the right choice."
