@@ -2,233 +2,248 @@
 <template>
 
   <StartGameScreen v-if="!gameStarted" />
-  <RecapSwiper v-else-if="isRecapMode" />
-  <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
+  <Transition name="fade" mode="out-in">
+    <div class="game-content">
 
-  <TransitionCard v-if="isTransitionCardVisible" :title="getTransitionCardTitle" :message="getTransitionCardMessage"
-    :button-text="getTransitionCardButtonText" @proceed="handleMoveToNextStage" />
+      <RecapSwiper v-if="isRecapMode" />
+      <GameOverScreen v-else-if="gameOver" :finalScore="playerState.score" @restart-game="resetGame" />
 
-  <div v-if="currentScenario && currentCard" class="flex flex-col h-dvh justify-between">
-    <!-- Floating Text Container -->
-    <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none w-full max-w-[300px] mx-auto">
+      <TransitionCard v-if="isTransitionCardVisible" :title="getTransitionCardTitle" :message="getTransitionCardMessage"
+        :button-text="getTransitionCardButtonText" @proceed="handleMoveToNextStage" />
 
-      <div v-if="gameStarted && !gameOver && !isRecapMode" class="text-white text-center p-2  w-full">
+      <div v-if="currentScenario && currentCard" class="flex flex-col h-dvh justify-between">
+        <!-- Floating Text Container -->
+        <div class="flex-none h-1/6 flex items-center justify-center pointer-events-none w-full max-w-[300px] mx-auto">
 
-        <div class="mt-6  w-full" aria-hidden="true">
-          <h4 class="text-xl font-bold uppercase mb-2 tracking-wide">{{ progressPercentage }}%</h4>
-          <div class="overflow-hidden rounded-full bg-gray-200">
-            <div class="h-2 rounded-full bg-red-600" :style="`width: ${progressPercentage}%`" />
-          </div>
-          <h5 class="text-sm uppercase text-gray-400 mt-2">Training Completed</h5>
-          <!-- <p>Current card index:
+          <div v-if="gameStarted && !gameOver && !isRecapMode" class="text-white text-center p-2  w-full">
+
+            <div class="mt-6  w-full" aria-hidden="true">
+              <h4 class="text-xl font-bold uppercase mb-2 tracking-wide">{{ progressPercentage }}%</h4>
+              <div class="overflow-hidden rounded-full bg-gray-200">
+                <div class="h-2 rounded-full bg-red-600" :style="`width: ${progressPercentage}%`" />
+              </div>
+              <h5 class="text-sm uppercase text-gray-400 mt-2">Training Completed</h5>
+              <!-- <p>Current card index:
             <span class="font-bold">{{ currentCardIndex }}</span>
           </p> -->
 
+            </div>
+
+
+          </div>
         </div>
 
+        <!-- Slides/Cards Container -->
+        <div class="flex-grow absolute h-full w-full flex items-center justify-center overflow-hidden">
+          <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
+            :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
+            <swiper-slide v-for="(card, index) in filteredCards" :key="index" class="flex items-center justify-center">
+              <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative"
+                :class="{ 'is-flipped': isRevealCardFlipped }">
 
-      </div>
-    </div>
+                <div
+                  :class="['card-face front absolute inset-0 rounded-3xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
 
-    <!-- Slides/Cards Container -->
-    <div class="flex-grow absolute h-full w-full flex items-center justify-center overflow-hidden">
-      <swiper-container v-if="isDataReady" ref="swiperRef" :modules="modules" effect="tinder" :slides-per-view="1"
-        :allow-touch-move="true" observer observer-parents :init="false" class="w-full h-full">
-        <swiper-slide v-for="(card, index) in filteredCards" :key="index" class="flex items-center justify-center">
-          <div :ref="el => { if (el) cardRefs[index] = el }" class="card-container relative"
-            :class="{ 'is-flipped': isRevealCardFlipped }">
+                  >
 
-            <div
-              :class="['card-face front absolute inset-0 rounded-3xl overflow-hidden transition-transform duration-600', { 'rotate-y-180': cardFlipStates[card.id] }]">
+                  <div
+                    class="absolute inset-0 bg-cover bg-center rounded-3xl border-8 border-white aspect-[11/19] bg-[#ebeadc] text-left"
+                    :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
+                    <div class="absolute inset-0 flex p-4" :class="{
+                      'items-start justify-start': card.image, // Align text to the top when there is an image
+                      'items-center justify-center': !card.image
+                    }">
+                      <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
+                        'mr-16 bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
+                        'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
+                        'text-gray-800': !(card.type === 'decision') && !card.image
+                      }">
+                      </div>
+                    </div>
 
-              >
+                    <Transition name="pop-fade">
+                      <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
 
-              <div
-                class="absolute inset-0 bg-cover bg-center rounded-3xl border-8 border-white aspect-[11/19] bg-[#ebeadc] text-left"
-                :style="{ backgroundImage: `url(${getCardImage(card, true)})` }">
-                <div class="absolute inset-0 flex p-4" :class="{
-                  'items-start justify-start': card.image, // Align text to the top when there is an image
-                  'items-center justify-center': !card.image
-                }">
-                  <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
-                    'mr-16 bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
-                    'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
-                    'text-gray-800': !(card.type === 'decision') && !card.image
-                  }">
-                  </div>
-                </div>
+                        <button @click.stop="toggleOverlay(card)"
+                          class="focus:outline-none absolute top-4 right-4 bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                            <path fill="currentColor"
+                              d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
+                          </svg>
+                        </button>
+                      </div>
+                    </Transition>
+                    <!-- Overlay -->
+                    <Transition :name="overlayTransitionName">
+                      <div v-if="card.showOverlay"
+                        class="absolute inset-0 bg-zinc-800 rounded-2xl bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
 
-                <Transition name="pop-fade">
-                  <div v-if="card.type === 'decision' && showDecisionIcon && !isCardSwiping">
-
-                    <button @click.stop="toggleOverlay(card)"
-                      class="focus:outline-none absolute top-4 right-4 bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
-                        <path fill="currentColor"
-                          d="M196 96c0 29.47-24.21 54.05-56 59.06v.94a12 12 0 0 1-24 0v-12a12 12 0 0 1 12-12c24.26 0 44-16.15 44-36s-19.74-36-44-36s-44 16.15-44 36a12 12 0 0 1-24 0c0-33.08 30.5-60 68-60s68 26.92 68 60m-68 92a20 20 0 1 0 20 20a20 20 0 0 0-20-20" />
-                      </svg>
-                    </button>
-                  </div>
-                </Transition>
-                <!-- Overlay -->
-                <Transition :name="overlayTransitionName">
-                  <div v-if="card.showOverlay"
-                    class="absolute inset-0 bg-zinc-800 rounded-2xl bg-opacity-90 flex flex-col text-gray-200 p-4 z-50">
-
-                    <div>
-                      <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
+                        <div>
+                          <button @click.stop="toggleOverlay(card)" class="focus:outline-none absolute top-4 right-4
                           bg-red-500 text-white leading-none rounded-full p-2 shadow-lg icon-pop z-30">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"
-                          stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div class="flex-grow overflow-y-auto overlay">
-                      <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent" class="overlay-content">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="flex-grow overflow-y-auto overlay">
+                          <div v-if="card.loadedOverlayContent" v-html="card.loadedOverlayContent"
+                            class="overlay-content">
+                          </div>
+                          <p v-else>Loading content...</p>
+                        </div>
                       </div>
-                      <p v-else>Loading content...</p>
-                    </div>
-                  </div>
-                </Transition>
+                    </Transition>
 
-                <!-- Existing trust/distrust labels -->
-                <div
-                  class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
-                  data-swiper-parallax="-300" data-swiper-parallax-duration="600"
-                  v-html="card.distrustLabel || 'Distrust'" />
-                <div
-                  class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
-                  data-swiper-parallax="-300" data-swiper-parallax-duration="600" v-html="card.trustLabel || 'Trust'" />
+                    <!-- Existing trust/distrust labels -->
+                    <div
+                      class="text-right absolute top-0 left-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-red-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-no pointer-events-none"
+                      data-swiper-parallax="-300" data-swiper-parallax-duration="600"
+                      v-html="card.distrustLabel || 'Distrust'" />
+                    <div
+                      class="absolute top-0 right-0 w-full px-3 py-8 text-lg font-bold z-20 transition-opacity duration-300 bg-green-500 bg-opacity-70 text-white swiper-tinder-label swiper-tinder-label-yes pointer-events-none"
+                      data-swiper-parallax="-300" data-swiper-parallax-duration="600"
+                      v-html="card.trustLabel || 'Trust'" />
+                  </div>
+                </div>
+                <!-- Back face (reveal card) -->
+                <div v-if="card.type === 'reveal'" :class="['card-face back absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600 border-8 border-white',
+                  {
+                    'rotate-y-180': !cardFlipStates[card.id],
+                    'mfa-reveal-card': currentScenario.scenarioType === 'mfa',
+                    'regular-reveal-card': currentScenario.scenarioType !== 'mfa'
+                  }]" :style="{ backgroundImage: `url(${getCardImage(card, false)})` }" class="w-full h-full">
+                  <!-- MFA-specific reveal card content -->
+                  <template v-if="currentScenario.scenarioType === 'mfa'">
+                    <div class="h-full absolute inset-0 bg-cover bg-center">
+                      <div class="h-full absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
+                        :class="card.isCorrect ? 'bg-stone-200' : 'bg-red-300'">
+                        <div class="flex flex-col h-full justify-between">
+                          <!-- Sash container -->
+                          <div class=" top-0 left-0  w-full overflow-hidden ">
+                            <!-- Sash -->
+                            <div :class="[
+                              'w-full text-center font-display py-4 text-white text-2xl font-bold uppercase',
+                              card.isCorrect ? 'bg-green-500' : 'bg-red-500'
+                            ]">
+                              {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
+                            </div>
+                          </div>
+                          <div class="flex flex-col justify-between">
+                            <div class="pt-6 px-3">
+                              <p class="font-display font-black text-black mb-2 text-center text-2xl">
+                                {{ card.userAction }}
+                              </p>
+                            </div>
+                            <div class="p-3">
+                              <p class="text-center text-lg text-white mb-1 flex flex-col items-center justify-center">
+                                <span class="text-lg rounded-md text-black">
+                                  <div>{{ card.outcome }}</div>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="learning-objective text-stone-800 p-3 self-end">
+                            <p class="font-display text-lg pb-20 text-stone-800 text-center leading-snug">
+                              {{ currentScenario.learningObjectives }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <template v-else>
+                    <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
+                      <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
+                        <p v-if="card.feedback" class="text-2xl text-left font-display text-black"
+                          v-html="parseCardText(card.feedback)" />
+                        <p v-else class="text-xl px-8">No feedback available</p>
+                      </div>
+                    </div>
+                  </template>
+
+                </div>
+                <div v-if="isTransitionCard"
+                  class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center text-white p-4 z-50">
+                  <h2 class="text-2xl font-bold mb-4">Scenario Complete</h2>
+                  <p class="mb-6 text-center">You've completed this scenario. Ready to move to the next one?</p>
+                  <button @click="moveToNextScenario"
+                    class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-600 transition-colors">
+                    Proceed to Next Scenario
+                  </button>
+                </div>
               </div>
-            </div>
-            <!-- Back face (reveal card) -->
-            <div v-if="card.type === 'reveal'" :class="['card-face back absolute inset-0 rounded-xl overflow-hidden transition-transform duration-600 border-8 border-white',
-              {
-                'rotate-y-180': !cardFlipStates[card.id],
-                'mfa-reveal-card': currentScenario.scenarioType === 'mfa',
-                'regular-reveal-card': currentScenario.scenarioType !== 'mfa'
-              }]" :style="{ backgroundImage: `url(${getCardImage(card, false)})` }" class="w-full h-full">
-              <!-- MFA-specific reveal card content -->
-              <template v-if="currentScenario.scenarioType === 'mfa'">
-                <div class="h-full absolute inset-0 bg-cover bg-center">
-                  <div class="h-full absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
-                    :class="card.isCorrect ? 'bg-stone-200' : 'bg-red-300'">
-                    <div class="flex flex-col h-full justify-between">
-                      <!-- Sash container -->
-                      <div class=" top-0 left-0  w-full overflow-hidden ">
-                        <!-- Sash -->
-                        <div :class="[
-                          'w-full text-center font-display py-4 text-white text-2xl font-bold uppercase',
-                          card.isCorrect ? 'bg-green-500' : 'bg-red-500'
-                        ]">
-                          {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
-                        </div>
-                      </div>
-                      <div class="flex flex-col justify-between">
-                        <div class="pt-6 px-3">
-                          <p class="font-display font-black text-black mb-2 text-center text-2xl">
-                            {{ card.userAction }}
-                          </p>
-                        </div>
-                        <div class="p-3">
-                          <p class="text-center text-lg text-white mb-1 flex flex-col items-center justify-center">
-                            <span class="text-lg rounded-md text-black">
-                              <div>{{ card.outcome }}</div>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="learning-objective text-stone-800 p-3 self-end">
-                        <p class="font-display text-lg pb-20 text-stone-800 text-center leading-snug">
-                          {{ currentScenario.learningObjectives }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
+            </swiper-slide>
+          </swiper-container>
+          <div v-else class="h-full flex items-center justify-center text-white">
+            Loading scenarios...
+          </div>
+        </div>
 
-              <template v-else>
-                <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
-                  <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
-                    <p v-if="card.feedback" class="text-2xl text-left font-display text-black"
-                      v-html="parseCardText(card.feedback)" />
-                    <p v-else class="text-xl px-8">No feedback available</p>
-                  </div>
-                </div>
-              </template>
+        <!-- Controls Container -->
+        <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full ">
 
-            </div>
-            <div v-if="isTransitionCard"
-              class="absolute inset-0 bg-gray-800 bg-opacity-90 flex flex-col items-center justify-center text-white p-4 z-50">
-              <h2 class="text-2xl font-bold mb-4">Scenario Complete</h2>
-              <p class="mb-6 text-center">You've completed this scenario. Ready to move to the next one?</p>
-              <button @click="moveToNextScenario"
-                class="bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-600 transition-colors">
-                Proceed to Next Scenario
+          <div class="px-6 w-full flex flex-col items-center space-y-4 z-10 ">
+            <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full">
+              <a href="/" @click.prevent="returnToStartScreen" class="p-2 self-center">
+                <HomeButton />
+              </a>
+              <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
+                :disabled="(!canNavigateBack && !isDecisionCard) || isProcessingAction || isFlipping"
+                :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+                  { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isProcessingAction || isFlipping }]">
+                <BackButton v-if="!isDecisionCard" />
+                <div v-else-if="currentScenario?.scenarioType === 'mfa'"
+                  class="bg-red-400 rounded-full py-2 px-4 font-bold text-base">DENY</div>
+                <ThumbsDown v-else />
+              </button>
+
+              <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
+                :disabled="!canNavigateForward || isProcessingAction || isFlipping" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
+                  { 'opacity-50 cursor-not-allowed': !canNavigateForward || isProcessingAction || isFlipping }]">
+                <NextButton v-if="!isDecisionCard" />
+                <span v-else-if="currentScenario?.scenarioType === 'mfa'"
+                  class="bg-green-400 rounded-full py-2 px-4 font-bold text-base">APPROVE</span>
+                <ThumbsUp v-else />
+              </button>
+
+              <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
+                :class="{ 'opacity-50': isRetryDisabled }"
+                :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
+                <RetryButton />
               </button>
             </div>
           </div>
-        </swiper-slide>
-      </swiper-container>
-      <div v-else class="h-full flex items-center justify-center text-white">
-        Loading scenarios...
-      </div>
-    </div>
-
-    <!-- Controls Container -->
-    <div class="h-1/6 flex flex-col align-middle items-center justify-start w-full ">
-
-      <div class="px-6 w-full flex flex-col items-center space-y-4 z-10 ">
-        <div class="flex justify-center gap-5 z-10 py-2 mb-4 space-x-4 w-full">
-          <a href="/" @click.prevent="returnToStartScreen" class="p-2 self-center">
-            <HomeButton />
-          </a>
-          <button @click="isDecisionCard ? handleDistrustClick() : handlePreviousClick()"
-            :disabled="(!canNavigateBack && !isDecisionCard) || isFlipping" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
-              { 'opacity-50 cursor-not-allowed': (!canNavigateBack && !isDecisionCard) || isFlipping }]">
-            <BackButton v-if="!isDecisionCard" />
-            <div v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-red-400 rounded-full py-2 px-4 font-bold text-base">DENY</div>
-            <ThumbsDown v-else />
-          </button>
-
-          <button @click="isDecisionCard ? handleTrustClick() : handleNextClick()"
-            :disabled="!canNavigateForward || isFlipping" :class="['-mt-12 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110',
-              { 'opacity-50 cursor-not-allowed': !canNavigateForward || isFlipping }]">
-            <NextButton v-if="!isDecisionCard" />
-            <span v-else-if="currentScenario?.scenarioType === 'mfa'"
-              class="bg-green-400 rounded-full py-2 px-4 font-bold text-base">APPROVE</span>
-            <ThumbsUp v-else />
-          </button>
-
-          <button @click="retryScenario" :disabled="isRetryDisabled" class="p-2 bg-transparent border-none"
-            :class="{ 'opacity-50': isRetryDisabled }" :style="{ cursor: isRetryDisabled ? 'not-allowed' : 'pointer' }">
-            <RetryButton />
-          </button>
         </div>
+
+        <!-- Debug Panel and Button -->
+        <DebugPanel :current-scenario="currentScenario" :current-scenario-index="currentScenarioIndex"
+          :current-card-index="currentCardIndex" :current-card="currentCard" :game-sequence="gameSequence"
+          :game-stage="gameStage" :is-ready-for-ending="isReadyForEnding" :score="playerState.score"
+          :regular-scenarios-count="regularScenarios.length" @jump-to-scenario="handleJumpToScenario"
+          @complete-scenario="handleCompleteScenario" @skip-to-ending="skipToEndingScenario"
+          @move-to-next-stage="handleMoveToNextStage" @skip-to-recap="skipToRecap"
+          @skip-to-game-over="skipToGameOver" />
       </div>
     </div>
+  </Transition>
 
-    <!-- Debug Panel and Button -->
-    <DebugPanel :current-scenario="currentScenario" :current-scenario-index="currentScenarioIndex"
-      :current-card-index="currentCardIndex" :current-card="currentCard" :game-sequence="gameSequence"
-      :game-stage="gameStage" :is-ready-for-ending="isReadyForEnding" :score="playerState.score"
-      :regular-scenarios-count="regularScenarios.length" @jump-to-scenario="handleJumpToScenario"
-      @complete-scenario="handleCompleteScenario" @skip-to-ending="skipToEndingScenario"
-      @move-to-next-stage="handleMoveToNextStage" @skip-to-recap="skipToRecap" @skip-to-game-over="skipToGameOver" />
-  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick, computed } from 'vue';
 import { register } from 'swiper/element/bundle';
 import EffectTinder from '~/effect-tinder.esm';
 import { useGameState } from '@/composables/gameState';
 import '/assets/css/styles.css';
 import { useMarkdownContent } from '~/composables/useMarkdownContent';
+import debounce from 'lodash/debounce';
+
+const isProcessingAction = ref(false);
+const actionCooldown = 300; // milliseconds
+let lastActionTime = 0;
 
 register();
 const showDebugPanel = ref(false);
@@ -637,7 +652,7 @@ const flipRevealCard = () => {
     console.log("Flipping reveal card");
     isRevealCardFlipped.value = true;
     setTimeout(() => {
-      currentCard.value = getNextCard();
+      // currentCard.value = getNextCard();
     }, 600);
   }
 };
@@ -949,37 +964,7 @@ const getScoreChange = (scenario) => {
   return choice ? choice.scoreChange : 0;
 };
 
-const handleChoice = async (isTrust) => {
-  if (currentCard.value?.type === 'decision' && !isFlipping.value) {
-    isFlipping.value = true;
-    makeChoice(isTrust, currentScenario.value.id);
 
-    const choice = isTrust ? currentCard.value.trustChoice : currentCard.value.distrustChoice;
-    const revealCard = currentScenario.value.cards.find(card => card.type === 'reveal');
-
-    if (revealCard && currentScenario.value.scenarioType === 'mfa') {
-      revealCard.userAction = isTrust ? 'You approved the login attempt!' : 'You denied the login attempt!';
-      revealCard.outcome = choice.feedback;
-      revealCard.scoreChange = choice.consequences;
-      revealCard.isCorrect = choice.consequences === 1;
-    } else if (revealCard) {
-      revealCard.feedback = choice.feedback;
-    }
-
-    // Move to the reveal card
-    swiperRef.value.swiper.slideNext();
-
-    // Ensure the reveal card is displayed before flipping
-    await nextTick();
-
-    // Flip the reveal card after a short delay
-    setTimeout(() => {
-      isRevealCardFlipped.value = true;
-    }, 1000);
-
-    isFlipping.value = false;
-  }
-};
 
 const handleJumpToScenario = (scenarioId) => {
   jumpToScenario(scenarioId);
@@ -988,49 +973,96 @@ const handleTrustClick = () => handleChoice(true);
 const handleDistrustClick = () => handleChoice(false);
 
 const handleNextClick = async () => {
-  console.log("handleNextClick called");
+  const now = Date.now();
+  if (isProcessingAction.value || now - lastActionTime < actionCooldown) return;
 
-  if (!isFlipping.value) {
-    if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
-      console.log("Reveal card flipped, moving to next scenario");
-      isRevealCardFlipped.value = false;
+  isProcessingAction.value = true;
+  lastActionTime = now;
 
-      setTimeout(async () => {
-        await moveToNextScenario();
-        currentCardIndex.value = 0;
-      }, 600);
-
-    } else if (!isLastCardOfScenario.value) {
-      console.log("Moving to next card");
-      swiperRef.value.swiper.slideNext();
-    } else {
-      console.log("Last card of scenario, moving to next scenario");
-
-
-      setTimeout(async () => {
-        isRevealCardFlipped.value = false; // Reset flip state
-        await moveToNextScenario();
-        currentCardIndex.value = 0;
-      }, 600);
+  try {
+    console.log("handleNextClick called");
+    if (!isFlipping.value) {
+      if (currentCard.value?.type === 'reveal' && isRevealCardFlipped.value) {
+        console.log("Reveal card flipped, moving to next scenario");
+        isRevealCardFlipped.value = false;
+        setTimeout(async () => {
+          await moveToNextScenario();
+          currentCardIndex.value = 0;
+        }, 600);
+      } else if (!isLastCardOfScenario.value) {
+        console.log("Moving to next card");
+        swiperRef.value.swiper.slideNext();
+      } else {
+        console.log("Last card of scenario, moving to next scenario");
+        setTimeout(async () => {
+          isRevealCardFlipped.value = false;
+          await moveToNextScenario();
+          currentCardIndex.value = 0;
+        }, 600);
+      }
+      await nextTick();
+      if (swiper.value) {
+        swiper.value.slideTo(currentCardIndex.value, 0);
+      }
     }
-
-
-    await nextTick();
-    if (swiper.value) {
-      swiper.value.slideTo(currentCardIndex.value, 0);
-    }
+  } finally {
+    isProcessingAction.value = false;
   }
 };
 
-
-
-
 const handlePreviousClick = async () => {
-  if (!isFlipping.value && canNavigateBack.value) {
-    previousCard();
-    if (swiper.value) {
-      swiper.value.slidePrev(300, true);
+  const now = Date.now();
+  if (isProcessingAction.value || now - lastActionTime < actionCooldown) return;
+
+  isProcessingAction.value = true;
+  lastActionTime = now;
+
+  try {
+    if (!isFlipping.value && canNavigateBack.value) {
+      previousCard();
+      if (swiper.value) {
+        swiper.value.slidePrev(300, true);
+      }
     }
+  } finally {
+    isProcessingAction.value = false;
+  }
+};
+
+const handleChoice = async (isTrust) => {
+  const now = Date.now();
+  if (isProcessingAction.value || now - lastActionTime < actionCooldown) return;
+
+  isProcessingAction.value = true;
+  lastActionTime = now;
+
+  try {
+    if (currentCard.value?.type === 'decision' && !isFlipping.value) {
+      isFlipping.value = true;
+      makeChoice(isTrust, currentScenario.value.id);
+
+      const choice = isTrust ? currentCard.value.trustChoice : currentCard.value.distrustChoice;
+      const revealCard = currentScenario.value.cards.find(card => card.type === 'reveal');
+
+      if (revealCard && currentScenario.value.scenarioType === 'mfa') {
+        revealCard.userAction = isTrust ? 'You approved the login attempt!' : 'You denied the login attempt!';
+        revealCard.outcome = choice.feedback;
+        revealCard.scoreChange = choice.consequences;
+        revealCard.isCorrect = choice.consequences === 1;
+      } else if (revealCard) {
+        revealCard.feedback = choice.feedback;
+      }
+
+      swiperRef.value.swiper.slideNext();
+      await nextTick();
+      setTimeout(() => {
+        isRevealCardFlipped.value = true;
+      }, 1000);
+
+      isFlipping.value = false;
+    }
+  } finally {
+    isProcessingAction.value = false;
   }
 };
 
@@ -1427,5 +1459,20 @@ watch(currentCardIndex, () => {
 /* Add this to your CSS */
 swiper-container {
   perspective: 1000px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.game-content {
+  height: 100vh;
+  width: 100%;
 }
 </style>
