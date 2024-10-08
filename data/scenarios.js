@@ -2041,7 +2041,7 @@ export default [
                 "text": "\"Ah, yes! We saw this warning issued on the anitvirus software vendor's web site.\"",
                 "trustLabel": "Tell me more",
                 "distrustLabel": "Oh yeah?",
-                "image": "",
+                "image": "/images/11-5.jpg",
                 "trustChoice": {
                     "consequences": null,
                     "feedback": ""
@@ -2081,7 +2081,7 @@ export default [
                 "text": "Is this update legit?",
                 "trustLabel": "Looks like the real deal!",
                 "distrustLabel": "Something's not right!",
-                "image": "",
+                "image": "/images/11-7.jpg",
                 "trustChoice": {
                     "consequences": 1,
                     "feedback": "You decide to trust their advice and install the update. You feel secure knowing your system is protected."

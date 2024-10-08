@@ -129,7 +129,7 @@ swiper-slide {
 }
 
 .card-text {
-  @apply m-0;
+  /* @apply m-0; */
 }
 
 .reveal-icon {

@@ -1,3 +1,4 @@
+<!-- components/ReignsSwiper.vue -->
 <template>
 
   <StartGameScreen v-if="!gameStarted" />
@@ -50,7 +51,7 @@
                   'items-center justify-center': !card.image
                 }">
                   <div class="card-text text-left font-display" v-html="parseCardText(card.text)" :class="{
-                    'bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
+                    'mr-16 bg-gray-950  bg-opacity-80 p-4 text-gray-100 rounded-lg border-white border-2': card.type === 'decision',
                     'bg-gray-950 bg-opacity-80 p-4 text-white rounded-lg border-white border-2': card.image,
                     'text-gray-800': !(card.type === 'decision') && !card.image
                   }">
@@ -111,37 +112,36 @@
               }]" :style="{ backgroundImage: `url(${getCardImage(card, false)})` }" class="w-full h-full">
               <!-- MFA-specific reveal card content -->
               <template v-if="currentScenario.scenarioType === 'mfa'">
-                <div class="absolute inset-0 bg-cover bg-center"
-                  :style="{ backgroundImage: `url(${getScenarioImage(currentScenario)})` }">
-                  <div class="absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
-                    :class="card.isCorrect ? 'bg-green-400' : 'bg-red-300'">
-                    <div class="flex flex-col">
+                <div class="h-full absolute inset-0 bg-cover bg-center">
+                  <div class="h-full absolute inset-0 bg-opacity-90 flex flex-col overflow-y-auto justify-between"
+                    :class="card.isCorrect ? 'bg-stone-200' : 'bg-red-300'">
+                    <div class="flex flex-col h-full justify-between">
                       <!-- Sash container -->
                       <div class=" top-0 left-0  w-full overflow-hidden ">
                         <!-- Sash -->
                         <div :class="[
-                          'w-full text-center py-4 text-white text-2xl font-bold font-sans uppercase',
+                          'w-full text-center font-display py-4 text-white text-2xl font-bold uppercase',
                           card.isCorrect ? 'bg-green-500' : 'bg-red-500'
                         ]">
                           {{ card.isCorrect ? 'Correct!' : 'Incorrect!' }}
                         </div>
                       </div>
-                      <div>
+                      <div class="flex flex-col justify-between">
                         <div class="pt-6 px-3">
-                          <p class="font-display font-black text-black mb-2 text-center text-lg">
+                          <p class="font-display font-black text-black mb-2 text-center text-2xl">
                             {{ card.userAction }}
                           </p>
                         </div>
                         <div class="p-3">
-                          <p class="text-center text-xs text-white mb-1 flex flex-col items-center justify-center">
-                            <span class="text-sm rounded-md text-black">
+                          <p class="text-center text-lg text-white mb-1 flex flex-col items-center justify-center">
+                            <span class="text-lg rounded-md text-black">
                               <div>{{ card.outcome }}</div>
                             </span>
                           </p>
                         </div>
                       </div>
-                      <div class="learning-objective text-black p-3">
-                        <p class="font-display text-base text-black text-center leading-snug">
+                      <div class="learning-objective text-stone-800 p-3 self-end">
+                        <p class="font-display text-lg pb-20 text-stone-800 text-center leading-snug">
                           {{ currentScenario.learningObjectives }}
                         </p>
                       </div>
@@ -153,7 +153,7 @@
               <template v-else>
                 <div class="regular-reveal-content h-full flex flex-col justify-center items-center">
                   <div class="w-full h-full p-4 bg-[#ebeadc] self-center flex flex-col justify-center">
-                    <p v-if="card.feedback" class="text-2xl text-center font-display text-black"
+                    <p v-if="card.feedback" class="text-2xl text-left font-display text-black"
                       v-html="parseCardText(card.feedback)" />
                     <p v-else class="text-xl px-8">No feedback available</p>
                   </div>
@@ -371,7 +371,7 @@ const skipToEndingScenario = () => {
 // Update transitionToNextScenario
 const transitionToNextScenario = async () => {
   isTransitioning.value = true;
-  isRevealCardFlipped.value = false; // Reset flip state
+  // isRevealCardFlipped.value = false; // Reset flip state
 
   if (currentScenarioIndex.value < regularScenarios.value.length - 1) {
     // Move to the next regular scenario
@@ -424,7 +424,7 @@ watch(() => currentCard.value, (newCard) => {
     setTimeout(flipRevealCard, 1000);
   } else {
     console.log("Resetting reveal card flip");
-    isRevealCardFlipped.value = false;
+    // isRevealCardFlipped.value = false;
   }
 });
 
@@ -596,6 +596,8 @@ const handleSlideChangeTransitionEnd = () => {
   }
 };
 const isCardSwiping = ref(false);
+// why does the reveal card flip when i click next on a reveal card?
+
 
 const handleSlideChange = (s) => {
   if (!isDataReady.value) return;
@@ -634,12 +636,9 @@ const flipRevealCard = () => {
   if (currentCard.value?.type === 'reveal' && !isRevealCardFlipped.value) {
     console.log("Flipping reveal card");
     isRevealCardFlipped.value = true;
-
-    // Add a timeout or use the transitionend event to update the face after the flip is done
     setTimeout(() => {
-      // Update the card face here
       currentCard.value = getNextCard();
-    }, 600); // Match this time with your CSS transition time
+    }, 600);
   }
 };
 
@@ -925,7 +924,7 @@ watch(currentCardIndex, (newIndex, oldIndex) => {
   // console.log(`Card index changed from ${oldIndex} to ${newIndex}`);
   // console.log('Current card:', currentCard.value);
 
-  isRevealCardFlipped.value = false; // Reset flip state
+  isRevealCardFlipped.value = false;
 
   if (currentCard.value?.type === 'reveal') {
     setTimeout(() => {
@@ -988,7 +987,6 @@ const handleJumpToScenario = (scenarioId) => {
 const handleTrustClick = () => handleChoice(true);
 const handleDistrustClick = () => handleChoice(false);
 
-
 const handleNextClick = async () => {
   console.log("handleNextClick called");
 
@@ -997,11 +995,10 @@ const handleNextClick = async () => {
       console.log("Reveal card flipped, moving to next scenario");
       isRevealCardFlipped.value = false;
 
-      // Delay moving to the next scenario until after the flip animation completes
       setTimeout(async () => {
         await moveToNextScenario();
         currentCardIndex.value = 0;
-      }, 600); // Match this time with your flip animation duration
+      }, 600);
 
     } else if (!isLastCardOfScenario.value) {
       console.log("Moving to next card");
@@ -1009,15 +1006,15 @@ const handleNextClick = async () => {
     } else {
       console.log("Last card of scenario, moving to next scenario");
 
-      // Delay scenario change to ensure the flip is visually complete first
+
       setTimeout(async () => {
         isRevealCardFlipped.value = false; // Reset flip state
         await moveToNextScenario();
         currentCardIndex.value = 0;
-      }, 600); // Match this time with your flip animation duration
+      }, 600);
     }
 
-    // Ensure the swiper slides to the correct index after the delay
+
     await nextTick();
     if (swiper.value) {
       swiper.value.slideTo(currentCardIndex.value, 0);
@@ -1353,12 +1350,10 @@ watch(currentCardIndex, () => {
 
 .card-container.is-flipped .card-face {
   z-index: 1;
-  /* Keep front on top initially */
 }
 
 .card-container.is-flipped .card-back {
   z-index: 2;
-  /* Ensure back face is on top after flip */
 }
 
 .card-text {
@@ -1388,7 +1383,7 @@ watch(currentCardIndex, () => {
 .mfa-reveal-card .card-face {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transition: transform 0.6s;
+  transition: none;
   transform-style: preserve-3d;
 }
 
