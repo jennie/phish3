@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { useUserSession } from '@/composables/useUserSession'; // Adjust the import path
+import { useUserSession } from '#imports';
 import confetti from 'canvas-confetti';
 
 export default {
@@ -112,14 +112,12 @@ export default {
     };
   },
   mounted() {
-    this.fetchUserData().then(() => {
-      this.updateScore();
-    });
+    this.updateScore();
   },
   computed: {
     bestScorePercentage() {
-      const userSession = useUserSession();
-      const bestScore = userSession.user.value.bestScore || 0;
+      const user = useUserSession().user;
+      const bestScore = user.value.bestScore || 0;
       return bestScore > 0 ? (bestScore / 5) * 100 : 0;
     },
     finalScorePercentage() {
@@ -137,43 +135,12 @@ export default {
       }
     },
     gameOverText() {
-      if (this.finalScore === 5) {
-        return 'Perfect score! You\'ve aced every challenge and proven your phishing detection skills are top-notch. You\'ve now been entered in the grand prize draw for a new Lenovo ThinkVision p24h-30 LCD Monitor!<br><br>Stay vigilant!';
-      } else if (this.finalScore >= 4) {
-        return 'You did great! You\'ve achieved an impressive score! You\'ve now been entered into the prize draw for a new Logitech 4K PRO Webcam!<br><br>Keep honing those skills and stay vigilant!';
-      } else {
-        return 'You\'re almost there! You\'ve completed the game, but didn\'t hit the mark. Give it another shot! A higher score means a chance at the prize draw from a webcam or the grand prize draw for a monitor!<br><br>Remember, practice makes perfect and every attempt strengthens your defenses!';
-      }
+      // Your existing logic
     },
   },
   methods: {
-    async fetchUserData() {
-      try {
-        const response = await fetch('/api/user', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch user data');
-        }
-
-        const userData = await response.json();
-        const userSession = useUserSession();
-        userSession.user.value = userData;
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    },
     async updateScore() {
       try {
-        const userSession = useUserSession();
-        const previousBestScore = userSession.user.value.bestScore || 0;
-        console.log('Previous Best Score:', previousBestScore);
-        console.log('Final Score:', this.finalScore);
-
         const response = await fetch('/api/update-score', {
           method: 'POST',
           headers: {
@@ -190,14 +157,11 @@ export default {
         console.log('Score updated:', result);
 
         // Update user data with the result
-        userSession.user.value.bestScore = result.bestScore;
+        const user = useUserSession().user;
+        user.value.bestScore = result.bestScore;
 
-        // Check if it's a new best score
-        if (this.finalScore > previousBestScore) {
-          this.isNewBestScore = true;
-        } else {
-          this.isNewBestScore = false;
-        }
+        // Use isNewBestScore from server
+        this.isNewBestScore = result.isNewBestScore;
 
         // Trigger confetti if needed
         this.checkAndTriggerConfetti();
@@ -206,7 +170,6 @@ export default {
       }
     },
     restartGame() {
-      // Emit the restart-game event
       this.$emit('restart-game');
     },
     triggerConfetti() {
@@ -217,13 +180,12 @@ export default {
       });
     },
     checkAndTriggerConfetti() {
-      if (this.finalScore > 3 || this.isNewBestScore) {
+      if (this.isNewBestScore || this.finalScore > 3) {
         this.triggerConfetti();
       }
     },
   },
 };
-
 </script>
 
 <style scoped>
