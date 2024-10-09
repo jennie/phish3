@@ -12,14 +12,17 @@ export default defineEventHandler(async (event: H3Event) => {
       message: "User not found",
     });
   }
+  const previousBestScore = user.bestScore || 0;
+  let isNewBestScore = false;
 
   user.latestScore = score;
   user.lastPlayedAt = new Date();
 
-  if (score > user.bestScore) {
+  if (score > previousBestScore) {
     user.bestScore = score;
     session.user.bestScore = score;
     await setUserSession(event, session);
+    isNewBestScore = true;
   }
 
   await user.save();
@@ -28,6 +31,6 @@ export default defineEventHandler(async (event: H3Event) => {
     message: "Score updated successfully",
     latestScore: user.latestScore,
     bestScore: user.bestScore,
-    isNewBestScore: score > user.bestScore,
+    isNewBestScore: isNewBestScore,
   };
 });
