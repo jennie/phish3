@@ -95,6 +95,7 @@ const initializeGame = async () => {
         s.id !== 4 &&
         s.id !== 11 &&
         s.id !== 12 &&
+        s.id !== 13 &&
         s.id !== 14
     )
   )[0];
