@@ -117,7 +117,7 @@
       </AuthState>
     </div>
 
-    <div v-if="loginMessage" class="mt-4 text-center text-white">
+    <div v-if="loginMessage" class="mt-4 max-w-md text-center text-white">
       {{ loginMessage }}
     </div>
   </div>
@@ -142,7 +142,7 @@ const requestLogin = async () => {
       method: 'POST',
       body: { email: email.value }
     });
-    loginMessage.value = 'Login link sent to your email. If this is your first time, we\'ve created an account for you. Please check your inbox.';
+    loginMessage.value = 'Login link sent to your email. If this is your first time, we\'ve created an account for you. Please note that the link in your email can only be used once, and should be opened in the same browser you requested it from. Cookies are required.';
     email.value = '';
   } catch (error) {
     if (error.data && error.data.message) {
