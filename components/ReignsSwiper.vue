@@ -993,6 +993,8 @@ const handleNextClick = async () => {
       }
       await nextTick();
       if (swiper.value) {
+        // swiperRef.value.swiper.slideNext();
+
         swiper.value.slideTo(currentCardIndex.value, 0);
       }
     }
