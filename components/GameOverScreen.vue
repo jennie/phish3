@@ -112,7 +112,9 @@ export default {
     };
   },
   mounted() {
-    this.updateScore();
+    this.fetchUserData().then(() => {
+      this.updateScore();
+    });
   },
   computed: {
     bestScorePercentage() {
@@ -145,8 +147,33 @@ export default {
     },
   },
   methods: {
+    async fetchUserData() {
+      try {
+        const response = await fetch('/api/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+
+        const userData = await response.json();
+        const userSession = useUserSession();
+        userSession.user.value = userData;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    },
     async updateScore() {
       try {
+        const userSession = useUserSession();
+        const previousBestScore = userSession.user.value.bestScore || 0;
+        console.log('Previous Best Score:', previousBestScore);
+        console.log('Final Score:', this.finalScore);
+
         const response = await fetch('/api/update-score', {
           method: 'POST',
           headers: {
@@ -163,13 +190,13 @@ export default {
         console.log('Score updated:', result);
 
         // Update user data with the result
-        const userSession = useUserSession();
-        const previousBestScore = userSession.user.value.bestScore || 0;
         userSession.user.value.bestScore = result.bestScore;
 
         // Check if it's a new best score
         if (this.finalScore > previousBestScore) {
           this.isNewBestScore = true;
+        } else {
+          this.isNewBestScore = false;
         }
 
         // Trigger confetti if needed
@@ -196,6 +223,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
