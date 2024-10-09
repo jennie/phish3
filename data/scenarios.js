@@ -709,7 +709,7 @@ export default [
                 "id": 4,
                 "type": "decision",
                 "order": 6,
-                "text": "Should you approve the login attempt?",
+                "text": "Approve the login attempt?",
                 "trustLabel": "Approve it",
                 "distrustLabel": "Deny!",
                 "image": "/images/4-6.jpg",
@@ -2345,7 +2345,7 @@ export default [
                 "id": 12,
                 "type": "story",
                 "order": 11,
-                "text": "\"I can see how Sammy was fooled,\" frowns the ITS staff member.",
+                "text": "\"I can see how Sammy was fooled,\" frowns the ITS employee.",
                 "trustLabel": "Me too...",
                 "distrustLabel": "Hmm...",
                 "image": "",
@@ -2371,11 +2371,11 @@ export default [
                 "image": "/images/12-12.jpg",
                 "trustChoice": {
                     "consequences": null,
-                    "feedback": "\"You should be wary about offers that sound too good to be true. \n\n Also you knew it locked Sammy's computer! Don't let yourself get tricked!\""
+                    "feedback": "\"You should be wary about offers that sound too good to be true.\" \n\n \"Also you knew it locked Sammy's computer! Don't let yourself get tricked!\""
                 },
                 "distrustChoice": {
                     "consequences": 1,
-                    "feedback": "\"That's right!\" the ITS staff member nods, \"If an offer sounds too good to be true, it probably is!\""
+                    "feedback": "\"That's right!\" the ITS employee nods, \"If an offer sounds too good to be true, it probably is!\""
                 },
                 "overlayContent": "scenario-12.md",
                 "minScore": null,
@@ -3060,7 +3060,7 @@ export default [
                 "id": 17,
                 "type": "decision",
                 "order": 3,
-                "text": "Your location shows as: \"Spooky\" Library",
+                "text": "Your location shown: \"Spooky\" Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
                 "image": "/images/17-3.jpg",
@@ -3167,7 +3167,7 @@ export default [
                 "id": 18,
                 "type": "decision",
                 "order": 3,
-                "text": "Your location shows as: Outside Seneca Polytechnic",
+                "text": "Your location shown: Outside Seneca Polytechnic",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
                 "image": "/images/18-3.jpg",
@@ -3274,7 +3274,7 @@ export default [
                 "id": 19,
                 "type": "decision",
                 "order": 3,
-                "text": "Your location shows as: Ched's Grocer",
+                "text": "Your location shown: Ched's Grocer",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
                 "image": "/images/19-3.jpg",
@@ -3381,7 +3381,7 @@ export default [
                 "id": 20,
                 "type": "decision",
                 "order": 3,
-                "text": "Your location shows as: The Library",
+                "text": "Your location shown: The Library",
                 "trustLabel": "Approve!",
                 "distrustLabel": "Deny!",
                 "image": "/images/20-3.jpg",
