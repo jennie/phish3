@@ -29,8 +29,8 @@ export default function EffectTinder({ swiper, on }) {
     isVirtual()
       ? swiper.slides.find(
           (el) =>
-            parseInt(el.getAttribute('data-swiper-slide-index'), 10) ===
-            swiper.activeIndex,
+            parseInt(el.getAttribute("data-swiper-slide-index"), 10) ===
+            swiper.activeIndex
         )
       : swiper.slides[swiper.activeIndex];
   swiper.tinder = {
@@ -40,7 +40,7 @@ export default function EffectTinder({ swiper, on }) {
       const slideEl = activeSlideEl();
       slideEl.translateY = 0;
       slideEl.style.transformOrigin = `center bottom`;
-      slideEl.transformOrigin = 'bottom';
+      slideEl.transformOrigin = "bottom";
       swiper.slideNext();
       swiper.animating = false;
     },
@@ -50,7 +50,7 @@ export default function EffectTinder({ swiper, on }) {
       const slideEl = activeSlideEl();
       slideEl.translateY = 0;
       slideEl.style.transformOrigin = `center bottom`;
-      slideEl.transformOrigin = 'bottom';
+      slideEl.transformOrigin = "bottom";
       swiper.slideNext();
       swiper.animating = false;
     },
@@ -62,7 +62,7 @@ export default function EffectTinder({ swiper, on }) {
   const setSlidesOrigin = (o, pos) => {
     swiper.slides.forEach((el, index) => {
       const slideIndex = isVirtual()
-        ? parseInt(el.getAttribute('data-swiper-slide-index'), 10)
+        ? parseInt(el.getAttribute("data-swiper-slide-index"), 10)
         : index;
       if (slideIndex < swiper.activeIndex) return;
       el.style.transformOrigin = o;
@@ -75,67 +75,67 @@ export default function EffectTinder({ swiper, on }) {
     progress,
     diff,
     isLastSlide,
-    force,
+    force
   ) => {
     if (!isTouched && !force) return;
     if (!isLastSlide) {
       const labelOpacity = Math.max(Math.min(-0.5 + progress * 10, 1), 0);
       withElement(
-        slideEl.querySelector('.swiper-tinder-label-yes'),
-        (el) => (el.style.opacity = diff > 0 ? labelOpacity : 0),
+        slideEl.querySelector(".swiper-tinder-label-yes"),
+        (el) => (el.style.opacity = diff > 0 ? labelOpacity : 0)
       );
       withElement(
-        slideEl.querySelector('.swiper-tinder-label-no'),
-        (el) => (el.style.opacity = diff < 0 ? labelOpacity : 0),
+        slideEl.querySelector(".swiper-tinder-label-no"),
+        (el) => (el.style.opacity = diff < 0 ? labelOpacity : 0)
       );
 
-      withElement(document.querySelector('.swiper-tinder-button-yes'), (el) =>
-        el.classList.remove('swiper-tinder-button-hidden'),
+      withElement(document.querySelector(".swiper-tinder-button-yes"), (el) =>
+        el.classList.remove("swiper-tinder-button-hidden")
       );
-      withElement(document.querySelector('.swiper-tinder-button-no'), (el) =>
-        el.classList.remove('swiper-tinder-button-hidden'),
+      withElement(document.querySelector(".swiper-tinder-button-no"), (el) =>
+        el.classList.remove("swiper-tinder-button-hidden")
       );
       if (progress >= swiper.params.longSwipesRatio && !isLastSlide) {
         if (diff > 0) {
           withElement(
-            document.querySelector('.swiper-tinder-button-yes'),
-            (el) => el.classList.add('swiper-tinder-button-active'),
+            document.querySelector(".swiper-tinder-button-yes"),
+            (el) => el.classList.add("swiper-tinder-button-active")
           );
 
           withElement(
-            document.querySelector('.swiper-tinder-button-no'),
-            (el) => el.classList.remove('swiper-tinder-button-active'),
+            document.querySelector(".swiper-tinder-button-no"),
+            (el) => el.classList.remove("swiper-tinder-button-active")
           );
         } else {
           withElement(
-            document.querySelector('.swiper-tinder-button-yes'),
-            (el) => el.classList.remove('swiper-tinder-button-active'),
+            document.querySelector(".swiper-tinder-button-yes"),
+            (el) => el.classList.remove("swiper-tinder-button-active")
           );
 
           withElement(
-            document.querySelector('.swiper-tinder-button-no'),
-            (el) => el.classList.add('swiper-tinder-button-active'),
+            document.querySelector(".swiper-tinder-button-no"),
+            (el) => el.classList.add("swiper-tinder-button-active")
           );
         }
       } else {
-        withElement(document.querySelector('.swiper-tinder-button-yes'), (el) =>
-          el.classList.remove('swiper-tinder-button-active'),
+        withElement(document.querySelector(".swiper-tinder-button-yes"), (el) =>
+          el.classList.remove("swiper-tinder-button-active")
         );
-        withElement(document.querySelector('.swiper-tinder-button-no'), (el) =>
-          el.classList.remove('swiper-tinder-button-active'),
+        withElement(document.querySelector(".swiper-tinder-button-no"), (el) =>
+          el.classList.remove("swiper-tinder-button-active")
         );
       }
     } else {
-      withElement(document.querySelector('.swiper-tinder-button-yes'), (el) =>
-        el.classList.add('swiper-tinder-button-hidden'),
+      withElement(document.querySelector(".swiper-tinder-button-yes"), (el) =>
+        el.classList.add("swiper-tinder-button-hidden")
       );
-      withElement(document.querySelector('.swiper-tinder-button-no'), (el) =>
-        el.classList.add('swiper-tinder-button-hidden'),
+      withElement(document.querySelector(".swiper-tinder-button-no"), (el) =>
+        el.classList.add("swiper-tinder-button-hidden")
       );
     }
   };
-  on('beforeInit', () => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("beforeInit", () => {
+    if (swiper.params.effect !== "tinder") return;
     swiper.classNames.push(`${swiper.params.containerModifierClass}tinder`);
     swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
     const overwriteParams = {
@@ -148,36 +148,36 @@ export default function EffectTinder({ swiper, on }) {
     Object.assign(swiper.params, overwriteParams);
     Object.assign(swiper.originalParams, overwriteParams);
   });
-  on('init', () => {
+  on("init", () => {
     if (swiper.el && swiper.el.addEventListener) {
-      swiper.el.addEventListener('click', (e) => {
-        if (e.target.closest('.swiper-tinder-button-yes')) swiper.tinder.yes();
-        if (e.target.closest('.swiper-tinder-button-no')) swiper.tinder.no();
+      swiper.el.addEventListener("click", (e) => {
+        if (e.target.closest(".swiper-tinder-button-yes")) swiper.tinder.yes();
+        if (e.target.closest(".swiper-tinder-button-no")) swiper.tinder.no();
       });
     }
   });
-  on('touchStart', (s, e) => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("touchStart", (s, e) => {
+    if (swiper.params.effect !== "tinder") return;
     isTouched = true;
     isSlideChangeTouched = true;
     emitTransitionEnd = true;
     const { clientY } = e;
     const { top, height } = swiper.el.getBoundingClientRect();
     preventInteraction = false;
-    const slideEl = e.target.closest('.swiper-slide, swiper-slide');
+    const slideEl = e.target.closest(".swiper-slide, swiper-slide");
     if (!slideEl) return;
-    if (!slideEl.classList.contains('swiper-slide-active')) return;
+    if (!slideEl.classList.contains("swiper-slide-active")) return;
     draggableSlide = slideEl;
     touchStartIndex = swiper.activeIndex;
 
     if (clientY - top > height / 2) {
-      setSlidesOrigin('center top', 'top');
+      setSlidesOrigin("center top", "top");
     } else {
-      setSlidesOrigin('center bottom', 'bottom');
+      setSlidesOrigin("center bottom", "bottom");
     }
   });
-  on('touchMove', (s) => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("touchMove", (s) => {
+    if (swiper.params.effect !== "tinder") return;
     const diffY = s.touches.currentY - s.touches.startY;
     const diffX = s.touches.currentX - s.touches.startX;
     if (Math.abs(diffX) > swiper.size * 0.95) {
@@ -189,8 +189,8 @@ export default function EffectTinder({ swiper, on }) {
     draggableSlide.translateY = diffY;
   });
 
-  on('touchEnd', () => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("touchEnd", () => {
+    if (swiper.params.effect !== "tinder") return;
     preventInteraction = false;
     isSlideChangeTouched = false;
     if (draggableSlide) {
@@ -206,11 +206,11 @@ export default function EffectTinder({ swiper, on }) {
     });
   });
 
-  on('setTransition', (s, duration) => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("setTransition", (s, duration) => {
+    if (swiper.params.effect !== "tinder") return;
     s.slides.forEach((slideEl) => {
       slideEl.style.transitionDuration = `${duration}ms`;
-      slideEl.querySelectorAll('.swiper-tinder-label').forEach((labelEl) => {
+      slideEl.querySelectorAll(".swiper-tinder-label").forEach((labelEl) => {
         labelEl.style.transitionDuration = `${duration}ms`;
         if (slideEl.progress <= 0) {
           labelEl.style.opacity = 0;
@@ -218,16 +218,16 @@ export default function EffectTinder({ swiper, on }) {
       });
     });
     requestAnimationFrame(() => {
-      withElement(document.querySelector('.swiper-tinder-button-yes'), (el) =>
-        el.classList.remove('swiper-tinder-button-active'),
+      withElement(document.querySelector(".swiper-tinder-button-yes"), (el) =>
+        el.classList.remove("swiper-tinder-button-active")
       );
-      withElement(document.querySelector('.swiper-tinder-button-no'), (el) =>
-        el.classList.remove('swiper-tinder-button-active'),
+      withElement(document.querySelector(".swiper-tinder-button-no"), (el) =>
+        el.classList.remove("swiper-tinder-button-active")
       );
     });
   });
 
-  on('slideChange', () => {
+  on("slideChange", () => {
     const allSlidesLength = isVirtual()
       ? swiper.virtual.slides.length
       : swiper.slides.length;
@@ -244,24 +244,24 @@ export default function EffectTinder({ swiper, on }) {
     }
     if (!isSlideChangeTouched) {
       emitTransitionEnd = false;
-      swiper.emit('tinderSwipe', swipeDirection < 0 ? 'left' : 'right');
+      swiper.emit("tinderSwipe", swipeDirection < 0 ? "left" : "right");
     }
   });
 
-  on('transitionStart', () => {
+  on("transitionStart", () => {
     if (emitTransitionEnd && swiper.activeIndex !== touchStartIndex) {
       emitTransitionEnd = false;
-      swiper.emit('tinderSwipe', swipeDirection < 0 ? 'left' : 'right');
+      swiper.emit("tinderSwipe", swipeDirection < 0 ? "left" : "right");
     }
   });
 
-  on('setTranslate', (s, currentTranslate) => {
-    if (swiper.params.effect !== 'tinder') return;
+  on("setTranslate", (s, currentTranslate) => {
+    if (swiper.params.effect !== "tinder") return;
     if (preventInteraction) return;
     if (
       isSlideChangeTouched &&
-      typeof touchStartIndex !== 'undefined' &&
-      typeof swiper.snapGrid[touchStartIndex + 1] !== 'undefined'
+      typeof touchStartIndex !== "undefined" &&
+      typeof swiper.snapGrid[touchStartIndex + 1] !== "undefined"
     ) {
       const currentSlideTranslate = Math.abs(swiper.snapGrid[touchStartIndex]);
       const maxTranslate = Math.abs(currentSlideTranslate + swiper.size) - 8;
@@ -293,20 +293,25 @@ export default function EffectTinder({ swiper, on }) {
       if (progress > 0 || (progress === 0 && isTouched)) {
         tZ = 0;
         rotate = 45 * progress * (diff < 0 ? -1 : 1);
-        tX = swiper.size * (diff < 0 ? -1 : 1) * progress + tX;
+        // tX = swiper.size * (diff < 0 ? -1 : 1) * progress + tX;
+        tX =
+          (swiper.size + window.innerWidth) * (diff < 0 ? -1 : 1) * progress +
+          tX;
 
-        if (typeof slideEl.translateY !== 'undefined') {
+        if (typeof slideEl.translateY !== "undefined") {
           tY = slideEl.translateY;
         }
 
         setSlideButtonsLabels(slideEl, progress, diff, isLastSlide);
       }
-      if (slideEl.transformOrigin === 'top') {
+      if (slideEl.transformOrigin === "top") {
         rotate = -rotate;
       }
 
       if (progress > 1) {
-        opacity = (1.2 - progress) * 5;
+        opacity = 0; // Ensure opacity is set to 0 when swiped off-screen
+        tX += window.innerWidth * 2 * (diff < 0 ? -1 : 1); // Move the card further off-screen horizontally
+        tY += window.innerHeight * 2 * (diff < 0 ? -1 : 1); // Move the card further off-screen vertically
       }
       const transform = `
         translate3d(${tX}px, ${tY}px, ${tZ}px)
@@ -322,7 +327,7 @@ export default function EffectTinder({ swiper, on }) {
           slideEl.tinderTransformSlideIndex !== slideIndex) ||
         !isTouched
       ) {
-        slideEl.tinderTransform = '';
+        slideEl.tinderTransform = "";
       }
       slideEl.style.zIndex =
         -Math.abs(Math.round(slideProgress)) + allSlidesLength;
