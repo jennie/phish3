@@ -1210,7 +1210,7 @@ export default [
                 "id": 7,
                 "type": "story",
                 "order": 3,
-                "text": "\"I got an email from my Raptors fan community with an exclusive link for Seneca Polytechnic students discount tickets!\"",
+                "text": "\"I got an email from my Raptors fan community with an exclusive link for student discount tickets!\"",
                 "trustLabel": "Sounds awesome!",
                 "distrustLabel": "Woah!",
                 "image": "",
