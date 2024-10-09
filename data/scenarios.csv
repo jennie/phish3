@@ -31,7 +31,7 @@ id,type,scenarioType,learningObjectives,order,text,trustLabel,distrustLabel,imag
 4,story,,,1,"You and Sammy are standing outside Starbucks, looking into the windows to see if it's almost ready to re-open.",Peek inside...,Can you see?,,,,,,,,,,,,,,,,,,,
 4,story,,,2,"""I've been meaning to ask you! Have you set up MFA on your account yet?"" questions Sammy.",Not yet. Why?,I haven't...,,,,,,,,,,,,,,,,,,,
 4,story,,,3,"""I think it's pretty cool 'cause it adds an extra layer of security. \n\n Even if someone gets your password, they still need a second factor to access your account.""",Sounds important...,I see,,,,,,,,,,,,,,,,,,,
-4,story,,,4,"""You should always check the location before approving any MFA requests and make sure it's really you!""",Good idea,Smart!,/images/4-4.jpg,,,,,,,,,,,,,,,,,,
+4,story,,,4,"""Check the location before approving MFA requests to make sure it's really you!""",Good idea,Smart!,/images/4-4.jpg,,,,,,,,,,,,,,,,,,
 4,story,,,5,"Later, you're working in the library and logging into your student account. \n\n You get an MFA prompt!",Check the location...,Is this me?,,,,,,,,,,,,,,,,,,,
 4,decision,,,6,Should you approve the login attempt?,Approve it,Deny!,/images/4-6.jpg,1,Nice job checking the location! You feel reassured knowing your account is protected with MFA.,,"You hesitate to approve the login attempt, unsure if it's really you. Have you ever really been you?",scenario-04.md,,,,,,,,,,,,,
 4,reveal,,,7,,I see,Got it,,,,,,,,,,,,,,,,,,,
