@@ -33,10 +33,12 @@ export default defineEventHandler(async (event: H3Event) => {
       userType = "gammaspace";
       break;
     default:
-      throw createError({
-        statusCode: 400,
-        message: "Invalid email domain. Please use a valid Seneca email.",
-      });
+      userType = "external";
+      break;
+    // throw createError({
+    //   statusCode: 400,
+    //   message: "Invalid email domain. Please use a valid Seneca email.",
+    // });
   }
 
   // Find or create user
