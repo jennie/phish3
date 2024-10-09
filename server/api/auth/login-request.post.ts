@@ -57,13 +57,17 @@ export default defineEventHandler(async (event: H3Event) => {
     to: email,
     from: "noreply@senecapolytechnic.org",
     subject: "Your Seneca Polytechnic Security Training Login Link",
-    text: `Click this link to log in: ${loginUrl}`,
-    html: `<p>Click <a href="${loginUrl}">here</a> to log in.</p>`,
+    templateId: "d-1c3cf95fe05349a2b501093051138583",
+    dynamic_template_data: {
+      Weblink: loginUrl,
+    },
   };
 
   try {
     await sgMail.send(msg);
+    console.log("Email sent");
   } catch (error) {
+    console.error(error);
     throw createError({
       statusCode: 500,
       message: "Failed to send login email. Please try again later.",
