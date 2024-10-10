@@ -22,6 +22,15 @@ export default defineNuxtConfig({
       "/api/**": { cors: true },
     },
   },
+  vite: {
+    build: {
+      terserOptions: {
+        compress: {
+          drop_console: true, // Removes console.* statements
+        },
+      },
+    },
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "nuxt-auth-utils",

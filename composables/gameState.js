@@ -464,7 +464,6 @@ const moveToNextStage = () => {
 
 export function useGameState() {
   return {
-    scenarios: computed(() => scenarios.value),
     cardFlipStates,
     completeCurrentScenario,
     currentCard,
@@ -481,7 +480,9 @@ export function useGameState() {
     isEndingScenario,
     isLastCardOfScenario,
     isLastRegularScenario,
+    isLastScenario,
     isRecapMode,
+    isTransitionCardVisible,
     jumpToScenario,
     jumpToScenarioById,
     loadingProgress,
@@ -495,16 +496,12 @@ export function useGameState() {
     regularScenarios,
     resetCardFlipStates,
     resetGame,
-    scenarios,
+    scenarios: computed(() => scenarios.value),
     setGameOver,
     setGameStage,
     startGame,
     startRecap,
     tutorialScenario,
     userChoices,
-    isTransitionCardVisible,
-    isLastScenario,
-    setGameStage,
-    startGame,
   };
 }
