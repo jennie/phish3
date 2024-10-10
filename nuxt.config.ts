@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "nuxt-auth-utils",
     "@nuxtjs/google-fonts",
     "@nuxt/image",
+    "@nuxt/eslint",
   ],
   googleFonts: {
     download: false,
