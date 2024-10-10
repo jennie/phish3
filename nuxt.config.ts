@@ -23,12 +23,14 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    build: {
-      terserOptions: {
-        compress: {
-          drop_console: true, // Removes console.* statements
-        },
-      },
+    esbuild: {
+      pure: [
+        "console.log",
+        "console.error",
+        "console.warn",
+        "console.debug",
+        "console.trace",
+      ],
     },
   },
   modules: [
